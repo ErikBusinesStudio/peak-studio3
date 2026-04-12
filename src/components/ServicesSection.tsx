@@ -1,4 +1,5 @@
 import { Globe, Paintbrush, Rocket, BarChart3 } from "lucide-react";
+import { useScrollAnimation } from "@/hooks/useScrollAnimation";
 
 const services = [
   {
@@ -28,38 +29,37 @@ const services = [
 ];
 
 const ServicesSection = () => {
+  const { ref, isVisible } = useScrollAnimation();
+
   return (
-    <section id="servizi" className="section-padding">
-      <div className="container mx-auto">
-        <div className="mb-16">
+    <section id="servizi" className="section-padding relative overflow-hidden">
+      <div className="absolute top-0 right-0 w-[400px] h-[400px] bg-primary/10 rounded-full blur-[200px]" />
+
+      <div className="container mx-auto relative z-10" ref={ref}>
+        <div className={`mb-16 transition-all duration-700 ${isVisible ? "opacity-100 translate-y-0" : "opacity-0 translate-y-8"}`}>
           <div className="red-line mb-6" />
-          <h2 className="text-3xl md:text-5xl font-black mb-4">
-            Cosa faccio
-          </h2>
+          <h2 className="text-3xl md:text-5xl font-black mb-4">Cosa faccio</h2>
           <p className="text-muted-foreground max-w-md text-lg">
             Tutto ciò che serve per portare la tua attività online e farla crescere.
           </p>
         </div>
 
         <div className="grid md:grid-cols-2 gap-6">
-          {services.map((s) => (
+          {services.map((s, i) => (
             <div
               key={s.title}
-              className="group bg-card border border-border rounded-xl p-8 md:p-10 hover:border-primary/40 transition-all duration-300 relative overflow-hidden"
+              className={`group bg-card border border-border rounded-xl p-8 md:p-10 hover:border-primary/40 hover:scale-[1.02] transition-all duration-500 relative overflow-hidden ${isVisible ? "opacity-100 translate-y-0" : "opacity-0 translate-y-8"}`}
+              style={{ transitionDelay: `${i * 150}ms` }}
             >
-              {/* Number bg */}
               <span className="absolute top-4 right-6 text-7xl font-black text-foreground/[0.03] select-none">
                 {s.number}
               </span>
-
               <div className="relative z-10">
-                <div className="w-12 h-12 rounded-lg bg-primary/10 flex items-center justify-center mb-6 group-hover:bg-primary/20 transition-colors">
+                <div className="w-12 h-12 rounded-lg bg-primary/10 flex items-center justify-center mb-6 group-hover:bg-primary/20 group-hover:scale-110 transition-all duration-300">
                   <s.icon className="w-6 h-6 text-primary" />
                 </div>
                 <h3 className="text-xl font-bold mb-3">{s.title}</h3>
-                <p className="text-muted-foreground text-sm leading-relaxed">
-                  {s.description}
-                </p>
+                <p className="text-muted-foreground text-sm leading-relaxed">{s.description}</p>
               </div>
             </div>
           ))}

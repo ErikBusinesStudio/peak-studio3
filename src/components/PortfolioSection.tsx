@@ -2,6 +2,7 @@ import portfolioGym from "@/assets/portfolio-gym.jpg";
 import portfolioPizzeria from "@/assets/portfolio-pizzeria.jpg";
 import portfolioShop from "@/assets/portfolio-shop.jpg";
 import { ExternalLink } from "lucide-react";
+import { useScrollAnimation } from "@/hooks/useScrollAnimation";
 
 const projects = [
   { img: portfolioGym, title: "FitGym Pro", category: "Fitness & Sport" },
@@ -10,24 +11,27 @@ const projects = [
 ];
 
 const PortfolioSection = () => {
+  const { ref, isVisible } = useScrollAnimation();
+
   return (
-    <section id="portfolio" className="section-padding bg-card/50">
-      <div className="container mx-auto">
-        <div className="text-center mb-16">
+    <section id="portfolio" className="section-padding bg-card/50 relative overflow-hidden">
+      <div className="absolute top-1/2 right-0 w-[400px] h-[400px] bg-primary/8 rounded-full blur-[180px]" />
+
+      <div className="container mx-auto relative z-10" ref={ref}>
+        <div className={`text-center mb-16 transition-all duration-700 ${isVisible ? "opacity-100 translate-y-0" : "opacity-0 translate-y-8"}`}>
           <div className="red-line mx-auto mb-6" />
-          <h2 className="text-3xl md:text-5xl font-black mb-4">
-            I miei lavori
-          </h2>
+          <h2 className="text-3xl md:text-5xl font-black mb-4">I miei lavori</h2>
           <p className="text-muted-foreground max-w-md mx-auto">
             Alcuni progetti recenti che hanno aiutato attività reali a crescere online.
           </p>
         </div>
 
         <div className="grid md:grid-cols-3 gap-6">
-          {projects.map((p) => (
+          {projects.map((p, i) => (
             <div
               key={p.title}
-              className="group rounded-xl overflow-hidden border border-border bg-card hover:border-primary/40 transition-all duration-300 cursor-pointer"
+              className={`group rounded-xl overflow-hidden border border-border bg-card hover:border-primary/40 hover:scale-[1.03] transition-all duration-500 cursor-pointer ${isVisible ? "opacity-100 translate-y-0" : "opacity-0 translate-y-8"}`}
+              style={{ transitionDelay: `${i * 200}ms` }}
             >
               <div className="relative overflow-hidden">
                 <img
@@ -43,9 +47,7 @@ const PortfolioSection = () => {
                 </div>
               </div>
               <div className="p-6">
-                <span className="text-[10px] font-bold text-primary uppercase tracking-[0.2em]">
-                  {p.category}
-                </span>
+                <span className="text-[10px] font-bold text-primary uppercase tracking-[0.2em]">{p.category}</span>
                 <h3 className="font-bold text-lg mt-2">{p.title}</h3>
               </div>
             </div>
