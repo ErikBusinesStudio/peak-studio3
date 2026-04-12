@@ -3,20 +3,20 @@ import logo from "@/assets/logo.png";
 const HeroSection = () => {
   return (
     <section className="relative min-h-screen flex items-center justify-center overflow-hidden">
-      {/* Big red glows */}
-      <div className="absolute top-0 left-0 w-[600px] h-[600px] bg-primary/20 rounded-full blur-[200px]" />
-      <div className="absolute bottom-0 right-0 w-[500px] h-[500px] bg-primary/15 rounded-full blur-[180px]" />
-      <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[800px] h-[800px] bg-primary/8 rounded-full blur-[250px]" />
-      <div className="absolute top-10 right-1/4 w-[300px] h-[300px] bg-primary/12 rounded-full blur-[150px] animate-pulse" />
+      <div className="absolute top-0 left-0 w-[800px] h-[800px] bg-primary/25 rounded-full blur-[250px]" />
+      <div className="absolute bottom-0 right-0 w-[700px] h-[700px] bg-primary/20 rounded-full blur-[220px]" />
+      <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[1000px] h-[1000px] bg-primary/10 rounded-full blur-[300px]" />
+      <div className="absolute top-10 right-1/4 w-[500px] h-[500px] bg-primary/15 rounded-full blur-[200px] animate-pulse" />
+      <div className="absolute bottom-20 left-1/4 w-[400px] h-[400px] bg-primary/12 rounded-full blur-[180px] animate-pulse" style={{ animationDelay: "1s" }} />
 
       <div className="container mx-auto relative z-10 px-4 pt-24">
         <div className="flex flex-col items-center text-center space-y-10">
           <img
             src={logo}
             alt="Peak Studio"
-            className="w-64 md:w-80 lg:w-96 drop-shadow-2xl animate-fade-in-up"
-            width={800}
-            height={600}
+            className="w-80 md:w-[420px] lg:w-[500px] drop-shadow-2xl animate-fade-in-up"
+            width={1024}
+            height={512}
           />
 
           <div className="space-y-6 max-w-3xl animate-fade-in-up" style={{ animationDelay: "0.2s" }}>
@@ -35,7 +35,7 @@ const HeroSection = () => {
               href="#contatti"
               className="bg-primary text-primary-foreground px-10 py-4 rounded-md text-sm font-bold uppercase tracking-wider hover:scale-105 transition-all glow"
             >
-              Inizia ora
+              Voglio il mio sito →
             </a>
             <a
               href="#portfolio"

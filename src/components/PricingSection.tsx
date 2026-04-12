@@ -1,48 +1,48 @@
-import { Check } from "lucide-react";
+import { Check, Zap } from "lucide-react";
 import { useScrollAnimation } from "@/hooks/useScrollAnimation";
 
 const plans = [
   {
     name: "Starter",
-    price: "149",
-    desc: "Perfetto per iniziare online",
+    price: "99",
+    desc: "Il primo passo per battere la concorrenza",
     recommended: false,
     features: [
-      "Sito one-page",
-      "Design moderno",
-      "Ottimizzazione mobile",
+      "Sito one-page d'impatto",
+      "Design moderno e aggressivo",
+      "Ottimizzazione mobile perfetta",
       "Sezione contatti (telefono + WhatsApp)",
       "Google Maps integrata",
-      "Consegna veloce",
+      "Consegna in 48h",
     ],
   },
   {
     name: "Business",
-    price: "249",
-    desc: "La scelta più popolare",
+    price: "149",
+    desc: "La scelta dei vincenti",
     recommended: true,
     features: [
-      "Sito 3–5 pagine",
-      "Design personalizzato",
-      "Ottimizzazione mobile + velocità",
-      "WhatsApp + form contatti",
-      "Struttura strategica (home, servizi, contatti)",
-      "SEO base",
-      "1 funzione a scelta (menu digitale, servizi, orari)",
+      "Sito 3–5 pagine strategiche",
+      "Design personalizzato premium",
+      "Velocità ottimizzata al massimo",
+      "WhatsApp + form contatti avanzato",
+      "Struttura studiata per vendere",
+      "SEO per farti trovare su Google",
+      "1 funzione a scelta (menu, prenotazioni, orari)",
     ],
   },
   {
     name: "Pro",
-    price: "349",
-    desc: "Per chi vuole il massimo",
+    price: "199",
+    desc: "Per chi vuole dominare il mercato",
     recommended: false,
     features: [
-      "Tutto del Business",
-      "Pagine extra personalizzate",
-      "SEO avanzato base",
-      "Testi ottimizzati inclusi",
+      "Tutto del Business incluso",
+      "Pagine extra illimitate",
+      "SEO avanzato professionale",
+      "Testi persuasivi scritti per te",
       "Sistema ordini o prenotazioni",
-      "Priorità consegna",
+      "Priorità assoluta di consegna",
     ],
   },
 ];
@@ -52,16 +52,16 @@ const PricingSection = () => {
 
   return (
     <section id="prezzi" className="section-padding relative overflow-hidden">
-      <div className="absolute top-0 left-1/2 -translate-x-1/2 w-[600px] h-[600px] bg-primary/10 rounded-full blur-[200px]" />
+      <div className="absolute top-0 left-1/2 -translate-x-1/2 w-[800px] h-[800px] bg-primary/15 rounded-full blur-[250px]" />
 
       <div className="container mx-auto relative z-10" ref={ref}>
         <div className={`text-center mb-16 transition-all duration-700 ${isVisible ? "opacity-100 translate-y-0" : "opacity-0 translate-y-8"}`}>
           <div className="red-line mx-auto mb-6" />
           <h2 className="text-3xl md:text-5xl font-black mb-4">
-            Prezzi semplici e trasparenti
+            Investi poco. <span className="text-gradient">Guadagna tanto.</span>
           </h2>
           <p className="text-muted-foreground max-w-md mx-auto">
-            Nessun costo nascosto. Paghi una volta, il sito è tuo.
+            Paghi una volta sola. Il sito è tuo per sempre. Zero abbonamenti, zero sorprese.
           </p>
         </div>
 
@@ -77,8 +77,8 @@ const PricingSection = () => {
               style={{ transitionDelay: `${i * 150}ms` }}
             >
               {plan.recommended && (
-                <span className="absolute -top-3 left-1/2 -translate-x-1/2 bg-primary text-primary-foreground text-[10px] font-bold px-4 py-1 rounded-full uppercase tracking-wider">
-                  Consigliato
+                <span className="absolute -top-3 left-1/2 -translate-x-1/2 bg-primary text-primary-foreground text-[10px] font-bold px-4 py-1 rounded-full uppercase tracking-wider flex items-center gap-1">
+                  <Zap className="w-3 h-3" /> Più scelto
                 </span>
               )}
               <h3 className="text-2xl font-black">{plan.name}</h3>
@@ -103,11 +103,15 @@ const PricingSection = () => {
                     : "bg-primary/10 text-primary hover:bg-primary/20"
                 }`}
               >
-                Scegli {plan.name}
+                Lo voglio →
               </a>
             </div>
           ))}
         </div>
+
+        <p className="text-center text-xs text-muted-foreground mt-8 animate-pulse">
+          ⚡ Offerta limitata — Prezzi in aumento a breve
+        </p>
       </div>
     </section>
   );

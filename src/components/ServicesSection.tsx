@@ -4,26 +4,26 @@ import { useScrollAnimation } from "@/hooks/useScrollAnimation";
 const services = [
   {
     icon: Paintbrush,
-    title: "Design su Misura",
-    description: "Nessun template. Ogni sito è unico, progettato per riflettere il tuo brand e catturare l'attenzione dei tuoi clienti.",
+    title: "Design Unico",
+    description: "Zero template. Il tuo sito sarà un'arma di vendita costruita su misura per dominare la concorrenza.",
     number: "01",
   },
   {
     icon: Globe,
-    title: "Presenza Online Completa",
-    description: "Dominio, hosting, SEO e tutto ciò che serve per farti trovare su Google dai tuoi clienti ideali.",
+    title: "Dominio Totale Online",
+    description: "Dominio, hosting, SEO killer. I tuoi clienti ti troveranno prima dei competitor su Google.",
     number: "02",
   },
   {
     icon: Rocket,
-    title: "Velocità Estrema",
-    description: "Siti ultrarapidi che si caricano in meno di 2 secondi. Nessun visitatore perso per la lentezza.",
+    title: "Velocità Brutale",
+    description: "Caricamento sotto i 2 secondi. Ogni millisecondo perso = clienti che vanno dalla concorrenza.",
     number: "03",
   },
   {
     icon: BarChart3,
-    title: "Risultati Misurabili",
-    description: "Ogni sito è ottimizzato per convertire. Più visite, più contatti, più clienti per la tua attività.",
+    title: "Macchina da Clienti",
+    description: "Ogni pixel è ottimizzato per convertire visitatori in clienti paganti. ROI garantito.",
     number: "04",
   },
 ];
@@ -33,7 +33,8 @@ const ServicesSection = () => {
 
   return (
     <section id="servizi" className="section-padding relative overflow-hidden">
-      <div className="absolute top-0 right-0 w-[400px] h-[400px] bg-primary/10 rounded-full blur-[200px]" />
+      <div className="absolute top-0 right-0 w-[600px] h-[600px] bg-primary/15 rounded-full blur-[250px]" />
+      <div className="absolute bottom-0 left-0 w-[400px] h-[400px] bg-primary/10 rounded-full blur-[200px]" />
 
       <div className="container mx-auto relative z-10" ref={ref}>
         <div className={`mb-16 transition-all duration-700 ${isVisible ? "opacity-100 translate-y-0" : "opacity-0 translate-y-8"}`}>
@@ -44,21 +45,21 @@ const ServicesSection = () => {
           </p>
         </div>
 
-        <div className="grid md:grid-cols-2 gap-6">
+        <div className="grid grid-cols-2 lg:grid-cols-4 gap-4">
           {services.map((s, i) => (
             <div
               key={s.title}
-              className={`group bg-card border border-border rounded-xl p-8 md:p-10 hover:border-primary/40 hover:scale-[1.02] transition-all duration-500 relative overflow-hidden ${isVisible ? "opacity-100 translate-y-0" : "opacity-0 translate-y-8"}`}
-              style={{ transitionDelay: `${i * 150}ms` }}
+              className={`group bg-card border border-border rounded-xl p-6 md:p-8 hover:border-primary/40 hover:scale-[1.04] transition-all duration-500 relative overflow-hidden ${isVisible ? "opacity-100 translate-y-0" : "opacity-0 translate-y-8"}`}
+              style={{ transitionDelay: `${i * 100}ms` }}
             >
-              <span className="absolute top-4 right-6 text-7xl font-black text-foreground/[0.03] select-none">
+              <span className="absolute top-2 right-4 text-6xl font-black text-foreground/[0.03] select-none">
                 {s.number}
               </span>
               <div className="relative z-10">
-                <div className="w-12 h-12 rounded-lg bg-primary/10 flex items-center justify-center mb-6 group-hover:bg-primary/20 group-hover:scale-110 transition-all duration-300">
+                <div className="w-12 h-12 rounded-lg bg-primary/10 flex items-center justify-center mb-5 group-hover:bg-primary/20 group-hover:scale-110 transition-all duration-300">
                   <s.icon className="w-6 h-6 text-primary" />
                 </div>
-                <h3 className="text-xl font-bold mb-3">{s.title}</h3>
+                <h3 className="text-lg font-bold mb-2">{s.title}</h3>
                 <p className="text-muted-foreground text-sm leading-relaxed">{s.description}</p>
               </div>
             </div>
