@@ -31,12 +31,18 @@ const defaultReviews: Review[] = [
 ];
 
 const chartData = [
-  { month: "Gen", clienti: 12 },
-  { month: "Feb", clienti: 19 },
-  { month: "Mar", clienti: 28 },
-  { month: "Apr", clienti: 35 },
-  { month: "Mag", clienti: 47 },
-  { month: "Giu", clienti: 58 },
+  { month: "Gen", clienti: 14 },
+  { month: "Feb", clienti: 23 },
+  { month: "Mar", clienti: 31 },
+  { month: "Apr", clienti: 42 },
+  { month: "Mag", clienti: 56 },
+  { month: "Giu", clienti: 68 },
+  { month: "Lug", clienti: 79 },
+  { month: "Ago", clienti: 85 },
+  { month: "Set", clienti: 97 },
+  { month: "Ott", clienti: 112 },
+  { month: "Nov", clienti: 128 },
+  { month: "Dic", clienti: 143 },
 ];
 
 const maxClienti = Math.max(...chartData.map(d => d.clienti));
