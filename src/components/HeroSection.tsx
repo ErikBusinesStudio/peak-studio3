@@ -41,7 +41,7 @@ const HeroSection = () => {
               href="#portfolio"
               className="border border-border/60 text-foreground px-10 py-4 rounded-md text-sm font-bold uppercase tracking-wider hover:border-primary/40 hover:bg-primary/5 hover:scale-105 transition-all"
             >
-              Vedi i lavori
+              Vedi i miei lavori
             </a>
           </div>
 
