@@ -61,7 +61,7 @@ const PricingSection = () => {
             Investi poco. <span className="text-gradient">Guadagna tanto.</span>
           </h2>
           <p className="text-muted-foreground max-w-md mx-auto">
-            Paghi una volta sola. Il sito è tuo per sempre. Zero abbonamenti, zero sorprese.
+            Nessun costo nascosto. Un investimento, risultati per sempre.
           </p>
         </div>
 
