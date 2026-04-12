@@ -22,7 +22,7 @@ const Header = () => {
 
   return (
     <>
-      {/* Top header - logo + CTA + mobile burger */}
+      {/* Top header */}
       <header
         className={`fixed top-0 left-0 right-0 z-50 transition-all duration-500 ${
           scrolled ? "bg-background/95 backdrop-blur-lg border-b border-border" : "bg-transparent"
@@ -54,7 +54,6 @@ const Header = () => {
           </button>
         </div>
 
-        {/* Mobile menu */}
         {menuOpen && (
           <nav className="md:hidden bg-background/98 backdrop-blur-lg border-t border-border px-6 py-8 flex flex-col gap-5 animate-fade-in-up">
             {links.map((l) => (
@@ -80,7 +79,7 @@ const Header = () => {
         )}
       </header>
 
-      {/* Right side vertical nav - desktop only */}
+      {/* Right side vertical nav - always show labels */}
       <nav className="fixed right-0 top-1/2 -translate-y-1/2 z-40 hidden md:flex flex-col items-end gap-1 pr-4">
         {links.map((l) => (
           <a
@@ -88,12 +87,10 @@ const Header = () => {
             href={l.href}
             className="group flex items-center gap-3 py-2 px-3 rounded-lg transition-all duration-300 hover:bg-card/80 hover:backdrop-blur-lg"
           >
-            {/* Label - slides in on hover */}
-            <span className="text-[11px] font-bold uppercase tracking-wider text-muted-foreground opacity-0 translate-x-4 group-hover:opacity-100 group-hover:translate-x-0 transition-all duration-300 whitespace-nowrap">
+            <span className="text-[11px] font-bold uppercase tracking-wider text-muted-foreground group-hover:text-primary transition-all duration-300 whitespace-nowrap">
               {l.label}
             </span>
-            {/* Icon dot */}
-            <div className="w-9 h-9 rounded-lg bg-card/60 backdrop-blur-sm border border-border flex items-center justify-center group-hover:border-primary/50 group-hover:bg-primary/10 group-hover:scale-110 group-hover:glow-subtle transition-all duration-300">
+            <div className="w-9 h-9 rounded-lg bg-card/60 backdrop-blur-sm border border-border flex items-center justify-center group-hover:border-primary/50 group-hover:bg-primary/10 group-hover:scale-110 transition-all duration-300">
               <l.icon className="w-4 h-4 text-muted-foreground group-hover:text-primary transition-colors duration-300" />
             </div>
           </a>

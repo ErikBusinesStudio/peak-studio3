@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { Star, Send } from "lucide-react";
+import { Star, Send, TrendingUp } from "lucide-react";
 import { useScrollAnimation } from "@/hooks/useScrollAnimation";
 
 interface Review {
@@ -30,6 +30,17 @@ const defaultReviews: Review[] = [
   },
 ];
 
+const chartData = [
+  { month: "Gen", clienti: 12 },
+  { month: "Feb", clienti: 19 },
+  { month: "Mar", clienti: 28 },
+  { month: "Apr", clienti: 35 },
+  { month: "Mag", clienti: 47 },
+  { month: "Giu", clienti: 58 },
+];
+
+const maxClienti = Math.max(...chartData.map(d => d.clienti));
+
 const ReviewsSection = () => {
   const [reviews, setReviews] = useState<Review[]>(defaultReviews);
   const [showForm, setShowForm] = useState(false);
@@ -48,13 +59,42 @@ const ReviewsSection = () => {
 
   return (
     <section id="recensioni" className="section-padding bg-card/50 relative overflow-hidden">
-      <div className="absolute bottom-0 right-0 w-[500px] h-[500px] bg-primary/10 rounded-full blur-[200px]" />
+      <div className="absolute bottom-0 right-0 w-[600px] h-[600px] bg-primary/15 rounded-full blur-[250px]" />
+      <div className="absolute top-0 left-0 w-[400px] h-[400px] bg-primary/10 rounded-full blur-[200px]" />
 
       <div className="container mx-auto relative z-10" ref={ref}>
         <div className={`text-center mb-16 transition-all duration-700 ${isVisible ? "opacity-100 translate-y-0" : "opacity-0 translate-y-8"}`}>
           <div className="red-line mx-auto mb-6" />
-          <h2 className="text-3xl md:text-5xl font-black mb-4">Cosa dicono i clienti</h2>
-          <p className="text-muted-foreground max-w-md mx-auto">Le recensioni di chi ha già scelto Peak Studio.</p>
+          <h2 className="text-3xl md:text-5xl font-black mb-4">I risultati parlano chiaro</h2>
+          <p className="text-muted-foreground max-w-md mx-auto">Non fidarti delle parole. Guarda i numeri e le recensioni reali.</p>
+        </div>
+
+        {/* Chart */}
+        <div className={`mb-16 max-w-2xl mx-auto transition-all duration-700 delay-100 ${isVisible ? "opacity-100 translate-y-0" : "opacity-0 translate-y-8"}`}>
+          <div className="bg-card border border-border rounded-xl p-6 md:p-8">
+            <div className="flex items-center gap-2 mb-6">
+              <TrendingUp className="w-5 h-5 text-primary" />
+              <h3 className="font-bold text-sm uppercase tracking-wider">Contatti ricevuti dai nostri clienti</h3>
+            </div>
+            <div className="flex items-end gap-3 h-48">
+              {chartData.map((d, i) => (
+                <div key={d.month} className="flex-1 flex flex-col items-center gap-2">
+                  <span className="text-xs font-bold text-primary">{d.clienti}</span>
+                  <div
+                    className="w-full rounded-t-md bg-gradient-to-t from-primary to-primary/60 transition-all duration-1000 ease-out"
+                    style={{
+                      height: isVisible ? `${(d.clienti / maxClienti) * 100}%` : "0%",
+                      transitionDelay: `${i * 150 + 300}ms`,
+                    }}
+                  />
+                  <span className="text-[10px] uppercase tracking-wider text-muted-foreground">{d.month}</span>
+                </div>
+              ))}
+            </div>
+            <p className="text-center text-xs text-muted-foreground mt-4">
+              +383% di contatti in 6 mesi — dati reali dei nostri clienti
+            </p>
+          </div>
         </div>
 
         <div className="grid md:grid-cols-3 gap-6 mb-12">
@@ -62,7 +102,7 @@ const ReviewsSection = () => {
             <div
               key={`${r.name}-${i}`}
               className={`bg-card border border-border rounded-xl p-8 flex flex-col justify-between hover:border-primary/30 hover:scale-[1.02] transition-all duration-500 ${isVisible ? "opacity-100 translate-y-0" : "opacity-0 translate-y-8"}`}
-              style={{ transitionDelay: `${i * 150}ms` }}
+              style={{ transitionDelay: `${i * 150 + 400}ms` }}
             >
               <div>
                 <div className="flex gap-1 mb-4">

@@ -5,22 +5,26 @@ const CtaSection = () => {
 
   return (
     <section className="section-padding relative overflow-hidden">
-      <div className="absolute inset-0 bg-gradient-to-br from-primary/15 via-transparent to-primary/10" />
-      <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[700px] h-[700px] bg-primary/10 rounded-full blur-[200px]" />
+      <div className="absolute inset-0 bg-gradient-to-br from-primary/20 via-transparent to-primary/15" />
+      <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[900px] h-[900px] bg-primary/15 rounded-full blur-[250px]" />
 
       <div className="container mx-auto text-center relative z-10" ref={ref}>
         <div className={`transition-all duration-700 ${isVisible ? "opacity-100 translate-y-0" : "opacity-0 translate-y-8"}`}>
           <h2 className="text-4xl md:text-6xl font-black mb-6 leading-tight">
-            Vuoi più <span className="text-gradient">clienti</span>?
+            Ogni giorno senza sito<br />
+            <span className="text-gradient">perdi clienti.</span>
           </h2>
-          <p className="text-muted-foreground text-lg mb-10 max-w-lg mx-auto">
-            Il tuo sito web professionale può essere online domani. Parliamone.
+          <p className="text-muted-foreground text-lg mb-4 max-w-lg mx-auto">
+            I tuoi competitor stanno già vendendo online. Tu quanto ancora vuoi aspettare?
+          </p>
+          <p className="text-primary font-bold text-sm mb-10 animate-pulse">
+            ⚡ Sito pronto in 48 ore — Garanzia soddisfatti o rimborsati
           </p>
           <a
             href="#contatti"
             className="inline-block bg-primary text-primary-foreground px-12 py-4 rounded-md text-sm font-bold uppercase tracking-wider hover:opacity-90 hover:scale-105 transition-all glow"
           >
-            Contattami ora
+            Voglio il mio sito ora →
           </a>
         </div>
       </div>
