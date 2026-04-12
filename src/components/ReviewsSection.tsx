@@ -98,7 +98,7 @@ const ReviewsSection = () => {
               ))}
             </div>
             <p className="text-center text-xs text-muted-foreground mt-4">
-              +383% di contatti in 6 mesi — dati reali dei nostri clienti
+              +921% di contatti in 12 mesi — dati reali dei nostri clienti
             </p>
           </div>
         </div>
