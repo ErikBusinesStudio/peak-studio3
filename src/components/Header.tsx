@@ -1,4 +1,5 @@
 import { useState, useEffect } from "react";
+import LanguageToggle from "./LanguageToggle";
 
 const Header = () => {
   const [scrolled, setScrolled] = useState(false);
@@ -39,6 +40,7 @@ const Header = () => {
               {l.label}
             </a>
           ))}
+          <LanguageToggle />
           <a
             href="#contatti"
             className="bg-primary text-primary-foreground px-6 py-2.5 rounded-md text-xs font-bold uppercase tracking-wider hover:opacity-90 transition-opacity"
@@ -59,7 +61,7 @@ const Header = () => {
       </div>
 
       {menuOpen && (
-        <nav className="md:hidden bg-background/98 backdrop-blur-lg border-t border-border px-6 py-8 flex flex-col gap-5">
+        <nav className="md:hidden bg-background/98 backdrop-blur-lg border-t border-border px-6 py-8 flex flex-col gap-5 animate-fade-in-up">
           {links.map((l) => (
             <a
               key={l.href}
@@ -70,6 +72,7 @@ const Header = () => {
               {l.label}
             </a>
           ))}
+          <LanguageToggle />
           <a
             href="#contatti"
             onClick={() => setMenuOpen(false)}
