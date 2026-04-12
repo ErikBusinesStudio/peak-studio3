@@ -26,8 +26,7 @@ const HeroSection = () => {
               <span className="text-gradient">Il tuo successo.</span>
             </h1>
             <p className="text-lg md:text-xl text-muted-foreground max-w-xl mx-auto">
-              Siti web moderni, veloci e progettati per portarti clienti reali.
-              Pronti in 48 ore.
+              Il tuo concorrente è già online. E tu?
             </p>
           </div>
 
