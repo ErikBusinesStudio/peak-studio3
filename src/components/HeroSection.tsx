@@ -10,7 +10,7 @@ const HeroSection = () => {
       <div className="absolute bottom-20 left-1/4 w-[400px] h-[400px] bg-primary/12 rounded-full blur-[180px] animate-pulse" style={{ animationDelay: "1s" }} />
 
       <div className="container mx-auto relative z-10 px-4 pt-24">
-        <div className="flex flex-col items-center text-center space-y-10">
+        <div className="flex flex-col items-center text-center space-y-5">
           <img
             src={logo}
             alt="Peak Studio"
