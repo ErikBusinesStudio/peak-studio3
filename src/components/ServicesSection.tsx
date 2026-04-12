@@ -40,7 +40,7 @@ const ServicesSection = () => {
           <div className="red-line mb-6" />
           <h2 className="text-3xl md:text-5xl font-black mb-4">Cosa faccio</h2>
           <p className="text-muted-foreground max-w-md text-lg">
-            Tutto ciò che serve per portare la tua attività online e farla crescere.
+            Tutto ciò che serve per portare la tua attività al massimo delle sue possibilità
           </p>
         </div>
 
