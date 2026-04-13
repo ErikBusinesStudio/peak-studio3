@@ -6,11 +6,11 @@ const HeroSection = () => {
 
   return (
     <section className="relative min-h-screen flex items-center justify-center overflow-hidden">
-      <div className="absolute top-0 left-0 w-[800px] h-[800px] bg-primary/25 rounded-full blur-[250px]" />
-      <div className="absolute bottom-0 right-0 w-[700px] h-[700px] bg-primary/20 rounded-full blur-[220px]" />
-      <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[1000px] h-[1000px] bg-primary/10 rounded-full blur-[300px]" />
-      <div className="absolute top-10 right-1/4 w-[500px] h-[500px] bg-primary/15 rounded-full blur-[200px] animate-pulse" />
-      <div className="absolute bottom-20 left-1/4 w-[400px] h-[400px] bg-primary/12 rounded-full blur-[180px] animate-pulse" style={{ animationDelay: "1s" }} />
+      <div className="absolute top-0 left-0 w-[800px] h-[800px] bg-primary/8 rounded-full blur-[300px]" />
+      <div className="absolute bottom-0 right-0 w-[700px] h-[700px] bg-primary/6 rounded-full blur-[280px]" />
+      <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[1000px] h-[1000px] bg-primary/4 rounded-full blur-[350px]" />
+      <div className="absolute top-10 right-1/4 w-[500px] h-[500px] bg-primary/5 rounded-full blur-[250px] animate-pulse" />
+      <div className="absolute bottom-20 left-1/4 w-[400px] h-[400px] bg-primary/4 rounded-full blur-[220px] animate-pulse" style={{ animationDelay: "1s" }} />
 
       <div className="container mx-auto relative z-10 px-4 pt-24">
         <div className="flex flex-col items-center text-center space-y-5">
