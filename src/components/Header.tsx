@@ -1,10 +1,12 @@
 import { useState, useEffect } from "react";
 import LanguageToggle from "./LanguageToggle";
 import { Briefcase, Image, CreditCard, Star, MessageCircle } from "lucide-react";
+import { useI18n } from "@/contexts/I18nContext";
 
 const Header = () => {
   const [scrolled, setScrolled] = useState(false);
   const [menuOpen, setMenuOpen] = useState(false);
+  const { t } = useI18n();
 
   useEffect(() => {
     const onScroll = () => setScrolled(window.scrollY > 50);
@@ -13,16 +15,15 @@ const Header = () => {
   }, []);
 
   const links = [
-    { href: "#servizi", label: "Servizi", icon: Briefcase },
-    { href: "#portfolio", label: "Portfolio", icon: Image },
-    { href: "#prezzi", label: "Prezzi", icon: CreditCard },
-    { href: "#recensioni", label: "Recensioni", icon: Star },
-    { href: "#contatti", label: "Contatti", icon: MessageCircle },
+    { href: "#servizi", label: t("header.services"), icon: Briefcase },
+    { href: "#portfolio", label: t("header.portfolio"), icon: Image },
+    { href: "#prezzi", label: t("header.pricing"), icon: CreditCard },
+    { href: "#recensioni", label: t("header.reviews"), icon: Star },
+    { href: "#contatti", label: t("header.contacts"), icon: MessageCircle },
   ];
 
   return (
     <>
-      {/* Top header */}
       <header
         className={`fixed top-0 left-0 right-0 z-50 transition-all duration-500 ${
           scrolled ? "bg-background/95 backdrop-blur-lg border-b border-border" : "bg-transparent"
@@ -39,7 +40,7 @@ const Header = () => {
               href="#contatti"
               className="bg-primary text-primary-foreground px-6 py-2.5 rounded-md text-xs font-bold uppercase tracking-wider hover:opacity-90 hover:scale-105 transition-all"
             >
-              Contattami
+              {t("header.contact")}
             </a>
           </div>
 
@@ -73,13 +74,12 @@ const Header = () => {
               onClick={() => setMenuOpen(false)}
               className="bg-primary text-primary-foreground px-5 py-3 rounded-md text-sm font-bold text-center uppercase tracking-wider"
             >
-              Contattami
+              {t("header.contact")}
             </a>
           </nav>
         )}
       </header>
 
-      {/* Right side vertical nav - always show labels */}
       <nav className="fixed right-0 top-1/2 -translate-y-1/2 z-40 hidden md:flex flex-col items-end gap-1 pr-4">
         {links.map((l) => (
           <a

@@ -1,60 +1,32 @@
 import { Globe, Paintbrush, Rocket, BarChart3 } from "lucide-react";
 import { useScrollAnimation } from "@/hooks/useScrollAnimation";
-
-const services = [
-  {
-    icon: Paintbrush,
-    title: "Design Unico",
-    description: "Zero template. Il tuo sito sarà un'arma di vendita costruita su misura per dominare la concorrenza.",
-    number: "01",
-  },
-  {
-    icon: Globe,
-    title: "Dominio Totale Online",
-    description: "Dominio, hosting, SEO killer. I tuoi clienti ti troveranno prima dei competitor su Google.",
-    number: "02",
-  },
-  {
-    icon: Rocket,
-    title: "Velocità Brutale",
-    description: "Caricamento sotto i 2 secondi. Ogni millisecondo perso = clienti che vanno dalla concorrenza.",
-    number: "03",
-  },
-  {
-    icon: BarChart3,
-    title: "Macchina da Clienti",
-    description: "Ogni pixel è ottimizzato per convertire visitatori in clienti paganti. ROI garantito.",
-    number: "04",
-  },
-];
+import { useI18n } from "@/contexts/I18nContext";
 
 const ServicesSection = () => {
   const { ref, isVisible } = useScrollAnimation();
+  const { t } = useI18n();
+
+  const services = [
+    { icon: Paintbrush, title: t("services.s1.title"), description: t("services.s1.desc"), number: "01" },
+    { icon: Globe, title: t("services.s2.title"), description: t("services.s2.desc"), number: "02" },
+    { icon: Rocket, title: t("services.s3.title"), description: t("services.s3.desc"), number: "03" },
+    { icon: BarChart3, title: t("services.s4.title"), description: t("services.s4.desc"), number: "04" },
+  ];
 
   return (
     <section id="servizi" className="section-padding relative overflow-hidden">
       <div className="absolute top-0 right-0 w-[600px] h-[600px] bg-primary/15 rounded-full blur-[250px]" />
       <div className="absolute bottom-0 left-0 w-[400px] h-[400px] bg-primary/10 rounded-full blur-[200px]" />
-
       <div className="container mx-auto relative z-10" ref={ref}>
         <div className={`mb-16 transition-all duration-700 ${isVisible ? "opacity-100 translate-y-0" : "opacity-0 translate-y-8"}`}>
           <div className="red-line mb-6" />
-          <h2 className="text-3xl md:text-5xl font-black mb-4">Cosa faccio</h2>
-          <p className="text-muted-foreground max-w-md text-lg">
-            Tutto ciò che serve per portare la tua attività al massimo delle sue possibilità
-          </p>
+          <h2 className="text-3xl md:text-5xl font-black mb-4">{t("services.title")}</h2>
+          <p className="text-muted-foreground max-w-md text-lg">{t("services.subtitle")}</p>
         </div>
-
         <div className="grid grid-cols-2 lg:grid-cols-4 gap-4">
           {services.map((s, i) => (
-            <div
-              key={s.title}
-              className={`group bg-card border border-border rounded-xl p-6 md:p-8 hover:border-primary/40 hover:scale-[1.04] transition-all duration-500 relative overflow-hidden ${isVisible ? "opacity-100 translate-y-0" : "opacity-0 translate-y-8"}`}
-              style={{ transitionDelay: `${i * 100}ms` }}
-            >
-              <span className="absolute top-2 right-4 text-6xl font-black text-foreground/[0.03] select-none">
-                {s.number}
-              </span>
+            <div key={s.number} className={`group bg-card border border-border rounded-xl p-6 md:p-8 hover:border-primary/40 hover:scale-[1.04] transition-all duration-500 relative overflow-hidden ${isVisible ? "opacity-100 translate-y-0" : "opacity-0 translate-y-8"}`} style={{ transitionDelay: `${i * 100}ms` }}>
+              <span className="absolute top-2 right-4 text-6xl font-black text-foreground/[0.03] select-none">{s.number}</span>
               <div className="relative z-10">
                 <div className="w-12 h-12 rounded-lg bg-primary/10 flex items-center justify-center mb-5 group-hover:bg-primary/20 group-hover:scale-110 transition-all duration-300">
                   <s.icon className="w-6 h-6 text-primary" />
