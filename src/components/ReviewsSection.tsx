@@ -28,21 +28,39 @@ const defaultReviews: Review[] = [
     text: "Finalmente un sito che rappresenta davvero la mia attività. Prezzo onesto e risultati concreti. Consigliatissimo!",
     rating: 5,
   },
+  {
+    name: "Sara M.",
+    role: "Estetista",
+    text: "Da quando ho il sito, le prenotazioni sono triplicate. Non pensavo che un sito potesse fare questa differenza!",
+    rating: 5,
+  },
+  {
+    name: "Andrea F.",
+    role: "Personal Trainer",
+    text: "Sito bellissimo e veloce. I clienti mi dicono sempre che è stato il sito a convincerli a contattarmi.",
+    rating: 5,
+  },
+  {
+    name: "Valentina C.",
+    role: "Fotografa",
+    text: "Portfolio online perfetto, ricevo richieste ogni settimana. Il miglior investimento che potessi fare per la mia attività.",
+    rating: 4,
+  },
 ];
 
 const chartData = [
-  { month: "Gen", clienti: 14 },
-  { month: "Feb", clienti: 23 },
-  { month: "Mar", clienti: 31 },
-  { month: "Apr", clienti: 42 },
-  { month: "Mag", clienti: 56 },
-  { month: "Giu", clienti: 68 },
-  { month: "Lug", clienti: 79 },
-  { month: "Ago", clienti: 85 },
-  { month: "Set", clienti: 97 },
-  { month: "Ott", clienti: 112 },
-  { month: "Nov", clienti: 128 },
-  { month: "Dic", clienti: 143 },
+  { month: "Gen", clienti: 14, fatturato: 1.2 },
+  { month: "Feb", clienti: 23, fatturato: 2.1 },
+  { month: "Mar", clienti: 31, fatturato: 3.4 },
+  { month: "Apr", clienti: 42, fatturato: 4.8 },
+  { month: "Mag", clienti: 56, fatturato: 6.2 },
+  { month: "Giu", clienti: 68, fatturato: 7.9 },
+  { month: "Lug", clienti: 79, fatturato: 9.1 },
+  { month: "Ago", clienti: 85, fatturato: 9.8 },
+  { month: "Set", clienti: 97, fatturato: 11.4 },
+  { month: "Ott", clienti: 112, fatturato: 13.2 },
+  { month: "Nov", clienti: 128, fatturato: 15.1 },
+  { month: "Dic", clienti: 143, fatturato: 17.6 },
 ];
 
 const maxClienti = Math.max(...chartData.map(d => d.clienti));
