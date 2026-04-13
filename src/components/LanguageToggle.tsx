@@ -1,15 +1,11 @@
+import { useI18n, languages } from "@/contexts/I18nContext";
 import { useState } from "react";
-import { Globe } from "lucide-react";
 
 const LanguageToggle = () => {
   const [open, setOpen] = useState(false);
+  const { lang, setLang } = useI18n();
 
-  const translate = (lang: string) => {
-    setOpen(false);
-    // Use Google Translate widget
-    const url = `https://translate.google.com/translate?sl=it&tl=${lang}&u=${encodeURIComponent(window.location.href)}`;
-    window.open(url, "_blank");
-  };
+  const currentLang = languages.find((l) => l.code === lang) || languages[0];
 
   return (
     <div className="relative">
@@ -18,22 +14,25 @@ const LanguageToggle = () => {
         className="flex items-center gap-1.5 text-xs font-semibold uppercase tracking-widest text-muted-foreground hover:text-primary transition-colors"
         aria-label="Traduci"
       >
-        <Globe className="w-4 h-4" />
-        IT
+        <span className="text-base">{currentLang.flag}</span>
+        {currentLang.code.toUpperCase()}
       </button>
       {open && (
-        <div className="absolute top-full right-0 mt-2 bg-card border border-border rounded-lg shadow-xl py-2 min-w-[120px] animate-fade-in-up z-50">
-          {[
-            { code: "en", label: "English" },
-            { code: "de", label: "Deutsch" },
-            { code: "fr", label: "Français" },
-            { code: "es", label: "Español" },
-          ].map((l) => (
+        <div className="absolute top-full right-0 mt-2 bg-card border border-border rounded-lg shadow-xl py-2 min-w-[160px] animate-fade-in-up z-50">
+          {languages.map((l) => (
             <button
               key={l.code}
-              onClick={() => translate(l.code)}
-              className="w-full text-left px-4 py-2 text-sm text-muted-foreground hover:text-foreground hover:bg-secondary/50 transition-colors"
+              onClick={() => {
+                setLang(l.code);
+                setOpen(false);
+              }}
+              className={`w-full text-left px-4 py-2 text-sm flex items-center gap-3 transition-colors ${
+                l.code === lang
+                  ? "text-primary font-bold"
+                  : "text-muted-foreground hover:text-foreground hover:bg-secondary/50"
+              }`}
             >
+              <span className="text-lg">{l.flag}</span>
               {l.label}
             </button>
           ))}
