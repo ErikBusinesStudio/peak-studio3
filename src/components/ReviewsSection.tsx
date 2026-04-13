@@ -94,30 +94,60 @@ const ReviewsSection = () => {
           <p className="text-muted-foreground max-w-md mx-auto">Non fidarti delle parole. Guarda i numeri e le recensioni reali.</p>
         </div>
 
-        {/* Chart */}
-        <div className={`mb-16 max-w-2xl mx-auto transition-all duration-700 delay-100 ${isVisible ? "opacity-100 translate-y-0" : "opacity-0 translate-y-8"}`}>
+        {/* Charts */}
+        <div className={`mb-16 grid md:grid-cols-2 gap-6 max-w-5xl mx-auto transition-all duration-700 delay-100 ${isVisible ? "opacity-100 translate-y-0" : "opacity-0 translate-y-8"}`}>
+          {/* Contatti */}
           <div className="bg-card border border-border rounded-xl p-6 md:p-8">
             <div className="flex items-center gap-2 mb-6">
               <TrendingUp className="w-5 h-5 text-primary" />
-              <h3 className="font-bold text-sm uppercase tracking-wider">Contatti ricevuti dai nostri clienti</h3>
+              <h3 className="font-bold text-sm uppercase tracking-wider">Contatti ricevuti</h3>
             </div>
-            <div className="flex items-end gap-3 h-48">
+            <div className="flex items-end gap-2 h-48">
               {chartData.map((d, i) => (
-                <div key={d.month} className="flex-1 flex flex-col items-center gap-2">
-                  <span className="text-xs font-bold text-primary">{d.clienti}</span>
+                <div key={d.month} className="flex-1 flex flex-col items-center gap-1">
+                  <span className="text-[10px] font-bold text-primary">{d.clienti}</span>
                   <div
                     className="w-full rounded-t-md bg-gradient-to-t from-primary to-primary/60 transition-all duration-1000 ease-out"
                     style={{
                       height: isVisible ? `${(d.clienti / maxClienti) * 100}%` : "0%",
-                      transitionDelay: `${i * 150 + 300}ms`,
+                      transitionDelay: `${i * 100 + 300}ms`,
                     }}
                   />
-                  <span className="text-[10px] uppercase tracking-wider text-muted-foreground">{d.month}</span>
+                  <span className="text-[9px] uppercase tracking-wider text-muted-foreground">{d.month}</span>
                 </div>
               ))}
             </div>
             <p className="text-center text-xs text-muted-foreground mt-4">
-              +921% di contatti in 12 mesi — dati reali dei nostri clienti
+              +921% di contatti in 12 mesi
+            </p>
+          </div>
+
+          {/* Fatturato */}
+          <div className="bg-card border border-border rounded-xl p-6 md:p-8">
+            <div className="flex items-center gap-2 mb-6">
+              <TrendingUp className="w-5 h-5 text-green-400" />
+              <h3 className="font-bold text-sm uppercase tracking-wider">Fatturato generato (K€)</h3>
+            </div>
+            <div className="flex items-end gap-2 h-48">
+              {chartData.map((d, i) => (
+                <div key={d.month} className="flex-1 flex flex-col items-center gap-1">
+                  <span className="text-[10px] font-bold text-green-400">{d.fatturato}k</span>
+                  <div
+                    className="w-full rounded-t-md bg-gradient-to-t from-green-500 to-green-400/60 transition-all duration-1000 ease-out"
+                    style={{
+                      height: isVisible ? `${(d.fatturato / maxFatturato) * 100}%` : "0%",
+                      transitionDelay: `${i * 100 + 500}ms`,
+                    }}
+                  />
+                  <span className="text-[9px] uppercase tracking-wider text-muted-foreground">{d.month}</span>
+                </div>
+              ))}
+            </div>
+            <p className="text-center text-xs text-muted-foreground mt-4">
+              €17.6K di fatturato generato per i nostri clienti
+            </p>
+          </div>
+        </div>
             </p>
           </div>
         </div>
