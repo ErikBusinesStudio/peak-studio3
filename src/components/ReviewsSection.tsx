@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { Star, Send, TrendingUp } from "lucide-react";
+import { Star, Send, Users, ThumbsUp, Zap, Award } from "lucide-react";
 import { useScrollAnimation } from "@/hooks/useScrollAnimation";
 
 interface Review {
