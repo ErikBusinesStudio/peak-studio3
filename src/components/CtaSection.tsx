@@ -1,4 +1,5 @@
 import { useScrollAnimation } from "@/hooks/useScrollAnimation";
+import { Zap, Shield, Clock } from "lucide-react";
 
 const CtaSection = () => {
   const { ref, isVisible } = useScrollAnimation();
@@ -14,18 +15,41 @@ const CtaSection = () => {
             Ogni giorno senza sito<br />
             <span className="text-gradient">perdi clienti.</span>
           </h2>
-          <p className="text-muted-foreground text-lg mb-4 max-w-lg mx-auto">
-            I tuoi competitor stanno già vendendo online. Tu quanto ancora vuoi aspettare?
+          <p className="text-muted-foreground text-lg mb-6 max-w-lg mx-auto">
+            I tuoi competitor stanno già vendendo online. Quanto ancora vuoi restare a guardare?
           </p>
-          <p className="text-primary font-bold text-sm mb-10 animate-pulse">
-            ⚡ Sito pronto in 48 ore — Garanzia soddisfatti o rimborsati
-          </p>
-          <a
-            href="#contatti"
-            className="inline-block bg-primary text-primary-foreground px-12 py-4 rounded-md text-sm font-bold uppercase tracking-wider hover:opacity-90 hover:scale-105 transition-all glow"
-          >
-            Voglio il mio sito ora →
-          </a>
+
+          <div className="flex flex-wrap justify-center gap-6 mb-10">
+            <div className="flex items-center gap-2 text-sm text-muted-foreground">
+              <Clock className="w-4 h-4 text-primary" />
+              <span>Pronto in 24h</span>
+            </div>
+            <div className="flex items-center gap-2 text-sm text-muted-foreground">
+              <Shield className="w-4 h-4 text-primary" />
+              <span>Soddisfatti o rimborsati</span>
+            </div>
+            <div className="flex items-center gap-2 text-sm text-muted-foreground">
+              <Zap className="w-4 h-4 text-primary" />
+              <span>Da €99 una tantum</span>
+            </div>
+          </div>
+
+          <div className="flex flex-col sm:flex-row gap-4 justify-center">
+            <a
+              href="#contatti"
+              className="inline-block bg-primary text-primary-foreground px-12 py-4 rounded-md text-sm font-bold uppercase tracking-wider hover:opacity-90 hover:scale-105 transition-all glow"
+            >
+              Richiedi il tuo sito in 24h →
+            </a>
+            <a
+              href="https://wa.me/393913168231?text=Ciao!%20Vorrei%20un%20preventivo%20gratuito%20per%20il%20mio%20sito%20web."
+              target="_blank"
+              rel="noopener noreferrer"
+              className="inline-block bg-primary/10 text-primary px-12 py-4 rounded-md text-sm font-bold uppercase tracking-wider hover:bg-primary/20 hover:scale-105 transition-all"
+            >
+              Preventivo gratuito su WhatsApp
+            </a>
+          </div>
         </div>
       </div>
     </section>
