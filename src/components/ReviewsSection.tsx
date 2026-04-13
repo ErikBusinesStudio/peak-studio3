@@ -64,6 +64,7 @@ const chartData = [
 ];
 
 const maxClienti = Math.max(...chartData.map(d => d.clienti));
+const maxFatturato = Math.max(...chartData.map(d => d.fatturato));
 
 const ReviewsSection = () => {
   const [reviews, setReviews] = useState<Review[]>(defaultReviews);
