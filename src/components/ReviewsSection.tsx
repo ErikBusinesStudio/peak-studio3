@@ -48,23 +48,12 @@ const defaultReviews: Review[] = [
   },
 ];
 
-const chartData = [
-  { month: "Gen", clienti: 14, fatturato: 1.2 },
-  { month: "Feb", clienti: 23, fatturato: 2.1 },
-  { month: "Mar", clienti: 31, fatturato: 3.4 },
-  { month: "Apr", clienti: 42, fatturato: 4.8 },
-  { month: "Mag", clienti: 56, fatturato: 6.2 },
-  { month: "Giu", clienti: 68, fatturato: 7.9 },
-  { month: "Lug", clienti: 79, fatturato: 9.1 },
-  { month: "Ago", clienti: 85, fatturato: 9.8 },
-  { month: "Set", clienti: 97, fatturato: 11.4 },
-  { month: "Ott", clienti: 112, fatturato: 13.2 },
-  { month: "Nov", clienti: 128, fatturato: 15.1 },
-  { month: "Dic", clienti: 143, fatturato: 17.6 },
+const stats = [
+  { icon: Star, value: "4.9/5", label: "Valutazione media", color: "text-primary" },
+  { icon: Users, value: "143+", label: "Clienti soddisfatti", color: "text-primary" },
+  { icon: ThumbsUp, value: "98%", label: "Tasso di soddisfazione", color: "text-primary" },
+  { icon: Award, value: "100%", label: "Consegne puntuali", color: "text-primary" },
 ];
-
-const maxClienti = Math.max(...chartData.map(d => d.clienti));
-const maxFatturato = Math.max(...chartData.map(d => d.fatturato));
 
 const ReviewsSection = () => {
   const [reviews, setReviews] = useState<Review[]>(defaultReviews);
