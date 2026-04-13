@@ -2,9 +2,11 @@ import Header from "@/components/Header";
 import HeroSection from "@/components/HeroSection";
 import ServicesSection from "@/components/ServicesSection";
 import WhyMeSection from "@/components/WhyMeSection";
+import HowItWorksSection from "@/components/HowItWorksSection";
 import PortfolioSection from "@/components/PortfolioSection";
 import PricingSection from "@/components/PricingSection";
 import ReviewsSection from "@/components/ReviewsSection";
+import FaqSection from "@/components/FaqSection";
 import CtaSection from "@/components/CtaSection";
 import ContactSection from "@/components/ContactSection";
 import FloatingWhatsApp from "@/components/FloatingWhatsApp";
@@ -18,9 +20,11 @@ const Index = () => {
         <HeroSection />
         <ServicesSection />
         <WhyMeSection />
+        <HowItWorksSection />
         <PortfolioSection />
         <PricingSection />
         <ReviewsSection />
+        <FaqSection />
         <CtaSection />
         <ContactSection />
       </main>
