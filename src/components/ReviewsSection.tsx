@@ -148,9 +148,6 @@ const ReviewsSection = () => {
             </p>
           </div>
         </div>
-            </p>
-          </div>
-        </div>
 
         <div className="grid md:grid-cols-3 gap-6 mb-12">
           {reviews.map((r, i) => (
