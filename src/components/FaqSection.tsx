@@ -28,10 +28,6 @@ const faqs = [
     a: "Garanzia soddisfatti o rimborsati. Se il sito non ti convince, ti restituisco tutto. Zero rischi per te.",
   },
   {
-    q: "Posso avere un sito e-commerce?",
-    a: "Sì! Con il piano Pro puoi avere un sistema di ordini o prenotazioni integrato. Per e-commerce completi, contattami per un preventivo personalizzato.",
-  },
-  {
     q: "Offrite assistenza dopo la consegna?",
     a: "Sì. Hai 30 giorni di supporto gratuito incluso. Dopo, puoi attivare un piano di gestione per assistenza continua.",
   },
