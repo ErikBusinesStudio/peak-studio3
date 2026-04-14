@@ -15,24 +15,24 @@ const ServicesSection = () => {
 
   return (
     <section id="servizi" className="section-padding relative overflow-hidden">
-      <div className="absolute top-0 right-0 w-[600px] h-[600px] bg-primary/15 rounded-full blur-[250px]" />
-      <div className="absolute bottom-0 left-0 w-[400px] h-[400px] bg-primary/10 rounded-full blur-[200px]" />
+      <div className="hidden md:block absolute top-0 right-0 w-[600px] h-[600px] bg-primary/15 rounded-full blur-[250px]" />
+      <div className="hidden md:block absolute bottom-0 left-0 w-[400px] h-[400px] bg-primary/10 rounded-full blur-[200px]" />
       <div className="container mx-auto relative z-10" ref={ref}>
-        <div className={`mb-16 transition-all duration-700 ${isVisible ? "opacity-100 translate-y-0" : "opacity-0 translate-y-8"}`}>
-          <div className="red-line mb-6" />
-          <h2 className="text-3xl md:text-5xl font-black mb-4">{t("services.title")}</h2>
-          <p className="text-muted-foreground max-w-md text-lg">{t("services.subtitle")}</p>
+        <div className={`mb-10 md:mb-16 transition-all duration-700 ${isVisible ? "opacity-100 translate-y-0" : "opacity-0 translate-y-8"}`}>
+          <div className="red-line mb-4 md:mb-6" />
+          <h2 className="text-2xl md:text-5xl font-black mb-3">{t("services.title")}</h2>
+          <p className="text-muted-foreground max-w-md text-base md:text-lg">{t("services.subtitle")}</p>
         </div>
-        <div className="grid grid-cols-2 lg:grid-cols-4 gap-4">
+        <div className="grid grid-cols-2 lg:grid-cols-4 gap-3 md:gap-4">
           {services.map((s, i) => (
-            <div key={s.number} className={`group bg-card border border-border rounded-xl p-6 md:p-8 hover:border-primary/40 hover:scale-[1.04] transition-all duration-500 relative overflow-hidden ${isVisible ? "opacity-100 translate-y-0" : "opacity-0 translate-y-8"}`} style={{ transitionDelay: `${i * 100}ms` }}>
-              <span className="absolute top-2 right-4 text-6xl font-black text-foreground/[0.03] select-none">{s.number}</span>
+            <div key={s.number} className={`group bg-card border border-border rounded-xl p-4 md:p-8 hover:border-primary/40 hover:scale-[1.04] transition-all duration-500 relative overflow-hidden ${isVisible ? "opacity-100 translate-y-0" : "opacity-0 translate-y-8"}`} style={{ transitionDelay: `${i * 100}ms` }}>
+              <span className="absolute top-2 right-4 text-6xl font-black text-foreground/[0.03] select-none hidden md:block">{s.number}</span>
               <div className="relative z-10">
-                <div className="w-12 h-12 rounded-lg bg-primary/10 flex items-center justify-center mb-5 group-hover:bg-primary/20 group-hover:scale-110 transition-all duration-300">
-                  <s.icon className="w-6 h-6 text-primary" />
+                <div className="w-10 h-10 md:w-12 md:h-12 rounded-lg bg-primary/10 flex items-center justify-center mb-3 md:mb-5 group-hover:bg-primary/20 group-hover:scale-110 transition-all duration-300">
+                  <s.icon className="w-5 h-5 md:w-6 md:h-6 text-primary" />
                 </div>
-                <h3 className="text-lg font-bold mb-2">{s.title}</h3>
-                <p className="text-muted-foreground text-sm leading-relaxed">{s.description}</p>
+                <h3 className="text-sm md:text-lg font-bold mb-1 md:mb-2">{s.title}</h3>
+                <p className="text-muted-foreground text-xs md:text-sm leading-relaxed">{s.description}</p>
               </div>
             </div>
           ))}
