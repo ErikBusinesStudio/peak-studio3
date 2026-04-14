@@ -75,7 +75,7 @@
   }
 
   .section-padding {
-    @apply py-24 md:py-32 px-4 md:px-8;
+    @apply py-14 md:py-32 px-4 md:px-8;
   }
 
   .red-line {

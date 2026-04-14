@@ -46,51 +46,51 @@ const ReviewsSection = () => {
 
   return (
     <section id="recensioni" className="section-padding bg-card/50 relative overflow-hidden">
-      <div className="absolute bottom-0 right-0 w-[600px] h-[600px] bg-primary/15 rounded-full blur-[250px]" />
-      <div className="absolute top-0 left-0 w-[400px] h-[400px] bg-primary/10 rounded-full blur-[200px]" />
+      <div className="hidden md:block absolute bottom-0 right-0 w-[600px] h-[600px] bg-primary/15 rounded-full blur-[250px]" />
+      <div className="hidden md:block absolute top-0 left-0 w-[400px] h-[400px] bg-primary/10 rounded-full blur-[200px]" />
 
       <div className="container mx-auto relative z-10" ref={ref}>
-        <div className={`text-center mb-16 transition-all duration-700 ${isVisible ? "opacity-100 translate-y-0" : "opacity-0 translate-y-8"}`}>
-          <div className="red-line mx-auto mb-6" />
-          <h2 className="text-3xl md:text-5xl font-black mb-4">{t("reviews.title")}</h2>
-          <p className="text-muted-foreground max-w-md mx-auto">{t("reviews.subtitle")}</p>
+        <div className={`text-center mb-10 md:mb-16 transition-all duration-700 ${isVisible ? "opacity-100 translate-y-0" : "opacity-0 translate-y-8"}`}>
+          <div className="red-line mx-auto mb-4 md:mb-6" />
+          <h2 className="text-2xl md:text-5xl font-black mb-3">{t("reviews.title")}</h2>
+          <p className="text-muted-foreground max-w-md mx-auto text-sm md:text-base">{t("reviews.subtitle")}</p>
         </div>
 
-        <div className={`mb-16 grid grid-cols-2 md:grid-cols-4 gap-6 max-w-4xl mx-auto transition-all duration-700 delay-100 ${isVisible ? "opacity-100 translate-y-0" : "opacity-0 translate-y-8"}`}>
+        <div className={`mb-10 md:mb-16 grid grid-cols-2 md:grid-cols-4 gap-3 md:gap-6 max-w-4xl mx-auto transition-all duration-700 delay-100 ${isVisible ? "opacity-100 translate-y-0" : "opacity-0 translate-y-8"}`}>
           {stats.map((stat, i) => (
-            <div key={stat.label} className="bg-card border border-border rounded-xl p-6 text-center hover:border-primary/30 hover:scale-[1.03] transition-all duration-500" style={{ transitionDelay: `${i * 100}ms` }}>
-              <div className="w-12 h-12 mx-auto mb-3 rounded-lg bg-primary/10 flex items-center justify-center">
-                <stat.icon className={`w-6 h-6 ${stat.color}`} />
+            <div key={stat.label} className="bg-card border border-border rounded-xl p-4 md:p-6 text-center hover:border-primary/30 hover:scale-[1.03] transition-all duration-500" style={{ transitionDelay: `${i * 100}ms` }}>
+              <div className="w-10 h-10 md:w-12 md:h-12 mx-auto mb-2 md:mb-3 rounded-lg bg-primary/10 flex items-center justify-center">
+                <stat.icon className={`w-5 h-5 md:w-6 md:h-6 ${stat.color}`} />
               </div>
-              <div className="text-3xl font-black mb-1">{stat.value}</div>
-              <p className="text-xs text-muted-foreground uppercase tracking-wider">{stat.label}</p>
+              <div className="text-xl md:text-3xl font-black mb-1">{stat.value}</div>
+              <p className="text-[10px] md:text-xs text-muted-foreground uppercase tracking-wider">{stat.label}</p>
             </div>
           ))}
-          <div className="col-span-2 md:col-span-4 flex justify-center items-center gap-2 mt-2">
+          <div className="col-span-2 md:col-span-4 flex justify-center items-center gap-2 mt-1 md:mt-2">
             <div className="flex gap-1">
               {[...Array(5)].map((_, i) => (
-                <Star key={i} className="w-6 h-6 fill-primary text-primary" />
+                <Star key={i} className="w-5 h-5 md:w-6 md:h-6 fill-primary text-primary" />
               ))}
             </div>
-            <span className="text-sm font-bold">4.9 {t("reviews.outOf")}</span>
-            <span className="text-xs text-muted-foreground">{t("reviews.basedOn")}</span>
+            <span className="text-xs md:text-sm font-bold">4.9 {t("reviews.outOf")}</span>
+            <span className="text-[10px] md:text-xs text-muted-foreground">{t("reviews.basedOn")}</span>
           </div>
         </div>
 
-        <div className="grid md:grid-cols-3 gap-6 mb-12">
+        <div className="grid md:grid-cols-3 gap-4 md:gap-6 mb-10 md:mb-12">
           {reviews.map((r, i) => (
-            <div key={`${r.name}-${i}`} className={`bg-card border border-border rounded-xl p-8 flex flex-col justify-between hover:border-primary/30 hover:scale-[1.02] transition-all duration-500 ${isVisible ? "opacity-100 translate-y-0" : "opacity-0 translate-y-8"}`} style={{ transitionDelay: `${i * 150 + 400}ms` }}>
+            <div key={`${r.name}-${i}`} className={`bg-card border border-border rounded-xl p-5 md:p-8 flex flex-col justify-between hover:border-primary/30 hover:scale-[1.02] transition-all duration-500 ${isVisible ? "opacity-100 translate-y-0" : "opacity-0 translate-y-8"}`} style={{ transitionDelay: `${i * 150 + 400}ms` }}>
               <div>
-                <div className="flex gap-1 mb-4">
+                <div className="flex gap-1 mb-3 md:mb-4">
                   {[...Array(5)].map((_, j) => (
-                    <Star key={j} className={`w-4 h-4 ${j < r.rating ? "fill-primary text-primary" : "text-muted"}`} />
+                    <Star key={j} className={`w-3.5 h-3.5 md:w-4 md:h-4 ${j < r.rating ? "fill-primary text-primary" : "text-muted"}`} />
                   ))}
                 </div>
-                <p className="text-sm text-muted-foreground leading-relaxed mb-6">"{r.text}"</p>
+                <p className="text-xs md:text-sm text-muted-foreground leading-relaxed mb-4 md:mb-6">"{r.text}"</p>
               </div>
               <div>
-                <p className="font-bold text-sm">{r.name}</p>
-                <p className="text-xs text-muted-foreground">{r.role}</p>
+                <p className="font-bold text-xs md:text-sm">{r.name}</p>
+                <p className="text-[10px] md:text-xs text-muted-foreground">{r.role}</p>
               </div>
             </div>
           ))}
@@ -98,22 +98,22 @@ const ReviewsSection = () => {
 
         <div className="text-center">
           {!showForm ? (
-            <button onClick={() => setShowForm(true)} className="border border-primary/40 text-primary px-8 py-3 rounded-md text-sm font-bold uppercase tracking-wider hover:bg-primary/10 hover:scale-105 transition-all">
+            <button onClick={() => setShowForm(true)} className="border border-primary/40 text-primary px-6 md:px-8 py-2.5 md:py-3 rounded-md text-xs md:text-sm font-bold uppercase tracking-wider hover:bg-primary/10 hover:scale-105 transition-all">
               {t("reviews.leaveReview")}
             </button>
           ) : (
             <div className="max-w-lg mx-auto animate-fade-in-up">
               {submitted ? (
-                <div className="bg-card border border-primary/30 rounded-xl p-8 text-center">
-                  <p className="text-primary font-bold text-lg">{t("reviews.thanks")}</p>
+                <div className="bg-card border border-primary/30 rounded-xl p-6 md:p-8 text-center">
+                  <p className="text-primary font-bold text-base md:text-lg">{t("reviews.thanks")}</p>
                 </div>
               ) : (
-                <form onSubmit={handleSubmit} className="bg-card border border-border rounded-xl p-8 space-y-5 text-left">
-                  <h3 className="font-bold text-lg text-center mb-2">{t("reviews.yourExperience")}</h3>
+                <form onSubmit={handleSubmit} className="bg-card border border-border rounded-xl p-6 md:p-8 space-y-4 md:space-y-5 text-left">
+                  <h3 className="font-bold text-base md:text-lg text-center mb-2">{t("reviews.yourExperience")}</h3>
                   <div className="flex justify-center gap-2">
                     {[1, 2, 3, 4, 5].map((star) => (
                       <button key={star} type="button" onClick={() => setNewReview({ ...newReview, rating: star })} className="focus:outline-none">
-                        <Star className={`w-7 h-7 transition-colors ${star <= newReview.rating ? "fill-primary text-primary" : "text-muted hover:text-primary/50"}`} />
+                        <Star className={`w-6 h-6 md:w-7 md:h-7 transition-colors ${star <= newReview.rating ? "fill-primary text-primary" : "text-muted hover:text-primary/50"}`} />
                       </button>
                     ))}
                   </div>
