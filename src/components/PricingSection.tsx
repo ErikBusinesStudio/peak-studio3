@@ -1,141 +1,264 @@
-import { Check, Zap, Crown } from "lucide-react";
-import { useState } from "react";
+import { Check, Zap, Crown, Sparkles, QrCode, Smartphone, Globe, Wrench, TrendingUp, Headphones } from "lucide-react";
 import { useScrollAnimation } from "@/hooks/useScrollAnimation";
-import { useI18n } from "@/contexts/I18nContext";
+
+type Plan = {
+  name: string;
+  price: string;
+  priceSuffix?: string;
+  desc: string;
+  badge?: string;
+  badgeIcon?: React.ReactNode;
+  highlighted?: boolean;
+  features: string[];
+  cta: string;
+  icon?: React.ReactNode;
+};
+
+const sitePlans: Plan[] = [
+  {
+    name: "Base",
+    price: "300",
+    priceSuffix: "una tantum",
+    desc: "Ideale per piccole attività che vogliono iniziare online",
+    icon: <Globe className="w-5 h-5" />,
+    features: [
+      "1 pagina (landing page)",
+      "Informazioni principali (contatti, servizi, orari)",
+      "Design semplice e pulito",
+      "Ottimizzazione mobile",
+      "Pronto per essere trovato su Google",
+    ],
+    cta: "Richiedi informazioni",
+  },
+  {
+    name: "Standard",
+    price: "500",
+    priceSuffix: "una tantum",
+    desc: "La scelta migliore per attrarre e convertire più clienti",
+    badge: "Più scelto",
+    badgeIcon: <Zap className="w-3 h-3" />,
+    highlighted: true,
+    icon: <Sparkles className="w-5 h-5" />,
+    features: [
+      "3-5 pagine professionali",
+      "Design moderno e curato",
+      "Ottimizzazione mobile",
+      "1 revisione inclusa",
+      "Struttura pensata per convertire clienti",
+    ],
+    cta: "Richiedi informazioni",
+  },
+  {
+    name: "Premium",
+    price: "800+",
+    priceSuffix: "una tantum",
+    desc: "Per chi vuole il massimo: sito completo e personalizzato",
+    icon: <Crown className="w-5 h-5" />,
+    features: [
+      "Sito completo personalizzato",
+      "Design professionale avanzato",
+      "Integrazioni (WhatsApp, prenotazioni, ecc.)",
+      "Più revisioni incluse",
+      "Priorità nella consegna",
+    ],
+    cta: "Richiedi informazioni",
+  },
+];
+
+const managementPlans: Plan[] = [
+  {
+    name: "Basic",
+    price: "30",
+    priceSuffix: "/mese",
+    desc: "Il tuo sito sempre online e sicuro, senza pensieri",
+    icon: <Wrench className="w-5 h-5" />,
+    features: [
+      "Hosting e sicurezza inclusi",
+      "Aggiornamenti tecnici base",
+      "Backup periodici",
+    ],
+    cta: "Attiva ora",
+  },
+  {
+    name: "Growth",
+    price: "50",
+    priceSuffix: "/mese",
+    desc: "Mantieni il sito vivo con modifiche e supporto rapido",
+    badge: "Consigliato",
+    badgeIcon: <TrendingUp className="w-3 h-3" />,
+    highlighted: true,
+    icon: <Sparkles className="w-5 h-5" />,
+    features: [
+      "Tutto del piano Basic",
+      "Piccole modifiche ai contenuti",
+      "Supporto rapido",
+    ],
+    cta: "Attiva ora",
+  },
+  {
+    name: "Pro",
+    price: "80–100",
+    priceSuffix: "/mese",
+    desc: "Per chi vuole crescere davvero, con consigli e priorità",
+    icon: <Headphones className="w-5 h-5" />,
+    features: [
+      "Tutto del piano Growth",
+      "Modifiche frequenti",
+      "Priorità supporto",
+      "Consigli base di marketing",
+    ],
+    cta: "Attiva ora",
+  },
+];
+
+const qrPlans: Plan[] = [
+  {
+    name: "QR Code Base",
+    price: "20",
+    priceSuffix: "una tantum",
+    desc: "La soluzione semplice per portare i clienti dove vuoi tu",
+    icon: <QrCode className="w-5 h-5" />,
+    features: [
+      "Link diretto a menu, contatti o recensioni",
+      "Grafica personalizzata",
+      "Pronto da stampare",
+    ],
+    cta: "Richiedi informazioni",
+  },
+  {
+    name: "QR Code Dinamico",
+    price: "5–10",
+    priceSuffix: "/mese",
+    desc: "Cambia la destinazione quando vuoi, perfetto per le promozioni",
+    badge: "Flessibile",
+    badgeIcon: <Sparkles className="w-3 h-3" />,
+    highlighted: true,
+    icon: <Smartphone className="w-5 h-5" />,
+    features: [
+      "Modificabile nel tempo",
+      "Perfetto per campagne e promozioni",
+      "Statistiche di scansione",
+    ],
+    cta: "Richiedi informazioni",
+  },
+];
+
+const PlanCard = ({ plan, delay, isVisible }: { plan: Plan; delay: number; isVisible: boolean }) => (
+  <div
+    className={`relative rounded-2xl p-5 md:p-7 border transition-all duration-500 hover:scale-[1.02] flex flex-col ${
+      plan.highlighted
+        ? "border-primary/60 bg-card glow md:scale-[1.03]"
+        : "border-border bg-card hover:border-border/80"
+    } ${isVisible ? "opacity-100 translate-y-0" : "opacity-0 translate-y-8"}`}
+    style={{ transitionDelay: `${delay}ms` }}
+  >
+    {plan.badge && (
+      <span className="absolute -top-3 left-1/2 -translate-x-1/2 bg-primary text-primary-foreground text-[10px] font-bold px-4 py-1 rounded-full uppercase tracking-wider flex items-center gap-1 whitespace-nowrap">
+        {plan.badgeIcon}
+        {plan.badge}
+      </span>
+    )}
+
+    <div className="flex items-center gap-2 mb-2">
+      {plan.icon && (
+        <span className={`inline-flex items-center justify-center w-9 h-9 rounded-lg ${plan.highlighted ? "bg-primary text-primary-foreground" : "bg-primary/10 text-primary"}`}>
+          {plan.icon}
+        </span>
+      )}
+      <h4 className="text-xl md:text-2xl font-black">{plan.name}</h4>
+    </div>
+
+    <p className="text-muted-foreground text-xs md:text-sm mt-1">{plan.desc}</p>
+
+    <div className="mt-4 mb-5 flex items-baseline gap-2">
+      <span className="text-4xl md:text-5xl font-black">€{plan.price}</span>
+      {plan.priceSuffix && (
+        <span className="text-muted-foreground text-xs md:text-sm">{plan.priceSuffix}</span>
+      )}
+    </div>
+
+    <ul className="space-y-2 md:space-y-2.5 mb-6 flex-1">
+      {plan.features.map((f) => (
+        <li key={f} className="flex items-start gap-2 text-xs md:text-sm">
+          <Check className="w-4 h-4 text-primary mt-0.5 shrink-0" />
+          <span>{f}</span>
+        </li>
+      ))}
+    </ul>
+
+    <a
+      href="#contatti"
+      className={`block text-center py-3 rounded-md font-bold text-xs md:text-sm uppercase tracking-wider transition-all hover:scale-[1.03] ${
+        plan.highlighted
+          ? "bg-primary text-primary-foreground hover:opacity-90"
+          : "bg-primary/10 text-primary hover:bg-primary/20"
+      }`}
+    >
+      {plan.cta}
+    </a>
+  </div>
+);
 
 const PricingSection = () => {
   const { ref, isVisible } = useScrollAnimation();
-  const [billingPeriod, setBillingPeriod] = useState<"monthly" | "yearly">("monthly");
-  const { t } = useI18n();
-
-  const sitePlans = [
-    {
-      name: "Starter", price: "149,99", desc: t("pricing.starter.desc"), recommended: false,
-      features: [t("pricing.starter.f1"), t("pricing.starter.f2"), t("pricing.starter.f3"), t("pricing.starter.f4"), t("pricing.starter.f5"), t("pricing.starter.f6"), t("pricing.starter.f7")],
-    },
-    {
-      name: "Business", price: "199,99", desc: t("pricing.business.desc"), recommended: true,
-      features: [t("pricing.business.f1"), t("pricing.business.f2"), t("pricing.business.f3"), t("pricing.business.f4"), t("pricing.business.f5"), t("pricing.business.f6"), t("pricing.business.f7"), t("pricing.business.f8")],
-    },
-    {
-      name: "Pro", price: "249,99", desc: t("pricing.pro.desc"), recommended: false,
-      features: [t("pricing.pro.f1"), t("pricing.pro.f2"), t("pricing.pro.f3"), t("pricing.pro.f4"), t("pricing.pro.f5"), t("pricing.pro.f6"), t("pricing.pro.f7")],
-    },
-  ];
-
-  const subscriptionPlans = [
-    {
-      name: t("pricing.sub1.name"), monthlyPrice: 24.99, desc: t("pricing.sub1.desc"), popular: false,
-      features: [t("pricing.sub1.f1"), t("pricing.sub1.f2"), t("pricing.sub1.f3"), t("pricing.sub1.f4"), t("pricing.sub1.f5")],
-    },
-    {
-      name: t("pricing.sub2.name"), monthlyPrice: 44.99, desc: t("pricing.sub2.desc"), popular: true,
-      features: [t("pricing.sub2.f1"), t("pricing.sub2.f2"), t("pricing.sub2.f3"), t("pricing.sub2.f4"), t("pricing.sub2.f5"), t("pricing.sub2.f6")],
-    },
-    {
-      name: t("pricing.sub3.name"), monthlyPrice: 19.99, desc: t("pricing.sub3.desc"), popular: false,
-      features: [t("pricing.sub3.f1"), t("pricing.sub3.f2"), t("pricing.sub3.f3"), t("pricing.sub3.f4"), t("pricing.sub3.f5"), t("pricing.sub3.f6")],
-    },
-  ];
-
-  // Helpers per prezzi (annuale = 10x mensile, cioè 2 mesi gratis)
-  const fmt = (n: number) => n.toFixed(2).replace(".", ",");
-  const yearlyTotal = (m: number) => m * 10;
-  const yearlyMonthly = (m: number) => (m * 10) / 12;
-  const yearlySaving = (m: number) => m * 2;
 
   return (
     <section id="prezzi" className="section-padding relative overflow-hidden">
-      <div className="hidden md:block absolute top-0 left-1/2 -translate-x-1/2 w-[800px] h-[800px] bg-primary/15 rounded-full blur-[250px]" />
+      <div className="hidden md:block absolute top-0 left-1/2 -translate-x-1/2 w-[800px] h-[800px] bg-primary/12 rounded-full blur-[250px]" />
+
       <div className="container mx-auto relative z-10" ref={ref}>
-        <div className={`text-center mb-8 md:mb-16 transition-all duration-700 ${isVisible ? "opacity-100 translate-y-0" : "opacity-0 translate-y-8"}`}>
-          <div className="red-line mx-auto mb-3 md:mb-6" />
-          <h2 className="text-2xl md:text-5xl font-black mb-2 md:mb-3">{t("pricing.title1")} <span className="text-gradient">{t("pricing.title2")}</span></h2>
-          <p className="text-muted-foreground max-w-lg mx-auto text-xs md:text-base">{t("pricing.subtitle")}</p>
+        {/* Sezione 1 — Creazione sito */}
+        <div className={`text-center mb-10 md:mb-14 transition-all duration-700 ${isVisible ? "opacity-100 translate-y-0" : "opacity-0 translate-y-8"}`}>
+          <div className="red-line mx-auto mb-4" />
+          <h2 className="text-2xl md:text-4xl font-black mb-3">
+            Scegli la <span className="text-gradient">soluzione giusta</span> per la tua attività
+          </h2>
+          <p className="text-muted-foreground max-w-xl mx-auto text-sm md:text-base">
+            Siti pensati per attirare nuovi clienti e migliorare la tua presenza online.
+          </p>
         </div>
 
-        <div className={`mb-12 md:mb-20 transition-all duration-700 delay-100 ${isVisible ? "opacity-100 translate-y-0" : "opacity-0 translate-y-8"}`}>
-          <h3 className="text-lg md:text-3xl font-black text-center mb-2">{t("pricing.sites.title")}</h3>
-          <p className="text-center text-muted-foreground text-xs md:text-sm mb-6 md:mb-10 px-4">{t("pricing.sites.subtitle")}</p>
-          <div className="grid md:grid-cols-3 gap-3 md:gap-6 max-w-5xl mx-auto">
-            {sitePlans.map((plan, i) => (
-              <div key={plan.name} className={`relative rounded-xl p-4 md:p-8 border transition-all duration-500 hover:scale-[1.03] ${plan.recommended ? "border-primary/60 bg-card glow md:scale-105" : "border-border bg-card hover:border-border/80"} ${isVisible ? "opacity-100 translate-y-0" : "opacity-0 translate-y-8"}`} style={{ transitionDelay: `${i * 150}ms` }}>
-                {plan.recommended && (
-                  <span className="absolute -top-3 left-1/2 -translate-x-1/2 bg-primary text-primary-foreground text-[10px] font-bold px-4 py-1 rounded-full uppercase tracking-wider flex items-center gap-1">
-                    <Zap className="w-3 h-3" /> {t("pricing.mostChosen")}
-                  </span>
-                )}
-                <h4 className="text-lg md:text-2xl font-black">{plan.name}</h4>
-                <p className="text-muted-foreground text-xs md:text-sm mt-1">{plan.desc}</p>
-                <div className="mt-3 md:mt-6 mb-3 md:mb-6">
-                  <span className="text-3xl md:text-5xl font-black">€{plan.price}</span>
-                  <span className="text-muted-foreground text-xs md:text-sm ml-2">{t("pricing.oneTime")}</span>
-                </div>
-                <ul className="space-y-1.5 md:space-y-3 mb-5 md:mb-8">
-                  {plan.features.map((f) => (
-                    <li key={f} className="flex items-start gap-2 md:gap-3 text-[11px] md:text-sm"><Check className="w-3.5 h-3.5 md:w-4 md:h-4 text-primary mt-0.5 shrink-0" /><span>{f}</span></li>
-                  ))}
-                </ul>
-                <a href="#contatti" className={`block text-center py-2.5 md:py-3 rounded-md font-bold text-xs md:text-sm uppercase tracking-wider transition-all hover:scale-105 ${plan.recommended ? "bg-primary text-primary-foreground hover:opacity-90" : "bg-primary/10 text-primary hover:bg-primary/20"}`}>{t("pricing.wantIt")}</a>
-              </div>
-            ))}
-          </div>
+        <div className="grid md:grid-cols-3 gap-4 md:gap-6 max-w-5xl mx-auto mb-16 md:mb-24">
+          {sitePlans.map((plan, i) => (
+            <PlanCard key={plan.name} plan={plan} delay={i * 120} isVisible={isVisible} />
+          ))}
         </div>
 
-        <div className={`transition-all duration-700 delay-300 ${isVisible ? "opacity-100 translate-y-0" : "opacity-0 translate-y-8"}`}>
-          <h3 className="text-lg md:text-3xl font-black text-center mb-2">{t("pricing.subs.title")}</h3>
-          <p className="text-center text-muted-foreground text-xs md:text-sm mb-5 px-4">{t("pricing.subs.subtitle")}</p>
-          <div className="flex items-center justify-center gap-2 md:gap-4 mb-6 md:mb-10">
-            <button onClick={() => setBillingPeriod("monthly")} className={`px-3 md:px-5 py-2 rounded-full text-xs md:text-sm font-bold transition-all ${billingPeriod === "monthly" ? "bg-primary text-primary-foreground" : "bg-card border border-border text-muted-foreground hover:text-foreground"}`}>{t("pricing.monthly")}</button>
-            <button onClick={() => setBillingPeriod("yearly")} className={`px-3 md:px-5 py-2 rounded-full text-xs md:text-sm font-bold transition-all flex items-center gap-2 ${billingPeriod === "yearly" ? "bg-primary text-primary-foreground" : "bg-card border border-border text-muted-foreground hover:text-foreground"}`}>
-              {t("pricing.yearly")}
-              <span className="text-[10px] bg-green-500/20 text-green-400 px-2 py-0.5 rounded-full font-bold">{t("pricing.freeMonths")}</span>
-            </button>
-          </div>
-          <div className="grid md:grid-cols-3 gap-3 md:gap-6 max-w-5xl mx-auto">
-            {subscriptionPlans.map((plan, i) => (
-              <div key={plan.name} className={`relative rounded-xl p-4 md:p-8 border transition-all duration-500 hover:scale-[1.03] ${plan.popular ? "border-primary/60 bg-card glow" : "border-border bg-card hover:border-border/80"} ${isVisible ? "opacity-100 translate-y-0" : "opacity-0 translate-y-8"}`} style={{ transitionDelay: `${(i + 3) * 150}ms` }}>
-                {plan.popular && (
-                  <span className="absolute -top-3 left-1/2 -translate-x-1/2 bg-primary text-primary-foreground text-[10px] font-bold px-4 py-1 rounded-full uppercase tracking-wider flex items-center gap-1">
-                    <Crown className="w-3 h-3" /> {t("pricing.recommended")}
-                  </span>
-                )}
-                <h4 className="text-lg md:text-2xl font-black">{plan.name}</h4>
-                <p className="text-muted-foreground text-xs md:text-sm mt-1">{plan.desc}</p>
-                <div className="mt-3 md:mt-6 mb-2 min-h-[88px] md:min-h-[110px]">
-                  {billingPeriod === "monthly" ? (
-                    <>
-                      <span className="text-3xl md:text-5xl font-black">€{fmt(plan.monthlyPrice)}</span>
-                      <span className="text-muted-foreground text-xs md:text-sm ml-2">/{t("pricing.month")}</span>
-                    </>
-                  ) : (
-                    <>
-                      <div className="flex items-baseline gap-2">
-                        <span className="text-3xl md:text-5xl font-black">€{fmt(yearlyMonthly(plan.monthlyPrice))}</span>
-                        <span className="text-muted-foreground text-xs md:text-sm">/{t("pricing.month")}</span>
-                      </div>
-                      <p className="text-[11px] md:text-xs text-muted-foreground mt-1">
-                        {t("pricing.totalYear")}: <span className="text-foreground font-bold">€{fmt(yearlyTotal(plan.monthlyPrice))}</span>
-                        <span className="line-through ml-2 opacity-60">€{fmt(plan.monthlyPrice * 12)}</span>
-                      </p>
-                      <p className="text-green-400 text-[11px] md:text-xs font-bold mt-1">
-                        {t("pricing.save")} €{fmt(yearlySaving(plan.monthlyPrice))}/{t("pricing.year")}
-                      </p>
-                    </>
-                  )}
-                </div>
-                <ul className="space-y-1.5 md:space-y-3 mb-5 md:mb-8">
-                  {plan.features.map((f) => (
-                    <li key={f} className="flex items-start gap-2 md:gap-3 text-[11px] md:text-sm"><Check className="w-3.5 h-3.5 md:w-4 md:h-4 text-primary mt-0.5 shrink-0" /><span>{f}</span></li>
-                  ))}
-                </ul>
-                <a href="#contatti" className={`block text-center py-2.5 md:py-3 rounded-md font-bold text-xs md:text-sm uppercase tracking-wider transition-all hover:scale-105 ${plan.popular ? "bg-primary text-primary-foreground hover:opacity-90" : "bg-primary/10 text-primary hover:bg-primary/20"}`}>{t("pricing.activate")}</a>
-              </div>
-            ))}
-          </div>
+        {/* Sezione 2 — Gestione mensile */}
+        <div className={`text-center mb-8 md:mb-12 transition-all duration-700 ${isVisible ? "opacity-100 translate-y-0" : "opacity-0 translate-y-8"}`}>
+          <h2 className="text-2xl md:text-4xl font-black mb-3">
+            Mantieni il tuo sito <span className="text-gradient">sempre aggiornato</span>
+          </h2>
+          <p className="text-muted-foreground max-w-xl mx-auto text-sm md:text-base">
+            Pensiamo a tutto noi, così tu puoi concentrarti sul tuo lavoro.
+          </p>
         </div>
 
-        <p className="text-center text-[11px] md:text-xs text-muted-foreground mt-6 md:mt-10 animate-pulse">{t("pricing.limited")}</p>
+        <div className="grid md:grid-cols-3 gap-4 md:gap-6 max-w-5xl mx-auto mb-16 md:mb-24">
+          {managementPlans.map((plan, i) => (
+            <PlanCard key={plan.name} plan={plan} delay={i * 120} isVisible={isVisible} />
+          ))}
+        </div>
+
+        {/* Sezione 3 — QR Code */}
+        <div className={`text-center mb-8 md:mb-12 transition-all duration-700 ${isVisible ? "opacity-100 translate-y-0" : "opacity-0 translate-y-8"}`}>
+          <h2 className="text-2xl md:text-4xl font-black mb-3">
+            Più recensioni e clienti con i <span className="text-gradient">QR Code</span>
+          </h2>
+          <p className="text-muted-foreground max-w-xl mx-auto text-sm md:text-base">
+            Uno strumento semplice per portare i clienti esattamente dove vuoi tu.
+          </p>
+        </div>
+
+        <div className="grid md:grid-cols-2 gap-4 md:gap-6 max-w-3xl mx-auto">
+          {qrPlans.map((plan, i) => (
+            <PlanCard key={plan.name} plan={plan} delay={i * 120} isVisible={isVisible} />
+          ))}
+        </div>
+
+        <p className="text-center text-xs md:text-sm text-muted-foreground mt-10 md:mt-14">
+          ⚡ Posti limitati ogni mese — contattaci per fissare la tua consulenza gratuita.
+        </p>
       </div>
     </section>
   );
