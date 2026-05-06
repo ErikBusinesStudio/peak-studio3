@@ -136,7 +136,8 @@ const ReviewsSection = () => {
             <div className="max-w-lg mx-auto animate-fade-in-up">
               {submitted ? (
                 <div className="bg-card border border-primary/30 rounded-xl p-6 md:p-8 text-center">
-                  <p className="text-primary font-bold text-base md:text-lg">{t("reviews.thanks")}</p>
+                  <p className="text-primary font-bold text-base md:text-lg mb-2">{t("reviews.thanks")}</p>
+                  <p className="text-muted-foreground text-xs md:text-sm">La tua recensione sarà pubblicata dopo l'approvazione.</p>
                 </div>
               ) : (
                 <form onSubmit={handleSubmit} className="bg-card border border-border rounded-xl p-6 md:p-8 space-y-4 md:space-y-5 text-left">
