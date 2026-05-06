@@ -1,7 +1,8 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { Star, Send, Users, ThumbsUp, Award } from "lucide-react";
 import { useScrollAnimation } from "@/hooks/useScrollAnimation";
 import { useI18n } from "@/contexts/I18nContext";
+import { supabase } from "@/integrations/supabase/client";
 
 interface Review {
   name: string;
@@ -33,15 +34,45 @@ const ReviewsSection = () => {
   const [showForm, setShowForm] = useState(false);
   const [newReview, setNewReview] = useState({ name: "", role: "", text: "", rating: 5 });
   const [submitted, setSubmitted] = useState(false);
+  const [submitting, setSubmitting] = useState(false);
+  const [error, setError] = useState<string | null>(null);
   const { ref, isVisible } = useScrollAnimation();
 
-  const handleSubmit = (e: React.FormEvent) => {
+  useEffect(() => {
+    supabase
+      .from("reviews")
+      .select("name, role, text, rating")
+      .eq("status", "approved")
+      .order("created_at", { ascending: false })
+      .then(({ data }) => {
+        if (data && data.length > 0) {
+          setReviews([...data as Review[], ...defaultReviews]);
+        }
+      });
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
+
+  const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     if (!newReview.name.trim() || !newReview.text.trim()) return;
-    setReviews([...reviews, { ...newReview, name: newReview.name.trim(), role: newReview.role.trim() || "Cliente", text: newReview.text.trim() }]);
+    setSubmitting(true);
+    setError(null);
+    const { data, error: fnError } = await supabase.functions.invoke("submit-review", {
+      body: {
+        name: newReview.name.trim(),
+        role: newReview.role.trim() || "Cliente",
+        text: newReview.text.trim(),
+        rating: newReview.rating,
+      },
+    });
+    setSubmitting(false);
+    if (fnError || !data?.success) {
+      setError("Errore nell'invio. Riprova.");
+      return;
+    }
     setNewReview({ name: "", role: "", text: "", rating: 5 });
     setSubmitted(true);
-    setTimeout(() => { setSubmitted(false); setShowForm(false); }, 2000);
+    setTimeout(() => { setSubmitted(false); setShowForm(false); }, 3000);
   };
 
   return (
@@ -105,11 +136,13 @@ const ReviewsSection = () => {
             <div className="max-w-lg mx-auto animate-fade-in-up">
               {submitted ? (
                 <div className="bg-card border border-primary/30 rounded-xl p-6 md:p-8 text-center">
-                  <p className="text-primary font-bold text-base md:text-lg">{t("reviews.thanks")}</p>
+                  <p className="text-primary font-bold text-base md:text-lg mb-2">{t("reviews.thanks")}</p>
+                  <p className="text-muted-foreground text-xs md:text-sm">La tua recensione sarà pubblicata dopo l'approvazione.</p>
                 </div>
               ) : (
                 <form onSubmit={handleSubmit} className="bg-card border border-border rounded-xl p-6 md:p-8 space-y-4 md:space-y-5 text-left">
                   <h3 className="font-bold text-base md:text-lg text-center mb-2">{t("reviews.yourExperience")}</h3>
+                  {error && <p className="text-destructive text-sm text-center">{error}</p>}
                   <div className="flex justify-center gap-2">
                     {[1, 2, 3, 4, 5].map((star) => (
                       <button key={star} type="button" onClick={() => setNewReview({ ...newReview, rating: star })} className="focus:outline-none">
@@ -130,8 +163,8 @@ const ReviewsSection = () => {
                     <textarea required maxLength={500} rows={3} className="w-full bg-background border border-border rounded-md px-4 py-3 text-sm focus:outline-none focus:ring-2 focus:ring-primary/50 text-foreground placeholder:text-muted-foreground resize-none" value={newReview.text} onChange={(e) => setNewReview({ ...newReview, text: e.target.value })} />
                   </div>
                   <div className="flex gap-3">
-                    <button type="submit" className="flex-1 bg-primary text-primary-foreground py-3 rounded-md font-bold text-sm uppercase tracking-wider hover:opacity-90 transition-opacity flex items-center justify-center gap-2">
-                      <Send className="w-4 h-4" /> {t("reviews.send")}
+                    <button type="submit" disabled={submitting} className="flex-1 bg-primary text-primary-foreground py-3 rounded-md font-bold text-sm uppercase tracking-wider hover:opacity-90 transition-opacity flex items-center justify-center gap-2 disabled:opacity-50">
+                      <Send className="w-4 h-4" /> {submitting ? "Invio..." : t("reviews.send")}
                     </button>
                     <button type="button" onClick={() => setShowForm(false)} className="px-6 py-3 rounded-md text-sm font-bold text-muted-foreground hover:text-foreground transition-colors">
                       {t("reviews.cancel")}
