@@ -5,13 +5,25 @@ const corsHeaders = {
   'Access-Control-Allow-Headers': 'authorization, x-client-info, apikey, content-type',
 }
 
+function escapeHtml(s: string): string {
+  return String(s)
+    .replace(/&/g, '&amp;')
+    .replace(/</g, '&lt;')
+    .replace(/>/g, '&gt;')
+    .replace(/"/g, '&quot;')
+    .replace(/'/g, '&#39;')
+}
+
 function htmlPage(title: string, message: string, color = '#16a34a'): Response {
-  const html = `<!DOCTYPE html><html lang="it"><head><meta charset="utf-8"><title>${title}</title>
+  const safeTitle = escapeHtml(title)
+  const safeMessage = escapeHtml(message)
+  const safeColor = /^#[0-9a-fA-F]{3,8}$/.test(color) ? color : '#16a34a'
+  const html = `<!DOCTYPE html><html lang="it"><head><meta charset="utf-8"><title>${safeTitle}</title>
 <meta name="viewport" content="width=device-width,initial-scale=1">
 <style>body{font-family:-apple-system,BlinkMacSystemFont,Arial,sans-serif;background:#0a0a0a;color:#fff;display:flex;align-items:center;justify-content:center;min-height:100vh;margin:0;padding:24px}
 .card{background:#161616;border:1px solid #262626;border-radius:14px;padding:36px;max-width:460px;text-align:center}
-h1{color:${color};margin:0 0 12px;font-size:22px}p{color:#a3a3a3;line-height:1.6;margin:0}</style>
-</head><body><div class="card"><h1>${title}</h1><p>${message}</p></div></body></html>`
+h1{color:${safeColor};margin:0 0 12px;font-size:22px}p{color:#a3a3a3;line-height:1.6;margin:0}</style>
+</head><body><div class="card"><h1>${safeTitle}</h1><p>${safeMessage}</p></div></body></html>`
   return new Response(html, { status: 200, headers: { ...corsHeaders, 'Content-Type': 'text/html; charset=utf-8' } })
 }
 
