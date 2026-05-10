@@ -1,4 +1,4 @@
-import { Check, Zap, Crown, Sparkles, QrCode, Smartphone, Globe, Wrench, TrendingUp, Headphones } from "lucide-react";
+import { Check, Zap, Crown, Sparkles, QrCode, Smartphone, Globe, Wrench, TrendingUp, Headphones, ArrowRight } from "lucide-react";
 import { useScrollAnimation } from "@/hooks/useScrollAnimation";
 
 type Plan = {
@@ -283,13 +283,10 @@ const PlanCard = ({ plan, delay, isVisible }: { plan: Plan; delay: number; isVis
 
     <a
       href="#contatti"
-      className={`block text-center py-3 rounded-md font-bold text-xs md:text-sm uppercase tracking-wider transition-all hover:scale-[1.03] ${
-        plan.highlighted
-          ? "bg-primary text-primary-foreground hover:opacity-90"
-          : "bg-primary/10 text-primary hover:bg-primary/20"
-      }`}
+      className={`group/cta ${plan.highlighted ? "btn-cta" : "btn-cta-soft"} w-full`}
     >
       {plan.cta}
+      <ArrowRight className="w-4 h-4 transition-transform duration-300 group-hover/cta:translate-x-1" />
     </a>
   </div>
 );
