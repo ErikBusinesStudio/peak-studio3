@@ -51,7 +51,7 @@ const PricingTeaser = () => {
   const { ref, isVisible } = useScrollAnimation();
 
   return (
-    <section id="servizi" className="section-padding relative overflow-hidden scroll-mt-24">
+    <section id="prezzi" className="section-padding relative overflow-hidden scroll-mt-24">
       <div className="hidden md:block absolute top-0 left-1/2 -translate-x-1/2 w-[700px] h-[700px] bg-primary/10 rounded-full blur-[230px]" />
 
       <div className="container mx-auto relative z-10" ref={ref}>
@@ -93,7 +93,7 @@ const PricingTeaser = () => {
             to="/prezzi"
             className="inline-flex items-center gap-2 bg-primary text-primary-foreground px-8 py-4 rounded-md text-sm font-bold uppercase tracking-wider hover:scale-105 transition-all glow"
           >
-            Vedi tutti i prezzi <ArrowRight className="w-4 h-4" />
+            Vedi tutti i servizi <ArrowRight className="w-4 h-4" />
           </Link>
         </div>
       </div>
