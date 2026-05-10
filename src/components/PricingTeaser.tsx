@@ -51,18 +51,18 @@ const PricingTeaser = () => {
   const { ref, isVisible } = useScrollAnimation();
 
   return (
-    <section id="prezzi" className="section-padding relative overflow-hidden">
+    <section id="servizi" className="section-padding relative overflow-hidden scroll-mt-24">
       <div className="hidden md:block absolute top-0 left-1/2 -translate-x-1/2 w-[700px] h-[700px] bg-primary/10 rounded-full blur-[230px]" />
 
       <div className="container mx-auto relative z-10" ref={ref}>
         <div className={`text-center mb-10 md:mb-14 transition-all duration-700 ${isVisible ? "opacity-100 translate-y-0" : "opacity-0 translate-y-8"}`}>
           <div className="red-line mx-auto mb-4" />
           <h2 className="text-2xl md:text-4xl font-black mb-3">
-            I nostri <span className="text-gradient">servizi e prezzi</span>
+            I nostri <span className="text-gradient">servizi</span>
           </h2>
-          <p className="text-muted-foreground max-w-xl mx-auto text-sm md:text-base">
-            Scopri tutti i piani, abbonamenti e servizi extra in un'unica pagina.
-          </p>
+            <p className="text-muted-foreground max-w-xl mx-auto text-sm md:text-base">
+             Scopri i servizi disponibili e apri la pagina dedicata con tutti i dettagli.
+           </p>
         </div>
 
         <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-4 md:gap-6 max-w-6xl mx-auto mb-10">
