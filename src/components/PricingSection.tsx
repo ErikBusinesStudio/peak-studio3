@@ -1,6 +1,8 @@
 import { Check, Zap, Crown, Sparkles, QrCode, Smartphone, Globe, Wrench, TrendingUp, Headphones, ArrowRight } from "lucide-react";
 import { useScrollAnimation } from "@/hooks/useScrollAnimation";
 
+const contactWhatsAppLink = "https://wa.me/393913168231?text=Ciao%2C%20vorrei%20ricevere%20informazioni%20sui%20vostri%20servizi.";
+
 type Plan = {
   name: string;
   price: string;
@@ -282,7 +284,9 @@ const PlanCard = ({ plan, delay, isVisible }: { plan: Plan; delay: number; isVis
     </ul>
 
     <a
-      href="#contatti"
+      href={contactWhatsAppLink}
+      target="_blank"
+      rel="noopener noreferrer"
       className={`group/cta ${plan.highlighted ? "btn-cta" : "btn-cta-soft"} w-full`}
     >
       {plan.cta}
@@ -363,6 +367,15 @@ const PricingSection = () => {
           {subscriptionPlans.map((plan, i) => (
             <PlanCard key={plan.name} plan={plan} delay={i * 120} isVisible={isVisible} />
           ))}
+        </div>
+
+        <div id="volantini" className={`scroll-mt-24 text-center mb-8 md:mb-12 transition-all duration-700 ${isVisible ? "opacity-100 translate-y-0" : "opacity-0 translate-y-8"}`}>
+          <h2 className="text-2xl md:text-4xl font-black mb-3">
+            Volantini & <span className="text-gradient">Distribuzione</span>
+          </h2>
+          <p className="text-muted-foreground max-w-xl mx-auto text-sm md:text-base">
+            Creazione, stampa e distribuzione locale gestite in un unico servizio per portare clienti reali alla tua attività.
+          </p>
         </div>
 
         {/* Sezione 5 — Servizi extra */}
