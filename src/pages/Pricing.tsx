@@ -1,5 +1,6 @@
 import { ArrowLeft } from "lucide-react";
-import { Link } from "react-router-dom";
+import { Link, useLocation } from "react-router-dom";
+import { useEffect } from "react";
 import Header from "@/components/Header";
 import Footer from "@/components/Footer";
 import PricingSection from "@/components/PricingSection";
@@ -7,6 +8,22 @@ import FloatingWhatsApp from "@/components/FloatingWhatsApp";
 import ContactSection from "@/components/ContactSection";
 
 const Pricing = () => {
+  const { hash } = useLocation();
+
+  useEffect(() => {
+    if (hash) {
+      const id = hash.replace("#", "");
+      const tryScroll = () => {
+        const el = document.getElementById(id);
+        if (el) el.scrollIntoView({ behavior: "smooth", block: "start" });
+      };
+      // Wait for layout
+      setTimeout(tryScroll, 100);
+    } else {
+      window.scrollTo(0, 0);
+    }
+  }, [hash]);
+
   return (
     <>
       <Header />
