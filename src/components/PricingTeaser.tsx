@@ -1,5 +1,5 @@
 import { Link } from "react-router-dom";
-import { Globe, Wrench, QrCode, Sparkles, ArrowRight } from "lucide-react";
+import { Globe, Wrench, QrCode, Sparkles, ArrowRight, FileText, Megaphone } from "lucide-react";
 import { useScrollAnimation } from "@/hooks/useScrollAnimation";
 
 const cubes = [
@@ -8,24 +8,42 @@ const cubes = [
     title: "Siti Web",
     desc: "Da 300€",
     sub: "Landing page, siti professionali e premium",
+    to: "/prezzi#siti-web",
   },
   {
-    icon: Sparkles,
+    icon: Megaphone,
     title: "Abbonamenti",
     desc: "Da 299€/mese",
     sub: "Gestione social, contenuti e immagine online",
+    to: "/prezzi#abbonamenti",
   },
   {
     icon: Wrench,
     title: "Gestione Sito",
     desc: "Da 30€/mese",
     sub: "Hosting, sicurezza e aggiornamenti",
+    to: "/prezzi#gestione-sito",
   },
   {
     icon: QrCode,
-    title: "QR Code & Extra",
+    title: "QR Code",
     desc: "Da 20€",
-    sub: "QR dinamici, branding, shooting ed eventi",
+    sub: "QR statici e dinamici personalizzati",
+    to: "/prezzi#qr-code",
+  },
+  {
+    icon: FileText,
+    title: "Volantini",
+    desc: "Da 120€",
+    sub: "Design, stampa e distribuzione sul territorio",
+    to: "/prezzi#volantini",
+  },
+  {
+    icon: Sparkles,
+    title: "Branding & Extra",
+    desc: "Da 80€",
+    sub: "Logo, shooting, eventi e identità visiva",
+    to: "/prezzi#extra",
   },
 ];
 
@@ -47,11 +65,11 @@ const PricingTeaser = () => {
           </p>
         </div>
 
-        <div className="grid sm:grid-cols-2 lg:grid-cols-4 gap-4 md:gap-6 max-w-6xl mx-auto mb-10">
+        <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-4 md:gap-6 max-w-6xl mx-auto mb-10">
           {cubes.map((c, i) => (
             <Link
               key={c.title}
-              to="/prezzi"
+              to={c.to}
               className={`group relative bg-card border border-border rounded-2xl p-6 md:p-7 hover:border-primary/60 hover:scale-[1.03] hover:glow transition-all duration-500 flex flex-col ${
                 isVisible ? "opacity-100 translate-y-0" : "opacity-0 translate-y-8"
               }`}

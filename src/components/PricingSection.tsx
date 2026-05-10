@@ -295,12 +295,12 @@ const PricingSection = () => {
   const { ref, isVisible } = useScrollAnimation();
 
   return (
-    <section id="prezzi" className="section-padding relative overflow-hidden">
+    <section id="prezzi" className="section-padding relative overflow-hidden scroll-mt-24">
       <div className="hidden md:block absolute top-0 left-1/2 -translate-x-1/2 w-[800px] h-[800px] bg-primary/12 rounded-full blur-[250px]" />
 
       <div className="container mx-auto relative z-10" ref={ref}>
         {/* Sezione 1 — Creazione sito */}
-        <div className={`text-center mb-10 md:mb-14 transition-all duration-700 ${isVisible ? "opacity-100 translate-y-0" : "opacity-0 translate-y-8"}`}>
+        <div id="siti-web" className={`scroll-mt-24 text-center mb-10 md:mb-14 transition-all duration-700 ${isVisible ? "opacity-100 translate-y-0" : "opacity-0 translate-y-8"}`}>
           <div className="red-line mx-auto mb-4" />
           <h2 className="text-2xl md:text-4xl font-black mb-3">
             Scegli la <span className="text-gradient">soluzione giusta</span> per la tua attività
@@ -317,7 +317,7 @@ const PricingSection = () => {
         </div>
 
         {/* Sezione 2 — Gestione mensile */}
-        <div className={`text-center mb-8 md:mb-12 transition-all duration-700 ${isVisible ? "opacity-100 translate-y-0" : "opacity-0 translate-y-8"}`}>
+        <div id="gestione-sito" className={`scroll-mt-24 text-center mb-8 md:mb-12 transition-all duration-700 ${isVisible ? "opacity-100 translate-y-0" : "opacity-0 translate-y-8"}`}>
           <h2 className="text-2xl md:text-4xl font-black mb-3">
             Mantieni il tuo sito <span className="text-gradient">sempre aggiornato</span>
           </h2>
@@ -333,7 +333,7 @@ const PricingSection = () => {
         </div>
 
         {/* Sezione 3 — QR Code */}
-        <div className={`text-center mb-8 md:mb-12 transition-all duration-700 ${isVisible ? "opacity-100 translate-y-0" : "opacity-0 translate-y-8"}`}>
+        <div id="qr-code" className={`scroll-mt-24 text-center mb-8 md:mb-12 transition-all duration-700 ${isVisible ? "opacity-100 translate-y-0" : "opacity-0 translate-y-8"}`}>
           <h2 className="text-2xl md:text-4xl font-black mb-3">
             Più recensioni e clienti con i <span className="text-gradient">QR Code</span>
           </h2>
@@ -349,7 +349,7 @@ const PricingSection = () => {
         </div>
 
         {/* Sezione 4 — Abbonamenti mensili */}
-        <div className={`text-center mt-20 md:mt-28 mb-8 md:mb-12 transition-all duration-700 ${isVisible ? "opacity-100 translate-y-0" : "opacity-0 translate-y-8"}`}>
+        <div id="abbonamenti" className={`scroll-mt-24 text-center mt-20 md:mt-28 mb-8 md:mb-12 transition-all duration-700 ${isVisible ? "opacity-100 translate-y-0" : "opacity-0 translate-y-8"}`}>
           <div className="red-line mx-auto mb-4" />
           <h2 className="text-2xl md:text-4xl font-black mb-3">
             Piani <span className="text-gradient">abbonamento mensile</span>
@@ -366,7 +366,7 @@ const PricingSection = () => {
         </div>
 
         {/* Sezione 5 — Servizi extra */}
-        <div className={`text-center mb-8 md:mb-12 transition-all duration-700 ${isVisible ? "opacity-100 translate-y-0" : "opacity-0 translate-y-8"}`}>
+        <div id="extra" className={`scroll-mt-24 text-center mb-8 md:mb-12 transition-all duration-700 ${isVisible ? "opacity-100 translate-y-0" : "opacity-0 translate-y-8"}`}>
           <h2 className="text-2xl md:text-4xl font-black mb-3">
             Servizi <span className="text-gradient">extra</span>
           </h2>
