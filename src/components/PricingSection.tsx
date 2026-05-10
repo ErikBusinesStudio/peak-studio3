@@ -143,6 +143,101 @@ const qrPlans: Plan[] = [
   },
 ];
 
+const subscriptionPlans: Plan[] = [
+  {
+    name: "Start",
+    price: "299",
+    priceSuffix: "/mese",
+    desc: "Presenza online base ma professionale — bar, pizzerie, kebab, negozi locali",
+    icon: <Zap className="w-5 h-5" />,
+    features: [
+      "Gestione Instagram base",
+      "1 contenuto a settimana (post o reel)",
+      "3–5 stories a settimana",
+      "Ottimizzazione profilo Instagram",
+      "1 locandina promozionale al mese",
+      "Aggiornamenti semplici sito",
+      "Assistenza WhatsApp",
+    ],
+    cta: "Inizia con Start",
+  },
+  {
+    name: "Growth",
+    price: "549",
+    priceSuffix: "/mese",
+    desc: "Crescita reale e costante online — ristoranti, cocktail bar, locali attivi",
+    badge: "Più scelto",
+    badgeIcon: <TrendingUp className="w-3 h-3" />,
+    highlighted: true,
+    icon: <Sparkles className="w-5 h-5" />,
+    features: [
+      "Tutto del piano Start +",
+      "2 contenuti a settimana (reel/post)",
+      "Stories quasi giornaliere",
+      "Grafiche promozionali illimitate",
+      "1 shooting foto/video al mese",
+      "Gestione Google Business Profile",
+      "Menù digitali / eventi",
+      "Analisi profilo + consigli crescita",
+      "Priorità assistenza",
+    ],
+    cta: "Scegli Growth",
+  },
+  {
+    name: "Premium",
+    price: "999",
+    priceSuffix: "/mese",
+    desc: "Branding completo + presenza forte + status premium",
+    icon: <Crown className="w-5 h-5" />,
+    features: [
+      "Tutto del piano Growth +",
+      "3–5 reel a settimana",
+      "Gestione completa Instagram + TikTok",
+      "Shooting professionali frequenti",
+      "Copertura eventi",
+      "Aggiornamento continuo sito",
+      "Mini campagne ads Meta",
+      "Strategia contenuti personalizzata",
+      "Design grafico avanzato",
+      "Assistenza prioritaria totale",
+    ],
+    cta: "Vai Premium",
+  },
+];
+
+const extraServices: Plan[] = [
+  {
+    name: "Branding",
+    price: "150–500",
+    priceSuffix: "una tantum",
+    desc: "Identità visiva completa per il tuo brand",
+    icon: <Sparkles className="w-5 h-5" />,
+    features: ["Logo professionale", "Palette colori", "Font dedicati", "Identità visiva completa"],
+    cta: "Richiedi preventivo",
+  },
+  {
+    name: "Shooting Singolo",
+    price: "80–250",
+    priceSuffix: "una tantum",
+    desc: "Contenuti foto/video professionali",
+    badge: "Pronto all'uso",
+    badgeIcon: <Sparkles className="w-3 h-3" />,
+    highlighted: true,
+    icon: <Smartphone className="w-5 h-5" />,
+    features: ["Shooting dedicato", "Foto + video professionali", "Editing incluso", "Pronti per i social"],
+    cta: "Prenota shooting",
+  },
+  {
+    name: "Eventi",
+    price: "100–400",
+    priceSuffix: "a evento",
+    desc: "Copertura completa dei tuoi eventi",
+    icon: <Crown className="w-5 h-5" />,
+    features: ["Copertura evento", "Foto + reel", "Contenuti social pronti", "Consegna rapida"],
+    cta: "Richiedi info",
+  },
+];
+
 const PlanCard = ({ plan, delay, isVisible }: { plan: Plan; delay: number; isVisible: boolean }) => (
   <div
     className={`relative rounded-2xl p-5 md:p-7 border transition-all duration-500 hover:scale-[1.02] flex flex-col ${
@@ -252,6 +347,39 @@ const PricingSection = () => {
 
         <div className="grid md:grid-cols-2 gap-4 md:gap-6 max-w-3xl mx-auto">
           {qrPlans.map((plan, i) => (
+            <PlanCard key={plan.name} plan={plan} delay={i * 120} isVisible={isVisible} />
+          ))}
+        </div>
+
+        {/* Sezione 4 — Abbonamenti mensili */}
+        <div className={`text-center mt-20 md:mt-28 mb-8 md:mb-12 transition-all duration-700 ${isVisible ? "opacity-100 translate-y-0" : "opacity-0 translate-y-8"}`}>
+          <div className="red-line mx-auto mb-4" />
+          <h2 className="text-2xl md:text-4xl font-black mb-3">
+            Piani <span className="text-gradient">abbonamento mensile</span>
+          </h2>
+          <p className="text-muted-foreground max-w-xl mx-auto text-sm md:text-base">
+            Gestione completa di social, contenuti e immagine online. Tutto incluso, ogni mese.
+          </p>
+        </div>
+
+        <div className="grid md:grid-cols-3 gap-4 md:gap-6 max-w-5xl mx-auto mb-16 md:mb-24">
+          {subscriptionPlans.map((plan, i) => (
+            <PlanCard key={plan.name} plan={plan} delay={i * 120} isVisible={isVisible} />
+          ))}
+        </div>
+
+        {/* Sezione 5 — Servizi extra */}
+        <div className={`text-center mb-8 md:mb-12 transition-all duration-700 ${isVisible ? "opacity-100 translate-y-0" : "opacity-0 translate-y-8"}`}>
+          <h2 className="text-2xl md:text-4xl font-black mb-3">
+            Servizi <span className="text-gradient">extra</span>
+          </h2>
+          <p className="text-muted-foreground max-w-xl mx-auto text-sm md:text-base">
+            Aggiungi solo ciò che ti serve, quando ti serve.
+          </p>
+        </div>
+
+        <div className="grid md:grid-cols-3 gap-4 md:gap-6 max-w-5xl mx-auto">
+          {extraServices.map((plan, i) => (
             <PlanCard key={plan.name} plan={plan} delay={i * 120} isVisible={isVisible} />
           ))}
         </div>
