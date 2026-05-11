@@ -1,6 +1,12 @@
 import { Link } from "react-router-dom";
 import { Globe, Wrench, QrCode, Sparkles, ArrowRight, FileText, Megaphone } from "lucide-react";
 import { useScrollAnimation } from "@/hooks/useScrollAnimation";
+import imgSitiWeb from "@/assets/service-siti-web.jpg";
+import imgAbbonamenti from "@/assets/service-abbonamenti.jpg";
+import imgGestione from "@/assets/service-gestione.jpg";
+import imgQrCode from "@/assets/service-qrcode.jpg";
+import imgVolantini from "@/assets/service-volantini.jpg";
+import imgBranding from "@/assets/service-branding.jpg";
 
 const cubes = [
   {
@@ -9,6 +15,7 @@ const cubes = [
     desc: "Da 300€",
     sub: "Landing page, siti professionali e premium",
     to: "/prezzi#siti-web",
+    image: imgSitiWeb,
   },
   {
     icon: Megaphone,
@@ -16,6 +23,7 @@ const cubes = [
     desc: "Da 299€/mese",
     sub: "Gestione social, contenuti e immagine online",
     to: "/prezzi#abbonamenti",
+    image: imgAbbonamenti,
   },
   {
     icon: Wrench,
@@ -23,6 +31,7 @@ const cubes = [
     desc: "Da 30€/mese",
     sub: "Hosting, sicurezza e aggiornamenti",
     to: "/prezzi#gestione-sito",
+    image: imgGestione,
   },
   {
     icon: QrCode,
@@ -30,6 +39,7 @@ const cubes = [
     desc: "Da 20€",
     sub: "QR statici e dinamici personalizzati",
     to: "/prezzi#qr-code",
+    image: imgQrCode,
   },
   {
     icon: FileText,
@@ -37,6 +47,7 @@ const cubes = [
     desc: "Da 120€",
     sub: "Design, stampa e distribuzione sul territorio",
     to: "/prezzi#volantini",
+    image: imgVolantini,
   },
   {
     icon: Sparkles,
@@ -44,6 +55,7 @@ const cubes = [
     desc: "Da 80€",
     sub: "Logo, shooting, eventi e identità visiva",
     to: "/prezzi#extra",
+    image: imgBranding,
   },
 ];
 
@@ -70,20 +82,33 @@ const PricingTeaser = () => {
             <Link
               key={c.title}
               to={c.to}
-              className={`group relative bg-card border border-border rounded-2xl p-6 md:p-7 hover:border-primary/60 hover:scale-[1.03] hover:glow transition-all duration-500 flex flex-col ${
+              className={`group relative bg-card border border-border rounded-2xl overflow-hidden hover:border-primary/60 hover:scale-[1.03] hover:glow transition-all duration-500 flex flex-col ${
                 isVisible ? "opacity-100 translate-y-0" : "opacity-0 translate-y-8"
               }`}
               style={{ transitionDelay: `${i * 100}ms` }}
             >
-              <div className="w-12 h-12 rounded-xl bg-primary/10 flex items-center justify-center mb-4 group-hover:bg-primary group-hover:text-primary-foreground transition-all">
-                <c.icon className="w-6 h-6 text-primary group-hover:text-primary-foreground transition-colors" />
+              <div className="relative aspect-[16/10] overflow-hidden">
+                <img
+                  src={c.image}
+                  alt={c.title}
+                  loading="lazy"
+                  width={768}
+                  height={512}
+                  className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-700"
+                />
+                <div className="absolute inset-0 bg-gradient-to-t from-card via-card/60 to-transparent" />
+                <div className="absolute top-3 left-3 w-10 h-10 rounded-xl bg-background/80 backdrop-blur flex items-center justify-center border border-border">
+                  <c.icon className="w-5 h-5 text-primary" />
+                </div>
               </div>
-              <h3 className="text-lg md:text-xl font-black mb-1">{c.title}</h3>
-              <p className="text-primary font-bold text-sm mb-2">{c.desc}</p>
-              <p className="text-muted-foreground text-xs md:text-sm flex-1">{c.sub}</p>
-              <span className="mt-4 inline-flex items-center gap-1 text-xs font-bold uppercase tracking-wider text-primary">
-                Scopri <ArrowRight className="w-3 h-3 group-hover:translate-x-1 transition-transform" />
-              </span>
+              <div className="p-6 md:p-7 flex flex-col flex-1">
+                <h3 className="text-lg md:text-xl font-black mb-1">{c.title}</h3>
+                <p className="text-primary font-bold text-sm mb-2">{c.desc}</p>
+                <p className="text-muted-foreground text-xs md:text-sm flex-1">{c.sub}</p>
+                <span className="mt-4 inline-flex items-center gap-1 text-xs font-bold uppercase tracking-wider text-primary">
+                  Scopri <ArrowRight className="w-3 h-3 group-hover:translate-x-1 transition-transform" />
+                </span>
+              </div>
             </Link>
           ))}
         </div>
