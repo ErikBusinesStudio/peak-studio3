@@ -267,17 +267,6 @@ export const services: Service[] = [
         ],
         cta: "Richiedi informazioni",
       },
-      {
-        name: "QR Code Dinamico",
-        price: "5–10",
-        priceSuffix: "/mese",
-        desc: "Cambia la destinazione quando vuoi, perfetto per le promozioni",
-        badge: "Flessibile",
-        highlighted: true,
-        icon: Smartphone,
-        features: ["Modificabile nel tempo", "Perfetto per campagne e promozioni", "Statistiche di scansione"],
-        cta: "Richiedi informazioni",
-      },
     ],
   },
   {
