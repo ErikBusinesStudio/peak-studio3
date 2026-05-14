@@ -14,7 +14,7 @@ const cubes = [
     title: "Siti Web",
     desc: "Da 300€",
     sub: "Landing page, siti professionali e premium",
-    to: "/prezzi#siti-web",
+    to: "/servizi/siti-web",
     image: imgSitiWeb,
   },
   {
@@ -22,7 +22,7 @@ const cubes = [
     title: "Abbonamenti",
     desc: "Da 299€/mese",
     sub: "Gestione social, contenuti e immagine online",
-    to: "/prezzi#abbonamenti",
+    to: "/servizi/abbonamenti",
     image: imgAbbonamenti,
   },
   {
@@ -30,7 +30,7 @@ const cubes = [
     title: "Gestione Sito",
     desc: "Da 30€/mese",
     sub: "Hosting, sicurezza e aggiornamenti",
-    to: "/prezzi#gestione-sito",
+    to: "/servizi/gestione-sito",
     image: imgGestione,
   },
   {
@@ -38,7 +38,7 @@ const cubes = [
     title: "QR Code",
     desc: "Da 20€",
     sub: "QR statici e dinamici personalizzati",
-    to: "/prezzi#qr-code",
+    to: "/servizi/qr-code",
     image: imgQrCode,
   },
   {
@@ -46,7 +46,7 @@ const cubes = [
     title: "Volantini",
     desc: "Da 120€",
     sub: "Design, stampa e distribuzione sul territorio",
-    to: "/prezzi#volantini",
+    to: "/servizi/volantini",
     image: imgVolantini,
   },
   {
@@ -54,7 +54,7 @@ const cubes = [
     title: "Branding & Extra",
     desc: "Da 80€",
     sub: "Logo, shooting, eventi e identità visiva",
-    to: "/prezzi#extra",
+    to: "/servizi/extra",
     image: imgBranding,
   },
 ];
