@@ -249,9 +249,7 @@ export const services: Service[] = [
     benefits: [
       "Più recensioni Google in automatico",
       "Grafica personalizzata col tuo brand",
-      "Modificabile (versione dinamica)",
       "Pronto da stampare in alta qualità",
-      "Statistiche di scansione",
     ],
     plans: [
       {
@@ -265,17 +263,6 @@ export const services: Service[] = [
           "Grafica personalizzata",
           "Pronto da stampare",
         ],
-        cta: "Richiedi informazioni",
-      },
-      {
-        name: "QR Code Dinamico",
-        price: "5–10",
-        priceSuffix: "/mese",
-        desc: "Cambia la destinazione quando vuoi, perfetto per le promozioni",
-        badge: "Flessibile",
-        highlighted: true,
-        icon: Smartphone,
-        features: ["Modificabile nel tempo", "Perfetto per campagne e promozioni", "Statistiche di scansione"],
         cta: "Richiedi informazioni",
       },
     ],
