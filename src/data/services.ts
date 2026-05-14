@@ -249,9 +249,7 @@ export const services: Service[] = [
     benefits: [
       "Più recensioni Google in automatico",
       "Grafica personalizzata col tuo brand",
-      "Modificabile (versione dinamica)",
       "Pronto da stampare in alta qualità",
-      "Statistiche di scansione",
     ],
     plans: [
       {
