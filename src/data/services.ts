@@ -86,7 +86,7 @@ export const services: Service[] = [
         name: "Premium",
         price: "800+",
         priceSuffix: "una tantum",
-        desc: "Per chi vuole il massimo: sito completo e personalizzato",
+        desc: "Per chi vuole il massimo: sito completo e personalizzato (+700€ per ecommerce collegato al sito Standard)",
         icon: Crown,
         features: [
           "Sito completo personalizzato",
@@ -94,6 +94,7 @@ export const services: Service[] = [
           "Integrazioni (WhatsApp, prenotazioni, ecc.)",
           "Più revisioni incluse",
           "Priorità nella consegna",
+          "Add-on: +700€ ecommerce completo collegato al sito Standard",
         ],
         cta: "Richiedi informazioni",
       },
