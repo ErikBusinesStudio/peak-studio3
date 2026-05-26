@@ -106,7 +106,7 @@ export const services: Service[] = [
   },
   {
     slug: "abbonamenti",
-    title: "Abbonamenti Mensili",
+    title: "Gestione Social",
     tagline: "Gestione completa di social, contenuti e immagine online",
     description:
       "Pensiamo noi alla tua presenza online ogni mese: contenuti, social, grafiche e supporto. Tu ti concentri sul tuo locale, noi sui clienti.",
@@ -130,7 +130,7 @@ export const services: Service[] = [
         features: [
           "Gestione Instagram base",
           "1 contenuto a settimana (post o reel)",
-          "3–5 stories a settimana",
+          "2/3 stories a settimana",
           "Ottimizzazione profilo Instagram",
           "1 locandina promozionale al mese",
           "Aggiornamenti semplici sito",
@@ -149,7 +149,7 @@ export const services: Service[] = [
         features: [
           "Tutto del piano Start +",
           "2 contenuti a settimana (reel/post)",
-          "Stories quasi giornaliere",
+          "4/5 stories a settimana",
           "Grafiche promozionali illimitate",
           "1 shooting foto/video al mese",
           "Gestione Google Business Profile",
@@ -158,26 +158,6 @@ export const services: Service[] = [
           "Priorità assistenza",
         ],
         cta: "Scegli Growth",
-      },
-      {
-        name: "Premium",
-        price: "999",
-        priceSuffix: "/mese",
-        desc: "Branding completo + presenza forte + status premium — lounge bar, ristoranti premium, locali eventi",
-        icon: Crown,
-        features: [
-          "Tutto del piano Growth +",
-          "3–5 reel a settimana",
-          "Gestione completa Instagram + TikTok",
-          "Shooting professionali frequenti",
-          "Copertura eventi",
-          "Aggiornamento continuo sito",
-          "Mini campagne ads Meta",
-          "Strategia contenuti personalizzata",
-          "Design grafico avanzato",
-          "Assistenza prioritaria totale",
-        ],
-        cta: "Vai Premium",
       },
     ],
     faq: [
