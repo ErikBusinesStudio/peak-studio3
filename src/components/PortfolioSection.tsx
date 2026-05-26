@@ -1,19 +1,31 @@
+import { useState } from "react";
 import portfolioGym from "@/assets/portfolio-gym.jpg";
 import portfolioPizzeria from "@/assets/portfolio-pizzeria.jpg";
 import portfolioShop from "@/assets/portfolio-shop.jpg";
-import { ExternalLink } from "lucide-react";
+import volantinoImg from "@/assets/service-volantini.jpg";
+import { ExternalLink, Globe, FileText } from "lucide-react";
 import { useScrollAnimation } from "@/hooks/useScrollAnimation";
 import { useI18n } from "@/contexts/I18nContext";
 
-const projects = [
-  { img: portfolioGym, title: "Cuvio Pizza Hub", category: "Food & Beverage", url: "https://cuvio-pizza-hub.lovable.app" },
-  { img: portfolioPizzeria, title: "Pizzeria da Mario", category: "Food & Beverage", url: "#" },
+const sites = [
+  { img: portfolioGym, title: "CTS Cuvio", category: "Food & Beverage", url: "https://cuvio-pizza-hub.lovable.app" },
+  { img: portfolioPizzeria, title: "E-Riutility", category: "Sostenibilità & Riuso", url: "https://e-riutility-reborn.lovable.app" },
   { img: portfolioShop, title: "Boutique Locale", category: "Retail & Shopping", url: "#" },
 ];
+
+const flyers = [
+  { img: volantinoImg, title: "Promo Pizzeria", category: "Volantino A5" },
+  { img: volantinoImg, title: "Apertura Bar", category: "Locandina A4" },
+  { img: volantinoImg, title: "Evento Live", category: "Locandina A3" },
+  { img: volantinoImg, title: "Menù Stagionale", category: "Volantino A5" },
+];
+
+type Tab = "sites" | "flyers";
 
 const PortfolioSection = () => {
   const { ref, isVisible } = useScrollAnimation();
   const { t } = useI18n();
+  const [tab, setTab] = useState<Tab>("sites");
 
   return (
     <section id="portfolio" className="section-padding bg-card/50 relative overflow-hidden">
@@ -24,22 +36,78 @@ const PortfolioSection = () => {
           <h2 className="text-2xl md:text-5xl font-black mb-3">{t("portfolio.title")}</h2>
           <p className="text-muted-foreground max-w-md mx-auto text-sm md:text-base">{t("portfolio.subtitle")}</p>
         </div>
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-4 md:gap-6">
-          {projects.map((p, i) => (
-            <a key={p.title} href={p.url} target="_blank" rel="noopener noreferrer" className={`group rounded-xl overflow-hidden border border-border bg-card hover:border-primary/40 hover:scale-[1.03] transition-all duration-500 cursor-pointer block ${isVisible ? "opacity-100 translate-y-0" : "opacity-0 translate-y-8"}`} style={{ transitionDelay: `${i * 200}ms` }}>
-              <div className="relative overflow-hidden">
-                <img src={p.img} alt={p.title} className="w-full h-40 md:h-56 object-cover group-hover:scale-110 transition-transform duration-700" loading="lazy" width={800} height={512} />
-                <div className="absolute inset-0 bg-primary/0 group-hover:bg-primary/20 transition-colors duration-300 flex items-center justify-center">
-                  <ExternalLink className="w-8 h-8 text-primary-foreground opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
+
+        {/* Tabs */}
+        <div className="flex justify-center mb-8 md:mb-10">
+          <div className="inline-flex p-1 bg-card border border-border rounded-full">
+            {([
+              { id: "sites", label: "Siti Web", Icon: Globe },
+              { id: "flyers", label: "Volantini", Icon: FileText },
+            ] as const).map((opt) => (
+              <button
+                key={opt.id}
+                onClick={() => setTab(opt.id)}
+                className={`inline-flex items-center gap-2 px-4 md:px-5 py-2 text-xs md:text-sm font-bold uppercase tracking-wider rounded-full transition-all duration-300 ${
+                  tab === opt.id
+                    ? "bg-primary text-primary-foreground shadow-[0_0_20px_-4px_hsl(var(--primary)/0.6)]"
+                    : "text-muted-foreground hover:text-foreground"
+                }`}
+              >
+                <opt.Icon className="w-3.5 h-3.5" />
+                {opt.label}
+              </button>
+            ))}
+          </div>
+        </div>
+
+        {/* Sites */}
+        {tab === "sites" && (
+          <div key="sites" className="grid grid-cols-1 md:grid-cols-3 gap-4 md:gap-6 animate-fade-in">
+            {sites.map((p, i) => (
+              <a
+                key={p.title}
+                href={p.url}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="group rounded-xl overflow-hidden border border-border bg-card hover:border-primary/40 hover:scale-[1.03] hover:-translate-y-1 transition-all duration-500 cursor-pointer block"
+                style={{ animation: `fade-in 0.5s ease-out ${i * 100}ms both` }}
+              >
+                <div className="relative overflow-hidden">
+                  <img src={p.img} alt={p.title} className="w-full h-40 md:h-56 object-cover group-hover:scale-110 transition-transform duration-700" loading="lazy" width={800} height={512} />
+                  <div className="absolute inset-0 bg-primary/0 group-hover:bg-primary/20 transition-colors duration-300 flex items-center justify-center">
+                    <ExternalLink className="w-8 h-8 text-primary-foreground opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
+                  </div>
+                </div>
+                <div className="p-4 md:p-6">
+                  <span className="text-[10px] font-bold text-primary uppercase tracking-[0.2em]">{p.category}</span>
+                  <h3 className="font-bold text-base md:text-lg mt-1">{p.title}</h3>
+                </div>
+              </a>
+            ))}
+          </div>
+        )}
+
+        {/* Flyers — compact grid */}
+        {tab === "flyers" && (
+          <div key="flyers" className="grid grid-cols-2 md:grid-cols-4 gap-3 md:gap-4 animate-fade-in">
+            {flyers.map((f, i) => (
+              <div
+                key={f.title + i}
+                className="group rounded-lg overflow-hidden border border-border bg-card hover:border-primary/40 hover:-translate-y-1 transition-all duration-500"
+                style={{ animation: `fade-in 0.5s ease-out ${i * 80}ms both` }}
+              >
+                <div className="relative overflow-hidden aspect-[3/4]">
+                  <img src={f.img} alt={f.title} loading="lazy" className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-700" />
+                  <div className="absolute inset-0 bg-gradient-to-t from-card via-card/30 to-transparent" />
+                </div>
+                <div className="p-3">
+                  <span className="text-[9px] font-bold text-primary uppercase tracking-[0.15em]">{f.category}</span>
+                  <h3 className="font-bold text-sm mt-0.5 truncate">{f.title}</h3>
                 </div>
               </div>
-              <div className="p-4 md:p-6">
-                <span className="text-[10px] font-bold text-primary uppercase tracking-[0.2em]">{p.category}</span>
-                <h3 className="font-bold text-base md:text-lg mt-1">{p.title}</h3>
-              </div>
-            </a>
-          ))}
-        </div>
+            ))}
+          </div>
+        )}
       </div>
     </section>
   );

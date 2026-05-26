@@ -86,7 +86,7 @@ export const services: Service[] = [
         name: "Premium",
         price: "800+",
         priceSuffix: "una tantum",
-        desc: "Per chi vuole il massimo: sito completo e personalizzato",
+        desc: "Per chi vuole il massimo: sito completo e personalizzato (+700€ per ecommerce collegato al sito Standard)",
         icon: Crown,
         features: [
           "Sito completo personalizzato",
@@ -94,6 +94,7 @@ export const services: Service[] = [
           "Integrazioni (WhatsApp, prenotazioni, ecc.)",
           "Più revisioni incluse",
           "Priorità nella consegna",
+          "Add-on: +700€ ecommerce completo collegato al sito Standard",
         ],
         cta: "Richiedi informazioni",
       },
@@ -105,7 +106,7 @@ export const services: Service[] = [
   },
   {
     slug: "abbonamenti",
-    title: "Abbonamenti Mensili",
+    title: "Gestione Social",
     tagline: "Gestione completa di social, contenuti e immagine online",
     description:
       "Pensiamo noi alla tua presenza online ogni mese: contenuti, social, grafiche e supporto. Tu ti concentri sul tuo locale, noi sui clienti.",
@@ -129,7 +130,7 @@ export const services: Service[] = [
         features: [
           "Gestione Instagram base",
           "1 contenuto a settimana (post o reel)",
-          "3–5 stories a settimana",
+          "2/3 stories a settimana",
           "Ottimizzazione profilo Instagram",
           "1 locandina promozionale al mese",
           "Aggiornamenti semplici sito",
@@ -148,7 +149,7 @@ export const services: Service[] = [
         features: [
           "Tutto del piano Start +",
           "2 contenuti a settimana (reel/post)",
-          "Stories quasi giornaliere",
+          "4/5 stories a settimana",
           "Grafiche promozionali illimitate",
           "1 shooting foto/video al mese",
           "Gestione Google Business Profile",
@@ -157,26 +158,6 @@ export const services: Service[] = [
           "Priorità assistenza",
         ],
         cta: "Scegli Growth",
-      },
-      {
-        name: "Premium",
-        price: "999",
-        priceSuffix: "/mese",
-        desc: "Branding completo + presenza forte + status premium — lounge bar, ristoranti premium, locali eventi",
-        icon: Crown,
-        features: [
-          "Tutto del piano Growth +",
-          "3–5 reel a settimana",
-          "Gestione completa Instagram + TikTok",
-          "Shooting professionali frequenti",
-          "Copertura eventi",
-          "Aggiornamento continuo sito",
-          "Mini campagne ads Meta",
-          "Strategia contenuti personalizzata",
-          "Design grafico avanzato",
-          "Assistenza prioritaria totale",
-        ],
-        cta: "Vai Premium",
       },
     ],
     faq: [
@@ -223,7 +204,7 @@ export const services: Service[] = [
       },
       {
         name: "Pro",
-        price: "80–100",
+        price: "80",
         priceSuffix: "/mese",
         desc: "Per chi vuole crescere davvero, con consigli e priorità",
         icon: Headphones,
@@ -339,7 +320,7 @@ export const services: Service[] = [
     plans: [
       {
         name: "Branding",
-        price: "150–500",
+        price: "150",
         priceSuffix: "una tantum",
         desc: "Identità visiva completa per il tuo brand",
         icon: Sparkles,
@@ -348,7 +329,7 @@ export const services: Service[] = [
       },
       {
         name: "Shooting Singolo",
-        price: "80–250",
+        price: "200",
         priceSuffix: "una tantum",
         desc: "Contenuti foto/video professionali pronti per i social",
         badge: "Pronto all'uso",
@@ -359,7 +340,7 @@ export const services: Service[] = [
       },
       {
         name: "Eventi",
-        price: "100–400",
+        price: "250",
         priceSuffix: "a evento",
         desc: "Copertura completa dei tuoi eventi",
         icon: Crown,
