@@ -142,7 +142,11 @@ const ServiceDetail = () => {
 
             <div
               className={`grid gap-4 md:gap-6 max-w-5xl mx-auto ${
-                service.plans.length === 2 ? "md:grid-cols-2 max-w-3xl" : "md:grid-cols-3"
+                service.plans.length === 1
+                  ? "md:grid-cols-1 max-w-md place-items-center"
+                  : service.plans.length === 2
+                  ? "md:grid-cols-2 max-w-3xl"
+                  : "md:grid-cols-3"
               }`}
             >
               {service.plans.map((plan) => {
