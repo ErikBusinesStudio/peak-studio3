@@ -204,7 +204,7 @@ export const services: Service[] = [
       },
       {
         name: "Pro",
-        price: "80–100",
+        price: "80",
         priceSuffix: "/mese",
         desc: "Per chi vuole crescere davvero, con consigli e priorità",
         icon: Headphones,
