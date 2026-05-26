@@ -19,7 +19,7 @@ const cubes = [
   },
   {
     icon: Megaphone,
-    title: "Abbonamenti",
+    title: "Gestione Social",
     desc: "Da 299€/mese",
     sub: "Gestione social, contenuti e immagine online",
     to: "/servizi/abbonamenti",
