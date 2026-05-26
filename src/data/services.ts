@@ -320,7 +320,7 @@ export const services: Service[] = [
     plans: [
       {
         name: "Branding",
-        price: "150–500",
+        price: "150",
         priceSuffix: "una tantum",
         desc: "Identità visiva completa per il tuo brand",
         icon: Sparkles,
@@ -329,7 +329,7 @@ export const services: Service[] = [
       },
       {
         name: "Shooting Singolo",
-        price: "80–250",
+        price: "200",
         priceSuffix: "una tantum",
         desc: "Contenuti foto/video professionali pronti per i social",
         badge: "Pronto all'uso",
@@ -340,7 +340,7 @@ export const services: Service[] = [
       },
       {
         name: "Eventi",
-        price: "100–400",
+        price: "250",
         priceSuffix: "a evento",
         desc: "Copertura completa dei tuoi eventi",
         icon: Crown,
