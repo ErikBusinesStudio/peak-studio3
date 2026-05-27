@@ -8,16 +8,16 @@ import { useScrollAnimation } from "@/hooks/useScrollAnimation";
 import { useI18n } from "@/contexts/I18nContext";
 
 const sites = [
-  { img: portfolioGym, title: "CTS Cuvio", category: "Food & Beverage", url: "https://cuvio-pizza-hub.lovable.app" },
-  { img: portfolioPizzeria, title: "E-Riutility", category: "Sostenibilità & Riuso", url: "https://e-riutility-reborn.lovable.app" },
-  { img: portfolioShop, title: "Boutique Locale", category: "Retail & Shopping", url: "#" },
+  { img: portfolioGym, titleKey: "portfolio.site1.title", catKey: "portfolio.site1.cat", url: "https://cuvio-pizza-hub.lovable.app" },
+  { img: portfolioPizzeria, titleKey: "portfolio.site2.title", catKey: "portfolio.site2.cat", url: "https://e-riutility-reborn.lovable.app" },
+  { img: portfolioShop, titleKey: "portfolio.site3.title", catKey: "portfolio.site3.cat", url: "#" },
 ];
 
 const flyers = [
-  { img: volantinoImg, title: "Promo Pizzeria", category: "Volantino A5" },
-  { img: volantinoImg, title: "Apertura Bar", category: "Locandina A4" },
-  { img: volantinoImg, title: "Evento Live", category: "Locandina A3" },
-  { img: volantinoImg, title: "Menù Stagionale", category: "Volantino A5" },
+  { img: volantinoImg, titleKey: "portfolio.flyer1.title", catKey: "portfolio.flyer1.cat" },
+  { img: volantinoImg, titleKey: "portfolio.flyer2.title", catKey: "portfolio.flyer2.cat" },
+  { img: volantinoImg, titleKey: "portfolio.flyer3.title", catKey: "portfolio.flyer3.cat" },
+  { img: volantinoImg, titleKey: "portfolio.flyer4.title", catKey: "portfolio.flyer4.cat" },
 ];
 
 type Tab = "sites" | "flyers";
@@ -41,8 +41,8 @@ const PortfolioSection = () => {
         <div className="flex justify-center mb-8 md:mb-10">
           <div className="inline-flex p-1 bg-card border border-border rounded-full">
             {([
-              { id: "sites", label: "Siti Web", Icon: Globe },
-              { id: "flyers", label: "Volantini", Icon: FileText },
+              { id: "sites", labelKey: "portfolio.tab.sites", Icon: Globe },
+              { id: "flyers", labelKey: "portfolio.tab.flyers", Icon: FileText },
             ] as const).map((opt) => (
               <button
                 key={opt.id}
@@ -54,7 +54,7 @@ const PortfolioSection = () => {
                 }`}
               >
                 <opt.Icon className="w-3.5 h-3.5" />
-                {opt.label}
+                {t(opt.labelKey)}
               </button>
             ))}
           </div>
@@ -65,7 +65,7 @@ const PortfolioSection = () => {
           <div key="sites" className="grid grid-cols-1 md:grid-cols-3 gap-4 md:gap-6 animate-fade-in">
             {sites.map((p, i) => (
               <a
-                key={p.title}
+                key={p.titleKey}
                 href={p.url}
                 target="_blank"
                 rel="noopener noreferrer"
@@ -73,14 +73,14 @@ const PortfolioSection = () => {
                 style={{ animation: `fade-in 0.5s ease-out ${i * 100}ms both` }}
               >
                 <div className="relative overflow-hidden">
-                  <img src={p.img} alt={p.title} className="w-full h-40 md:h-56 object-cover group-hover:scale-110 transition-transform duration-700" loading="lazy" width={800} height={512} />
+                  <img src={p.img} alt={t(p.titleKey)} className="w-full h-40 md:h-56 object-cover group-hover:scale-110 transition-transform duration-700" loading="lazy" width={800} height={512} />
                   <div className="absolute inset-0 bg-primary/0 group-hover:bg-primary/20 transition-colors duration-300 flex items-center justify-center">
                     <ExternalLink className="w-8 h-8 text-primary-foreground opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
                   </div>
                 </div>
                 <div className="p-4 md:p-6">
-                  <span className="text-[10px] font-bold text-primary uppercase tracking-[0.2em]">{p.category}</span>
-                  <h3 className="font-bold text-base md:text-lg mt-1">{p.title}</h3>
+                  <span className="text-[10px] font-bold text-primary uppercase tracking-[0.2em]">{t(p.catKey)}</span>
+                  <h3 className="font-bold text-base md:text-lg mt-1">{t(p.titleKey)}</h3>
                 </div>
               </a>
             ))}
@@ -92,17 +92,17 @@ const PortfolioSection = () => {
           <div key="flyers" className="grid grid-cols-2 md:grid-cols-4 gap-3 md:gap-4 animate-fade-in">
             {flyers.map((f, i) => (
               <div
-                key={f.title + i}
+                key={f.titleKey + i}
                 className="group rounded-lg overflow-hidden border border-border bg-card hover:border-primary/40 hover:-translate-y-1 transition-all duration-500"
                 style={{ animation: `fade-in 0.5s ease-out ${i * 80}ms both` }}
               >
                 <div className="relative overflow-hidden aspect-[3/4]">
-                  <img src={f.img} alt={f.title} loading="lazy" className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-700" />
+                  <img src={f.img} alt={t(f.titleKey)} loading="lazy" className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-700" />
                   <div className="absolute inset-0 bg-gradient-to-t from-card via-card/30 to-transparent" />
                 </div>
                 <div className="p-3">
-                  <span className="text-[9px] font-bold text-primary uppercase tracking-[0.15em]">{f.category}</span>
-                  <h3 className="font-bold text-sm mt-0.5 truncate">{f.title}</h3>
+                  <span className="text-[9px] font-bold text-primary uppercase tracking-[0.15em]">{t(f.catKey)}</span>
+                  <h3 className="font-bold text-sm mt-0.5 truncate">{t(f.titleKey)}</h3>
                 </div>
               </div>
             ))}
