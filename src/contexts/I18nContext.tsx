@@ -1,4 +1,5 @@
 import { createContext, useContext, useState, ReactNode } from "react";
+import { serviceTranslations } from "./i18nServices";
 
 export type Lang = "it" | "en" | "de" | "fr" | "es";
 
@@ -1101,7 +1102,13 @@ export const I18nProvider = ({ children }: { children: ReactNode }) => {
   const [lang, setLang] = useState<Lang>("it");
 
   const t = (key: string): string => {
-    return translations[lang]?.[key] || translations.it[key] || key;
+    return (
+      translations[lang]?.[key] ||
+      serviceTranslations[lang]?.[key] ||
+      translations.it[key] ||
+      serviceTranslations.it?.[key] ||
+      key
+    );
   };
 
   return (
