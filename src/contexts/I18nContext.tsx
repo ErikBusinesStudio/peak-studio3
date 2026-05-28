@@ -20,7 +20,7 @@ const translations: Record<Lang, Translations> = {
     "header.contact": "Contattami",
     "header.services": "Servizi",
     "header.portfolio": "Portfolio",
-    "header.pricing": "Prezzi",
+    "header.pricing": "servizi",
     "header.reviews": "Recensioni",
     "header.contacts": "Contatti",
 
@@ -119,7 +119,7 @@ const translations: Record<Lang, Translations> = {
     "pricing.customSuffix": "Pacchetto su misura",
     "pricing.includes": "Cosa include",
     "pricing.activate": "Attiva ora →",
-    "pricing.limited": "⚡ Offerta limitata — Prezzi in aumento a breve",
+    "pricing.limited": "⚡ Offerta limitata — servizi in aumento a breve",
     "pricing.starter.desc": "Il primo passo per battere la concorrenza",
     "pricing.business.desc": "La scelta dei vincenti",
     "pricing.pro.desc": "Per chi vuole dominare il mercato",
