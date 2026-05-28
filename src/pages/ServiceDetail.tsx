@@ -128,33 +128,35 @@ const ServiceDetail = () => {
                 const PIcon = plan.icon;
                 const pk = (s: string) => k(`plan.${plan.key}.${s}`);
                 return (
-                  <div key={plan.key} className={`relative rounded-2xl p-5 md:p-7 border transition-all duration-500 hover:scale-[1.02] flex flex-col ${
-                    plan.highlighted ? "border-primary/60 bg-card glow md:scale-[1.03]" : "border-border bg-card hover:border-border/80"
+                  <div key={plan.key} className={`relative rounded-2xl p-6 md:p-8 border transition-all duration-500 hover:scale-[1.02] hover:-translate-y-1 flex flex-col ${
+                    plan.highlighted ? "border-primary/60 bg-card glow md:scale-[1.03]" : "border-border bg-card hover:border-primary/30"
                   }`}>
                     {plan.badge && (
                       <span className="absolute -top-3 left-1/2 -translate-x-1/2 bg-primary text-primary-foreground text-[10px] font-bold px-4 py-1 rounded-full uppercase tracking-wider flex items-center gap-1 whitespace-nowrap">
                         <Sparkles className="w-3 h-3" />{t(pk("badge"))}
                       </span>
                     )}
-                    <div className="flex items-center gap-2 mb-2">
-                      <span className={`inline-flex items-center justify-center w-9 h-9 rounded-lg ${plan.highlighted ? "bg-primary text-primary-foreground" : "bg-primary/10 text-primary"}`}>
-                        <PIcon className="w-5 h-5" />
-                      </span>
-                      <h3 className="text-xl md:text-2xl font-black">{t(pk("name"))}</h3>
-                    </div>
-                    <p className="text-muted-foreground text-xs md:text-sm">{t(pk("desc"))}</p>
-                    <div className="mt-5 mb-6">
-                      <div className="inline-flex items-center gap-2 px-3 py-1.5 rounded-full bg-primary/10 border border-primary/20 text-primary text-[11px] font-bold uppercase tracking-wider">
+                    <span className={`inline-flex items-center justify-center w-12 h-12 rounded-xl mb-4 ${plan.highlighted ? "bg-primary text-primary-foreground" : "bg-primary/10 text-primary"}`}>
+                      <PIcon className="w-5 h-5" />
+                    </span>
+                    <h3 className="text-2xl font-black leading-tight">{t(pk("name"))}</h3>
+                    <p className="text-muted-foreground text-sm mt-2 leading-relaxed">{t(pk("desc"))}</p>
+                    <div className="my-6 pt-5 border-t border-border/60">
+                      <div className="inline-flex items-center gap-1.5 px-2.5 py-1 rounded-full bg-primary/10 border border-primary/20 text-primary text-[10px] font-bold uppercase tracking-wider">
                         <Sparkles className="w-3 h-3" />
                         {t("pricing.custom")}
                       </div>
-                      <p className="text-muted-foreground text-xs mt-2">{t("pricing.customSuffix")}</p>
                     </div>
-                    <ul className="space-y-2 md:space-y-2.5 mb-6 flex-1">
+                    <p className="text-[11px] font-bold uppercase tracking-wider text-muted-foreground mb-3">
+                      {t("pricing.includes")}
+                    </p>
+                    <ul className="space-y-3 mb-7 flex-1">
                       {Array.from({ length: plan.featuresCount }).map((_, i) => (
-                        <li key={i} className="flex items-start gap-2 text-xs md:text-sm">
-                          <Check className="w-4 h-4 text-primary mt-0.5 shrink-0" />
-                          <span>{t(pk(`feat.${i}`))}</span>
+                        <li key={i} className="flex items-start gap-2.5 text-sm">
+                          <span className="w-5 h-5 rounded-full bg-primary/15 text-primary flex items-center justify-center shrink-0 mt-0.5">
+                            <Check className="w-3 h-3" strokeWidth={3} />
+                          </span>
+                          <span className="leading-snug">{t(pk(`feat.${i}`))}</span>
                         </li>
                       ))}
                     </ul>
