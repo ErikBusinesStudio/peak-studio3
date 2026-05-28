@@ -115,6 +115,8 @@ const translations: Record<Lang, Translations> = {
     "pricing.perMonth": "al mese",
     "pricing.totalYear": "Totale annuo",
     "pricing.billedYearly": "fatturato annualmente",
+    "pricing.custom": "Preventivo personalizzato",
+    "pricing.customSuffix": "Pacchetto su misura",
     "pricing.activate": "Attiva ora →",
     "pricing.limited": "⚡ Offerta limitata — Prezzi in aumento a breve",
     "pricing.starter.desc": "Il primo passo per battere la concorrenza",
