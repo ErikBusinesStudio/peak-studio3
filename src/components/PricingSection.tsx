@@ -1,4 +1,5 @@
 import { Check, Zap, Crown, Sparkles, QrCode, Smartphone, Globe, Wrench, TrendingUp, Headphones, ArrowRight } from "lucide-react";
+import { useI18n } from "@/contexts/I18nContext";
 import { useScrollAnimation } from "@/hooks/useScrollAnimation";
 
 const contactWhatsAppLink = "https://wa.me/393913168231?text=Ciao%2C%20vorrei%20ricevere%20informazioni%20sui%20vostri%20servizi.";
@@ -240,7 +241,9 @@ const extraServices: Plan[] = [
   },
 ];
 
-const PlanCard = ({ plan, delay, isVisible }: { plan: Plan; delay: number; isVisible: boolean }) => (
+const PlanCard = ({ plan, delay, isVisible }: { plan: Plan; delay: number; isVisible: boolean }) => {
+  const { t } = useI18n();
+  return (
   <div
     className={`relative rounded-2xl p-5 md:p-7 border transition-all duration-500 hover:scale-[1.02] flex flex-col ${
       plan.highlighted
@@ -267,11 +270,12 @@ const PlanCard = ({ plan, delay, isVisible }: { plan: Plan; delay: number; isVis
 
     <p className="text-muted-foreground text-xs md:text-sm mt-1">{plan.desc}</p>
 
-    <div className="mt-4 mb-5 flex items-baseline gap-2">
-      <span className="text-4xl md:text-5xl font-black">€{plan.price}</span>
-      {plan.priceSuffix && (
-        <span className="text-muted-foreground text-xs md:text-sm">{plan.priceSuffix}</span>
-      )}
+    <div className="mt-5 mb-6">
+      <div className="inline-flex items-center gap-2 px-3 py-1.5 rounded-full bg-primary/10 border border-primary/20 text-primary text-[11px] font-bold uppercase tracking-wider">
+        <Sparkles className="w-3 h-3" />
+        {t("pricing.custom")}
+      </div>
+      <p className="text-muted-foreground text-xs mt-2">{t("pricing.customSuffix")}</p>
     </div>
 
     <ul className="space-y-2 md:space-y-2.5 mb-6 flex-1">
@@ -293,7 +297,8 @@ const PlanCard = ({ plan, delay, isVisible }: { plan: Plan; delay: number; isVis
       <ArrowRight className="w-4 h-4 transition-transform duration-300 group-hover/cta:translate-x-1" />
     </a>
   </div>
-);
+  );
+};
 
 const PricingSection = () => {
   const { ref, isVisible } = useScrollAnimation();
