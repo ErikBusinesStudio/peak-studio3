@@ -229,10 +229,10 @@ const PlanCard = ({ plan, delay, isVisible }: { plan: Plan; delay: number; isVis
   const { t } = useI18n();
   return (
   <div
-    className={`relative rounded-2xl p-5 md:p-7 border transition-all duration-500 hover:scale-[1.02] flex flex-col ${
+    className={`relative rounded-2xl p-6 md:p-8 border transition-all duration-500 hover:scale-[1.02] hover:-translate-y-1 flex flex-col ${
       plan.highlighted
         ? "border-primary/60 bg-card glow md:scale-[1.03]"
-        : "border-border bg-card hover:border-border/80"
+        : "border-border bg-card hover:border-primary/30"
     } ${isVisible ? "opacity-100 translate-y-0" : "opacity-0 translate-y-8"}`}
     style={{ transitionDelay: `${delay}ms` }}
   >
@@ -243,30 +243,31 @@ const PlanCard = ({ plan, delay, isVisible }: { plan: Plan; delay: number; isVis
       </span>
     )}
 
-    <div className="flex items-center gap-2 mb-2">
-      {plan.icon && (
-        <span className={`inline-flex items-center justify-center w-9 h-9 rounded-lg ${plan.highlighted ? "bg-primary text-primary-foreground" : "bg-primary/10 text-primary"}`}>
-          {plan.icon}
-        </span>
-      )}
-      <h4 className="text-xl md:text-2xl font-black">{plan.name}</h4>
-    </div>
+    {plan.icon && (
+      <span className={`inline-flex items-center justify-center w-12 h-12 rounded-xl mb-4 ${plan.highlighted ? "bg-primary text-primary-foreground" : "bg-primary/10 text-primary"}`}>
+        {plan.icon}
+      </span>
+    )}
+    <h4 className="text-2xl font-black leading-tight">{plan.name}</h4>
+    <p className="text-muted-foreground text-sm mt-2 leading-relaxed">{plan.desc}</p>
 
-    <p className="text-muted-foreground text-xs md:text-sm mt-1">{plan.desc}</p>
-
-    <div className="mt-5 mb-6">
-      <div className="inline-flex items-center gap-2 px-3 py-1.5 rounded-full bg-primary/10 border border-primary/20 text-primary text-[11px] font-bold uppercase tracking-wider">
+    <div className="my-6 pt-5 border-t border-border/60">
+      <div className="inline-flex items-center gap-1.5 px-2.5 py-1 rounded-full bg-primary/10 border border-primary/20 text-primary text-[10px] font-bold uppercase tracking-wider">
         <Sparkles className="w-3 h-3" />
         {t("pricing.custom")}
       </div>
-      <p className="text-muted-foreground text-xs mt-2">{t("pricing.customSuffix")}</p>
     </div>
 
-    <ul className="space-y-2 md:space-y-2.5 mb-6 flex-1">
+    <p className="text-[11px] font-bold uppercase tracking-wider text-muted-foreground mb-3">
+      {t("pricing.includes")}
+    </p>
+    <ul className="space-y-3 mb-7 flex-1">
       {plan.features.map((f) => (
-        <li key={f} className="flex items-start gap-2 text-xs md:text-sm">
-          <Check className="w-4 h-4 text-primary mt-0.5 shrink-0" />
-          <span>{f}</span>
+        <li key={f} className="flex items-start gap-2.5 text-sm">
+          <span className="w-5 h-5 rounded-full bg-primary/15 text-primary flex items-center justify-center shrink-0 mt-0.5">
+            <Check className="w-3 h-3" strokeWidth={3} />
+          </span>
+          <span className="leading-snug">{f}</span>
         </li>
       ))}
     </ul>
