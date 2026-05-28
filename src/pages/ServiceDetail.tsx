@@ -143,9 +143,12 @@ const ServiceDetail = () => {
                       <h3 className="text-xl md:text-2xl font-black">{t(pk("name"))}</h3>
                     </div>
                     <p className="text-muted-foreground text-xs md:text-sm">{t(pk("desc"))}</p>
-                    <div className="mt-4 mb-5 flex items-baseline gap-2">
-                      <span className="text-4xl md:text-5xl font-black">€{plan.price}</span>
-                      <span className="text-muted-foreground text-xs md:text-sm">{t(pk("priceSuffix"))}</span>
+                    <div className="mt-5 mb-6">
+                      <div className="inline-flex items-center gap-2 px-3 py-1.5 rounded-full bg-primary/10 border border-primary/20 text-primary text-[11px] font-bold uppercase tracking-wider">
+                        <Sparkles className="w-3 h-3" />
+                        {t("pricing.custom")}
+                      </div>
+                      <p className="text-muted-foreground text-xs mt-2">{t("pricing.customSuffix")}</p>
                     </div>
                     <ul className="space-y-2 md:space-y-2.5 mb-6 flex-1">
                       {Array.from({ length: plan.featuresCount }).map((_, i) => (
