@@ -128,22 +128,6 @@ const qrPlans: Plan[] = [
     ],
     cta: "Richiedi informazioni",
   },
-  {
-    name: "QR Code Dinamico",
-    price: "5–10",
-    priceSuffix: "/mese",
-    desc: "Cambia la destinazione quando vuoi, perfetto per le promozioni",
-    badge: "Flessibile",
-    badgeIcon: <Sparkles className="w-3 h-3" />,
-    highlighted: true,
-    icon: <Smartphone className="w-5 h-5" />,
-    features: [
-      "Modificabile nel tempo",
-      "Perfetto per campagne e promozioni",
-      "Statistiche di scansione",
-    ],
-    cta: "Richiedi informazioni",
-  },
 ];
 
 const subscriptionPlans: Plan[] = [
@@ -351,7 +335,7 @@ const PricingSection = () => {
           </p>
         </div>
 
-        <div className="grid md:grid-cols-2 gap-4 md:gap-6 max-w-3xl mx-auto">
+        <div className="grid grid-cols-1 gap-4 md:gap-6 max-w-md mx-auto">
           {qrPlans.map((plan, i) => (
             <PlanCard key={plan.name} plan={plan} delay={i * 120} isVisible={isVisible} />
           ))}
