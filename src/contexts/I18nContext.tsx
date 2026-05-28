@@ -968,7 +968,7 @@ const translations: Record<Lang, Translations> = {
     "pricing.totalYear": "Total anual",
     "pricing.billedYearly": "facturado anualmente",
     "pricing.activate": "Activar ahora →",
-    "pricing.limited": "⚡ Oferta limitada — Precios en aumento pronto",
+    "pricing.limited": "⚡ Oferta limitada — servicios en aumento pronto",
     "pricing.starter.desc": "El primer paso para vencer a la competencia",
     "pricing.business.desc": "La elección de los ganadores",
     "pricing.pro.desc": "Para quienes quieren dominar el mercado",
