@@ -336,6 +336,8 @@ const translations: Record<Lang, Translations> = {
     "pricing.perMonth": "per month",
     "pricing.totalYear": "Yearly total",
     "pricing.billedYearly": "billed annually",
+    "pricing.custom": "Custom quote",
+    "pricing.customSuffix": "Tailored package",
     "pricing.activate": "Activate now →",
     "pricing.limited": "⚡ Limited offer — Prices increasing soon",
     "pricing.starter.desc": "The first step to beat the competition",
