@@ -689,7 +689,7 @@ const translations: Record<Lang, Translations> = {
     "header.contact": "Contactez-moi",
     "header.services": "Services",
     "header.portfolio": "Portfolio",
-    "header.pricing": "Pricing",
+    "header.pricing": "Tarifs",
     "header.reviews": "Avis",
     "header.contacts": "Contact",
     "hero.title1": "Votre site web.",
