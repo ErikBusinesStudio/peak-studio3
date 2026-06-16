@@ -12,17 +12,23 @@ import CtaSection from "@/components/CtaSection";
 import ContactSection from "@/components/ContactSection";
 import FloatingWhatsApp from "@/components/FloatingWhatsApp";
 import Footer from "@/components/Footer";
+import MountainBackdrop from "@/components/MountainBackdrop";
+import SnowOverlay from "@/components/SnowOverlay";
+import AltitudeNav from "@/components/AltitudeNav";
 
 const Index = () => {
   return (
     <>
+      <MountainBackdrop />
+      <SnowOverlay />
       <Header />
+      <AltitudeNav />
       <main>
-        <HeroSection />
+        <section id="hero"><HeroSection /></section>
         <ServicesSection />
         <WhyMeSection />
-        <HowItWorksSection />
-        <UrgencySection />
+        <section id="sentiero"><HowItWorksSection /></section>
+        <section id="crepaccio"><UrgencySection /></section>
         <PortfolioSection />
         <PricingTeaser />
         <ReviewsSection />

@@ -26,11 +26,13 @@ const Header = () => {
     <>
       <header
         className={`fixed top-0 left-0 right-0 z-50 transition-all duration-500 ${
-          scrolled ? "bg-background/95 backdrop-blur-lg border-b border-border" : "bg-transparent"
+          scrolled
+            ? "bg-background/80 backdrop-blur-xl border-b border-border/60 py-1"
+            : "bg-transparent"
         }`}
       >
-        <div className="container mx-auto flex items-center justify-between py-4">
-          <a href="#" className="text-xl font-black tracking-tight">
+        <div className={`container mx-auto flex items-center justify-between transition-all duration-500 ${scrolled ? "py-2" : "py-4"}`}>
+          <a href="#" className="font-display text-xl font-bold tracking-tight">
             PEAK<span className="text-primary">.</span>STUDIO
           </a>
 
@@ -79,23 +81,6 @@ const Header = () => {
           </nav>
         )}
       </header>
-
-      <nav className="fixed right-0 top-1/2 -translate-y-1/2 z-40 hidden md:flex flex-col items-end gap-1 pr-4">
-        {links.map((l) => (
-          <a
-            key={l.href}
-            href={l.href}
-            className="group flex items-center gap-3 py-2 px-3 rounded-lg transition-all duration-300 hover:bg-card/80 hover:backdrop-blur-lg"
-          >
-            <span className="text-[11px] font-bold uppercase tracking-wider text-muted-foreground group-hover:text-primary transition-all duration-300 whitespace-nowrap">
-              {l.label}
-            </span>
-            <div className="w-9 h-9 rounded-lg bg-card/60 backdrop-blur-sm border border-border flex items-center justify-center group-hover:border-primary/50 group-hover:bg-primary/10 group-hover:scale-110 transition-all duration-300">
-              <l.icon className="w-4 h-4 text-muted-foreground group-hover:text-primary transition-colors duration-300" />
-            </div>
-          </a>
-        ))}
-      </nav>
     </>
   );
 };
