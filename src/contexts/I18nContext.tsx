@@ -1118,7 +1118,7 @@ interface I18nContextType {
   t: (key: string) => string;
 }
 
-const I18nContext = createContext<I18nContextType>({
+export const I18nContext = createContext<I18nContextType>({
   lang: "it",
   setLang: () => {},
   t: (key: string) => key,
