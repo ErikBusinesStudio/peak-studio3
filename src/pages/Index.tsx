@@ -2,6 +2,7 @@ import { ReactNode } from "react";
 import Header from "@/components/Header";
 import HeroSection from "@/components/HeroSection";
 import ServicesSection from "@/components/ServicesSection";
+import WhyMeSection from "@/components/WhyMeSection";
 import HowItWorksSection from "@/components/HowItWorksSection";
 import UrgencySection from "@/components/UrgencySection";
 import PortfolioSection from "@/components/PortfolioSection";
@@ -46,8 +47,8 @@ const Index = () => {
       <MountainBackdrop>
         <Panel id="hero" side="left"><HeroSection /></Panel>
         <Panel id="cresta" side="right"><ServicesSection /></Panel>
-        <Panel id="ghiacciaio" side="left"><HowItWorksSection /></Panel>
-        <Panel id="sentiero" side="right"><PortfolioSection /></Panel>
+        <Panel id="ghiacciaio" side="left"><WhyMeSection /></Panel>
+        <Panel id="sentiero" side="right"><HowItWorksSection /></Panel>
         <Panel id="crepaccio" side="left"><UrgencySection /></Panel>
         <Panel id="foresta" side="right"><PortfolioSection /></Panel>
         <Panel id="campo-base" side="left"><PricingTeaser /></Panel>

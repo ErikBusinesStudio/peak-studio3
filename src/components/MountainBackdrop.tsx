@@ -1,9 +1,11 @@
 import { Canvas, useFrame } from "@react-three/fiber";
-import { ReactNode, useEffect, useMemo, useRef, useState, Suspense } from "react";
+import { ReactNode, useEffect, useMemo, useRef, useState, Suspense, type MutableRefObject } from "react";
 import * as THREE from "three";
 import { createNoise2D } from "simplex-noise";
-import { Environment, ScrollControls, Scroll, useScroll, useTexture } from "@react-three/drei";
+import { Environment, ScrollControls, Scroll, useContextBridge, useScroll, useTexture } from "@react-three/drei";
 import { EffectComposer, Bloom, DepthOfField, Vignette, Noise } from "@react-three/postprocessing";
+import { UNSAFE_LocationContext, UNSAFE_NavigationContext, UNSAFE_RouteContext } from "react-router-dom";
+import { I18nContext } from "@/contexts/I18nContext";
 
 // ---------------------------------------------------------------------------
 // Single procedural mountain. Camera spirals around it as scroll progresses.
@@ -411,9 +413,16 @@ function CameraRig({ reduced }: { reduced: boolean }) {
 // Public component
 // ---------------------------------------------------------------------------
 export function MountainBackdrop({ children }: { children?: ReactNode }) {
+  const containerRef = useRef<HTMLDivElement>(null);
   const [isMobile, setIsMobile] = useState(false);
   const [reduced, setReduced] = useState(false);
   const field = useMemo(() => makeMountainField(), []);
+  const ContextBridge = useContextBridge(
+    I18nContext,
+    UNSAFE_NavigationContext,
+    UNSAFE_LocationContext,
+    UNSAFE_RouteContext,
+  );
 
   useEffect(() => {
     setIsMobile(window.innerWidth < 768);
@@ -424,11 +433,13 @@ export function MountainBackdrop({ children }: { children?: ReactNode }) {
   }, []);
 
   return (
-    <div className="fixed inset-0 bg-background">
+    <div ref={containerRef} className="fixed inset-0 bg-background">
       <Canvas
         shadows={!isMobile}
         dpr={[1, isMobile ? 1.5 : 2]}
         camera={{ position: [0, 12, 18], fov: 55, near: 0.1, far: 200 }}
+        eventSource={containerRef as MutableRefObject<HTMLElement>}
+        eventPrefix="client"
         gl={{ antialias: true, alpha: true }}
       >
         <color attach="background" args={["#07080c"]} />
@@ -437,11 +448,15 @@ export function MountainBackdrop({ children }: { children?: ReactNode }) {
         <directionalLight position={[10, 14, -8]} intensity={0.35} color="#ff8a4a" castShadow={!isMobile} />
         <Suspense fallback={null}>
           <Environment preset="sunset" background={false} />
-          <ScrollControls pages={PAGES} damping={0.18}>
+          <ScrollControls
+            pages={PAGES}
+            damping={0.18}
+            style={{ touchAction: "pan-y", overscrollBehavior: "contain", WebkitOverflowScrolling: "touch" }}
+          >
             <Mountain isMobile={isMobile} field={field} />
             <CameraRig reduced={reduced} />
-            <Scroll html style={{ width: "100%" }}>
-              {children}
+            <Scroll html style={{ width: "100%", zIndex: 10 }}>
+              <ContextBridge>{children}</ContextBridge>
             </Scroll>
           </ScrollControls>
         </Suspense>
