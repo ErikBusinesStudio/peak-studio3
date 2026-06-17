@@ -6,12 +6,31 @@ const HeroSection = () => {
 
   return (
     <section className="relative min-h-screen flex items-center justify-center overflow-hidden">
-      {/* Light rays through atmosphere */}
+      {/* Atmospheric light rays */}
       <div className="pointer-events-none absolute inset-0 overflow-hidden">
-        <div className="absolute -top-20 left-1/3 w-[2px] h-[140%] bg-gradient-to-b from-white/10 via-white/5 to-transparent rotate-[12deg] blur-sm" />
-        <div className="absolute -top-20 left-1/2 w-[3px] h-[140%] bg-gradient-to-b from-white/15 via-white/4 to-transparent rotate-[6deg] blur-sm" />
-        <div className="absolute -top-20 left-2/3 w-[2px] h-[140%] bg-gradient-to-b from-white/8 via-white/3 to-transparent rotate-[-4deg] blur-sm" />
+        <div className="absolute -top-20 left-1/4 w-[2px] h-[160%] bg-gradient-to-b from-white/12 via-white/4 to-transparent rotate-[14deg] blur-sm" />
+        <div className="absolute -top-20 left-1/3 w-[3px] h-[160%] bg-gradient-to-b from-white/16 via-white/5 to-transparent rotate-[10deg] blur-sm" />
+        <div className="absolute -top-20 left-1/2 w-[3px] h-[160%] bg-gradient-to-b from-white/20 via-white/6 to-transparent rotate-[6deg] blur-sm" />
+        <div className="absolute -top-20 left-2/3 w-[2px] h-[160%] bg-gradient-to-b from-white/12 via-white/4 to-transparent rotate-[-4deg] blur-sm" />
+        <div className="absolute -top-20 left-3/4 w-[2px] h-[160%] bg-gradient-to-b from-white/10 via-white/3 to-transparent rotate-[-10deg] blur-sm" />
+        {/* Floating particles */}
+        {Array.from({ length: 12 }).map((_, i) => (
+          <div
+            key={i}
+            className="absolute w-1 h-1 rounded-full bg-primary/30 animate-particle"
+            style={{
+              left: `${20 + Math.random() * 60}%`,
+              top: `${20 + Math.random() * 80}%`,
+              animationDuration: `${10 + Math.random() * 15}s`,
+              animationDelay: `${Math.random() * 8}s`,
+            }}
+          />
+        ))}
       </div>
+
+      {/* Subtle orb glow */}
+      <div className="pointer-events-none absolute top-1/3 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[600px] h-[600px] bg-primary/8 rounded-full blur-[180px] animate-pulse-slow" />
+
 
       <div className="container mx-auto relative z-10 px-4 pt-20 md:pt-24">
         <div className="flex flex-col items-center text-center space-y-4 md:space-y-5">
