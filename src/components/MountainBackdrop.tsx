@@ -1,17 +1,15 @@
 import { Canvas, useFrame } from "@react-three/fiber";
-import { useRef, useMemo, useEffect, useState } from "react";
+import { useRef, useMemo, useEffect, useState, Suspense } from "react";
 import * as THREE from "three";
 import { createNoise2D } from "simplex-noise";
+import { Environment, useTexture } from "@react-three/drei";
+import { EffectComposer, Bloom, DepthOfField, Vignette, Noise } from "@react-three/postprocessing";
 
 function useProceduralMountain(segments: number, heightSegments: number) {
   return useMemo(() => {
     const noise2D = createNoise2D();
     const geometry = new THREE.ConeGeometry(12, 9, segments, heightSegments, true);
     const pos = geometry.attributes.position;
-    const colors: number[] = [];
-    const snowColor = new THREE.Color("#f1f2f4");
-    const rockColor = new THREE.Color("#5a5d63");
-    const baseColor = new THREE.Color("#2a3329");
     for (let i = 0; i < pos.count; i++) {
       const x = pos.getX(i);
       const y = pos.getY(i);
@@ -22,30 +20,116 @@ function useProceduralMountain(segments: number, heightSegments: number) {
       const falloff = 1 - Math.max(0, heightNorm);
       const ny = y + (broad + fine) * (0.3 + falloff * 0.9);
       pos.setXYZ(i, x, ny, z);
-
-      // color by height
-      const c = new THREE.Color();
-      if (heightNorm > 0.7) {
-        c.copy(rockColor).lerp(snowColor, (heightNorm - 0.7) / 0.3);
-      } else if (heightNorm > 0.25) {
-        c.copy(baseColor).lerp(rockColor, (heightNorm - 0.25) / 0.45);
-      } else {
-        c.copy(baseColor);
-      }
-      colors.push(c.r, c.g, c.b);
     }
-    geometry.setAttribute("color", new THREE.Float32BufferAttribute(colors, 3));
     geometry.computeVertexNormals();
+    geometry.computeBoundingBox();
     return geometry;
   }, [segments, heightSegments]);
 }
 
+const PH = "https://dl.polyhaven.org/file/ph-assets/Textures/jpg/1k";
+const SNOW = {
+  map: `${PH}/snow_02/snow_02_diff_1k.jpg`,
+  normalMap: `${PH}/snow_02/snow_02_nor_gl_1k.jpg`,
+  roughnessMap: `${PH}/snow_02/snow_02_rough_1k.jpg`,
+};
+const ROCK = {
+  map: `${PH}/rock_boulder_dry/rock_boulder_dry_diff_1k.jpg`,
+  normalMap: `${PH}/rock_boulder_dry/rock_boulder_dry_nor_gl_1k.jpg`,
+  roughnessMap: `${PH}/rock_boulder_dry/rock_boulder_dry_rough_1k.jpg`,
+};
+
 function Mountain({ isMobile }: { isMobile: boolean }) {
   const geometry = useProceduralMountain(isMobile ? 48 : 96, isMobile ? 20 : 40);
+  const snow = useTexture([SNOW.map, SNOW.normalMap, SNOW.roughnessMap]);
+  const rock = useTexture([ROCK.map, ROCK.normalMap, ROCK.roughnessMap]);
+
+  useMemo(() => {
+    [...snow, ...rock].forEach((t) => {
+      t.wrapS = t.wrapT = THREE.RepeatWrapping;
+      t.repeat.set(4, 4);
+      t.anisotropy = 8;
+    });
+    snow[0].colorSpace = THREE.SRGBColorSpace;
+    rock[0].colorSpace = THREE.SRGBColorSpace;
+  }, [snow, rock]);
+
+  const material = useMemo(() => {
+    const mat = new THREE.MeshStandardMaterial({
+      map: rock[0],
+      normalMap: rock[1],
+      roughnessMap: rock[2],
+      roughness: 1,
+      metalness: 0,
+      side: THREE.DoubleSide,
+    });
+    // inject snow textures + height-based mix
+    (mat as any).onBeforeCompile = (shader: any) => {
+      shader.uniforms.snowMap = { value: snow[0] };
+      shader.uniforms.snowNormal = { value: snow[1] };
+      shader.uniforms.snowRough = { value: snow[2] };
+      shader.uniforms.minY = { value: -4.5 };
+      shader.uniforms.maxY = { value: 4.5 };
+
+      shader.vertexShader = shader.vertexShader
+        .replace(
+          "#include <common>",
+          `#include <common>\nvarying float vHeight;\nvarying vec2 vMountUv;`
+        )
+        .replace(
+          "#include <begin_vertex>",
+          `#include <begin_vertex>\nvHeight = position.y;\nvMountUv = uv;`
+        );
+
+      shader.fragmentShader = shader.fragmentShader
+        .replace(
+          "#include <common>",
+          `#include <common>\nuniform sampler2D snowMap;\nuniform sampler2D snowNormal;\nuniform sampler2D snowRough;\nuniform float minY;\nuniform float maxY;\nvarying float vHeight;\nvarying vec2 vMountUv;`
+        )
+        .replace(
+          "#include <map_fragment>",
+          `
+          vec2 uvR = vMountUv * 4.0;
+          vec4 rockTex = texture2D( map, uvR );
+          vec4 snowTex = texture2D( snowMap, uvR );
+          float h = clamp((vHeight - minY) / (maxY - minY), 0.0, 1.0);
+          float mixT = smoothstep(0.55, 0.85, h);
+          vec4 sampledDiffuseColor = mix(rockTex, snowTex, mixT);
+          #ifdef DECODE_VIDEO_TEXTURE
+            sampledDiffuseColor = vec4( mix( pow( sampledDiffuseColor.rgb * 0.9478672986 + vec3( 0.0521327014 ), vec3( 2.4 ) ), sampledDiffuseColor.rgb * 0.0773993808, vec3( lessThanEqual( sampledDiffuseColor.rgb, vec3( 0.04045 ) ) ) ), sampledDiffuseColor.w );
+          #endif
+          diffuseColor *= sampledDiffuseColor;
+          `
+        )
+        .replace(
+          "#include <roughnessmap_fragment>",
+          `
+          float roughnessFactor = roughness;
+          vec4 rRock = texture2D( roughnessMap, vMountUv * 4.0 );
+          vec4 rSnow = texture2D( snowRough, vMountUv * 4.0 );
+          float hR = clamp((vHeight - minY) / (maxY - minY), 0.0, 1.0);
+          float mixR = smoothstep(0.55, 0.85, hR);
+          roughnessFactor *= mix(rRock.g, rSnow.g, mixR);
+          `
+        )
+        .replace(
+          "#include <normal_fragment_maps>",
+          `
+          vec3 nRock = texture2D( normalMap, vMountUv * 4.0 ).xyz * 2.0 - 1.0;
+          vec3 nSnow = texture2D( snowNormal, vMountUv * 4.0 ).xyz * 2.0 - 1.0;
+          float hN = clamp((vHeight - minY) / (maxY - minY), 0.0, 1.0);
+          float mixN = smoothstep(0.55, 0.85, hN);
+          vec3 mapN = normalize(mix(nRock, nSnow, mixN));
+          mapN.xy *= normalScale;
+          normal = normalize( tbn * mapN );
+          `
+        );
+    };
+    return mat;
+  }, [snow, rock]);
+
   return (
-    <mesh geometry={geometry} castShadow={!isMobile} receiveShadow={!isMobile}>
-      <meshStandardMaterial vertexColors flatShading roughness={0.95} metalness={0.05} side={THREE.DoubleSide} />
-    </mesh>
+    <mesh geometry={geometry} material={material} castShadow={!isMobile} receiveShadow={!isMobile} />
   );
 }
 
@@ -108,18 +192,22 @@ export function MountainBackdrop() {
       >
         <color attach="background" args={["#0a0a0a"]} />
         <fog attach="fog" args={["#0a0a0a", 18, 45]} />
-        <ambientLight intensity={0.25} />
-        <directionalLight
-          position={[-10, 14, 6]}
-          intensity={2.2}
-          color="#fff1e0"
-          castShadow={!isMobile}
-          shadow-mapSize-width={1024}
-          shadow-mapSize-height={1024}
-        />
-        <directionalLight position={[8, 5, -6]} intensity={0.35} color="#ff5a3a" />
-        <Mountain isMobile={isMobile} />
+        <Suspense fallback={null}>
+          <Environment
+            files="https://dl.polyhaven.org/file/ph-assets/HDRIs/hdr/1k/snowy_park_01.hdr"
+            background={false}
+          />
+          <Mountain isMobile={isMobile} />
+        </Suspense>
+        <ambientLight intensity={0.08} />
+        <directionalLight position={[8, 5, -6]} intensity={0.25} color="#ff5a3a" />
         <CameraRig progress={progress} reduced={reduced} />
+        <EffectComposer>
+          <DepthOfField focusDistance={0.01} focalLength={0.05} bokehScale={isMobile ? 1.5 : 3} />
+          <Bloom intensity={0.4} luminanceThreshold={0.6} mipmapBlur />
+          <Vignette eskil={false} offset={0.3} darkness={0.6} />
+          <Noise opacity={0.02} />
+        </EffectComposer>
       </Canvas>
       {/* Vignette + red glow accents */}
       <div className="absolute inset-0 bg-gradient-to-b from-background/20 via-transparent to-background/70" />
