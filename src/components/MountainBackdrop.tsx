@@ -429,7 +429,10 @@ export function MountainBackdrop() {
   const progress = useScrollProgress();
   const [isMobile, setIsMobile] = useState(false);
   const [reduced, setReduced] = useState(false);
-  const heightFnRef = useRef<((x: number, z: number) => number) | null>(null);
+  const heightFn = useMemo(() => {
+    const noise = createNoise2D();
+    return (x: number, z: number) => terrainHeight(x, z, noise);
+  }, []);
 
   useEffect(() => {
     setIsMobile(window.innerWidth < 768);
@@ -437,17 +440,6 @@ export function MountainBackdrop() {
     const onResize = () => setIsMobile(window.innerWidth < 768);
     window.addEventListener("resize", onResize);
     return () => window.removeEventListener("resize", onResize);
-  }, []);
-
-  // Build a shared height function (same noise seed would be ideal, but for the
-  // camera we approximate using the deterministic non-noise part of the profile).
-  useEffect(() => {
-    const { createNoise2D } = require("simplex-noise");
-    const noise = createNoise2D();
-    heightFnRef.current = (x: number, z: number) => {
-      // Use the same terrainHeight function for camera following
-      return terrainHeight(x, z, noise);
-    };
   }, []);
 
   return (
@@ -466,7 +458,7 @@ export function MountainBackdrop() {
         </Suspense>
         <ambientLight intensity={0.08} />
         <directionalLight position={[8, 5, -6]} intensity={0.25} color="#ff5a3a" />
-        <CameraRig progress={progress} reduced={reduced} heightAt={heightFnRef.current} />
+        <CameraRig progress={progress} reduced={reduced} heightAt={heightFn} />
         <EffectComposer>
           <DepthOfField focusDistance={0.01} focalLength={0.05} bokehScale={isMobile ? 1.5 : 3} />
           <Bloom intensity={0.4} luminanceThreshold={0.6} mipmapBlur />
