@@ -193,10 +193,7 @@ export function MountainBackdrop() {
         <color attach="background" args={["#0a0a0a"]} />
         <fog attach="fog" args={["#0a0a0a", 18, 45]} />
         <Suspense fallback={null}>
-          <Environment
-            files="https://dl.polyhaven.org/file/ph-assets/HDRIs/hdr/1k/snowy_park_01.hdr"
-            background={false}
-          />
+          <Environment preset="sunset" background={false} />
           <Mountain isMobile={isMobile} />
         </Suspense>
         <ambientLight intensity={0.08} />
