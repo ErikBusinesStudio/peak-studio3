@@ -1,4 +1,3 @@
-import { Link } from "react-router-dom";
 import { Globe, Wrench, QrCode, Sparkles, ArrowRight, FileText, Megaphone } from "lucide-react";
 import { useScrollAnimation } from "@/hooks/useScrollAnimation";
 import { useI18n } from "@/contexts/I18nContext";
@@ -37,9 +36,9 @@ const PricingTeaser = () => {
 
         <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-4 md:gap-6 max-w-6xl mx-auto mb-10">
           {cubes.map((c, i) => (
-            <Link
+            <a
               key={c.slug}
-              to={`/servizi/${c.slug}`}
+              href={`/servizi/${c.slug}`}
               className={`group relative bg-card border border-border rounded-2xl overflow-hidden hover:border-primary/60 hover:scale-[1.03] hover:glow transition-all duration-500 flex flex-col ${
                 isVisible ? "opacity-100 translate-y-0" : "opacity-0 translate-y-8"
               }`}
@@ -61,14 +60,14 @@ const PricingTeaser = () => {
                   {t("teaser.discover")} <ArrowRight className="w-3 h-3 group-hover:translate-x-1 transition-transform" />
                 </span>
               </div>
-            </Link>
+            </a>
           ))}
         </div>
 
         <div className="text-center">
-          <Link to="/prezzi" className="inline-flex items-center gap-2 bg-primary text-primary-foreground px-8 py-4 rounded-md text-sm font-bold uppercase tracking-wider hover:scale-105 transition-all glow">
+          <a href="/prezzi" className="inline-flex items-center gap-2 bg-primary text-primary-foreground px-8 py-4 rounded-md text-sm font-bold uppercase tracking-wider hover:scale-105 transition-all glow">
             {t("teaser.all")} <ArrowRight className="w-4 h-4" />
-          </Link>
+          </a>
         </div>
       </div>
     </section>
