@@ -1,5 +1,5 @@
 import { Canvas, useFrame } from "@react-three/fiber";
-import { useRef, useMemo, useEffect, useState } from "react";
+import { useRef, useMemo, useEffect, useState, Suspense } from "react";
 import * as THREE from "three";
 import { createNoise2D } from "simplex-noise";
 import { Environment, useTexture } from "@react-three/drei";
@@ -192,13 +192,15 @@ export function MountainBackdrop() {
       >
         <color attach="background" args={["#0a0a0a"]} />
         <fog attach="fog" args={["#0a0a0a", 18, 45]} />
-        <Environment
-          files="https://dl.polyhaven.org/file/ph-assets/HDRIs/hdr/1k/snowy_park_01.hdr"
-          background={false}
-        />
+        <Suspense fallback={null}>
+          <Environment
+            files="https://dl.polyhaven.org/file/ph-assets/HDRIs/hdr/1k/snowy_park_01.hdr"
+            background={false}
+          />
+          <Mountain isMobile={isMobile} />
+        </Suspense>
         <ambientLight intensity={0.08} />
         <directionalLight position={[8, 5, -6]} intensity={0.25} color="#ff5a3a" />
-        <Mountain isMobile={isMobile} />
         <CameraRig progress={progress} reduced={reduced} />
         <EffectComposer>
           <DepthOfField focusDistance={0.01} focalLength={0.05} bokehScale={isMobile ? 1.5 : 3} />
