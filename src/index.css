@@ -114,22 +114,6 @@
   100% { box-shadow: 0 0 0 0 hsl(0 85% 55% / 0), 0 10px 30px -5px hsl(0 85% 55% / 0.4); }
 }
 
-@keyframes idle-wobble {
-  0%, 100% { transform: rotate(-1.2deg); }
-  50% { transform: rotate(1.2deg); }
-}
-
-.hero-mountain-wobble {
-  animation: idle-wobble 9s ease-in-out infinite;
-  transform-origin: 50% 80%;
-}
-
-@media (prefers-reduced-motion: reduce) {
-  .hero-mountain-wobble { animation: none; }
-}
-
-.font-display { font-family: 'Space Grotesk', 'Inter', sans-serif; }
-
 @layer components {
   .btn-cta {
     @apply relative inline-flex items-center justify-center gap-2 overflow-hidden rounded-full px-8 py-4 text-xs md:text-sm font-extrabold uppercase tracking-wider text-primary-foreground transition-all duration-300 hover:scale-[1.04] active:scale-[0.98];

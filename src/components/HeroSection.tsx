@@ -5,16 +5,21 @@ const HeroSection = () => {
   const { t } = useI18n();
 
   return (
-    <div className="hero-mountain-wobble relative min-h-screen flex items-center justify-center overflow-hidden">
+    <section className="relative min-h-screen flex items-center justify-center overflow-hidden">
+      <div className="hidden md:block absolute top-0 left-0 w-[800px] h-[800px] bg-primary/15 rounded-full blur-[250px]" />
+      <div className="hidden md:block absolute bottom-0 right-0 w-[700px] h-[700px] bg-primary/12 rounded-full blur-[230px]" />
+      <div className="hidden md:block absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[1000px] h-[1000px] bg-primary/8 rounded-full blur-[300px]" />
+      <div className="hidden md:block absolute top-10 right-1/4 w-[500px] h-[500px] bg-primary/10 rounded-full blur-[200px] animate-pulse" />
+      <div className="hidden md:block absolute bottom-20 left-1/4 w-[400px] h-[400px] bg-primary/8 rounded-full blur-[180px] animate-pulse" style={{ animationDelay: "1s" }} />
+      {/* Single subtle glow for mobile */}
+      <div className="md:hidden absolute top-1/3 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[300px] h-[300px] bg-primary/10 rounded-full blur-[150px]" />
+
       <div className="container mx-auto relative z-10 px-4 pt-20 md:pt-24">
-        <p className="text-center font-display text-[10px] md:text-xs uppercase tracking-[0.3em] text-muted-foreground mb-6 animate-fade-in-up">
-          {t("alt.peakEyebrow")}
-        </p>
         <div className="flex flex-col items-center text-center space-y-4 md:space-y-5">
           <img src={logo} alt="Peak Studio" className="w-56 md:w-[420px] lg:w-[500px] drop-shadow-2xl animate-fade-in-up" width={1024} height={512} />
 
           <div className="space-y-4 md:space-y-6 max-w-3xl animate-fade-in-up" style={{ animationDelay: "0.2s" }}>
-            <h1 className="font-display text-3xl md:text-6xl lg:text-7xl font-bold leading-[1.05] tracking-tight">
+            <h1 className="text-3xl md:text-6xl lg:text-7xl font-black leading-[1.05] tracking-tight">
               {t("hero.title1")}
               <br />
               <span className="text-gradient">{t("hero.title2")}</span>
@@ -33,21 +38,21 @@ const HeroSection = () => {
 
           <div className="flex flex-wrap justify-center gap-6 md:gap-16 pt-6 md:pt-8 border-t border-border/40 mt-6 md:mt-8 animate-fade-in-up" style={{ animationDelay: "0.6s" }}>
             <div className="text-center">
-              <p className="font-display text-2xl md:text-4xl font-bold text-primary">50+</p>
+              <p className="text-2xl md:text-4xl font-black text-primary">50+</p>
               <p className="text-[10px] md:text-xs uppercase tracking-wider text-muted-foreground mt-1">{t("hero.stat1")}</p>
             </div>
             <div className="text-center">
-              <p className="font-display text-2xl md:text-4xl font-bold text-primary">48h</p>
+              <p className="text-2xl md:text-4xl font-black text-primary">48h</p>
               <p className="text-[10px] md:text-xs uppercase tracking-wider text-muted-foreground mt-1">{t("hero.stat2")}</p>
             </div>
             <div className="text-center">
-              <p className="font-display text-2xl md:text-4xl font-bold text-primary">100%</p>
+              <p className="text-2xl md:text-4xl font-black text-primary">100%</p>
               <p className="text-[10px] md:text-xs uppercase tracking-wider text-muted-foreground mt-1">{t("hero.stat3")}</p>
             </div>
           </div>
         </div>
       </div>
-    </div>
+    </section>
   );
 };
 
