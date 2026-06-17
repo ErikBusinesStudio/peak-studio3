@@ -12,6 +12,7 @@ import CtaSection from "@/components/CtaSection";
 import ContactSection from "@/components/ContactSection";
 import FloatingWhatsApp from "@/components/FloatingWhatsApp";
 import Footer from "@/components/Footer";
+import Atmosphere from "@/components/Atmosphere";
 import SceneBackdrop from "@/components/SceneBackdrop";
 import scenePeak from "@/assets/scene-peak.jpg";
 import sceneForest from "@/assets/scene-forest.jpg";
@@ -20,6 +21,7 @@ import sceneSignpost from "@/assets/scene-signpost.jpg";
 import sceneBridge from "@/assets/scene-bridge.jpg";
 import sceneCabin from "@/assets/scene-cabin.jpg";
 import sceneBasecamp from "@/assets/scene-basecamp.jpg";
+
 
 const Index = () => {
   return (
