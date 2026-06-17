@@ -26,34 +26,34 @@ const Index = () => {
     <>
       <Header />
       <main className="relative">
-        <SceneBackdrop image={scenePeak} overlay={35}>
+        <SceneBackdrop image={scenePeak} overlay={55}>
           <HeroSection />
         </SceneBackdrop>
 
-        <SceneBackdrop image={sceneForest} overlay={35}>
+        <SceneBackdrop image={sceneForest} overlay={70}>
           <ServicesSection />
           <WhyMeSection />
         </SceneBackdrop>
 
-        <SceneBackdrop image={sceneSignpost} overlay={35}>
+        <SceneBackdrop image={sceneSignpost} overlay={72}>
           <HowItWorksSection />
         </SceneBackdrop>
 
-        <SceneBackdrop image={sceneBridge} overlay={35}>
+        <SceneBackdrop image={sceneBridge} overlay={75}>
           <UrgencySection />
           <PortfolioSection />
         </SceneBackdrop>
 
-        <SceneBackdrop image={sceneWaterfall} overlay={35}>
+        <SceneBackdrop image={sceneWaterfall} overlay={72}>
           <PricingTeaser />
         </SceneBackdrop>
 
-        <SceneBackdrop image={sceneCabin} overlay={35}>
+        <SceneBackdrop image={sceneCabin} overlay={70}>
           <ReviewsSection />
           <FaqSection />
         </SceneBackdrop>
 
-        <SceneBackdrop image={sceneBasecamp} overlay={35}>
+        <SceneBackdrop image={sceneBasecamp} overlay={70}>
           <CtaSection />
           <ContactSection />
         </SceneBackdrop>
