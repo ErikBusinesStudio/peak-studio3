@@ -12,12 +12,14 @@ import CtaSection from "@/components/CtaSection";
 import ContactSection from "@/components/ContactSection";
 import FloatingWhatsApp from "@/components/FloatingWhatsApp";
 import Footer from "@/components/Footer";
+import MountainBackground from "@/components/MountainBackground";
 
 const Index = () => {
   return (
     <>
+      <MountainBackground />
       <Header />
-      <main>
+      <main className="relative">
         <HeroSection />
         <ServicesSection />
         <WhyMeSection />

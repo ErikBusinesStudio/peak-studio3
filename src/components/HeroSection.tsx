@@ -6,25 +6,25 @@ const HeroSection = () => {
 
   return (
     <section className="relative min-h-screen flex items-center justify-center overflow-hidden">
-      <div className="hidden md:block absolute top-0 left-0 w-[800px] h-[800px] bg-primary/15 rounded-full blur-[250px]" />
-      <div className="hidden md:block absolute bottom-0 right-0 w-[700px] h-[700px] bg-primary/12 rounded-full blur-[230px]" />
-      <div className="hidden md:block absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[1000px] h-[1000px] bg-primary/8 rounded-full blur-[300px]" />
-      <div className="hidden md:block absolute top-10 right-1/4 w-[500px] h-[500px] bg-primary/10 rounded-full blur-[200px] animate-pulse" />
-      <div className="hidden md:block absolute bottom-20 left-1/4 w-[400px] h-[400px] bg-primary/8 rounded-full blur-[180px] animate-pulse" style={{ animationDelay: "1s" }} />
-      {/* Single subtle glow for mobile */}
-      <div className="md:hidden absolute top-1/3 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[300px] h-[300px] bg-primary/10 rounded-full blur-[150px]" />
+      {/* Light rays through atmosphere */}
+      <div className="pointer-events-none absolute inset-0 overflow-hidden">
+        <div className="absolute -top-20 left-1/3 w-[2px] h-[140%] bg-gradient-to-b from-white/10 via-white/5 to-transparent rotate-[12deg] blur-sm" />
+        <div className="absolute -top-20 left-1/2 w-[3px] h-[140%] bg-gradient-to-b from-white/15 via-white/4 to-transparent rotate-[6deg] blur-sm" />
+        <div className="absolute -top-20 left-2/3 w-[2px] h-[140%] bg-gradient-to-b from-white/8 via-white/3 to-transparent rotate-[-4deg] blur-sm" />
+      </div>
 
       <div className="container mx-auto relative z-10 px-4 pt-20 md:pt-24">
         <div className="flex flex-col items-center text-center space-y-4 md:space-y-5">
           <img src={logo} alt="Peak Studio" className="w-56 md:w-[420px] lg:w-[500px] drop-shadow-2xl animate-fade-in-up" width={1024} height={512} />
 
           <div className="space-y-4 md:space-y-6 max-w-3xl animate-fade-in-up" style={{ animationDelay: "0.2s" }}>
+            <p className="eyebrow mx-auto justify-center">I — The Peak</p>
             <h1 className="text-3xl md:text-6xl lg:text-7xl font-black leading-[1.05] tracking-tight">
               {t("hero.title1")}
               <br />
               <span className="text-gradient">{t("hero.title2")}</span>
             </h1>
-            <p className="text-base md:text-xl text-muted-foreground max-w-xl mx-auto">{t("hero.subtitle")}</p>
+            <p className="text-base md:text-xl text-muted-foreground max-w-xl mx-auto font-light">{t("hero.subtitle")}</p>
           </div>
 
           <div className="flex flex-col sm:flex-row gap-3 w-full sm:w-auto animate-fade-in-up" style={{ animationDelay: "0.4s" }}>
@@ -50,6 +50,12 @@ const HeroSection = () => {
               <p className="text-[10px] md:text-xs uppercase tracking-wider text-muted-foreground mt-1">{t("hero.stat3")}</p>
             </div>
           </div>
+        </div>
+
+        {/* Scroll cue */}
+        <div className="absolute bottom-6 left-1/2 -translate-x-1/2 flex flex-col items-center gap-2 text-foreground/50 animate-fade-in-up" style={{ animationDelay: "1s" }}>
+          <span className="text-[10px] uppercase tracking-[0.4em]">Descend</span>
+          <div className="w-px h-12 bg-gradient-to-b from-foreground/50 to-transparent" />
         </div>
       </div>
     </section>
