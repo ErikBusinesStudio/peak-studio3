@@ -106,7 +106,47 @@
     -webkit-backdrop-filter: blur(20px) saturate(140%);
     border: 1px solid hsl(210 20% 96% / 0.08);
   }
+
+  .animate-drift {
+    animation: drift 14s ease-in-out infinite;
+  }
+  .animate-drift-reverse {
+    animation: drift-reverse 16s ease-in-out infinite;
+  }
+  .animate-drift-slow {
+    animation: drift-slow 20s ease-in-out infinite;
+  }
+  .animate-pulse-slow {
+    animation: pulse-slow 5s ease-in-out infinite;
+  }
+  .animate-particle {
+    animation: particle linear infinite;
+  }
 }
+
+@keyframes drift {
+  0%, 100% { transform: translate(0, 0); }
+  50% { transform: translate(50px, 70px); }
+}
+@keyframes drift-reverse {
+  0%, 100% { transform: translate(0, 0); }
+  50% { transform: translate(-40px, -60px); }
+}
+@keyframes drift-slow {
+  0%, 100% { transform: translate(0, 0); }
+  50% { transform: translate(30px, -40px); }
+}
+@keyframes pulse-slow {
+  0%, 100% { opacity: 0.35; }
+  50% { opacity: 0.75; }
+}
+@keyframes particle {
+  0% { transform: translateY(0) translateX(0); opacity: 0; }
+  10% { opacity: 0.6; }
+  90% { opacity: 0.6; }
+  100% { transform: translateY(-120vh) translateX(30px); opacity: 0; }
+}
+
 
 @keyframes fade-in-up {
   from { opacity: 0; transform: translateY(30px); }
