@@ -27,7 +27,9 @@ const Index = () => {
   return (
     <>
       <Header />
-      <main className="relative">
+      <Atmosphere />
+      <main className="relative z-10">
+
         <SceneBackdrop image={scenePeak} overlay={55}>
           <HeroSection />
         </SceneBackdrop>
