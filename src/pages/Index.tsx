@@ -28,24 +28,24 @@ const Index = () => {
           <HeroSection />
         </SceneBackdrop>
 
-        <SectionMarker numeral="II" title="The Forest — About" shape="forest" />
+        <SectionMarker numeral="II" title="The Forest — About" shape="forest" altitude="1.200 m" weather="Pine air · 12°" />
         <WhyMeSection />
 
-        <SectionMarker numeral="III" title="The Waterfall — Services" shape="waterfall" />
+        <SectionMarker numeral="III" title="The Waterfall — Services" shape="waterfall" altitude="1.650 m" weather="Mist · 9°" />
         <PricingTeaser />
 
-        <SectionMarker numeral="IV" title="The Trail — Process" shape="trail" />
+        <SectionMarker numeral="IV" title="The Trail — Process" shape="trail" altitude="2.100 m" weather="Clear sky · 6°" />
         <HowItWorksSection />
 
-        <SectionMarker numeral="V" title="The Bridge — Work" shape="bridge" />
+        <SectionMarker numeral="V" title="The Bridge — Work" shape="bridge" altitude="2.480 m" weather="Crosswind · 4°" />
         <UrgencySection />
         <PortfolioSection />
 
-        <SectionMarker numeral="VI" title="The Base Camp — Trust" shape="camp" />
+        <SectionMarker numeral="VI" title="The Base Camp — Trust" shape="camp" altitude="2.890 m" weather="Starlit · -2°" />
         <ReviewsSection />
         <FaqSection />
 
-        <SectionMarker numeral="VII" title="The Cabin — Contact" shape="cabin" />
+        <SectionMarker numeral="VII" title="The Cabin — Contact" shape="cabin" altitude="3.150 m" weather="Warm hearth · -5°" />
         <CtaSection />
         <ContactSection />
       </main>
