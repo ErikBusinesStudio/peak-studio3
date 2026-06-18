@@ -1,6 +1,5 @@
 import Header from "@/components/Header";
 import HeroSection from "@/components/HeroSection";
-import ServicesSection from "@/components/ServicesSection";
 import WhyMeSection from "@/components/WhyMeSection";
 import HowItWorksSection from "@/components/HowItWorksSection";
 import UrgencySection from "@/components/UrgencySection";
@@ -14,13 +13,8 @@ import FloatingWhatsApp from "@/components/FloatingWhatsApp";
 import Footer from "@/components/Footer";
 import Atmosphere from "@/components/Atmosphere";
 import SceneBackdrop from "@/components/SceneBackdrop";
+import SectionMarker from "@/components/SectionMarker";
 import scenePeak from "@/assets/scene-peak.jpg";
-import sceneForest from "@/assets/scene-forest.jpg";
-import sceneWaterfall from "@/assets/scene-waterfall.jpg";
-import sceneSignpost from "@/assets/scene-signpost.jpg";
-import sceneBridge from "@/assets/scene-bridge.jpg";
-import sceneCabin from "@/assets/scene-cabin.jpg";
-import sceneBasecamp from "@/assets/scene-basecamp.jpg";
 
 
 const Index = () => {
@@ -34,33 +28,26 @@ const Index = () => {
           <HeroSection />
         </SceneBackdrop>
 
-        <SceneBackdrop image={sceneForest} overlay={70}>
-          <ServicesSection />
-          <WhyMeSection />
-        </SceneBackdrop>
+        <SectionMarker numeral="II" title="The Forest — About" shape="forest" />
+        <WhyMeSection />
 
-        <SceneBackdrop image={sceneSignpost} overlay={72}>
-          <HowItWorksSection />
-        </SceneBackdrop>
+        <SectionMarker numeral="III" title="The Waterfall — Services" shape="waterfall" />
+        <PricingTeaser />
 
-        <SceneBackdrop image={sceneBridge} overlay={75}>
-          <UrgencySection />
-          <PortfolioSection />
-        </SceneBackdrop>
+        <SectionMarker numeral="IV" title="The Trail — Process" shape="trail" />
+        <HowItWorksSection />
 
-        <SceneBackdrop image={sceneWaterfall} overlay={72}>
-          <PricingTeaser />
-        </SceneBackdrop>
+        <SectionMarker numeral="V" title="The Bridge — Work" shape="bridge" />
+        <UrgencySection />
+        <PortfolioSection />
 
-        <SceneBackdrop image={sceneCabin} overlay={70}>
-          <ReviewsSection />
-          <FaqSection />
-        </SceneBackdrop>
+        <SectionMarker numeral="VI" title="The Base Camp — Trust" shape="camp" />
+        <ReviewsSection />
+        <FaqSection />
 
-        <SceneBackdrop image={sceneBasecamp} overlay={70}>
-          <CtaSection />
-          <ContactSection />
-        </SceneBackdrop>
+        <SectionMarker numeral="VII" title="The Cabin — Contact" shape="cabin" />
+        <CtaSection />
+        <ContactSection />
       </main>
       <Footer />
       <FloatingWhatsApp />
