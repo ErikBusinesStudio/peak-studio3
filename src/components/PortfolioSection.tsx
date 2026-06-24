@@ -1,7 +1,7 @@
 import { useState } from "react";
 import portfolioEriutility from "@/assets/portfolio-eriutility.png.asset.json";
 import portfolioCtsCuvio from "@/assets/portfolio-cts-cuvio.webp.asset.json";
-import portfolioShop from "@/assets/portfolio-shop.jpg";
+import portfolioSafetySolutions from "@/assets/portfolio-safety-solutions.png.asset.json";
 import volantinoImg from "@/assets/service-volantini.jpg";
 import { ExternalLink, Globe, FileText } from "lucide-react";
 import { useScrollAnimation } from "@/hooks/useScrollAnimation";
