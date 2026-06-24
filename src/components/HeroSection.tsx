@@ -24,7 +24,7 @@ const HeroSection = () => {
           <div className="col-span-12 lg:col-span-8 row-span-2 relative bg-card border border-foreground/10 p-6 md:p-12 flex flex-col justify-between min-h-[460px] md:min-h-[560px] overflow-hidden">
             <div>
               <p className="eyebrow mb-6 md:mb-8">Chapter I · The Ascent</p>
-              <h1 className="font-display text-[14vw] leading-[0.88] md:text-[7.5rem] lg:text-[9rem] tracking-[-0.04em] uppercase">
+              <h1 className="font-display leading-[0.88] tracking-[-0.04em] uppercase break-words" style={{ fontSize: "clamp(2.5rem, 8.5vw, 6.5rem)" }}>
                 {t("hero.title1").replace(".", "")}
                 <br />
                 <span className="ink-underline">{t("hero.title2").replace(".", "")}</span>
