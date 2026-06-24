@@ -265,13 +265,6 @@ const PlanCard = ({
         </div>
       </div>
 
-      <div className="mb-6">
-        <span className="text-3xl md:text-4xl font-black text-gradient">{plan.price}</span>
-        {plan.priceNote && (
-          <span className="text-sm text-muted-foreground ml-1">{plan.priceNote}</span>
-        )}
-      </div>
-
       <ul className="space-y-3 mb-8 flex-1">
         {plan.features.map((f) => (
           <li key={f} className="flex items-start gap-2.5 text-sm">
