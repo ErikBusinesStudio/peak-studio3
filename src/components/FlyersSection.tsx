@@ -1,9 +1,5 @@
 import { Palette, Printer, MapPin, Check, Users, Target, Zap, ShieldCheck } from "lucide-react";
 import { useScrollAnimation } from "@/hooks/useScrollAnimation";
-import flyerRistorante from "@/assets/flyers/ristorante.jpg";
-import flyerEvento from "@/assets/flyers/evento.jpg";
-import flyerYoga from "@/assets/flyers/yoga.jpg";
-import flyerNegozio from "@/assets/flyers/negozio.jpg";
 
 type Pkg = {
   name: string;
@@ -97,45 +93,6 @@ const FlyersSection = () => {
                 </div>
                 <h4 className="text-lg md:text-xl font-bold mb-2">{s.title}</h4>
                 <p className="text-muted-foreground text-sm leading-relaxed">{s.desc}</p>
-              </div>
-            ))}
-          </div>
-        </div>
-
-        {/* Galleria locandine */}
-        <div className="mb-16 md:mb-24">
-          <div className={`text-center mb-10 transition-all duration-700 ${isVisible ? "opacity-100 translate-y-0" : "opacity-0 translate-y-8"}`}>
-            <h3 className="text-2xl md:text-4xl font-black mb-3">
-              Alcuni <span className="text-gradient">esempi</span>
-            </h3>
-            <p className="text-muted-foreground text-sm md:text-base">Locandine pensate per catturare l'attenzione e portare clienti.</p>
-          </div>
-          <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 md:gap-6 max-w-5xl mx-auto">
-            {[
-              { src: flyerRistorante, alt: "Locandina per ristorante italiano", title: "Ristorante", category: "Food & beverage" },
-              { src: flyerEvento, alt: "Locandina per evento live", title: "Evento live", category: "Nightlife" },
-              { src: flyerYoga, alt: "Locandina per yoga e wellness", title: "Yoga & Wellness", category: "Benessere" },
-              { src: flyerNegozio, alt: "Locandina per apertura negozio", title: "Grand Opening", category: "Retail" },
-            ].map((f, i) => (
-              <div
-                key={f.title}
-                className={`group relative overflow-hidden rounded-2xl border border-border bg-card hover:border-primary/40 transition-all duration-500 ${isVisible ? "opacity-100 translate-y-0" : "opacity-0 translate-y-8"}`}
-                style={{ transitionDelay: `${i * 120}ms` }}
-              >
-                <div className="aspect-[3/4] overflow-hidden">
-                  <img
-                    src={f.src}
-                    alt={f.alt}
-                    loading="lazy"
-                    width={768}
-                    height={1024}
-                    className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105"
-                  />
-                </div>
-                <div className="absolute inset-x-0 bottom-0 bg-gradient-to-t from-background via-background/80 to-transparent p-4 md:p-5">
-                  <p className="text-[10px] md:text-xs font-mono uppercase tracking-widest text-primary mb-1">{f.category}</p>
-                  <h4 className="font-display text-lg md:text-xl font-bold">{f.title}</h4>
-                </div>
               </div>
             ))}
           </div>

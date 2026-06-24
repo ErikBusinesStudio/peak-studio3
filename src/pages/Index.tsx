@@ -5,7 +5,6 @@ import HowItWorksSection from "@/components/HowItWorksSection";
 import UrgencySection from "@/components/UrgencySection";
 import PortfolioSection from "@/components/PortfolioSection";
 import PricingTeaser from "@/components/PricingTeaser";
-import FlyersSection from "@/components/FlyersSection";
 import ReviewsSection from "@/components/ReviewsSection";
 import FaqSection from "@/components/FaqSection";
 import CtaSection from "@/components/CtaSection";
@@ -42,21 +41,18 @@ const Index = () => {
         <ChapterDivider numeral="III" label="Servizi" kicker="Siti · Canoni · Extra" />
         <PricingTeaser />
 
-        <ChapterDivider numeral="IV" label="Volantini" kicker="Design · Stampa · Distribuzione" />
-        <FlyersSection />
-
-        <ChapterDivider numeral="V" label="Processo" kicker="Dal brief al lancio" />
+        <ChapterDivider numeral="IV" label="Processo" kicker="Dal brief al lancio" />
         <HowItWorksSection />
 
-        <ChapterDivider numeral="VI" label="Lavori" kicker="Portfolio selezionato" />
+        <ChapterDivider numeral="V" label="Lavori" kicker="Portfolio selezionato" />
         <UrgencySection />
         <PortfolioSection />
 
-        <ChapterDivider numeral="VII" label="Recensioni" kicker="Cosa dicono i clienti" />
+        <ChapterDivider numeral="VI" label="Recensioni" kicker="Cosa dicono i clienti" />
         <ReviewsSection />
         <FaqSection />
 
-        <ChapterDivider numeral="VIII" label="Contatto" kicker="Scrivimi · Risposta in 24h" />
+        <ChapterDivider numeral="VII" label="Contatto" kicker="Scrivimi · Risposta in 24h" />
         <CtaSection />
         <ContactSection />
       </main>
