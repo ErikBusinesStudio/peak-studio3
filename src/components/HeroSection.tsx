@@ -1,80 +1,129 @@
-import logo from "@/assets/logo.png";
+import { ArrowUpRight, Globe, Wrench, Sparkles, Star } from "lucide-react";
 import { useI18n } from "@/contexts/I18nContext";
+import heroMountain from "@/assets/hero-mountain.jpg";
 
 const HeroSection = () => {
   const { t } = useI18n();
 
   return (
-    <section className="relative min-h-screen flex items-center justify-center overflow-hidden">
-      {/* Atmospheric light rays */}
-      <div className="pointer-events-none absolute inset-0 overflow-hidden">
-        <div className="absolute -top-20 left-1/4 w-[2px] h-[160%] bg-gradient-to-b from-white/12 via-white/4 to-transparent rotate-[14deg] blur-sm" />
-        <div className="absolute -top-20 left-1/3 w-[3px] h-[160%] bg-gradient-to-b from-white/16 via-white/5 to-transparent rotate-[10deg] blur-sm" />
-        <div className="absolute -top-20 left-1/2 w-[3px] h-[160%] bg-gradient-to-b from-white/20 via-white/6 to-transparent rotate-[6deg] blur-sm" />
-        <div className="absolute -top-20 left-2/3 w-[2px] h-[160%] bg-gradient-to-b from-white/12 via-white/4 to-transparent rotate-[-4deg] blur-sm" />
-        <div className="absolute -top-20 left-3/4 w-[2px] h-[160%] bg-gradient-to-b from-white/10 via-white/3 to-transparent rotate-[-10deg] blur-sm" />
-        {/* Floating particles */}
-        {Array.from({ length: 12 }).map((_, i) => (
-          <div
-            key={i}
-            className="absolute w-1 h-1 rounded-full bg-primary/30 animate-particle"
-            style={{
-              left: `${20 + Math.random() * 60}%`,
-              top: `${20 + Math.random() * 80}%`,
-              animationDuration: `${10 + Math.random() * 15}s`,
-              animationDelay: `${Math.random() * 8}s`,
-            }}
-          />
-        ))}
-      </div>
+    <section className="relative pt-28 md:pt-36 pb-12 md:pb-20 px-4 md:px-8">
+      <div className="max-w-7xl mx-auto">
+        {/* Top meta strip */}
+        <div className="flex items-center justify-between mb-8 md:mb-12 text-[10px] md:text-xs font-medium uppercase tracking-[0.35em] text-foreground/60">
+          <span className="flex items-center gap-3">
+            <span className="w-8 h-px" style={{ background: "hsl(var(--accent-red))" }} />
+            Issue Nº 01 · Peak Studio
+          </span>
+          <span className="hidden md:inline">Est. 2024 · Italia</span>
+          <span>2026</span>
+        </div>
 
-      {/* Subtle orb glow */}
-      <div className="pointer-events-none absolute top-1/3 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[600px] h-[600px] bg-primary/8 rounded-full blur-[180px] animate-pulse-slow" />
+        {/* BENTO GRID */}
+        <div className="grid grid-cols-12 grid-rows-[auto] gap-3 md:gap-4">
+          {/* Headline card — large */}
+          <div className="col-span-12 lg:col-span-8 row-span-2 relative bg-card border border-foreground/10 p-6 md:p-12 flex flex-col justify-between min-h-[460px] md:min-h-[560px] overflow-hidden">
+            <div>
+              <p className="eyebrow mb-6 md:mb-8">Chapter I · The Ascent</p>
+              <h1 className="font-display text-[14vw] leading-[0.88] md:text-[7.5rem] lg:text-[9rem] tracking-[-0.04em] uppercase">
+                {t("hero.title1").replace(".", "")}
+                <br />
+                <span className="ink-underline">{t("hero.title2").replace(".", "")}</span>
+                <span style={{ color: "hsl(var(--accent-red))" }}>.</span>
+              </h1>
+            </div>
 
+            <div className="mt-8 md:mt-10 flex flex-col md:flex-row md:items-end md:justify-between gap-6">
+              <p className="text-base md:text-lg max-w-md text-foreground/70 leading-relaxed">
+                {t("hero.subtitle")}
+              </p>
+              <div className="flex flex-col sm:flex-row gap-3">
+                <a href="#contatti" className="btn-cta">
+                  {t("hero.cta1")} <ArrowUpRight className="w-4 h-4" />
+                </a>
+                <a href="#portfolio" className="btn-cta-soft">{t("hero.cta2")}</a>
+              </div>
+            </div>
 
-      <div className="container mx-auto relative z-10 px-4 pt-20 md:pt-24">
-        <div className="flex flex-col items-center text-center space-y-4 md:space-y-5">
-          <img src={logo} alt="Peak Studio" className="w-56 md:w-[420px] lg:w-[500px] drop-shadow-2xl animate-fade-in-up" width={1024} height={512} />
-
-          <div className="space-y-4 md:space-y-6 max-w-3xl animate-fade-in-up" style={{ animationDelay: "0.2s" }}>
-            <p className="eyebrow mx-auto justify-center">I — The Peak</p>
-            <h1 className="text-3xl md:text-6xl lg:text-7xl font-black leading-[1.05] tracking-tight">
-              {t("hero.title1")}
-              <br />
-              <span className="text-gradient">{t("hero.title2")}</span>
-            </h1>
-            <p className="text-base md:text-xl text-muted-foreground max-w-xl mx-auto font-light">{t("hero.subtitle")}</p>
+            {/* corner crosshair */}
+            <span className="absolute top-3 right-3 text-[9px] font-mono uppercase tracking-widest text-foreground/40">+ 46°N</span>
+            <span className="absolute bottom-3 left-3 text-[9px] font-mono uppercase tracking-widest text-foreground/40">— 11°E</span>
           </div>
 
-          <div className="flex flex-col sm:flex-row gap-3 w-full sm:w-auto animate-fade-in-up" style={{ animationDelay: "0.4s" }}>
-            <a href="#contatti" className="bg-primary text-primary-foreground px-8 py-3 md:px-10 md:py-4 rounded-md text-sm font-bold uppercase tracking-wider hover:scale-105 transition-all glow">
-              {t("hero.cta1")}
-            </a>
-            <a href="#portfolio" className="border border-border/60 text-foreground px-8 py-3 md:px-10 md:py-4 rounded-md text-sm font-bold uppercase tracking-wider hover:border-primary/40 hover:bg-primary/5 hover:scale-105 transition-all">
-              {t("hero.cta2")}
-            </a>
+          {/* Mountain image card — tall */}
+          <div className="col-span-12 lg:col-span-4 row-span-2 relative overflow-hidden border border-foreground/10 min-h-[280px] lg:min-h-0">
+            <img
+              src={heroMountain}
+              alt="Vetta nel bosco"
+              width={1536}
+              height={1024}
+              className="absolute inset-0 w-full h-full object-cover"
+            />
+            <div className="absolute inset-0" style={{ background: "linear-gradient(180deg, transparent 40%, hsl(0 0% 5% / 0.65))" }} />
+            <div className="absolute inset-0 flex flex-col justify-between p-5 md:p-7" style={{ color: "hsl(var(--paper))" }}>
+              <div className="flex items-start justify-between">
+                <span className="text-[10px] font-mono uppercase tracking-[0.4em] opacity-80">Fig. 01</span>
+                <span className="text-[10px] font-mono uppercase tracking-[0.4em] opacity-80">2.847 m</span>
+              </div>
+              <div>
+                <p className="text-[10px] font-mono uppercase tracking-[0.35em] opacity-70 mb-2">The Summit</p>
+                <p className="font-display text-2xl md:text-3xl leading-none">Climb above<br/>the noise.</p>
+              </div>
+            </div>
           </div>
 
-          <div className="flex flex-wrap justify-center gap-6 md:gap-16 pt-6 md:pt-8 border-t border-border/40 mt-6 md:mt-8 animate-fade-in-up" style={{ animationDelay: "0.6s" }}>
-            <div className="text-center">
-              <p className="text-2xl md:text-4xl font-black text-primary">50+</p>
-              <p className="text-[10px] md:text-xs uppercase tracking-wider text-muted-foreground mt-1">{t("hero.stat1")}</p>
+          {/* Stat 1 */}
+          <div className="col-span-6 md:col-span-4 lg:col-span-3 bg-secondary border border-foreground/10 p-5 md:p-6 flex flex-col justify-between min-h-[140px]">
+            <span className="text-[10px] font-mono uppercase tracking-[0.3em] text-foreground/60">01</span>
+            <div>
+              <p className="font-display text-4xl md:text-5xl leading-none">50+</p>
+              <p className="text-xs uppercase tracking-wider text-foreground/60 mt-2">{t("hero.stat1")}</p>
             </div>
-            <div className="text-center">
-              <p className="text-2xl md:text-4xl font-black text-primary">48h</p>
-              <p className="text-[10px] md:text-xs uppercase tracking-wider text-muted-foreground mt-1">{t("hero.stat2")}</p>
+          </div>
+
+          {/* Stat 2 */}
+          <div className="col-span-6 md:col-span-4 lg:col-span-3 border border-foreground/15 p-5 md:p-6 flex flex-col justify-between min-h-[140px]" style={{ background: "hsl(var(--ink))", color: "hsl(var(--paper))" }}>
+            <span className="text-[10px] font-mono uppercase tracking-[0.3em] opacity-60">02</span>
+            <div>
+              <p className="font-display text-4xl md:text-5xl leading-none">48<span style={{ color: "hsl(var(--accent-red))" }}>h</span></p>
+              <p className="text-xs uppercase tracking-wider opacity-70 mt-2">{t("hero.stat2")}</p>
             </div>
-            <div className="text-center">
-              <p className="text-2xl md:text-4xl font-black text-primary">100%</p>
-              <p className="text-[10px] md:text-xs uppercase tracking-wider text-muted-foreground mt-1">{t("hero.stat3")}</p>
+          </div>
+
+          {/* Stat 3 */}
+          <div className="col-span-12 md:col-span-4 lg:col-span-2 bg-card border border-foreground/10 p-5 md:p-6 flex flex-col justify-between min-h-[140px]">
+            <span className="text-[10px] font-mono uppercase tracking-[0.3em] text-foreground/60">03</span>
+            <div>
+              <p className="font-display text-4xl md:text-5xl leading-none">100%</p>
+              <p className="text-xs uppercase tracking-wider text-foreground/60 mt-2">{t("hero.stat3")}</p>
+            </div>
+          </div>
+
+          {/* Quick rating card */}
+          <div className="col-span-12 lg:col-span-4 bg-card border border-foreground/10 p-5 md:p-6 flex items-center gap-4 min-h-[140px]">
+            <div className="flex" style={{ color: "hsl(var(--accent-red))" }}>
+              {Array.from({ length: 5 }).map((_, i) => (
+                <Star key={i} className="w-4 h-4 fill-current" />
+              ))}
+            </div>
+            <div className="flex-1">
+              <p className="font-display text-lg leading-tight">Clienti felici, dalle Dolomiti a Milano.</p>
+              <p className="text-[10px] uppercase tracking-wider text-foreground/60 mt-1">Recensioni verificate</p>
             </div>
           </div>
         </div>
 
-        {/* Scroll cue */}
-        <div className="absolute bottom-6 left-1/2 -translate-x-1/2 flex flex-col items-center gap-2 text-foreground/50 animate-fade-in-up" style={{ animationDelay: "1s" }}>
-          <span className="text-[10px] uppercase tracking-[0.4em]">Descend</span>
-          <div className="w-px h-12 bg-gradient-to-b from-foreground/50 to-transparent" />
+        {/* Trail strip below bento */}
+        <div className="mt-10 md:mt-14 grid grid-cols-3 gap-3 md:gap-4 text-[10px] md:text-xs font-mono uppercase tracking-[0.3em] text-foreground/60">
+          {[
+            { n: "II", l: "About" },
+            { n: "III", l: "Servizi" },
+            { n: "IV", l: "Portfolio" },
+          ].map((s) => (
+            <div key={s.n} className="flex items-center gap-3 border-t border-foreground/20 pt-3">
+              <span style={{ color: "hsl(var(--accent-red))" }}>{s.n}</span>
+              <span>{s.l}</span>
+            </div>
+          ))}
         </div>
       </div>
     </section>
