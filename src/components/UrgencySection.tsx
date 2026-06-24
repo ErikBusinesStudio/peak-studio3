@@ -4,72 +4,169 @@ import { useScrollAnimation } from "@/hooks/useScrollAnimation";
 import { useI18n } from "@/contexts/I18nContext";
 
 const CITIES = [
-  { name: "Roma", tz: "Europe/Rome" },
-  { name: "New York", tz: "America/New_York" },
-  { name: "Tokyo", tz: "Asia/Tokyo" },
-  { name: "Sydney", tz: "Australia/Sydney" },
+  { name: "Roma", tz: "Europe/Rome", code: "RM" },
+  { name: "New York", tz: "America/New_York", code: "NY" },
+  { name: "Tokyo", tz: "Asia/Tokyo", code: "TYO" },
+  { name: "Sydney", tz: "Australia/Sydney", code: "SYD" },
 ];
 
 function getParts(tz: string, now: Date) {
   const parts = new Intl.DateTimeFormat("it-IT", {
-    timeZone: tz, hour: "2-digit", minute: "2-digit", second: "2-digit", hour12: false,
+    timeZone: tz, hour: "2-digit", minute: "2-digit", second: "2-digit", hour12: false, weekday: "short",
   }).formatToParts(now);
   const get = (t: string) => parseInt(parts.find((p) => p.type === t)?.value ?? "0", 10);
-  return { h: get("hour") % 12, m: get("minute"), s: get("second"), h24: get("hour") };
+  const weekday = parts.find((p) => p.type === "weekday")?.value ?? "";
+  return { h: get("hour") % 12, m: get("minute"), s: get("second"), h24: get("hour"), weekday };
 }
 
-const MiniClock = ({ city, tz, now }: { city: string; tz: string; now: Date }) => {
-  const { h, m, s, h24 } = getParts(tz, now);
+const MiniClock = ({ city, code, tz, now }: { city: string; code: string; tz: string; now: Date }) => {
+  const { h, m, s, h24, weekday } = getParts(tz, now);
   const hourDeg = h * 30 + m * 0.5;
-  const minDeg = m * 6;
+  const minDeg = m * 6 + s * 0.1;
   const secDeg = s * 6;
   const timeLabel = `${String(h24).padStart(2, "0")}:${String(m).padStart(2, "0")}`;
+  const ampm = h24 < 12 ? "AM" : "PM";
   const isNight = h24 < 6 || h24 >= 20;
+  const isDawn = h24 >= 6 && h24 < 9;
+  const isDusk = h24 >= 17 && h24 < 20;
+
+  // day progression (0-1) → conic ring sweep
+  const dayProgress = ((h24 * 3600 + m * 60 + s) / 86400) * 360;
+
+  const faceBg = isNight
+    ? "radial-gradient(circle at 32% 28%, hsl(225 50% 16%), hsl(232 60% 5%) 75%)"
+    : isDawn || isDusk
+    ? "radial-gradient(circle at 32% 28%, hsl(20 60% 22%), hsl(348 50% 10%) 75%)"
+    : "radial-gradient(circle at 32% 28%, hsl(210 30% 22%), hsl(220 35% 8%) 75%)";
+
+  const accent = "hsl(348 90% 58%)";
+
   return (
-    <div className="flex flex-col items-center gap-1.5">
-      <div
-        className="relative w-12 h-12 md:w-14 md:h-14 rounded-full border"
-        style={{
-          borderColor: "hsl(348 78% 42% / 0.5)",
-          background: isNight
-            ? "radial-gradient(circle at 30% 30%, hsl(220 40% 14%), hsl(230 50% 6%))"
-            : "radial-gradient(circle at 30% 30%, hsl(0 0% 100% / 0.08), hsl(0 0% 100% / 0.02))",
-          boxShadow: "inset 0 0 12px hsl(0 0% 0% / 0.4), 0 0 18px -8px hsl(348 78% 36% / 0.5)",
-        }}
-      >
-        {/* ticks */}
-        {[0, 3, 6, 9].map((n) => (
-          <span
-            key={n}
-            className="absolute left-1/2 top-1/2 w-px h-1.5 md:h-2 bg-foreground/40"
-            style={{ transform: `translate(-50%, -50%) rotate(${n * 30}deg) translateY(-44%)` }}
-          />
-        ))}
-        {/* hour hand */}
-        <span
-          className="absolute left-1/2 top-1/2 w-[2px] h-3 md:h-3.5 bg-foreground rounded-full origin-bottom"
-          style={{ transform: `translate(-50%, -100%) rotate(${hourDeg}deg)`, transformOrigin: "50% 100%" }}
-        />
-        {/* minute hand */}
-        <span
-          className="absolute left-1/2 top-1/2 w-px h-4 md:h-5 bg-foreground/90 rounded-full"
-          style={{ transform: `translate(-50%, -100%) rotate(${minDeg}deg)`, transformOrigin: "50% 100%" }}
-        />
-        {/* second hand */}
-        <span
-          className="absolute left-1/2 top-1/2 w-px h-5 md:h-6"
+    <div className="flex flex-col items-center gap-2 group">
+      <div className="relative w-16 h-16 md:w-[72px] md:h-[72px]">
+        {/* outer conic ring — day progression */}
+        <div
+          className="absolute inset-0 rounded-full"
           style={{
-            background: "hsl(348 78% 55%)",
-            transform: `translate(-50%, -100%) rotate(${secDeg}deg)`,
-            transformOrigin: "50% 100%",
+            background: `conic-gradient(from -90deg, ${accent} 0deg, ${accent} ${dayProgress}deg, hsl(0 0% 100% / 0.06) ${dayProgress}deg 360deg)`,
+            padding: "1.5px",
+            filter: "drop-shadow(0 0 8px hsl(348 90% 50% / 0.35))",
           }}
-        />
-        {/* center */}
-        <span className="absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 w-1.5 h-1.5 rounded-full" style={{ background: "hsl(348 78% 55%)" }} />
+        >
+          <div className="w-full h-full rounded-full bg-background" />
+        </div>
+
+        {/* face */}
+        <div
+          className="absolute inset-[3px] rounded-full overflow-hidden"
+          style={{
+            background: faceBg,
+            boxShadow:
+              "inset 0 1px 0 hsl(0 0% 100% / 0.08), inset 0 -8px 18px hsl(0 0% 0% / 0.5), inset 0 0 0 1px hsl(0 0% 100% / 0.04)",
+          }}
+        >
+          {/* starfield for night */}
+          {isNight && (
+            <>
+              <span className="absolute w-px h-px bg-white/70 rounded-full" style={{ top: "22%", left: "30%" }} />
+              <span className="absolute w-px h-px bg-white/50 rounded-full" style={{ top: "35%", left: "70%" }} />
+              <span className="absolute w-px h-px bg-white/60 rounded-full" style={{ top: "65%", left: "25%" }} />
+              <span className="absolute w-px h-px bg-white/40 rounded-full" style={{ top: "72%", left: "60%" }} />
+            </>
+          )}
+
+          {/* 12 ticks */}
+          {Array.from({ length: 12 }).map((_, n) => {
+            const major = n % 3 === 0;
+            return (
+              <span
+                key={n}
+                className="absolute left-1/2 top-1/2 rounded-full"
+                style={{
+                  width: major ? 2 : 1,
+                  height: major ? 5 : 3,
+                  background: major ? "hsl(0 0% 100% / 0.85)" : "hsl(0 0% 100% / 0.3)",
+                  transform: `translate(-50%, -50%) rotate(${n * 30}deg) translateY(-26px)`,
+                }}
+              />
+            );
+          })}
+
+          {/* sun/moon indicator at top */}
+          <span
+            className="absolute left-1/2 top-[14%] -translate-x-1/2 text-[7px] font-mono tracking-widest"
+            style={{ color: isNight ? "hsl(220 30% 70%)" : "hsl(40 90% 70%)" }}
+          >
+            {isNight ? "◐" : "☼"}
+          </span>
+
+          {/* hour hand */}
+          <span
+            className="absolute left-1/2 top-1/2 rounded-full"
+            style={{
+              width: 2.5,
+              height: 16,
+              background: "linear-gradient(to top, transparent, hsl(0 0% 100% / 0.95))",
+              transform: `translate(-50%, -100%) rotate(${hourDeg}deg)`,
+              transformOrigin: "50% 100%",
+              boxShadow: "0 0 4px hsl(0 0% 100% / 0.3)",
+            }}
+          />
+          {/* minute hand */}
+          <span
+            className="absolute left-1/2 top-1/2 rounded-full"
+            style={{
+              width: 1.5,
+              height: 22,
+              background: "linear-gradient(to top, transparent, hsl(0 0% 100% / 0.9))",
+              transform: `translate(-50%, -100%) rotate(${minDeg}deg)`,
+              transformOrigin: "50% 100%",
+            }}
+          />
+          {/* second hand */}
+          <span
+            className="absolute left-1/2 top-1/2"
+            style={{
+              width: 1,
+              height: 26,
+              background: accent,
+              transform: `translate(-50%, -78%) rotate(${secDeg}deg)`,
+              transformOrigin: "50% 78%",
+              boxShadow: `0 0 6px ${accent}`,
+              transition: "transform 0.15s cubic-bezier(.4, 2.3, .6, 1)",
+            }}
+          />
+          {/* counterweight tail */}
+          <span
+            className="absolute left-1/2 top-1/2 rounded-full"
+            style={{
+              width: 3,
+              height: 3,
+              background: accent,
+              transform: `translate(-50%, -50%) rotate(${secDeg}deg) translateY(7px)`,
+              transformOrigin: "50% 50%",
+              transition: "transform 0.15s cubic-bezier(.4, 2.3, .6, 1)",
+            }}
+          />
+          {/* center pivot */}
+          <span
+            className="absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 w-2 h-2 rounded-full"
+            style={{
+              background: "hsl(0 0% 98%)",
+              boxShadow: `0 0 0 1.5px ${accent}, 0 0 8px ${accent}`,
+            }}
+          />
+        </div>
       </div>
-      <div className="flex flex-col items-center leading-none">
-        <span className="text-[9px] md:text-[10px] font-mono uppercase tracking-[0.2em] text-foreground/70">{city}</span>
-        <span className="font-mono text-[10px] md:text-xs text-foreground mt-0.5 tabular-nums">{timeLabel}</span>
+
+      <div className="flex flex-col items-center leading-tight">
+        <span className="text-[8px] md:text-[9px] font-mono uppercase tracking-[0.25em] text-foreground/55">
+          {code} · {weekday}
+        </span>
+        <span className="font-mono text-[11px] md:text-[13px] font-bold text-foreground mt-0.5 tabular-nums tracking-wider">
+          {timeLabel}
+          <span className="text-[8px] md:text-[9px] text-foreground/40 ml-1 font-normal">{ampm}</span>
+        </span>
       </div>
     </div>
   );
@@ -82,9 +179,30 @@ const WorldClocks = () => {
     return () => clearInterval(id);
   }, []);
   return (
-    <div className="inline-flex items-center gap-4 md:gap-7 px-4 md:px-6 py-3 md:py-3.5 rounded-2xl border border-destructive/25 bg-card/60 backdrop-blur">
-      {CITIES.map((c) => (
-        <MiniClock key={c.name} city={c.name} tz={c.tz} now={now} />
+    <div
+      className="relative inline-flex items-center gap-5 md:gap-8 px-5 md:px-8 py-4 md:py-5 rounded-2xl border border-destructive/30 backdrop-blur-xl overflow-hidden"
+      style={{
+        background:
+          "linear-gradient(135deg, hsl(0 0% 8% / 0.7), hsl(348 30% 10% / 0.5))",
+        boxShadow:
+          "inset 0 1px 0 hsl(0 0% 100% / 0.06), 0 20px 40px -20px hsl(348 78% 30% / 0.4), 0 0 0 1px hsl(0 0% 100% / 0.02)",
+      }}
+    >
+      {/* live dot */}
+      <div className="absolute top-2 left-3 flex items-center gap-1.5">
+        <span className="relative flex w-1.5 h-1.5">
+          <span className="absolute inset-0 rounded-full bg-destructive animate-ping opacity-75" />
+          <span className="relative inline-flex w-1.5 h-1.5 rounded-full bg-destructive" />
+        </span>
+        <span className="text-[7px] md:text-[8px] font-mono uppercase tracking-[0.3em] text-destructive/80">
+          Live · UTC
+        </span>
+      </div>
+      {CITIES.map((c, i) => (
+        <div key={c.name} className="flex items-center gap-5 md:gap-8">
+          {i > 0 && <div className="w-px h-12 md:h-14 bg-gradient-to-b from-transparent via-foreground/15 to-transparent" />}
+          <MiniClock city={c.name} code={c.code} tz={c.tz} now={now} />
+        </div>
       ))}
     </div>
   );
