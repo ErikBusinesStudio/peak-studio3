@@ -6,6 +6,7 @@ import heroStormPeakAsset from "@/assets/hero-k2-natural.jpg.asset.json";
 const heroStormPeak = heroStormPeakAsset.url;
 import sceneCabin from "@/assets/scene-cabin.jpg";
 import sceneBridge from "@/assets/scene-bridge.jpg";
+import MountainOfTheHour from "@/components/MountainOfTheHour";
 
 const HeroSection = () => {
   const { t } = useI18n();
@@ -73,27 +74,8 @@ const HeroSection = () => {
             <span className="absolute bottom-3 left-3 text-[9px] font-mono uppercase tracking-widest text-foreground/40">— 11°E</span>
           </div>
 
-          {/* Mountain image card — tall */}
-          <div className="col-span-12 lg:col-span-4 row-span-2 relative overflow-hidden rounded-2xl md:rounded-3xl gradient-border min-h-[220px] md:min-h-[280px] lg:min-h-0 animate-rise" style={{ animationDelay: "0.15s" }}>
-            <img
-              src={heroStormPeak}
-              alt="Cima innevata in tempesta"
-              width={1024}
-              height={1536}
-              className="absolute inset-0 w-full h-full object-cover transition-transform duration-[6s] hover:scale-110"
-            />
-            <div className="absolute inset-0" style={{ background: "linear-gradient(180deg, hsl(338 100% 4% / 0.35) 0%, transparent 35%, hsl(338 100% 4% / 0.9) 100%), linear-gradient(135deg, hsl(348 78% 36% / 0.22), transparent 60%)" }} />
-            <div className="absolute inset-0 flex flex-col justify-between p-5 md:p-7 text-foreground">
-              <div className="flex items-start justify-between">
-                <span className="text-[10px] font-mono uppercase tracking-[0.4em] opacity-80">Tav. 01</span>
-                <span className="text-[10px] font-mono uppercase tracking-[0.4em] px-2 py-1 rounded-full text-primary backdrop-blur" style={{ background: "hsl(348 78% 36% / 0.25)", border: "1px solid hsl(348 78% 42% / 0.5)" }}>Tempesta</span>
-              </div>
-              <div>
-                <p className="text-[10px] font-mono uppercase tracking-[0.35em] opacity-70 mb-2">La Vetta</p>
-                <p className="font-display text-2xl md:text-3xl leading-none">Sopra il rumore,<br/><span className="text-gradient-pink">la tua voce.</span></p>
-              </div>
-            </div>
-          </div>
+          {/* Mountain of the hour — drone live feed card */}
+          <MountainOfTheHour />
 
           {/* Stat 1 */}
           <div className="col-span-6 md:col-span-4 lg:col-span-3 relative overflow-hidden rounded-xl md:rounded-2xl gradient-border bg-card p-3.5 md:p-6 flex flex-col justify-between min-h-[100px] md:min-h-[140px] animate-rise" style={{ animationDelay: "0.25s" }}>
