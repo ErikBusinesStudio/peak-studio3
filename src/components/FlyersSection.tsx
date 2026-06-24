@@ -1,5 +1,9 @@
 import { Palette, Printer, MapPin, Check, Users, Target, Zap, ShieldCheck } from "lucide-react";
 import { useScrollAnimation } from "@/hooks/useScrollAnimation";
+import flyerRistorante from "@/assets/flyers/ristorante.jpg";
+import flyerEvento from "@/assets/flyers/evento.jpg";
+import flyerYoga from "@/assets/flyers/yoga.jpg";
+import flyerNegozio from "@/assets/flyers/negozio.jpg";
 
 type Pkg = {
   name: string;
