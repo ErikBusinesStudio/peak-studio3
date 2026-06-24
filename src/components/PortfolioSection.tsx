@@ -10,7 +10,7 @@ import { useI18n } from "@/contexts/I18nContext";
 const sites = [
   { img: portfolioEriutility.url, title: "E-Riutility", category: "Mercatino dell'usato", url: "https://e-riutility.it" },
   { img: portfolioCtsCuvio.url, title: "CTS Cuvio", category: "Centro Turistico Sportivo", url: "https://centrocuvio.it" },
-  { img: portfolioShop, title: "Coming soon", category: "Prossimo progetto", url: "#" },
+  { img: portfolioSafetySolutions.url, title: "Safety Solutions", category: " Sicurezza sul lavoro", url: "https://safetysolutionproject.lovable.app" },
 ];
 
 const flyers = [
