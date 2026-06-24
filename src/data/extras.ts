@@ -5,7 +5,7 @@ import serviceGestione from "@/assets/service-gestione.jpg";
 import serviceAbbonamenti from "@/assets/service-abbonamenti.jpg";
 import serviceSitiWeb from "@/assets/service-siti-web.jpg";
 import sceneSignpost from "@/assets/scene-signpost.jpg";
-import sceneCabin from "@/assets/scene-cabin.jpg";
+
 
 export type ExtraSize = "lg" | "md" | "sm" | "wide" | "tall";
 
