@@ -5,7 +5,7 @@ import serviceGestione from "@/assets/service-gestione.jpg";
 import serviceAbbonamenti from "@/assets/service-abbonamenti.jpg";
 import serviceSitiWeb from "@/assets/service-siti-web.jpg";
 import sceneSignpost from "@/assets/scene-signpost.jpg";
-import sceneCabin from "@/assets/scene-cabin.jpg";
+
 
 export type ExtraSize = "lg" | "md" | "sm" | "wide" | "tall";
 
@@ -204,31 +204,6 @@ export const extras: ExtraService[] = [
       { title: "Onboarding", desc: "Definiamo frequenza e tipologie di aggiornamento." },
       { title: "Materiali", desc: "Mi invii contenuti via WhatsApp o drive." },
       { title: "Pubblicazione", desc: "Pubblico entro 48h dalla ricezione." },
-    ],
-  },
-  {
-    slug: "restyling",
-    name: "Restyling completo",
-    tagline: "Da sito anni 2010 a vetrina del 2026.",
-    description:
-      "Hai già un sito ma sembra vecchio, lento o non mobile? Lo rifaccio mantenendo URL e SEO esistenti. Stesso indirizzo, nuova vita, zero perdita di posizionamento.",
-    image: sceneCabin,
-    size: "md",
-    includes: [
-      "Analisi sito attuale (SEO, performance, mobile)",
-      "Nuovo design su misura",
-      "Migrazione contenuti",
-      "Mantenimento URL e SEO esistenti",
-      "Setup redirect dove serve",
-      "Test pre-lancio + go-live assistito",
-    ],
-    process: [
-      { title: "Audit", desc: "Mappo cosa funziona e cosa no del sito attuale." },
-      { title: "Redesign", desc: "Nuovo design + migrazione contenuti." },
-      { title: "Lancio", desc: "Pubblicazione con zero downtime e SEO preservata." },
-    ],
-    faq: [
-      { q: "Perderò posizionamento Google?", a: "No: manteniamo URL e impostiamo redirect dove serve." },
     ],
   },
 ];
