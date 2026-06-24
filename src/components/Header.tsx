@@ -2,6 +2,7 @@ import { useState, useEffect } from "react";
 import LanguageToggle from "./LanguageToggle";
 import { Briefcase, Image, CreditCard, Star, MessageCircle } from "lucide-react";
 import { useI18n } from "@/contexts/I18nContext";
+import logo from "@/assets/logo.png";
 
 const Header = () => {
   const [scrolled, setScrolled] = useState(false);
@@ -30,8 +31,16 @@ const Header = () => {
         }`}
       >
         <div className="container mx-auto flex items-center justify-between py-4">
-          <a href="#" className="font-display text-xl tracking-tight">
-            PEAK<span style={{ color: "hsl(var(--accent-red))" }}>.</span>STUDIO
+          <a href="#" className="flex items-center gap-3 group">
+            <img
+              src={logo}
+              alt="Peak Studio"
+              className="h-9 md:h-11 w-auto transition-transform group-hover:scale-105"
+              style={{ filter: "drop-shadow(0 0 12px hsl(348 78% 36% / 0.5))" }}
+            />
+            <span className="font-display text-base md:text-lg tracking-tight hidden sm:inline">
+              PEAK<span style={{ color: "hsl(var(--accent-red))" }}>.</span>STUDIO
+            </span>
           </a>
 
           <div className="hidden md:flex items-center gap-4">
