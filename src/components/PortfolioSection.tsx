@@ -2,7 +2,10 @@ import { useState } from "react";
 import portfolioEriutility from "@/assets/portfolio-eriutility.png.asset.json";
 import portfolioCtsCuvio from "@/assets/portfolio-cts-cuvio.webp.asset.json";
 import portfolioSafetySolutions from "@/assets/portfolio-safety-solutions.png.asset.json";
-import volantinoImg from "@/assets/service-volantini.jpg";
+import flyerSitoWeb from "@/assets/flyers/flyer-sito-web.jpg";
+import flyerSocialAds from "@/assets/flyers/flyer-social-ads.jpg";
+import flyerBrandIdentity from "@/assets/flyers/flyer-brand-identity.jpg";
+import flyerVolantini from "@/assets/flyers/flyer-volantini.jpg";
 import { ExternalLink, Globe, FileText } from "lucide-react";
 import { useScrollAnimation } from "@/hooks/useScrollAnimation";
 import { useI18n } from "@/contexts/I18nContext";
@@ -14,10 +17,10 @@ const sites = [
 ];
 
 const flyers = [
-  { img: volantinoImg, titleKey: "portfolio.flyer1.title", catKey: "portfolio.flyer1.cat" },
-  { img: volantinoImg, titleKey: "portfolio.flyer2.title", catKey: "portfolio.flyer2.cat" },
-  { img: volantinoImg, titleKey: "portfolio.flyer3.title", catKey: "portfolio.flyer3.cat" },
-  { img: volantinoImg, titleKey: "portfolio.flyer4.title", catKey: "portfolio.flyer4.cat" },
+  { img: flyerSitoWeb, titleKey: "portfolio.flyer1.title", catKey: "portfolio.flyer1.cat" },
+  { img: flyerSocialAds, titleKey: "portfolio.flyer2.title", catKey: "portfolio.flyer2.cat" },
+  { img: flyerBrandIdentity, titleKey: "portfolio.flyer3.title", catKey: "portfolio.flyer3.cat" },
+  { img: flyerVolantini, titleKey: "portfolio.flyer4.title", catKey: "portfolio.flyer4.cat" },
 ];
 
 type Tab = "sites" | "flyers";
