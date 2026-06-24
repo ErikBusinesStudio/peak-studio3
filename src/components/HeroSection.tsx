@@ -37,22 +37,6 @@ const HeroSection = () => {
           </span>
         </div>
 
-        {/* Marquee tagline strip */}
-        <div className="relative overflow-hidden mb-5 md:mb-10 py-2.5 md:py-3 border-y border-primary/20" style={{ background: "linear-gradient(90deg, transparent, hsl(348 78% 36% / 0.10), transparent)" }}>
-          <div className="flex gap-8 md:gap-12 whitespace-nowrap animate-marquee font-display uppercase text-lg md:text-3xl tracking-tight" style={{ width: "max-content" }}>
-            {Array.from({ length: 2 }).map((_, group) => (
-              <div key={group} className="flex gap-8 md:gap-12 items-center">
-                {["Siti Su Misura", "Identità Visiva", "Posizionamento Google", "Menu Digitali", "Pagine d'Atterraggio", "Cura Continua"].map((w, i) => (
-                  <span key={i} className="flex items-center gap-8 md:gap-12 text-foreground/85">
-                    {w}
-                    <StarFour size={18} style={{ color: "hsl(348 78% 50%)" }} />
-                  </span>
-                ))}
-              </div>
-            ))}
-          </div>
-        </div>
-
         {/* BENTO GRID */}
         <div className="grid grid-cols-12 grid-rows-[auto] gap-3 md:gap-4">
           {/* Headline card — large */}
@@ -161,6 +145,22 @@ const HeroSection = () => {
               <p className="text-[9px] md:text-[10px] uppercase tracking-wider text-foreground/60 mt-1">Recensioni verificate</p>
             </div>
             </div>
+          </div>
+        </div>
+
+        {/* Marquee tagline strip — moved below the bento grid / 50+ stat */}
+        <div className="relative overflow-hidden mt-5 md:mt-10 py-2.5 md:py-3 border-y border-primary/20" style={{ background: "linear-gradient(90deg, transparent, hsl(348 78% 36% / 0.10), transparent)" }}>
+          <div className="flex gap-8 md:gap-12 whitespace-nowrap animate-marquee font-display uppercase text-lg md:text-3xl tracking-tight" style={{ width: "max-content" }}>
+            {Array.from({ length: 2 }).map((_, group) => (
+              <div key={group} className="flex gap-8 md:gap-12 items-center">
+                {["Siti Su Misura", "Identità Visiva", "Posizionamento Google", "Menu Digitali", "Pagine d'Atterraggio", "Cura Continua"].map((w, i) => (
+                  <span key={i} className="flex items-center gap-8 md:gap-12 text-foreground/85">
+                    {w}
+                    <StarFour size={18} style={{ color: "hsl(348 78% 50%)" }} />
+                  </span>
+                ))}
+              </div>
+            ))}
           </div>
         </div>
 
