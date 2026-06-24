@@ -17,10 +17,10 @@ const sites = [
 ];
 
 const flyers = [
-  { img: volantinoImg, titleKey: "portfolio.flyer1.title", catKey: "portfolio.flyer1.cat" },
-  { img: volantinoImg, titleKey: "portfolio.flyer2.title", catKey: "portfolio.flyer2.cat" },
-  { img: volantinoImg, titleKey: "portfolio.flyer3.title", catKey: "portfolio.flyer3.cat" },
-  { img: volantinoImg, titleKey: "portfolio.flyer4.title", catKey: "portfolio.flyer4.cat" },
+  { img: flyerSitoWeb, titleKey: "portfolio.flyer1.title", catKey: "portfolio.flyer1.cat" },
+  { img: flyerSocialAds, titleKey: "portfolio.flyer2.title", catKey: "portfolio.flyer2.cat" },
+  { img: flyerBrandIdentity, titleKey: "portfolio.flyer3.title", catKey: "portfolio.flyer3.cat" },
+  { img: flyerVolantini, titleKey: "portfolio.flyer4.title", catKey: "portfolio.flyer4.cat" },
 ];
 
 type Tab = "sites" | "flyers";
