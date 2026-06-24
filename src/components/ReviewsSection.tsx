@@ -1,5 +1,6 @@
 import { useEffect, useState } from "react";
-import { Star, Send, Users, ThumbsUp, Award } from "lucide-react";
+import { Send, Users, ThumbsUp, Award } from "lucide-react";
+import StarFour from "@/components/icons/StarFour";
 import { useScrollAnimation } from "@/hooks/useScrollAnimation";
 import { useI18n } from "@/contexts/I18nContext";
 import { supabase } from "@/integrations/supabase/client";
@@ -24,7 +25,7 @@ const ReviewsSection = () => {
   ];
 
   const stats = [
-    { icon: Star, value: "4.9/5", label: t("reviews.stat1"), color: "text-primary" },
+    { icon: StarFour, value: "4.9/5", label: t("reviews.stat1"), color: "text-primary" },
     { icon: Users, value: "143+", label: t("reviews.stat2"), color: "text-primary" },
     { icon: ThumbsUp, value: "98%", label: t("reviews.stat3"), color: "text-primary" },
     { icon: Award, value: "100%", label: t("reviews.stat4"), color: "text-primary" },
@@ -100,7 +101,7 @@ const ReviewsSection = () => {
           <div className="col-span-2 md:col-span-4 flex justify-center items-center gap-2 mt-1 md:mt-2">
             <div className="flex gap-1">
               {[...Array(5)].map((_, i) => (
-                <Star key={i} className="w-5 h-5 md:w-6 md:h-6 fill-primary text-primary" />
+                <StarFour key={i} className="text-primary" size={20} />
               ))}
             </div>
             <span className="text-xs md:text-sm font-bold">4.9 {t("reviews.outOf")}</span>
@@ -114,7 +115,7 @@ const ReviewsSection = () => {
               <div>
                 <div className="flex gap-1 mb-3 md:mb-4">
                   {[...Array(5)].map((_, j) => (
-                    <Star key={j} className={`w-3.5 h-3.5 md:w-4 md:h-4 ${j < r.rating ? "fill-primary text-primary" : "text-muted"}`} />
+                    <StarFour key={j} className={j < r.rating ? "text-primary" : "text-muted"} size={14} />
                   ))}
                 </div>
                 <p className="text-xs md:text-sm text-muted-foreground leading-relaxed mb-4 md:mb-6">"{r.text}"</p>
@@ -146,7 +147,7 @@ const ReviewsSection = () => {
                   <div className="flex justify-center gap-2">
                     {[1, 2, 3, 4, 5].map((star) => (
                       <button key={star} type="button" onClick={() => setNewReview({ ...newReview, rating: star })} className="focus:outline-none">
-                        <Star className={`w-6 h-6 md:w-7 md:h-7 transition-colors ${star <= newReview.rating ? "fill-primary text-primary" : "text-muted hover:text-primary/50"}`} />
+                        <StarFour className={`transition-colors ${star <= newReview.rating ? "text-primary" : "text-muted hover:text-primary/50"}`} size={26} />
                       </button>
                     ))}
                   </div>
