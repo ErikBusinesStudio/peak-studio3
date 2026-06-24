@@ -12,10 +12,20 @@ import ContactSection from "@/components/ContactSection";
 import FloatingWhatsApp from "@/components/FloatingWhatsApp";
 import Footer from "@/components/Footer";
 import Atmosphere from "@/components/Atmosphere";
-import SceneBackdrop from "@/components/SceneBackdrop";
-import SectionMarker from "@/components/SectionMarker";
-import scenePeak from "@/assets/scene-peak.jpg";
 
+const ChapterDivider = ({ numeral, label, kicker }: { numeral: string; label: string; kicker?: string }) => (
+  <div className="max-w-7xl mx-auto px-4 md:px-8 py-10 md:py-16">
+    <div className="flex items-end justify-between border-b border-foreground/20 pb-4">
+      <div className="flex items-baseline gap-4 md:gap-6">
+        <span className="font-mono text-[10px] md:text-xs uppercase tracking-[0.4em]" style={{ color: "hsl(var(--accent-red))" }}>
+          Chapter {numeral}
+        </span>
+        <h2 className="font-display text-2xl md:text-5xl uppercase tracking-tight">{label}</h2>
+      </div>
+      {kicker && <span className="hidden md:inline font-mono text-[10px] uppercase tracking-[0.3em] text-foreground/50">{kicker}</span>}
+    </div>
+  </div>
+);
 
 const Index = () => {
   return (
@@ -23,29 +33,26 @@ const Index = () => {
       <Header />
       <Atmosphere />
       <main className="relative z-10">
+        <HeroSection />
 
-        <SceneBackdrop image={scenePeak} overlay={55}>
-          <HeroSection />
-        </SceneBackdrop>
-
-        <SectionMarker numeral="II" title="The Forest — About" shape="forest" altitude="1.200 m" weather="Pine air · 12°" />
+        <ChapterDivider numeral="II" label="About" kicker="Chi sono · Cosa offro" />
         <WhyMeSection />
 
-        <SectionMarker numeral="III" title="The Waterfall — Services" shape="waterfall" altitude="1.650 m" weather="Mist · 9°" />
+        <ChapterDivider numeral="III" label="Servizi" kicker="Siti · Canoni · Extra" />
         <PricingTeaser />
 
-        <SectionMarker numeral="IV" title="The Trail — Process" shape="trail" altitude="2.100 m" weather="Clear sky · 6°" />
+        <ChapterDivider numeral="IV" label="Processo" kicker="Dal brief al lancio" />
         <HowItWorksSection />
 
-        <SectionMarker numeral="V" title="The Bridge — Work" shape="bridge" altitude="2.480 m" weather="Crosswind · 4°" />
+        <ChapterDivider numeral="V" label="Lavori" kicker="Portfolio selezionato" />
         <UrgencySection />
         <PortfolioSection />
 
-        <SectionMarker numeral="VI" title="The Base Camp — Trust" shape="camp" altitude="2.890 m" weather="Starlit · -2°" />
+        <ChapterDivider numeral="VI" label="Recensioni" kicker="Cosa dicono i clienti" />
         <ReviewsSection />
         <FaqSection />
 
-        <SectionMarker numeral="VII" title="The Cabin — Contact" shape="cabin" altitude="3.150 m" weather="Warm hearth · -5°" />
+        <ChapterDivider numeral="VII" label="Contatto" kicker="Scrivimi · Risposta in 24h" />
         <CtaSection />
         <ContactSection />
       </main>
