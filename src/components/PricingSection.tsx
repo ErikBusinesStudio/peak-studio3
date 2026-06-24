@@ -1,5 +1,6 @@
 import { useState } from "react";
 import { ArrowRight } from "lucide-react";
+import { Link } from "react-router-dom";
 import StarFour from "@/components/icons/StarFour";
 import { useScrollAnimation } from "@/hooks/useScrollAnimation";
 import planSites from "@/assets/plan-sites.jpg";
@@ -12,6 +13,7 @@ import serviceAbbonamenti from "@/assets/service-abbonamenti.jpg";
 import serviceSitiWeb from "@/assets/service-siti-web.jpg";
 import sceneSignpost from "@/assets/scene-signpost.jpg";
 import sceneCabin from "@/assets/scene-cabin.jpg";
+import { extras as extrasData } from "@/data/extras";
 
 const wa =
   "https://wa.me/393913168231?text=Ciao%2C%20vorrei%20ricevere%20informazioni%20sui%20vostri%20servizi.";
@@ -20,16 +22,26 @@ type Category = "sites" | "monthly" | "extra";
 
 /* ---------- DATA ---------- */
 
-const siteTypes = [
-  { code: "01", name: "Landing Page", price: "€150–300", desc: "Pagina singola per campagne, lanci, eventi." },
-  { code: "02", name: "Sito Vetrina Starter", price: "€200", desc: "Fino a 3 pagine — la base per esistere online." },
-  { code: "03", name: "Sito Business", price: "€500", desc: "Fino a 6 pagine — attrai e converti clienti.", badge: "Più scelto" },
-  { code: "04", name: "Sito Premium su misura", price: "€1.200", desc: "Brand completo o multi-sezione illimitato." },
-  { code: "05", name: "E-commerce", price: "da €1.200", desc: "Catalogo, carrello, pagamenti, gestione ordini." },
-  { code: "06", name: "Booking / Prenotazioni", price: "da €600", desc: "Calendario, slot, conferme automatiche." },
-  { code: "07", name: "Portfolio creativo", price: "da €400", desc: "Per fotografi, designer, artigiani, studi." },
-  { code: "08", name: "Menù / Catalogo QR", price: "€80–120", desc: "Pagina digitale aggiornabile + QR stampabile." },
-  { code: "09", name: "Restyling sito esistente", price: "€150–400", desc: "Rinasce moderno, veloce, mobile-first." },
+type BentoTile = {
+  name: string;
+  desc: string;
+  image: string;
+  size: "lg" | "md" | "sm" | "wide" | "tall";
+  badge?: string;
+  href?: string;
+  internal?: boolean;
+};
+
+const siteTiles: BentoTile[] = [
+  { name: "Sito Business", desc: "Fino a 6 pagine, pensato per attrarre e convertire clienti.", image: planSites, size: "lg", badge: "Più scelto" },
+  { name: "Landing Page", desc: "Pagina singola per campagne, lanci, eventi.", image: serviceSitiWeb, size: "md" },
+  { name: "Sito Vetrina Starter", desc: "Fino a 3 pagine — la base per esistere online.", image: sceneSignpost, size: "md" },
+  { name: "Sito Premium su misura", desc: "Brand completo, multi-sezione illimitato.", image: sceneCabin, size: "wide" },
+  { name: "E-commerce", desc: "Catalogo, carrello, pagamenti, ordini.", image: serviceGestione, size: "tall" },
+  { name: "Booking / Prenotazioni", desc: "Calendario, slot, conferme automatiche.", image: serviceAbbonamenti, size: "md" },
+  { name: "Portfolio creativo", desc: "Per fotografi, designer, artigiani, studi.", image: serviceBranding, size: "sm" },
+  { name: "Menù / Catalogo QR", desc: "Pagina digitale aggiornabile + QR stampabile.", image: serviceQrcode, size: "sm" },
+  { name: "Restyling sito esistente", desc: "Rinasce moderno, veloce, mobile-first.", image: serviceVolantini, size: "wide" },
 ];
 
 const sitesIncluded = [
@@ -51,13 +63,13 @@ const sitesIncluded = [
   "Codice pulito, niente WordPress lento",
 ];
 
-const monthlyPlans = [
-  { code: "01", name: "Manutenzione Base", price: "€50", priceNote: "/mese", desc: "Sito sempre online, sicuro e aggiornato." },
-  { code: "02", name: "Crescita", price: "€120", priceNote: "/mese", desc: "Visibilità che cresce ogni mese.", badge: "Consigliato" },
-  { code: "03", name: "Pro Scalabile", price: "€200", priceNote: "/mese", desc: "Supporto prioritario + automazioni." },
-  { code: "04", name: "Gestione Google Business", price: "€80", priceNote: "/mese", desc: "Post, foto, risposte recensioni." },
-  { code: "05", name: "Automazione WhatsApp", price: "€60", priceNote: "/mese", desc: "Risposte e flussi automatici." },
-  { code: "06", name: "Hosting Dedicato", price: "€20", priceNote: "/mese", desc: "Hosting performante con backup." },
+const monthlyTiles: BentoTile[] = [
+  { name: "Crescita", desc: "Visibilità che cresce ogni mese, contenuti e SEO continua.", image: planMonthly, size: "lg", badge: "Consigliato" },
+  { name: "Manutenzione Base", desc: "Sito sempre online, sicuro e aggiornato.", image: serviceGestione, size: "md" },
+  { name: "Pro Scalabile", desc: "Supporto prioritario + automazioni dedicate.", image: serviceAbbonamenti, size: "md" },
+  { name: "Gestione Google Business", desc: "Post, foto, risposte recensioni.", image: sceneSignpost, size: "wide" },
+  { name: "Automazione WhatsApp", desc: "Risposte e flussi automatici 24/7.", image: serviceBranding, size: "tall" },
+  { name: "Hosting Dedicato", desc: "Hosting performante con backup automatici.", image: sceneCabin, size: "wide" },
 ];
 
 const monthlyIncluded = [
@@ -75,28 +87,16 @@ const monthlyIncluded = [
   "Nessun vincolo, disdici quando vuoi",
 ];
 
-type ExtraTile = {
-  name: string;
-  price: string;
-  priceNote?: string;
-  desc: string;
-  image: string;
-  size: "lg" | "md" | "sm" | "wide" | "tall";
-};
+const extraTiles: BentoTile[] = extrasData.map((e) => ({
+  name: e.name,
+  desc: e.tagline,
+  image: e.image,
+  size: e.size,
+  href: `/extra/${e.slug}`,
+  internal: true,
+}));
 
-const extras: ExtraTile[] = [
-  { name: "Logo & Branding", price: "€80–150", desc: "Identità visiva + palette + file pronti.", image: serviceBranding, size: "lg" },
-  { name: "Biglietti da visita", price: "€50", desc: "Fronte/retro stampa-ready.", image: serviceVolantini, size: "sm" },
-  { name: "Menù QR Digitali", price: "€80–120", priceNote: "+ canone", desc: "QR + pagina aggiornabile.", image: serviceQrcode, size: "md" },
-  { name: "Google Business Setup", price: "€100–150", desc: "Scheda ottimizzata + recensioni.", image: sceneSignpost, size: "wide" },
-  { name: "Volantini & Flyer", price: "€50–80", desc: "Design promozionale stampa.", image: serviceVolantini, size: "sm" },
-  { name: "Automazione singola", price: "€150–250", desc: "WhatsApp / email / recensioni.", image: serviceAbbonamenti, size: "tall" },
-  { name: "Landing per campagne", price: "€150–300", desc: "Pagina singola ad alta conversione.", image: serviceSitiWeb, size: "md" },
-  { name: "Gestione contenuti", price: "su misura", desc: "Aggiornamenti regolari per il tuo sito.", image: serviceGestione, size: "sm" },
-  { name: "Restyling completo", price: "€150–400", desc: "Sito vecchio? Lo rendo memorabile.", image: sceneCabin, size: "md" },
-];
-
-const sizeClasses: Record<ExtraTile["size"], string> = {
+const sizeClasses: Record<BentoTile["size"], string> = {
   lg: "col-span-6 row-span-2 md:col-span-4 md:row-span-2 min-h-[280px] md:min-h-[420px]",
   md: "col-span-3 row-span-1 md:col-span-2 md:row-span-1 min-h-[140px] md:min-h-[200px]",
   sm: "col-span-3 row-span-1 md:col-span-2 md:row-span-1 min-h-[140px] md:min-h-[200px]",
@@ -105,62 +105,6 @@ const sizeClasses: Record<ExtraTile["size"], string> = {
 };
 
 /* ---------- COMPONENTS ---------- */
-
-const EditorialRow = ({
-  code,
-  name,
-  price,
-  priceNote,
-  desc,
-  badge,
-  index,
-}: {
-  code: string;
-  name: string;
-  price: string;
-  priceNote?: string;
-  desc: string;
-  badge?: string;
-  index: number;
-}) => (
-  <a
-    href={wa}
-    target="_blank"
-    rel="noopener noreferrer"
-    className="group relative grid grid-cols-[auto_1fr_auto] md:grid-cols-[60px_1fr_auto_auto] gap-3 md:gap-6 items-center py-4 md:py-6 px-3 md:px-5 border-t border-border/60 hover:bg-primary/5 transition-colors"
-    style={{ animationDelay: `${index * 50}ms` }}
-  >
-    <span className="font-mono text-[10px] md:text-xs uppercase tracking-[0.3em] text-primary/70">
-      {code}
-    </span>
-    <div className="min-w-0">
-      <div className="flex items-center gap-2 flex-wrap">
-        <h4 className="font-display text-base md:text-2xl leading-tight">{name}</h4>
-        {badge && (
-          <span className="text-[9px] md:text-[10px] font-mono uppercase tracking-widest px-2 py-0.5 rounded-full bg-primary/15 text-primary border border-primary/30">
-            {badge}
-          </span>
-        )}
-      </div>
-      <p className="text-xs md:text-sm text-muted-foreground mt-0.5 md:mt-1 leading-snug">{desc}</p>
-    </div>
-    <div className="hidden md:block font-display text-2xl md:text-3xl whitespace-nowrap">
-      <span className="text-gradient-pink">{price}</span>
-      {priceNote && <span className="text-sm text-muted-foreground ml-0.5">{priceNote}</span>}
-    </div>
-    <span className="hidden md:inline-flex items-center justify-center w-10 h-10 rounded-full border border-border group-hover:border-primary group-hover:bg-primary group-hover:text-primary-foreground transition-all">
-      <ArrowRight className="w-4 h-4 group-hover:translate-x-0.5 transition-transform" />
-    </span>
-    {/* mobile price */}
-    <div className="md:hidden col-span-3 flex items-center justify-between pt-1">
-      <span className="font-display text-lg text-gradient-pink">
-        {price}
-        {priceNote && <span className="text-xs text-muted-foreground ml-0.5">{priceNote}</span>}
-      </span>
-      <ArrowRight className="w-4 h-4 text-primary group-hover:translate-x-0.5 transition-transform" />
-    </div>
-  </a>
-);
 
 const IncludedGrid = ({ items, title }: { items: string[]; title: string }) => (
   <div className="mt-10 md:mt-16">
@@ -210,52 +154,77 @@ const CategoryHeader = ({
   </div>
 );
 
-const ExtrasBento = () => (
+const BentoGrid = ({ tiles, ctaLabel }: { tiles: BentoTile[]; ctaLabel: string }) => (
   <div className="grid grid-cols-6 md:grid-cols-8 auto-rows-min gap-2 md:gap-3">
-    {extras.map((tile, i) => (
-      <a
-        key={tile.name}
-        href={wa}
-        target="_blank"
-        rel="noopener noreferrer"
-        className={`group relative overflow-hidden rounded-xl md:rounded-2xl border border-border hover:border-primary/60 transition-all ${sizeClasses[tile.size]}`}
-        style={{ animationDelay: `${i * 60}ms` }}
-      >
-        <img
-          src={tile.image}
-          alt={tile.name}
-          loading="lazy"
-          className="absolute inset-0 w-full h-full object-cover transition-transform duration-[1.2s] group-hover:scale-110"
-        />
-        <div className="absolute inset-0 bg-gradient-to-t from-background via-background/40 to-transparent" />
-        <div
-          className="absolute inset-0 opacity-0 group-hover:opacity-100 transition-opacity"
-          style={{ background: "linear-gradient(135deg, hsl(348 78% 36% / 0.4), transparent 70%)" }}
-        />
+    {tiles.map((tile, i) => {
+      const inner = (
+        <>
+          <img
+            src={tile.image}
+            alt={tile.name}
+            loading="lazy"
+            className="absolute inset-0 w-full h-full object-cover transition-transform duration-[1.2s] group-hover:scale-110"
+          />
+          <div className="absolute inset-0 bg-gradient-to-t from-background via-background/40 to-transparent" />
+          <div
+            className="absolute inset-0 opacity-0 group-hover:opacity-100 transition-opacity"
+            style={{ background: "linear-gradient(135deg, hsl(348 78% 36% / 0.4), transparent 70%)" }}
+          />
+          <div className="absolute inset-0 p-3 md:p-5 flex flex-col justify-between">
+            <div className="flex items-start justify-between gap-2">
+              <StarFour size={10} className="text-primary/80 mt-0.5" />
+              {tile.badge && (
+                <span className="text-[8px] md:text-[10px] font-mono uppercase tracking-widest px-2 py-0.5 rounded-full bg-primary/20 text-primary border border-primary/40 backdrop-blur whitespace-nowrap">
+                  {tile.badge}
+                </span>
+              )}
+            </div>
+            <div>
+              <h4
+                className={`font-display leading-tight ${
+                  tile.size === "lg" ? "text-xl md:text-3xl" : "text-sm md:text-lg"
+                }`}
+              >
+                {tile.name}
+              </h4>
+              <p
+                className={`text-muted-foreground mt-1 leading-snug ${
+                  tile.size === "lg" ? "text-xs md:text-sm max-w-[85%]" : "text-[10px] md:text-xs hidden md:block"
+                }`}
+              >
+                {tile.desc}
+              </p>
+              <span className="mt-2 inline-flex items-center gap-1 text-[9px] md:text-[10px] font-mono uppercase tracking-widest text-primary opacity-0 group-hover:opacity-100 transition-opacity">
+                {ctaLabel} <ArrowRight className="w-3 h-3" />
+              </span>
+            </div>
+          </div>
+        </>
+      );
 
-        <div className="absolute inset-0 p-3 md:p-5 flex flex-col justify-between">
-          <div className="flex items-start justify-between">
-            <StarFour size={10} className="text-primary/80" />
-            <span className="font-display text-xs md:text-base text-foreground/90 whitespace-nowrap">
-              {tile.price}
-              {tile.priceNote && <span className="text-[10px] text-muted-foreground ml-1">{tile.priceNote}</span>}
-            </span>
-          </div>
-          <div>
-            <h4 className={`font-display leading-tight ${tile.size === "lg" ? "text-xl md:text-3xl" : "text-sm md:text-lg"}`}>
-              {tile.name}
-            </h4>
-            <p
-              className={`text-muted-foreground mt-1 leading-snug ${
-                tile.size === "lg" ? "text-xs md:text-sm max-w-[80%]" : "text-[10px] md:text-xs hidden md:block"
-              }`}
-            >
-              {tile.desc}
-            </p>
-          </div>
-        </div>
-      </a>
-    ))}
+      const className = `group relative overflow-hidden rounded-xl md:rounded-2xl border border-border hover:border-primary/60 transition-all ${sizeClasses[tile.size]}`;
+      const style = { animationDelay: `${i * 60}ms` } as React.CSSProperties;
+
+      if (tile.internal && tile.href) {
+        return (
+          <Link key={tile.name} to={tile.href} className={className} style={style}>
+            {inner}
+          </Link>
+        );
+      }
+      return (
+        <a
+          key={tile.name}
+          href={tile.href ?? wa}
+          target={tile.href ? undefined : "_blank"}
+          rel={tile.href ? undefined : "noopener noreferrer"}
+          className={className}
+          style={style}
+        >
+          {inner}
+        </a>
+      );
+    })}
   </div>
 );
 
@@ -322,19 +291,7 @@ const PricingSection = () => {
               subtitle="Dalla landing a una pagina al sito multi-sezione: ti costruisco esattamente quello che serve alla tua attività, niente di più, niente di meno."
               image={planSites}
             />
-
-            <div className="rounded-2xl md:rounded-3xl border border-border bg-card/40 overflow-hidden">
-              <div className="px-3 md:px-5 py-3 md:py-4 flex items-center justify-between border-b border-border/60">
-                <p className="font-mono text-[10px] md:text-xs uppercase tracking-[0.35em] text-muted-foreground">
-                  Tipi di sito disponibili
-                </p>
-                <span className="font-mono text-[10px] md:text-xs text-primary/70">{siteTypes.length} formati</span>
-              </div>
-              {siteTypes.map((s, i) => (
-                <EditorialRow key={s.name} {...s} index={i} />
-              ))}
-            </div>
-
+            <BentoGrid tiles={siteTiles} ctaLabel="Richiedi" />
             <IncludedGrid items={sitesIncluded} title="Tutto questo è sempre incluso" />
           </div>
         )}
@@ -348,19 +305,7 @@ const PricingSection = () => {
               subtitle="Il sito è solo l'inizio. Con un canone mensile lo mantengo veloce, sicuro e in costante crescita su Google e sui social."
               image={planMonthly}
             />
-
-            <div className="rounded-2xl md:rounded-3xl border border-border bg-card/40 overflow-hidden">
-              <div className="px-3 md:px-5 py-3 md:py-4 flex items-center justify-between border-b border-border/60">
-                <p className="font-mono text-[10px] md:text-xs uppercase tracking-[0.35em] text-muted-foreground">
-                  Canoni & abbonamenti
-                </p>
-                <span className="font-mono text-[10px] md:text-xs text-primary/70">nessun vincolo</span>
-              </div>
-              {monthlyPlans.map((p, i) => (
-                <EditorialRow key={p.name} {...p} index={i} />
-              ))}
-            </div>
-
+            <BentoGrid tiles={monthlyTiles} ctaLabel="Richiedi" />
             <IncludedGrid items={monthlyIncluded} title="Cosa puoi avere ogni mese" />
           </div>
         )}
@@ -375,15 +320,14 @@ const PricingSection = () => {
                   Servizi <span className="text-gradient-pink">extra</span>
                 </h3>
                 <p className="text-xs md:text-sm text-muted-foreground mt-2 md:mt-3 max-w-md">
-                  Tutto il resto che ti serve per costruire un brand coerente.
+                  Tutto il resto che ti serve per costruire un brand coerente. Tocca una card per scoprire dettagli, processo e cosa include.
                 </p>
               </div>
               <span className="hidden md:block font-mono text-xs uppercase tracking-[0.35em] text-primary/70">
-                {extras.length} servizi
+                {extraTiles.length} servizi
               </span>
             </div>
-
-            <ExtrasBento />
+            <BentoGrid tiles={extraTiles} ctaLabel="Scopri" />
           </div>
         )}
 
