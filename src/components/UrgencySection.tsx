@@ -257,7 +257,7 @@ const WorldClocks = () => {
   }, []);
   return (
     <div
-      className="relative inline-flex items-end gap-8 md:gap-14 px-8 md:px-12 pt-8 pb-6 rounded-[2px] overflow-hidden"
+      className="relative inline-flex items-end gap-8 md:gap-14 px-8 md:px-12 pt-14 pb-6 rounded-[2px]"
       style={{
         background:
           "linear-gradient(180deg, #0a0805 0%, #14110c 50%, #0a0805 100%)",
