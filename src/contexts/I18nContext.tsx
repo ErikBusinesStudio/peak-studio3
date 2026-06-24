@@ -93,6 +93,16 @@ const translations: Record<Lang, Translations> = {
     // Portfolio
     "portfolio.title": "I miei lavori",
     "portfolio.subtitle": "Alcuni progetti recenti che hanno aiutato attività reali a crescere online.",
+    "portfolio.tab.sites": "Siti",
+    "portfolio.tab.flyers": "Locandine",
+    "portfolio.flyer1.title": "Sito Web Professionale",
+    "portfolio.flyer1.cat": "Web Design",
+    "portfolio.flyer2.title": "Campagna Social Ads",
+    "portfolio.flyer2.cat": "Marketing",
+    "portfolio.flyer3.title": "Identità Visiva",
+    "portfolio.flyer3.cat": "Branding",
+    "portfolio.flyer4.title": "Volantini & Distribuzione",
+    "portfolio.flyer4.cat": "Street Marketing",
 
     // Pricing
     "pricing.title1": "Investi poco.",
