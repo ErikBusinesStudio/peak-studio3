@@ -30,8 +30,8 @@ const Header = () => {
         }`}
       >
         <div className="container mx-auto flex items-center justify-between py-4">
-          <a href="#" className="text-xl font-black tracking-tight">
-            PEAK<span className="text-primary">.</span>STUDIO
+          <a href="#" className="font-display text-xl tracking-tight">
+            PEAK<span style={{ color: "hsl(var(--accent-red))" }}>.</span>STUDIO
           </a>
 
           <div className="hidden md:flex items-center gap-4">
