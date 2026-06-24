@@ -14,7 +14,6 @@ const tiers = [
     icon: Globe,
     eyebrow: "III — The Forge",
     desc: "Starter, Business e Premium. Un sito su misura per ogni fase della crescita.",
-    from: "da €200",
   },
   {
     key: "monthly",
@@ -23,7 +22,6 @@ const tiers = [
     icon: Wrench,
     eyebrow: "IV — The Ascent",
     desc: "Manutenzione, crescita e supporto prioritario per tenere tutto sotto controllo.",
-    from: "da €50/mese",
   },
   {
     key: "extra",
@@ -32,7 +30,6 @@ const tiers = [
     icon: Sparkles,
     eyebrow: "V — The Toolkit",
     desc: "Logo, volantini, Google Business, landing page, menu QR e automazioni.",
-    from: "da €50",
   },
 ];
 
@@ -90,7 +87,6 @@ const PricingTeaser = () => {
                   {tier.eyebrow}
                 </p>
                 <h3 className="text-lg md:text-xl font-black mb-1">{tier.title}</h3>
-                <p className="text-primary font-bold text-sm mb-2">{tier.from}</p>
                 <p className="text-muted-foreground text-xs md:text-sm flex-1">{tier.desc}</p>
                 <span className="mt-4 inline-flex items-center gap-1 text-xs font-bold uppercase tracking-wider text-primary">
                   Scopri i piani <ArrowRight className="w-3 h-3 group-hover:translate-x-1 transition-transform" />
