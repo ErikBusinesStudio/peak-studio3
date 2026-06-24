@@ -2,9 +2,9 @@ import { Link } from "react-router-dom";
 import { ArrowRight, Globe, Wrench, Sparkles } from "lucide-react";
 import { useScrollAnimation } from "@/hooks/useScrollAnimation";
 import { useI18n } from "@/contexts/I18nContext";
-import imgSitiWeb from "@/assets/service-siti-web.jpg";
-import imgAbbonamenti from "@/assets/service-abbonamenti.jpg";
-import imgBranding from "@/assets/service-branding.jpg";
+import imgSitiWeb from "@/assets/plan-sites.jpg";
+import imgAbbonamenti from "@/assets/plan-monthly.jpg";
+import imgBranding from "@/assets/plan-extra.jpg";
 
 const tiers = [
   {

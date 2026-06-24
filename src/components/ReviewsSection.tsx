@@ -1,5 +1,6 @@
 import { useEffect, useState } from "react";
-import { Star, Send, Users, ThumbsUp, Award } from "lucide-react";
+import { Send, Users, ThumbsUp, Award } from "lucide-react";
+import StarFour from "@/components/icons/StarFour";
 import { useScrollAnimation } from "@/hooks/useScrollAnimation";
 import { useI18n } from "@/contexts/I18nContext";
 import { supabase } from "@/integrations/supabase/client";
@@ -24,7 +25,7 @@ const ReviewsSection = () => {
   ];
 
   const stats = [
-    { icon: Star, value: "4.9/5", label: t("reviews.stat1"), color: "text-primary" },
+    { icon: StarFour, value: "4.9/5", label: t("reviews.stat1"), color: "text-primary" },
     { icon: Users, value: "143+", label: t("reviews.stat2"), color: "text-primary" },
     { icon: ThumbsUp, value: "98%", label: t("reviews.stat3"), color: "text-primary" },
     { icon: Award, value: "100%", label: t("reviews.stat4"), color: "text-primary" },
