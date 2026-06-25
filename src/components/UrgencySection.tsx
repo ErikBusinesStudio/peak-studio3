@@ -3,13 +3,11 @@ import { useEffect, useState } from "react";
 import { useScrollAnimation } from "@/hooks/useScrollAnimation";
 import { useI18n } from "@/contexts/I18nContext";
 
-type LandmarkKey = "bigben" | "orsay" | "wako" | "grandcentral";
-
-const CITIES: { name: string; country: string; tz: string; code: string; landmark: LandmarkKey; subtitle: string }[] = [
-  { name: "London",   country: "United Kingdom", tz: "Europe/London",     code: "LDN", landmark: "bigben",       subtitle: "Elizabeth Tower · 1859" },
-  { name: "Paris",    country: "France",         tz: "Europe/Paris",      code: "PAR", landmark: "orsay",        subtitle: "Musée d'Orsay · 1900" },
-  { name: "Tokyo",    country: "Japan",          tz: "Asia/Tokyo",        code: "TYO", landmark: "wako",         subtitle: "Wako Ginza · 1932" },
-  { name: "New York", country: "United States",  tz: "America/New_York",  code: "NYC", landmark: "grandcentral", subtitle: "Grand Central · 1913" },
+const CITIES: { name: string; tz: string; code: string }[] = [
+  { name: "Roma",     tz: "Europe/Rome",       code: "ROM" },
+  { name: "London",   tz: "Europe/London",     code: "LDN" },
+  { name: "New York", tz: "America/New_York",  code: "NYC" },
+  { name: "Tokyo",    tz: "Asia/Tokyo",        code: "TYO" },
 ];
 
 function getParts(tz: string, now: Date) {
