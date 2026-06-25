@@ -3,13 +3,11 @@ import { useEffect, useState } from "react";
 import { useScrollAnimation } from "@/hooks/useScrollAnimation";
 import { useI18n } from "@/contexts/I18nContext";
 
-type LandmarkKey = "bigben" | "orsay" | "wako" | "grandcentral";
-
-const CITIES: { name: string; country: string; tz: string; code: string; landmark: LandmarkKey; subtitle: string }[] = [
-  { name: "London",   country: "United Kingdom", tz: "Europe/London",     code: "LDN", landmark: "bigben",       subtitle: "Elizabeth Tower · 1859" },
-  { name: "Paris",    country: "France",         tz: "Europe/Paris",      code: "PAR", landmark: "orsay",        subtitle: "Musée d'Orsay · 1900" },
-  { name: "Tokyo",    country: "Japan",          tz: "Asia/Tokyo",        code: "TYO", landmark: "wako",         subtitle: "Wako Ginza · 1932" },
-  { name: "New York", country: "United States",  tz: "America/New_York",  code: "NYC", landmark: "grandcentral", subtitle: "Grand Central · 1913" },
+const CITIES: { name: string; tz: string; code: string }[] = [
+  { name: "Roma",     tz: "Europe/Rome",       code: "ROM" },
+  { name: "London",   tz: "Europe/London",     code: "LDN" },
+  { name: "New York", tz: "America/New_York",  code: "NYC" },
+  { name: "Tokyo",    tz: "Asia/Tokyo",        code: "TYO" },
 ];
 
 function getParts(tz: string, now: Date) {
@@ -135,225 +133,9 @@ const Dial = ({ size, hourDeg, minDeg, secDeg, faceBg, ringColor, numeralColor, 
 
 /* ---------------- Landmark architectures ---------------- */
 
-type LandmarkProps = { hourDeg: number; minDeg: number; secDeg: number };
+/* ---------------- City clock card ---------------- */
 
-/* BIG BEN — gothic clock tower, sandstone, gold dial with Roman numerals */
-const BigBen = ({ hourDeg, minDeg, secDeg }: LandmarkProps) => {
-  const stone = "#b89968";
-  const stoneDark = "#6b5634";
-  const gold = "#d4a84a";
-  return (
-    <div className="flex flex-col items-center" style={{ width: 110 }}>
-      {/* spire */}
-      <div className="relative flex flex-col items-center" style={{ marginBottom: -1 }}>
-        <span className="block w-[2px] h-3" style={{ background: `linear-gradient(to top, ${gold}, transparent)` }} />
-        <span className="block w-[3px] h-[3px] rounded-full -mt-[1px]" style={{ background: gold, boxShadow: `0 0 4px ${gold}` }} />
-      </div>
-      {/* gothic spire */}
-      <div className="w-[42px] h-[36px] -mb-px" style={{
-        background: `linear-gradient(180deg, ${stoneDark}, ${stone})`,
-        clipPath: "polygon(50% 0%, 100% 100%, 0% 100%)",
-      }} />
-      {/* belfry ornament */}
-      <div className="w-[58px] h-[10px] flex justify-around items-end" style={{
-        background: `linear-gradient(180deg, ${stoneDark}, ${stone})`,
-      }}>
-        {[0,1,2,3].map(i => <span key={i} className="block w-[2px] h-[7px]" style={{ background: stoneDark }} />)}
-      </div>
-      {/* clock chamber w/ pointed arch frame */}
-      <div className="relative w-[78px] flex justify-center pt-1 pb-2 px-2" style={{
-        background: `linear-gradient(180deg, ${stone}, ${stoneDark})`,
-        boxShadow: `inset 0 0 10px rgba(0,0,0,0.4)`,
-      }}>
-        <Dial size={62} hourDeg={hourDeg} minDeg={minDeg} secDeg={secDeg}
-          faceBg={`radial-gradient(circle at 35% 30%, #fdf6e3, #e8d49a 80%)`}
-          ringColor="#3a2a14" numeralColor="#1a0f06" numerals={ROMANS}
-          handColor="#0a0500" secondColor="#a93226" centerColor="#1a0f06" serif
-        />
-      </div>
-      {/* cornice */}
-      <div className="w-[88px] h-[4px]" style={{ background: `linear-gradient(180deg, ${stone}, ${stoneDark})` }} />
-      {/* shaft */}
-      <div className="w-[60px] h-[34px] relative" style={{
-        background: `linear-gradient(180deg, ${stone}, ${stoneDark}), repeating-linear-gradient(0deg, transparent 0 6px, rgba(0,0,0,0.15) 6px 7px)`,
-        backgroundBlendMode: "overlay",
-        boxShadow: `inset 0 0 8px rgba(0,0,0,0.4)`,
-      }}>
-        <span className="absolute left-1/2 -translate-x-1/2 top-2 w-[8px] h-[14px]" style={{
-          background: "#1a1208", borderTopLeftRadius: 999, borderTopRightRadius: 999,
-          boxShadow: `inset 0 0 3px ${gold}80`,
-        }} />
-      </div>
-      {/* base */}
-      <div className="w-[70px] h-[5px]" style={{ background: `linear-gradient(180deg, ${stoneDark}, #2a1f10)` }} />
-    </div>
-  );
-};
-
-/* MUSÉE D'ORSAY — giant railway-station arch clock with iron tracery */
-const OrsayClock = ({ hourDeg, minDeg, secDeg }: LandmarkProps) => {
-  const cream = "#e8dec4";
-  const iron = "#1a1410";
-  const brass = "#c08a3e";
-  return (
-    <div className="flex flex-col items-center" style={{ width: 110 }}>
-      {/* keystone */}
-      <div className="w-[14px] h-[6px]" style={{ background: cream, clipPath: "polygon(20% 0, 80% 0, 100% 100%, 0 100%)" }} />
-      {/* huge arched frame */}
-      <div className="relative" style={{
-        width: 96, height: 96,
-        background: `radial-gradient(circle at 50% 50%, ${cream} 58%, transparent 60%), linear-gradient(180deg, ${iron}, #0a0806)`,
-        borderTopLeftRadius: 96, borderTopRightRadius: 96,
-        border: `1.5px solid ${cream}`,
-        boxShadow: `0 6px 16px rgba(0,0,0,0.6), inset 0 0 12px rgba(0,0,0,0.5)`,
-      }}>
-        {/* iron tracery spokes */}
-        {[0, 45, 90, 135].map(deg => (
-          <span key={deg} className="absolute left-1/2 top-1/2 origin-center"
-            style={{ width: 96, height: "1px", background: iron, opacity: 0.6, transform: `translate(-50%, -50%) rotate(${deg}deg)` }}
-          />
-        ))}
-        {/* dial centered */}
-        <div className="absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2">
-          <Dial size={66} hourDeg={hourDeg} minDeg={minDeg} secDeg={secDeg}
-            faceBg={`radial-gradient(circle at 40% 30%, ${cream}, #b8a878 90%)`}
-            ringColor={iron} numeralColor={iron} numerals={ROMANS}
-            handColor={iron} secondColor={brass} centerColor={brass} serif
-          />
-        </div>
-      </div>
-      {/* ornate base block */}
-      <div className="w-[100px] h-[10px] -mt-px" style={{
-        background: `linear-gradient(180deg, ${cream}, #8a7a52)`,
-        boxShadow: `0 2px 4px rgba(0,0,0,0.5)`,
-      }}>
-        <div className="w-full h-full flex justify-around items-center">
-          {[0,1,2,3,4].map(i => <span key={i} className="block w-[1px] h-[5px]" style={{ background: iron }} />)}
-        </div>
-      </div>
-      <div className="w-[80px] h-[5px]" style={{ background: `linear-gradient(180deg, #6a5a36, #1a1408)` }} />
-    </div>
-  );
-};
-
-/* WAKO GINZA — neoclassical tower with verdigris copper dome */
-const WakoTower = ({ hourDeg, minDeg, secDeg }: LandmarkProps) => {
-  const stone = "#d8d1c4";
-  const stoneDark = "#7a7060";
-  const copper = "#3e8a7a";   // verdigris
-  const copperDark = "#1f4a40";
-  const brass = "#c9a24c";
-  return (
-    <div className="flex flex-col items-center" style={{ width: 110 }}>
-      {/* finial */}
-      <div className="relative flex flex-col items-center" style={{ marginBottom: -1 }}>
-        <span className="block w-[5px] h-[5px] rounded-full" style={{ background: brass, boxShadow: `0 0 4px ${brass}` }} />
-        <span className="block w-[1px] h-[3px]" style={{ background: brass }} />
-      </div>
-      {/* verdigris dome */}
-      <div className="w-[64px] h-[28px]" style={{
-        background: `radial-gradient(ellipse at 50% 110%, ${copper}, ${copperDark} 75%)`,
-        borderTopLeftRadius: "100% 100%",
-        borderTopRightRadius: "100% 100%",
-        boxShadow: `inset 0 -3px 6px rgba(0,0,0,0.4)`,
-      }} />
-      {/* drum w/ columns */}
-      <div className="relative w-[80px] h-[10px] flex items-center justify-around px-2" style={{
-        background: `linear-gradient(180deg, ${stone}, ${stoneDark})`,
-      }}>
-        {[0,1,2,3,4].map(i => <span key={i} className="block w-[2px] h-full" style={{ background: stoneDark }} />)}
-      </div>
-      {/* clock chamber — pediment style */}
-      <div className="relative w-[88px] flex justify-center pt-2 pb-2 px-2" style={{
-        background: `linear-gradient(180deg, ${stone}, #b8b0a0)`,
-        borderLeft: `1px solid ${stoneDark}`,
-        borderRight: `1px solid ${stoneDark}`,
-      }}>
-        <Dial size={64} hourDeg={hourDeg} minDeg={minDeg} secDeg={secDeg}
-          faceBg={`radial-gradient(circle at 35% 30%, #faf6ec, #d8cfb8 85%)`}
-          ringColor={copperDark} numeralColor={copperDark} numerals={ROMANS}
-          handColor={copperDark} secondColor="#b91c1c" centerColor={brass} serif
-        />
-      </div>
-      {/* entablature */}
-      <div className="w-[94px] h-[4px]" style={{ background: `linear-gradient(180deg, ${stone}, ${stoneDark})` }} />
-      {/* main facade w/ pilasters */}
-      <div className="relative w-[80px] h-[28px]" style={{
-        background: `linear-gradient(180deg, ${stone}, ${stoneDark})`,
-      }}>
-        {[12, 36, 60].map((x, i) => (
-          <span key={i} className="absolute top-0 bottom-0 w-[3px]" style={{ left: x, background: `linear-gradient(180deg, ${stone}, ${stoneDark})`, boxShadow: `inset -1px 0 0 rgba(0,0,0,0.25)` }} />
-        ))}
-      </div>
-      <div className="w-[90px] h-[5px]" style={{ background: `linear-gradient(180deg, ${stoneDark}, #2a2418)` }} />
-    </div>
-  );
-};
-
-/* GRAND CENTRAL — 4-sided opal clock crowned with sculpted figures */
-const GrandCentralClock = ({ hourDeg, minDeg, secDeg }: LandmarkProps) => {
-  const brass = "#c9a24c";
-  const brassDark = "#7a5a20";
-  const stone = "#cfc3a8";
-  const opal = "#f4ead0";
-  return (
-    <div className="flex flex-col items-center" style={{ width: 110 }}>
-      {/* eagle / silhouette crest */}
-      <svg width="56" height="22" viewBox="0 0 56 22" style={{ marginBottom: -2 }}>
-        <path d="M28 2 L20 12 L4 14 L18 16 L14 22 L28 18 L42 22 L38 16 L52 14 L36 12 Z"
-          fill={brassDark} stroke={brass} strokeWidth="0.6" />
-        <circle cx="28" cy="8" r="2" fill={brass} />
-      </svg>
-      {/* plinth */}
-      <div className="w-[68px] h-[5px]" style={{ background: `linear-gradient(180deg, ${stone}, #8a7d5a)` }} />
-      {/* opal 4-sided clock cube */}
-      <div className="relative" style={{ width: 86, height: 78 }}>
-        {/* side facets (perspective hint) */}
-        <span className="absolute top-2 left-0 bottom-2 w-[8px]"
-          style={{ background: `linear-gradient(90deg, ${brassDark}, ${brass})`, clipPath: "polygon(0 10%, 100% 0, 100% 100%, 0 90%)" }} />
-        <span className="absolute top-2 right-0 bottom-2 w-[8px]"
-          style={{ background: `linear-gradient(90deg, ${brass}, ${brassDark})`, clipPath: "polygon(0 0, 100% 10%, 100% 90%, 0 100%)" }} />
-        {/* main face frame */}
-        <div className="absolute inset-x-[8px] inset-y-0 rounded-[6px]" style={{
-          background: `linear-gradient(145deg, ${brass}, ${brassDark} 70%)`,
-          padding: 4,
-          boxShadow: `0 8px 18px rgba(0,0,0,0.5), inset 0 1px 0 #f0d78c`,
-        }}>
-          <div className="w-full h-full rounded-[4px] flex items-center justify-center" style={{
-            background: `radial-gradient(circle at 35% 30%, ${opal}, #c4b890 90%)`,
-            boxShadow: `inset 0 0 10px rgba(0,0,0,0.3)`,
-          }}>
-            <Dial size={60} hourDeg={hourDeg} minDeg={minDeg} secDeg={secDeg}
-              faceBg="transparent"
-              ringColor="transparent" numeralColor={brassDark} numerals={ROMANS}
-              handColor={brassDark} secondColor="#b91c1c" centerColor={brass} serif
-            />
-          </div>
-        </div>
-      </div>
-      {/* stepped base */}
-      <div className="w-[90px] h-[4px]" style={{ background: `linear-gradient(180deg, ${stone}, ${brassDark})` }} />
-      <div className="w-[100px] h-[5px]" style={{ background: `linear-gradient(180deg, ${brassDark}, #1a1208)` }} />
-    </div>
-  );
-};
-
-/* ---------------- Landmark switch ---------------- */
-
-const Landmark = ({ kind, hourDeg, minDeg, secDeg }: { kind: LandmarkKey } & LandmarkProps) => {
-  switch (kind) {
-    case "bigben":       return <BigBen        hourDeg={hourDeg} minDeg={minDeg} secDeg={secDeg} />;
-    case "orsay":        return <OrsayClock    hourDeg={hourDeg} minDeg={minDeg} secDeg={secDeg} />;
-    case "wako":         return <WakoTower     hourDeg={hourDeg} minDeg={minDeg} secDeg={secDeg} />;
-    case "grandcentral": return <GrandCentralClock hourDeg={hourDeg} minDeg={minDeg} secDeg={secDeg} />;
-  }
-};
-
-/* ---------------- Card ---------------- */
-
-const LandmarkCard = ({
-  name, country, code, tz, landmark, subtitle, now,
-}: { name: string; country: string; code: string; tz: string; landmark: LandmarkKey; subtitle: string; now: Date }) => {
+const CityClock = ({ name, code, tz, now }: { name: string; code: string; tz: string; now: Date }) => {
   const { h, m, s, h24 } = getParts(tz, now);
   const hourDeg = h * 30 + m * 0.5;
   const minDeg = m * 6 + s * 0.1;
@@ -362,42 +144,37 @@ const LandmarkCard = ({
   const isNight = h24 < 6 || h24 >= 20;
 
   return (
-    <div className="relative flex flex-col items-center group">
-      {/* glow halo */}
-      <div className="absolute -inset-x-4 top-6 bottom-12 rounded-full opacity-50 group-hover:opacity-80 transition-opacity"
-        style={{ background: isNight ? "radial-gradient(ellipse, #4a3a78 0%, transparent 70%)" : "radial-gradient(ellipse, #c9a24c30 0%, transparent 70%)", filter: "blur(20px)" }}
-      />
+    <div className="flex flex-col items-center gap-1.5 md:gap-2 group">
       <div className="relative">
-        <Landmark kind={landmark} hourDeg={hourDeg} minDeg={minDeg} secDeg={secDeg} />
+        {/* ambient halo */}
+        <div
+          className="absolute inset-0 rounded-full blur-md opacity-60 group-hover:opacity-100 transition-opacity"
+          style={{
+            background: isNight
+              ? "radial-gradient(circle, hsl(var(--primary) / 0.35), transparent 70%)"
+              : "radial-gradient(circle, hsl(var(--primary) / 0.25), transparent 70%)",
+          }}
+        />
+        <Dial
+          size={56}
+          hourDeg={hourDeg}
+          minDeg={minDeg}
+          secDeg={secDeg}
+          faceBg="radial-gradient(circle at 35% 30%, hsl(var(--card)), hsl(var(--background)) 85%)"
+          ringColor="hsl(var(--primary) / 0.35)"
+          numeralColor="hsl(var(--muted-foreground))"
+          numerals={ARABIC}
+          handColor="hsl(var(--foreground))"
+          secondColor="hsl(var(--primary))"
+          centerColor="hsl(var(--primary))"
+        />
       </div>
-
-      {/* brass plaque — city + landmark name */}
-      <div className="mt-3 px-3 py-1.5 rounded-[2px] text-center relative"
-        style={{
-          background: "linear-gradient(180deg, #d4a84a, #8a6d2c)",
-          boxShadow: "0 2px 4px rgba(0,0,0,0.6), inset 0 1px 0 #f0d78c",
-          minWidth: 110,
-        }}
-      >
-        <span className="block text-[9px] md:text-[10px] font-bold uppercase tracking-[0.28em] leading-none"
-          style={{ color: "#1a1208", fontFamily: "'Cormorant Garamond', serif" }}>
+      <div className="flex flex-col items-center leading-none">
+        <span className="text-[9px] md:text-[10px] font-bold uppercase tracking-[0.25em] text-foreground/90">
           {name}
         </span>
-        <span className="block text-[6px] md:text-[7px] uppercase tracking-[0.22em] leading-none mt-1 opacity-80"
-          style={{ color: "#1a1208" }}>
-          {subtitle}
-        </span>
-      </div>
-
-      {/* digital readout */}
-      <div className="mt-2 flex flex-col items-center leading-tight">
-        <span className="font-mono text-[11px] md:text-[13px] font-semibold tabular-nums tracking-[0.18em]"
-          style={{ color: "#e8c878", textShadow: "0 0 6px #c9a24c50" }}>
+        <span className="font-mono text-[10px] md:text-[11px] font-semibold tabular-nums text-primary mt-0.5">
           {timeLabel}
-        </span>
-        <span className="text-[6.5px] md:text-[7px] font-mono uppercase tracking-[0.35em] mt-0.5"
-          style={{ color: "#c9a24c90" }}>
-          {code} · {country}
         </span>
       </div>
     </div>
@@ -411,34 +188,17 @@ const WorldClocks = () => {
     return () => clearInterval(id);
   }, []);
   return (
-    <div
-      className="relative grid grid-cols-2 md:grid-cols-4 items-end gap-x-4 md:gap-x-10 gap-y-10 px-5 md:px-12 pt-14 pb-8 rounded-[3px] max-w-[680px] md:max-w-none"
-      style={{
-        background:
-          "linear-gradient(180deg, #0a0805 0%, #14110c 50%, #0a0805 100%)",
-        border: "1px solid #c9a24c30",
-        boxShadow:
-          "inset 0 1px 0 #c9a24c20, inset 0 -1px 0 #c9a24c20, 0 20px 60px -20px rgba(0,0,0,0.8), 0 0 40px -10px #c9a24c15",
-      }}
-    >
-      {/* corner flourishes */}
-      <span className="absolute top-2 left-2 w-3 h-3 border-l border-t" style={{ borderColor: "#c9a24c80" }} />
-      <span className="absolute top-2 right-2 w-3 h-3 border-r border-t" style={{ borderColor: "#c9a24c80" }} />
-      <span className="absolute bottom-2 left-2 w-3 h-3 border-l border-b" style={{ borderColor: "#c9a24c80" }} />
-      <span className="absolute bottom-2 right-2 w-3 h-3 border-r border-b" style={{ borderColor: "#c9a24c80" }} />
-
-      {/* engraved title */}
-      <div className="absolute top-3 left-1/2 -translate-x-1/2 flex items-center gap-2 col-span-full">
-        <span className="w-6 h-px" style={{ background: "linear-gradient(90deg, transparent, #c9a24c)" }} />
-        <span className="text-[8px] md:text-[10px] uppercase tracking-[0.45em] font-semibold whitespace-nowrap"
-          style={{ color: "#c9a24c", fontFamily: "'Cormorant Garamond', serif" }}>
-          Orologi Iconici del Mondo
-        </span>
-        <span className="w-6 h-px" style={{ background: "linear-gradient(90deg, #c9a24c, transparent)" }} />
-      </div>
-
-      {CITIES.map((c) => (
-        <LandmarkCard key={c.name} {...c} now={now} />
+    <div className="relative inline-flex items-center gap-3 md:gap-6 px-4 md:px-8 py-3 md:py-4 rounded-2xl border border-primary/20 bg-card/40 backdrop-blur-sm shadow-[0_10px_40px_-15px_hsl(var(--primary)/0.4)]">
+      <span className="absolute -top-2 left-1/2 -translate-x-1/2 px-2 py-0.5 rounded-full bg-background border border-primary/30 text-[8px] md:text-[9px] font-mono uppercase tracking-[0.35em] text-primary flex items-center gap-1.5 whitespace-nowrap">
+        <span className="w-1 h-1 rounded-full bg-primary animate-pulse" /> Live
+      </span>
+      {CITIES.map((c, i) => (
+        <div key={c.name} className="flex items-center gap-3 md:gap-6">
+          <CityClock {...c} now={now} />
+          {i < CITIES.length - 1 && (
+            <span className="hidden sm:block h-10 w-px bg-gradient-to-b from-transparent via-primary/30 to-transparent" />
+          )}
+        </div>
       ))}
     </div>
   );
