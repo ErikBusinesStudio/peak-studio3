@@ -5,6 +5,7 @@ import serviceGestione from "@/assets/service-gestione.jpg";
 import serviceAbbonamenti from "@/assets/service-abbonamenti.jpg";
 import serviceSitiWeb from "@/assets/service-siti-web.jpg";
 import sceneSignpost from "@/assets/scene-signpost.jpg";
+import serviceFlyers from "@/assets/service-flyers-new.jpg";
 
 
 export type ExtraSize = "lg" | "md" | "sm" | "wide" | "tall";
@@ -123,7 +124,7 @@ export const extras: ExtraService[] = [
     tagline: "Design che si nota, anche tra cento volantini.",
     description:
       "Volantini promozionali pensati per attirare l'occhio. Lavoro su gerarchie chiare, foto efficaci e CTA dirette: il volantino deve dire una cosa sola, ma dirla bene.",
-    image: serviceVolantini,
+    image: serviceFlyers,
     size: "sm",
     includes: [
       "Design A5 o A4 fronte/retro",
