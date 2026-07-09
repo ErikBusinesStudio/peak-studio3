@@ -21,7 +21,7 @@ const HeroSection = () => {
               src={logo}
               alt="Peak Studio"
               className="h-10 md:h-14 w-auto"
-              style={{ filter: "drop-shadow(0 0 18px hsl(212 90% 45% / 0.55))" }}
+              style={{ filter: "brightness(0) saturate(100%)" }}
             />
             <div className="hidden sm:flex flex-col leading-none">
               <span className="font-display text-base md:text-xl tracking-tight">

@@ -36,10 +36,10 @@ const Header = () => {
               src={logo}
               alt="Peak Studio"
               className="h-9 md:h-11 w-auto transition-transform group-hover:scale-105"
-              style={{ filter: "drop-shadow(0 0 12px hsl(212 90% 45% / 0.5))" }}
+              style={{ filter: "brightness(0) saturate(100%)" }}
             />
             <span className="font-display text-base md:text-lg tracking-tight hidden sm:inline">
-              PEAK<span style={{ color: "hsl(var(--accent-red))" }}>.</span>STUDIO
+              <span className="text-foreground">PEAK</span><span className="text-primary">.</span><span className="text-foreground">STUDIO</span>
             </span>
           </a>
 
