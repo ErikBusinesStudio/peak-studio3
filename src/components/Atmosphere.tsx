@@ -6,12 +6,12 @@ const Atmosphere = () => {
     <div className="pointer-events-none fixed inset-0 z-[1] overflow-hidden" aria-hidden="true">
       {/* Aerial snowy mountain range backdrop */}
       <div
-        className="absolute inset-0 opacity-[0.55]"
+        className="absolute inset-0 opacity-[0.85]"
         style={{
           backgroundImage: `url(${heroBg.url})`,
           backgroundSize: "cover",
           backgroundPosition: "center 30%",
-          filter: "saturate(1.05) contrast(1.05)",
+          filter: "saturate(1.15) contrast(1.08)",
         }}
       />
       {/* Soft white/blue wash so content stays readable */}
@@ -19,7 +19,7 @@ const Atmosphere = () => {
         className="absolute inset-0"
         style={{
           background:
-            "linear-gradient(180deg, hsl(210 40% 99% / 0.55) 0%, hsl(210 60% 97% / 0.72) 45%, hsl(210 40% 99% / 0.92) 100%)",
+            "linear-gradient(180deg, hsl(210 40% 99% / 0.30) 0%, hsl(210 60% 97% / 0.45) 45%, hsl(210 40% 99% / 0.75) 100%)",
         }}
       />
       {/* Silhouette band across the middle */}
