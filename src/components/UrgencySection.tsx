@@ -1,14 +1,6 @@
 import { SearchX, AlertTriangle, TrendingDown, Users } from "lucide-react";
-import { useEffect, useState } from "react";
 import { useScrollAnimation } from "@/hooks/useScrollAnimation";
 import { useI18n } from "@/contexts/I18nContext";
-
-const CITIES: { name: string; tz: string; code: string }[] = [
-  { name: "Roma",     tz: "Europe/Rome",       code: "ROM" },
-  { name: "London",   tz: "Europe/London",     code: "LDN" },
-  { name: "New York", tz: "America/New_York",  code: "NYC" },
-  { name: "Tokyo",    tz: "Asia/Tokyo",        code: "TYO" },
-];
 
 function getParts(tz: string, now: Date) {
   const parts = new Intl.DateTimeFormat("it-IT", {
