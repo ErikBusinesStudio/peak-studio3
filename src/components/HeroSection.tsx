@@ -1,7 +1,6 @@
 import { ArrowUpRight } from "lucide-react";
 import StarFour from "@/components/icons/StarFour";
 import { useI18n } from "@/contexts/I18nContext";
-import logo from "@/assets/logo.png";
 import heroStormPeakAsset from "@/assets/hero-k2-natural.jpg.asset.json";
 const heroStormPeak = heroStormPeakAsset.url;
 import sceneCabin from "@/assets/scene-cabin.jpg";
