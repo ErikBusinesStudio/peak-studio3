@@ -1,29 +1,30 @@
-/** Alpine atmosphere — mountain backdrop, blue blobs, silhouette band */
-import sceneForest from "@/assets/scene-forest.jpg";
+/** Alpine atmosphere — aerial mountain backdrop, animated blue accents */
+import heroBg from "@/assets/hero-mountains-bg.png.asset.json";
 import mountainBand from "@/assets/mountain-silhouette-band.jpg";
 const Atmosphere = () => {
   return (
     <div className="pointer-events-none fixed inset-0 z-[1] overflow-hidden" aria-hidden="true">
-      {/* Snowy mountain backdrop, very faded */}
+      {/* Aerial snowy mountain range backdrop */}
       <div
-        className="absolute inset-0 opacity-[0.22]"
+        className="absolute inset-0 opacity-[0.55]"
         style={{
-          backgroundImage: `url(${sceneForest})`,
+          backgroundImage: `url(${heroBg.url})`,
           backgroundSize: "cover",
-          backgroundPosition: "center top",
-          filter: "saturate(0.9) contrast(1.02)",
+          backgroundPosition: "center 30%",
+          filter: "saturate(1.05) contrast(1.05)",
         }}
       />
+      {/* Soft white/blue wash so content stays readable */}
       <div
         className="absolute inset-0"
         style={{
           background:
-            "linear-gradient(180deg, hsl(210 40% 99% / 0.80) 0%, hsl(210 60% 96% / 0.72) 50%, hsl(210 40% 99% / 0.92) 100%)",
+            "linear-gradient(180deg, hsl(210 40% 99% / 0.55) 0%, hsl(210 60% 97% / 0.72) 45%, hsl(210 40% 99% / 0.92) 100%)",
         }}
       />
       {/* Silhouette band across the middle */}
       <div
-        className="absolute left-0 right-0 top-[40%] h-[50vh] opacity-[0.35] mix-blend-multiply"
+        className="absolute left-0 right-0 top-[45%] h-[45vh] opacity-[0.28] mix-blend-multiply"
         style={{
           backgroundImage: `url(${mountainBand})`,
           backgroundSize: "cover",
@@ -34,17 +35,44 @@ const Atmosphere = () => {
       />
       {/* Animated blue blobs */}
       <div
-        className="absolute -top-[20%] -left-[10%] w-[55vw] h-[55vw] rounded-full opacity-50 blur-[140px] animate-blob"
+        className="absolute -top-[20%] -left-[10%] w-[55vw] h-[55vw] rounded-full opacity-60 blur-[140px] animate-blob"
         style={{ background: "radial-gradient(circle, #6cbcff 0%, transparent 70%)" }}
       />
       <div
-        className="absolute -bottom-[20%] -right-[10%] w-[60vw] h-[60vw] rounded-full opacity-40 blur-[160px] animate-blob-2"
+        className="absolute -bottom-[20%] -right-[10%] w-[60vw] h-[60vw] rounded-full opacity-50 blur-[160px] animate-blob-2"
         style={{ background: "radial-gradient(circle, #b8dcff 0%, transparent 70%)" }}
       />
       <div
-        className="absolute top-[40%] left-[40%] w-[35vw] h-[35vw] rounded-full opacity-25 blur-[120px] animate-blob"
+        className="absolute top-[40%] left-[40%] w-[35vw] h-[35vw] rounded-full opacity-30 blur-[120px] animate-blob"
         style={{ background: "radial-gradient(circle, #ffffff 0%, transparent 70%)", animationDelay: "-6s" }}
       />
+      <div
+        className="absolute top-[10%] right-[15%] w-[28vw] h-[28vw] rounded-full opacity-40 blur-[100px] animate-drift-slow"
+        style={{ background: "radial-gradient(circle, #3d8ce8 0%, transparent 70%)" }}
+      />
+
+      {/* Floating light particles */}
+      {Array.from({ length: 22 }).map((_, i) => {
+        const left = (i * 53) % 100;
+        const size = 2 + ((i * 7) % 5);
+        const dur = 14 + ((i * 3) % 18);
+        const delay = -(i * 1.7);
+        return (
+          <span
+            key={i}
+            className="absolute rounded-full bg-white/70 animate-particle"
+            style={{
+              left: `${left}%`,
+              bottom: `-10px`,
+              width: `${size}px`,
+              height: `${size}px`,
+              boxShadow: "0 0 8px rgba(180,220,255,0.85)",
+              animationDuration: `${dur}s`,
+              animationDelay: `${delay}s`,
+            }}
+          />
+        );
+      })}
 
       {/* Subtle grain */}
       <svg className="absolute inset-0 w-full h-full opacity-[0.05] mix-blend-overlay" xmlns="http://www.w3.org/2000/svg">
