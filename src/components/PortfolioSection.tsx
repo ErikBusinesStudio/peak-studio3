@@ -7,6 +7,7 @@ import flyerSocialAds from "@/assets/flyers/flyer-social-ads.jpg";
 import flyerBrandIdentity from "@/assets/flyers/flyer-brand-identity.jpg";
 import flyerVolantini from "@/assets/flyers/flyer-volantini.jpg";
 import { ExternalLink, Globe, FileText } from "lucide-react";
+import { ArrowRight } from "lucide-react";
 import { useScrollAnimation } from "@/hooks/useScrollAnimation";
 import { useI18n } from "@/contexts/I18nContext";
 
@@ -65,6 +66,7 @@ const PortfolioSection = () => {
 
         {/* Sites */}
         {tab === "sites" && (
+          <>
           <div key="sites" className="grid grid-cols-1 md:grid-cols-3 gap-4 md:gap-6 animate-fade-in">
             {sites.map((p, i) => (
               <a
@@ -88,6 +90,18 @@ const PortfolioSection = () => {
               </a>
             ))}
           </div>
+          <div className="flex justify-center mt-8 md:mt-10">
+            <a
+              href="https://peakstudio.click/portfolio"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="inline-flex items-center gap-2 px-6 py-3 md:px-8 md:py-4 rounded-full border border-primary/40 bg-primary/5 hover:bg-primary hover:text-primary-foreground text-primary text-xs md:text-sm font-bold uppercase tracking-[0.18em] transition-all duration-300 hover:scale-105"
+            >
+              Vedi tutti i siti
+              <ArrowRight className="w-4 h-4" />
+            </a>
+          </div>
+          </>
         )}
 
         {/* Flyers — compact grid */}
