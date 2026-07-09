@@ -168,7 +168,7 @@ const BentoGrid = ({ tiles, ctaLabel }: { tiles: BentoTile[]; ctaLabel: string }
           <div className="absolute inset-0 bg-gradient-to-t from-background via-background/40 to-transparent" />
           <div
             className="absolute inset-0 opacity-0 group-hover:opacity-100 transition-opacity"
-            style={{ background: "linear-gradient(135deg, hsl(348 78% 36% / 0.4), transparent 70%)" }}
+            style={{ background: "linear-gradient(135deg, hsl(212 90% 45% / 0.4), transparent 70%)" }}
           />
           <div className="absolute inset-0 p-3 md:p-5 flex flex-col justify-between">
             <div className="flex items-start justify-between gap-2">
