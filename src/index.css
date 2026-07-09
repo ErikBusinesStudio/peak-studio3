@@ -122,7 +122,7 @@
     box-shadow: 0 0 30px -8px hsl(212 90% 45% / 0.28);
   }
 
-  .section-padding { @apply py-14 md:py-32 px-4 md:px-8; }
+  .section-padding { @apply py-8 md:py-16 px-4 md:px-8; }
 
   .red-line {
     width: 64px;

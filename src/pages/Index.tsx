@@ -20,8 +20,8 @@ import mtFuji from "@/assets/mountains/fuji.jpg";
 import mtDenali from "@/assets/mountains/denali.jpg";
 
 const ChapterDivider = ({ numeral, label, kicker }: { numeral: string; label: string; kicker?: string }) => (
-  <div className="max-w-7xl mx-auto px-4 md:px-8 py-10 md:py-16">
-    <div className="flex items-end justify-between border-b border-foreground/20 pb-4">
+  <div className="max-w-7xl mx-auto px-4 md:px-8 py-5 md:py-8">
+    <div className="flex items-end justify-between border-b border-foreground/20 pb-3">
       <div className="flex items-baseline gap-4 md:gap-6">
         <span className="font-mono text-[10px] md:text-xs uppercase tracking-[0.4em]" style={{ color: "hsl(var(--accent-red))" }}>
           Chapter {numeral}
