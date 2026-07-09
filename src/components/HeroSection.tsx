@@ -1,77 +1,164 @@
-import { ArrowRight } from "lucide-react";
+import { ArrowUpRight } from "lucide-react";
+import StarFour from "@/components/icons/StarFour";
 import { useI18n } from "@/contexts/I18nContext";
+import logo from "@/assets/logo.png";
+import heroStormPeakAsset from "@/assets/hero-k2-natural.jpg.asset.json";
+const heroStormPeak = heroStormPeakAsset.url;
+import sceneCabin from "@/assets/scene-cabin.jpg";
+import sceneBridge from "@/assets/scene-bridge.jpg";
+import MountainOfTheHour from "@/components/MountainOfTheHour";
 
 const HeroSection = () => {
   const { t } = useI18n();
 
   return (
-    <section className="relative pt-28 md:pt-40 pb-16 md:pb-24 px-4 md:px-8">
-      <div className="max-w-7xl mx-auto grid grid-cols-1 lg:grid-cols-12 gap-0 border-l border-border">
-        {/* Vertical margin branding */}
-        <div className="hidden lg:flex lg:col-span-1 border-r border-border flex-col justify-between py-8 items-center min-h-[600px]">
-          <span className="[writing-mode:vertical-rl] rotate-180 text-[10px] tracking-[0.3em] uppercase text-muted-foreground font-medium whitespace-nowrap">Established · Italia 2024</span>
-          <div className="w-px h-24 bg-border" />
-          <span className="[writing-mode:vertical-rl] rotate-180 text-[10px] tracking-[0.3em] uppercase text-muted-foreground font-medium whitespace-nowrap">Peak Studio Design</span>
+    <section className="relative pt-28 md:pt-36 pb-12 md:pb-20 px-4 md:px-8">
+      <div className="max-w-7xl mx-auto">
+        {/* Top meta strip with logo */}
+        <div className="flex items-center justify-between mb-6 md:mb-10 gap-3">
+          <div className="flex items-center gap-3">
+            <img
+              src={logo}
+              alt="Peak Studio"
+              className="h-10 md:h-14 w-auto"
+              style={{ filter: "drop-shadow(0 0 18px hsl(348 78% 36% / 0.55))" }}
+            />
+            <div className="hidden sm:flex flex-col leading-none">
+              <span className="font-display text-base md:text-xl tracking-tight">
+                PEAK<span style={{ color: "hsl(var(--accent-red))" }}>.</span>STUDIO
+              </span>
+              <span className="text-[9px] md:text-[10px] uppercase tracking-[0.35em] text-foreground/55 mt-1">
+                Web design · Italia · 2026
+              </span>
+            </div>
+          </div>
+          <span className="text-[10px] md:text-xs font-mono uppercase tracking-[0.35em] text-foreground/55 flex items-center gap-2">
+            <span className="w-6 md:w-8 h-px" style={{ background: "hsl(var(--accent-red))" }} />
+            Edizione Nº 01
+          </span>
         </div>
 
-        {/* Main editorial column */}
-        <div className="lg:col-span-11 p-6 md:p-16 lg:p-20 relative overflow-hidden">
-          {/* Manga-style mountain lines behind headline */}
-          <div className="absolute inset-0 pointer-events-none opacity-20">
-            <svg viewBox="0 0 800 400" fill="none" className="w-full h-full">
-              <path d="M0 400L150 280L280 340L450 120L600 220L800 50" stroke="hsl(215 30% 25%)" strokeWidth="0.6" />
-              <path d="M0 380L180 250L300 310L480 90L620 190L800 20" stroke="hsl(215 30% 25%)" strokeWidth="0.6" strokeDasharray="4 4" />
-            </svg>
-          </div>
-
-          <div className="relative z-10">
-            <div className="flex items-center gap-4 mb-8 md:mb-12 animate-rise">
-              <div className="w-12 h-px bg-primary" />
-              <span className="text-[10px] md:text-xs uppercase tracking-[0.4em] font-semibold text-primary">Studio Web Design · Italia</span>
+        {/* BENTO GRID */}
+        <div className="grid grid-cols-12 grid-rows-[auto] gap-3 md:gap-4">
+          {/* Headline card — large */}
+          <div className="col-span-12 lg:col-span-8 row-span-2 relative gradient-border rounded-2xl md:rounded-3xl bg-card p-5 md:p-12 flex flex-col justify-between min-h-[360px] md:min-h-[580px] overflow-hidden animate-rise" style={{ animationDelay: "0.05s" }}>
+            {/* Animated gradient blob inside card */}
+            <div className="absolute -top-32 -right-32 w-96 h-96 rounded-full opacity-50 blur-3xl animate-blob pointer-events-none" style={{ background: "radial-gradient(circle, #FF0054 0%, transparent 70%)" }} />
+            <div>
+              <p className="eyebrow mb-6 md:mb-8">
+                <span className="inline-block w-2 h-2 rounded-full bg-primary animate-glow-pulse" />
+                Capitolo I · L'Ascensione
+              </p>
+              <h1 className="font-display leading-[0.9] tracking-[-0.03em] uppercase break-words relative" style={{ fontSize: "clamp(2.25rem, 6vw, 5rem)" }}>
+                <span className="text-foreground">{t("hero.title1").replace(".", "")}</span>
+                <br />
+                <span className="text-gradient">{t("hero.title2").replace(".", "")}</span>
+                <span className="text-gradient-pink">.</span>
+              </h1>
             </div>
 
-            <h1
-              className="font-display leading-[0.85] tracking-tight text-foreground animate-rise"
-              style={{ fontSize: "clamp(3rem, 11vw, 10rem)", animationDelay: "0.1s" }}
-            >
-              PEAK<br />STUDIO
-            </h1>
-
-            <div className="mt-12 md:mt-16 grid grid-cols-1 md:grid-cols-2 gap-8 md:gap-12 items-end animate-rise" style={{ animationDelay: "0.25s" }}>
-              <p className="text-lg md:text-2xl text-muted-foreground leading-relaxed max-w-md font-light">
-                {t("hero.subtitle") || "Costruiamo la presenza digitale per"} <span className="text-foreground font-semibold">palestre</span>, <span className="text-foreground font-semibold">ristoranti</span> e attività che puntano alla vetta.
+            <div className="mt-8 md:mt-10 flex flex-col md:flex-row md:items-end md:justify-between gap-6">
+              <p className="text-base md:text-lg max-w-md text-foreground/75 leading-relaxed">
+                {t("hero.subtitle")}
               </p>
-
-              <div className="flex flex-col gap-5">
-                <div className="h-px w-full bg-border" />
-                <a href="#contatti" className="flex justify-between items-center group">
-                  <span className="text-sm uppercase tracking-[0.25em] font-bold text-foreground">Inizia la scalata</span>
-                  <span className="w-11 h-11 rounded-full border border-border flex items-center justify-center group-hover:bg-primary group-hover:border-primary transition-all duration-500">
-                    <ArrowRight className="w-4 h-4 text-foreground group-hover:text-primary-foreground transition-colors" />
-                  </span>
+              <div className="flex flex-col sm:flex-row gap-3">
+                <a href="#contatti" className="btn-cta">
+                  {t("hero.cta1")} <ArrowUpRight className="w-4 h-4" />
                 </a>
-                <div className="h-px w-full bg-border" />
-                <a href="https://wa.me/393913168231?text=Ciao!%20Vorrei%20un%20preventivo%20per%20il%20mio%20sito%20web." target="_blank" rel="noopener noreferrer" className="text-xs uppercase tracking-[0.25em] font-semibold text-primary hover:underline underline-offset-4">
-                  → Scrivimi su WhatsApp
-                </a>
+                <a href="#portfolio" className="btn-cta-soft">{t("hero.cta2")}</a>
               </div>
             </div>
 
-            {/* Data points / stats minimal */}
-            <div className="mt-20 md:mt-32 grid grid-cols-2 md:grid-cols-4 gap-8 border-t border-border pt-8 md:pt-12 animate-rise" style={{ animationDelay: "0.4s" }}>
-              {[
-                { k: "Consegna", v: "7 giorni max" },
-                { k: "Siti online", v: "50+" },
-                { k: "Soddisfazione", v: "100%" },
-                { k: "Base", v: "Casalzuigno · VA" },
-              ].map((d) => (
-                <div key={d.k} className="flex flex-col">
-                  <span className="text-[10px] uppercase tracking-[0.25em] text-muted-foreground mb-2">{d.k}</span>
-                  <span className="font-display text-xl md:text-2xl text-foreground">{d.v}</span>
-                </div>
-              ))}
+            {/* corner crosshair */}
+            <span className="absolute top-3 right-3 text-[9px] font-mono uppercase tracking-widest text-foreground/40">+ 46°N</span>
+            <span className="absolute bottom-3 left-3 text-[9px] font-mono uppercase tracking-widest text-foreground/40">— 11°E</span>
+          </div>
+
+          {/* Mountain of the hour — drone live feed card */}
+          <MountainOfTheHour />
+
+          {/* Stat 1 */}
+          <div className="col-span-6 md:col-span-4 lg:col-span-3 relative overflow-hidden rounded-xl md:rounded-2xl gradient-border bg-card p-3.5 md:p-6 flex flex-col justify-between min-h-[100px] md:min-h-[140px] animate-rise" style={{ animationDelay: "0.25s" }}>
+            <img src={sceneCabin} alt="" className="absolute inset-0 w-full h-full object-cover opacity-20" />
+            <div className="absolute inset-0 bg-gradient-to-br from-card/85 via-card/70 to-card/95" />
+            <div className="relative flex flex-col justify-between h-full">
+            <span className="text-[9px] md:text-[10px] font-mono uppercase tracking-[0.3em] text-foreground/60">01</span>
+            <div>
+              <p className="font-display text-3xl md:text-5xl leading-none text-gradient">50+</p>
+              <p className="text-[10px] md:text-xs uppercase tracking-wider text-foreground/60 mt-1.5 md:mt-2">{t("hero.stat1")}</p>
+            </div>
             </div>
           </div>
+
+          {/* Stat 2 */}
+          <div className="col-span-6 md:col-span-4 lg:col-span-3 rounded-xl md:rounded-2xl p-3.5 md:p-6 flex flex-col justify-between min-h-[100px] md:min-h-[140px] text-primary-foreground animate-rise animate-glow-pulse" style={{ background: "var(--gradient-brand)", backgroundSize: "200% 200%", animationDelay: "0.35s" }}>
+            <span className="text-[9px] md:text-[10px] font-mono uppercase tracking-[0.3em] opacity-80">02</span>
+            <div>
+              <p className="font-display text-3xl md:text-5xl leading-none">7<span className="opacity-70">gg</span></p>
+              <p className="text-[10px] md:text-xs uppercase tracking-wider opacity-90 mt-1.5 md:mt-2">Consegna max</p>
+            </div>
+          </div>
+
+          {/* Stat 3 */}
+          <div className="col-span-12 md:col-span-4 lg:col-span-2 relative overflow-hidden rounded-xl md:rounded-2xl gradient-border bg-card p-3.5 md:p-6 flex flex-col justify-between min-h-[100px] md:min-h-[140px] animate-rise" style={{ animationDelay: "0.45s" }}>
+            <img src={sceneBridge} alt="" className="absolute inset-0 w-full h-full object-cover opacity-20" />
+            <div className="absolute inset-0 bg-gradient-to-br from-card/85 via-card/70 to-card/95" />
+            <div className="relative flex flex-col justify-between h-full">
+            <span className="text-[9px] md:text-[10px] font-mono uppercase tracking-[0.3em] text-foreground/60">03</span>
+            <div>
+              <p className="font-display text-3xl md:text-5xl leading-none text-gradient">100%</p>
+              <p className="text-[10px] md:text-xs uppercase tracking-wider text-foreground/60 mt-1.5 md:mt-2">{t("hero.stat3")}</p>
+            </div>
+            </div>
+          </div>
+
+          {/* Quick rating card */}
+          <div className="col-span-12 lg:col-span-4 relative overflow-hidden rounded-xl md:rounded-2xl gradient-border bg-card p-3.5 md:p-6 flex items-center gap-3 md:gap-4 min-h-[100px] md:min-h-[140px] animate-rise" style={{ animationDelay: "0.55s" }}>
+            <img src={heroStormPeak} alt="" className="absolute inset-0 w-full h-full object-cover opacity-15" />
+            <div className="absolute inset-0 bg-gradient-to-r from-card/90 via-card/70 to-card/90" />
+            <div className="relative flex items-center gap-4 w-full">
+            <div className="flex text-primary gap-0.5">
+              {Array.from({ length: 5 }).map((_, i) => (
+                <StarFour key={i} size={14} />
+              ))}
+            </div>
+            <div className="flex-1">
+              <p className="font-display text-sm md:text-lg leading-tight">Clienti che tornano, <span className="text-gradient-pink">dalle Dolomiti a Milano.</span></p>
+              <p className="text-[9px] md:text-[10px] uppercase tracking-wider text-foreground/60 mt-1">Recensioni verificate</p>
+            </div>
+            </div>
+          </div>
+        </div>
+
+        {/* Marquee tagline strip — moved below the bento grid / 50+ stat */}
+        <div className="relative overflow-hidden mt-5 md:mt-10 py-2.5 md:py-3 border-y border-primary/20" style={{ background: "linear-gradient(90deg, transparent, hsl(348 78% 36% / 0.10), transparent)" }}>
+          <div className="flex gap-8 md:gap-12 whitespace-nowrap animate-marquee font-display uppercase text-lg md:text-3xl tracking-tight" style={{ width: "max-content" }}>
+            {Array.from({ length: 2 }).map((_, group) => (
+              <div key={group} className="flex gap-8 md:gap-12 items-center">
+                {["Siti Su Misura", "Identità Visiva", "Posizionamento Google", "Menu Digitali", "Pagine d'Atterraggio", "Cura Continua"].map((w, i) => (
+                  <span key={i} className="flex items-center gap-8 md:gap-12 text-foreground/85">
+                    {w}
+                    <StarFour size={18} style={{ color: "hsl(348 78% 50%)" }} />
+                  </span>
+                ))}
+              </div>
+            ))}
+          </div>
+        </div>
+
+        {/* Trail strip below bento */}
+        <div className="mt-10 md:mt-14 grid grid-cols-3 gap-3 md:gap-4 text-[10px] md:text-xs font-mono uppercase tracking-[0.3em] text-foreground/60">
+          {[
+            { n: "II", l: "Chi sono" },
+            { n: "III", l: "Servizi" },
+            { n: "IV", l: "Portfolio" },
+          ].map((s) => (
+            <div key={s.n} className="group flex items-center gap-3 pt-3 relative">
+              <span className="absolute top-0 left-0 right-0 h-px bg-gradient-to-r from-primary/60 via-primary/20 to-transparent" />
+              <span className="text-primary">{s.n}</span>
+              <span>{s.l}</span>
+            </div>
+          ))}
         </div>
       </div>
     </section>

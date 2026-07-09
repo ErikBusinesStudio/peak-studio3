@@ -10,8 +10,6 @@
         "@fontsource-variable/space-grotesk": "^5.2.10",
         "@fontsource/archivo-black": "^5.2.8",
         "@fontsource/hind": "^5.2.8",
-        "@fontsource/inter": "^5.2.8",
-        "@fontsource/oswald": "^5.2.8",
         "@hookform/resolvers": "^3.10.0",
         "@radix-ui/react-accordion": "^1.2.11",
         "@radix-ui/react-alert-dialog": "^1.1.14",
@@ -189,10 +187,6 @@
     "@fontsource/archivo-black": ["@fontsource/archivo-black@5.2.8", "https://europe-west4-npm.pkg.dev/lovable-core-prod/sandbox-npm-cache/@fontsource/archivo-black/-/archivo-black-5.2.8.tgz", {}, "sha512-3zNj/o9LzWyDl/UEpY5IOHpAQyUtFr3hQaFS7NSKwCLLkXOfH/CMCt1L2b2Z+OF25OURtOYenCadgAebALz7/A=="],
 
     "@fontsource/hind": ["@fontsource/hind@5.2.8", "https://europe-west4-npm.pkg.dev/lovable-core-prod/sandbox-npm-cache/@fontsource/hind/-/hind-5.2.8.tgz", {}, "sha512-eOX6GHobFtElzjnxvtPaHeZwVA/xrEsURcioklaKW5CBO6ic1wvCFJJ5JAN/jRGiTheEw8HI73kShNXd6SXtMg=="],
-
-    "@fontsource/inter": ["@fontsource/inter@5.2.8", "https://europe-west1-npm.pkg.dev/lovable-core-prod/sandbox-npm-cache/@fontsource/inter/-/inter-5.2.8.tgz", {}, "sha512-P6r5WnJoKiNVV+zvW2xM13gNdFhAEpQ9dQJHt3naLvfg+LkF2ldgSLiF4T41lf1SQCM9QmkqPTn4TH568IRagg=="],
-
-    "@fontsource/oswald": ["@fontsource/oswald@5.2.8", "https://europe-west1-npm.pkg.dev/lovable-core-prod/sandbox-npm-cache/@fontsource/oswald/-/oswald-5.2.8.tgz", {}, "sha512-DFoPK1BqsFIQhVjs2xgO/oL9veF9oUJgFojEWIU+nazUrfqsBDtAMI4n9L9CZFX3kQNDLcCyzKx1xoEDvQT4WQ=="],
 
     "@hookform/resolvers": ["@hookform/resolvers@3.10.0", "", { "peerDependencies": { "react-hook-form": "^7.0.0" } }, "sha512-79Dv+3mDF7i+2ajj7SkypSKHhl1cbln1OGavqrsF7p6mbUv11xpqpacPsGDCTRvCSjEEIez2ef1NveSVL3b0Ag=="],
 

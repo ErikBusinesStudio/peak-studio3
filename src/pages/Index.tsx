@@ -15,14 +15,14 @@ import Atmosphere from "@/components/Atmosphere";
 
 const ChapterDivider = ({ numeral, label, kicker }: { numeral: string; label: string; kicker?: string }) => (
   <div className="max-w-7xl mx-auto px-4 md:px-8 py-10 md:py-16">
-    <div className="flex items-end justify-between border-b border-border pb-4">
+    <div className="flex items-end justify-between border-b border-foreground/20 pb-4">
       <div className="flex items-baseline gap-4 md:gap-6">
-        <span className="font-mono text-[10px] md:text-xs uppercase tracking-[0.4em] text-primary">
+        <span className="font-mono text-[10px] md:text-xs uppercase tracking-[0.4em]" style={{ color: "hsl(var(--accent-red))" }}>
           Chapter {numeral}
         </span>
-        <h2 className="font-display text-2xl md:text-5xl uppercase tracking-tight text-foreground">{label}</h2>
+        <h2 className="font-display text-2xl md:text-5xl uppercase tracking-tight">{label}</h2>
       </div>
-      {kicker && <span className="hidden md:inline font-mono text-[10px] uppercase tracking-[0.3em] text-muted-foreground">{kicker}</span>}
+      {kicker && <span className="hidden md:inline font-mono text-[10px] uppercase tracking-[0.3em] text-foreground/50">{kicker}</span>}
     </div>
   </div>
 );
