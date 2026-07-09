@@ -1,7 +1,6 @@
 import { ArrowUpRight } from "lucide-react";
 import StarFour from "@/components/icons/StarFour";
 import { useI18n } from "@/contexts/I18nContext";
-import logo from "@/assets/logo.png";
 import heroStormPeakAsset from "@/assets/hero-k2-natural.jpg.asset.json";
 const heroStormPeak = heroStormPeakAsset.url;
 import sceneCabin from "@/assets/scene-cabin.jpg";
@@ -14,30 +13,6 @@ const HeroSection = () => {
   return (
     <section className="relative pt-28 md:pt-36 pb-12 md:pb-20 px-4 md:px-8">
       <div className="max-w-7xl mx-auto">
-        {/* Top meta strip with logo */}
-        <div className="flex items-center justify-between mb-6 md:mb-10 gap-3">
-          <div className="flex items-center gap-3">
-            <img
-              src={logo}
-              alt="Peak Studio"
-              className="h-10 md:h-14 w-auto"
-              style={{ filter: "brightness(0) saturate(100%)" }}
-            />
-            <div className="hidden sm:flex flex-col leading-none">
-              <span className="font-display text-base md:text-xl tracking-tight">
-                PEAK<span style={{ color: "hsl(var(--accent-red))" }}>.</span>STUDIO
-              </span>
-              <span className="text-[9px] md:text-[10px] uppercase tracking-[0.35em] text-foreground/55 mt-1">
-                Web design · Italia · 2026
-              </span>
-            </div>
-          </div>
-          <span className="text-[10px] md:text-xs font-mono uppercase tracking-[0.35em] text-foreground/55 flex items-center gap-2">
-            <span className="w-6 md:w-8 h-px" style={{ background: "hsl(var(--accent-red))" }} />
-            Edizione Nº 01
-          </span>
-        </div>
-
         {/* BENTO GRID */}
         <div className="grid grid-cols-12 grid-rows-[auto] gap-3 md:gap-4">
           {/* Headline card — large */}
