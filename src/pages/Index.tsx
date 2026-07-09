@@ -13,6 +13,7 @@ import FloatingWhatsApp from "@/components/FloatingWhatsApp";
 import Footer from "@/components/Footer";
 import Atmosphere from "@/components/Atmosphere";
 import MountainInterlude from "@/components/MountainInterlude";
+import ParallaxBand from "@/components/ParallaxBand";
 import mtEverest from "@/assets/mountains/everest.jpg";
 import mtK2 from "@/assets/mountains/k2.jpg";
 import mtCervino from "@/assets/mountains/cervino.jpg";
@@ -50,8 +51,13 @@ const Index = () => {
         <MountainInterlude image={mtK2} name="K2" elevation="8.611 m · Karakoram" location="Pakistan / Cina" align="right" />
 
         <ChapterDivider numeral="IV" label="Processo" kicker="Dal brief al lancio" />
-        <HowItWorksSection />
+        <div className="relative">
+          <div className="absolute inset-0 bg-primary/[0.035] pointer-events-none" />
+          <div className="relative"><HowItWorksSection /></div>
+        </div>
         <MountainInterlude image={mtCervino} name="Cervino" elevation="4.478 m · Alpi Pennine" location="Italia / Svizzera" align="left" />
+
+        <ParallaxBand />
 
         <ChapterDivider numeral="V" label="Lavori" kicker="Portfolio selezionato" />
         <UrgencySection />
@@ -59,7 +65,10 @@ const Index = () => {
         <MountainInterlude image={mtFuji} name="Fuji" elevation="3.776 m · Honshu" location="Giappone" align="right" />
 
         <ChapterDivider numeral="VI" label="Recensioni" kicker="Cosa dicono i clienti" />
-        <ReviewsSection />
+        <div className="relative">
+          <div className="absolute inset-0 bg-primary/[0.04] pointer-events-none" />
+          <div className="relative"><ReviewsSection /></div>
+        </div>
         <FaqSection />
         <MountainInterlude image={mtDenali} name="Denali" elevation="6.190 m · Alaska Range" location="Stati Uniti" align="left" />
 
