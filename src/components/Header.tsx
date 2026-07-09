@@ -36,18 +36,24 @@ const Header = () => {
               src={logo}
               alt="Peak Studio"
               className="h-9 md:h-11 w-auto transition-transform group-hover:scale-105"
-              style={{ filter: "drop-shadow(0 0 12px hsl(348 78% 36% / 0.5))" }}
             />
             <span className="font-display text-base md:text-lg tracking-tight hidden sm:inline">
-              PEAK<span style={{ color: "hsl(var(--accent-red))" }}>.</span>STUDIO
+              PEAK<span className="text-primary">.</span>STUDIO
             </span>
           </a>
 
+          <nav className="hidden md:flex items-center gap-8">
+            {links.map((l) => (
+              <a key={l.href} href={l.href} className="text-xs font-semibold uppercase tracking-[0.2em] text-muted-foreground hover:text-primary transition-colors">
+                {l.label}
+              </a>
+            ))}
+          </nav>
           <div className="hidden md:flex items-center gap-4">
             <LanguageToggle />
             <a
               href="#contatti"
-              className="bg-primary text-primary-foreground px-6 py-2.5 rounded-md text-xs font-bold uppercase tracking-wider hover:opacity-90 hover:scale-105 transition-all"
+              className="bg-primary text-primary-foreground px-6 py-2.5 text-xs font-bold uppercase tracking-[0.2em] hover:-translate-y-0.5 transition-transform"
             >
               {t("header.contact")}
             </a>
@@ -89,43 +95,6 @@ const Header = () => {
         )}
       </header>
 
-      <nav className="fixed right-3 top-1/2 -translate-y-1/2 z-40 hidden md:flex flex-col items-end gap-2">
-        {/* Vertical hairline that connects all icons */}
-        <span
-          className="absolute right-[27px] top-2 bottom-2 w-px pointer-events-none"
-          style={{ background: "linear-gradient(180deg, transparent, hsl(348 78% 42% / 0.4), transparent)" }}
-        />
-        {links.map((l, i) => (
-          <a
-            key={l.href}
-            href={l.href}
-            className="group relative flex items-center gap-3 py-1.5"
-            style={{ animation: `fade-in 0.5s ease-out ${i * 80}ms both` }}
-          >
-            {/* Label appears on hover, slides in from the right */}
-            <span className="opacity-0 -translate-x-1 group-hover:opacity-100 group-hover:translate-x-0 transition-all duration-300 text-[10px] font-mono font-bold uppercase tracking-[0.25em] px-3 py-1.5 rounded-full bg-card/90 backdrop-blur-md border border-border text-foreground whitespace-nowrap pointer-events-none shadow-lg">
-              {l.label}
-            </span>
-            <span className="relative inline-flex items-center justify-center w-[54px] h-[54px]">
-              {/* Outer ring (animated on hover) */}
-              <span
-                className="absolute inset-0 rounded-full border border-border group-hover:border-primary/70 transition-colors duration-300"
-                style={{ background: "hsl(338 100% 4% / 0.55)", backdropFilter: "blur(8px)" }}
-              />
-              {/* Gradient halo on hover */}
-              <span
-                className="absolute inset-0 rounded-full opacity-0 group-hover:opacity-100 transition-opacity duration-300 blur-md"
-                style={{ background: "radial-gradient(circle, hsl(348 78% 50% / 0.55), transparent 70%)" }}
-              />
-              {/* Number tag */}
-              <span className="absolute -left-1 -top-1 text-[8px] font-mono font-bold text-primary opacity-60 group-hover:opacity-100 transition-opacity">
-                0{i + 1}
-              </span>
-              <l.icon className="relative w-[18px] h-[18px] text-foreground/70 group-hover:text-primary group-hover:scale-110 transition-all duration-300" />
-            </span>
-          </a>
-        ))}
-      </nav>
     </>
   );
 };
