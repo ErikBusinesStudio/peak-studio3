@@ -36,10 +36,10 @@ const Header = () => {
               src={logo}
               alt="Peak Studio"
               className="h-9 md:h-11 w-auto transition-transform group-hover:scale-105"
-              style={{ filter: "brightness(0) saturate(100%)" }}
+              style={{ filter: "drop-shadow(0 0 12px hsl(348 78% 36% / 0.5))" }}
             />
             <span className="font-display text-base md:text-lg tracking-tight hidden sm:inline">
-              <span className="text-foreground">PEAK</span><span className="text-primary">.</span><span className="text-foreground">STUDIO</span>
+              PEAK<span style={{ color: "hsl(var(--accent-red))" }}>.</span>STUDIO
             </span>
           </a>
 
@@ -93,7 +93,7 @@ const Header = () => {
         {/* Vertical hairline that connects all icons */}
         <span
           className="absolute right-[27px] top-2 bottom-2 w-px pointer-events-none"
-          style={{ background: "linear-gradient(180deg, transparent, hsl(212 90% 55% / 0.4), transparent)" }}
+          style={{ background: "linear-gradient(180deg, transparent, hsl(348 78% 42% / 0.4), transparent)" }}
         />
         {links.map((l, i) => (
           <a
@@ -110,12 +110,12 @@ const Header = () => {
               {/* Outer ring (animated on hover) */}
               <span
                 className="absolute inset-0 rounded-full border border-border group-hover:border-primary/70 transition-colors duration-300"
-                style={{ background: "hsl(210 40% 99% / 0.55)", backdropFilter: "blur(8px)" }}
+                style={{ background: "hsl(338 100% 4% / 0.55)", backdropFilter: "blur(8px)" }}
               />
               {/* Gradient halo on hover */}
               <span
                 className="absolute inset-0 rounded-full opacity-0 group-hover:opacity-100 transition-opacity duration-300 blur-md"
-                style={{ background: "radial-gradient(circle, hsl(212 90% 55% / 0.55), transparent 70%)" }}
+                style={{ background: "radial-gradient(circle, hsl(348 78% 50% / 0.55), transparent 70%)" }}
               />
               {/* Number tag */}
               <span className="absolute -left-1 -top-1 text-[8px] font-mono font-bold text-primary opacity-60 group-hover:opacity-100 transition-opacity">

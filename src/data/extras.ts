@@ -30,7 +30,7 @@ export const extras: ExtraService[] = [
     description:
       "Creo l'identità visiva completa della tua attività: logo principale, varianti, palette colori, font e file pronti per stampa e web. Un brand coerente vale più di mille pubblicità.",
     image: serviceBranding,
-    size: "md",
+    size: "lg",
     includes: [
       "Logo principale + 2 varianti (orizzontale, monogramma)",
       "Palette colori coordinata",
@@ -56,7 +56,7 @@ export const extras: ExtraService[] = [
     description:
       "Design fronte/retro pronto per la stampa professionale. Lavoro su carte premium con finiture eleganti che ti distinguono dai biglietti anonimi.",
     image: serviceVolantini,
-    size: "md",
+    size: "sm",
     includes: [
       "Design fronte/retro su misura",
       "File stampa-ready (PDF con abbondanze)",
@@ -103,7 +103,7 @@ export const extras: ExtraService[] = [
     description:
       "Configuro e ottimizzo la tua scheda Google Business per farti trovare nelle ricerche locali. Foto, categorie, orari, recensioni: tutto pensato per convertire chi ti cerca in cliente.",
     image: sceneSignpost,
-    size: "md",
+    size: "wide",
     includes: [
       "Apertura o reclamo scheda esistente",
       "Ottimizzazione completa (categorie, attributi, descrizione SEO)",
@@ -125,7 +125,7 @@ export const extras: ExtraService[] = [
     description:
       "Volantini promozionali pensati per attirare l'occhio. Lavoro su gerarchie chiare, foto efficaci e CTA dirette: il volantino deve dire una cosa sola, ma dirla bene.",
     image: serviceFlyers,
-    size: "md",
+    size: "sm",
     includes: [
       "Design A5 o A4 fronte/retro",
       "Copywriting promozionale incluso",
@@ -146,7 +146,7 @@ export const extras: ExtraService[] = [
     description:
       "Configuro un'automazione su misura: risposta automatica WhatsApp, email di benvenuto, raccolta recensioni post-acquisto, prenotazioni con conferma. Setup unico, vantaggio continuo.",
     image: serviceAbbonamenti,
-    size: "md",
+    size: "tall",
     includes: [
       "Analisi flusso attuale",
       "Setup automazione (WhatsApp / email / form)",
@@ -193,7 +193,7 @@ export const extras: ExtraService[] = [
     description:
       "Mi occupo io di aggiornare regolarmente il tuo sito: nuovi prodotti, foto stagionali, blog post, promo. Tu mandi materiale o feedback, io pubblico.",
     image: serviceGestione,
-    size: "md",
+    size: "sm",
     includes: [
       "Aggiornamenti mensili concordati",
       "Pubblicazione articoli / news",

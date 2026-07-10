@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import { Send, Users, ThumbsUp, Award, ExternalLink } from "lucide-react";
+import { Send, Users, ThumbsUp, Award } from "lucide-react";
 import StarFour from "@/components/icons/StarFour";
 import { useScrollAnimation } from "@/hooks/useScrollAnimation";
 import { useI18n } from "@/contexts/I18nContext";
@@ -30,16 +30,6 @@ const ReviewsSection = () => {
     { icon: ThumbsUp, value: "98%", label: t("reviews.stat3"), color: "text-primary" },
     { icon: Award, value: "100%", label: t("reviews.stat4"), color: "text-primary" },
   ];
-
-  // Rating distribution for the interactive bar chart
-  const ratingBreakdown = [
-    { stars: 5, count: 128, pct: 90 },
-    { stars: 4, count: 12, pct: 8 },
-    { stars: 3, count: 2, pct: 1.5 },
-    { stars: 2, count: 1, pct: 0.5 },
-    { stars: 1, count: 0, pct: 0 },
-  ];
-  const GOOGLE_REVIEW_URL = "https://g.page/r/Cc0d8aKRcwcLEAE/review";
 
   const [reviews, setReviews] = useState<Review[]>(defaultReviews);
   const [showForm, setShowForm] = useState(false);
@@ -116,82 +106,6 @@ const ReviewsSection = () => {
             </div>
             <span className="text-xs md:text-sm font-bold">4.9 {t("reviews.outOf")}</span>
             <span className="text-[10px] md:text-xs text-muted-foreground">{t("reviews.basedOn")}</span>
-          </div>
-        </div>
-
-        {/* Google reviews block */}
-        <div className={`mb-10 md:mb-16 grid md:grid-cols-2 gap-4 md:gap-6 max-w-4xl mx-auto transition-all duration-700 delay-200 ${isVisible ? "opacity-100 translate-y-0" : "opacity-0 translate-y-8"}`}>
-          {/* Left: Google CTA */}
-          <a
-            href={GOOGLE_REVIEW_URL}
-            target="_blank"
-            rel="noopener noreferrer"
-            className="group relative overflow-hidden rounded-2xl border border-primary/25 bg-card p-6 md:p-8 flex flex-col justify-between hover:border-primary/50 hover:scale-[1.02] transition-all duration-500"
-          >
-            <div className="absolute -top-16 -right-16 w-48 h-48 rounded-full bg-primary/10 blur-3xl group-hover:bg-primary/20 transition-colors" />
-            <div className="relative">
-              <div className="flex items-center gap-3 mb-4">
-                <div className="w-10 h-10 rounded-full bg-white border border-border flex items-center justify-center shadow-sm">
-                  <svg viewBox="0 0 48 48" width="22" height="22" aria-hidden="true">
-                    <path fill="#4285F4" d="M45.12 24.5c0-1.56-.14-3.06-.4-4.5H24v8.51h11.84c-.51 2.75-2.06 5.08-4.39 6.64v5.52h7.11c4.16-3.83 6.56-9.47 6.56-16.17z"/>
-                    <path fill="#34A853" d="M24 46c5.94 0 10.92-1.97 14.56-5.33l-7.11-5.52c-1.97 1.32-4.49 2.1-7.45 2.1-5.73 0-10.58-3.87-12.31-9.07H4.34v5.7C7.96 41.07 15.4 46 24 46z"/>
-                    <path fill="#FBBC05" d="M11.69 28.18A13.9 13.9 0 0 1 10.94 24c0-1.45.25-2.86.7-4.18v-5.7H4.34A22 22 0 0 0 2 24c0 3.55.85 6.9 2.34 9.88l7.35-5.7z"/>
-                    <path fill="#EA4335" d="M24 9.75c3.23 0 6.13 1.11 8.41 3.29l6.31-6.31C34.91 3.13 29.93 1 24 1 15.4 1 7.96 5.93 4.34 13.12l7.35 5.7C13.42 13.62 18.27 9.75 24 9.75z"/>
-                  </svg>
-                </div>
-                <div>
-                  <p className="text-[10px] font-mono uppercase tracking-[0.3em] text-muted-foreground">Recensioni verificate</p>
-                  <p className="font-bold text-base md:text-lg">Google Business</p>
-                </div>
-              </div>
-              <div className="flex items-baseline gap-2 mb-2">
-                <span className="font-display text-4xl md:text-5xl text-primary leading-none">4.9</span>
-                <div className="flex gap-0.5">
-                  {[...Array(5)].map((_, i) => (
-                    <StarFour key={i} className="text-primary" size={14} />
-                  ))}
-                </div>
-              </div>
-              <p className="text-xs md:text-sm text-muted-foreground">Basato su 143+ recensioni certificate su Google.</p>
-            </div>
-            <div className="relative mt-6 inline-flex items-center gap-2 text-primary text-xs md:text-sm font-bold uppercase tracking-[0.2em] group-hover:gap-3 transition-all">
-              Lascia una recensione su Google
-              <ExternalLink className="w-4 h-4" />
-            </div>
-          </a>
-
-          {/* Right: interactive rating breakdown chart */}
-          <div className="relative overflow-hidden rounded-2xl border border-border bg-card p-6 md:p-8">
-            <p className="text-[10px] font-mono uppercase tracking-[0.3em] text-muted-foreground mb-4">Distribuzione voti</p>
-            <div className="space-y-3">
-              {ratingBreakdown.map((r, i) => (
-                <div key={r.stars} className="group flex items-center gap-3">
-                  <span className="flex items-center gap-0.5 w-10 shrink-0">
-                    <span className="text-xs font-bold tabular-nums text-foreground/80">{r.stars}</span>
-                    <StarFour className="text-primary" size={10} />
-                  </span>
-                  <div className="flex-1 h-2.5 rounded-full bg-secondary overflow-hidden relative">
-                    <div
-                      className="absolute inset-y-0 left-0 rounded-full transition-all duration-1000 ease-out group-hover:brightness-110"
-                      style={{
-                        width: isVisible ? `${r.pct}%` : "0%",
-                        background: "linear-gradient(90deg, hsl(212 90% 45%), hsl(200 95% 65%))",
-                        transitionDelay: `${400 + i * 120}ms`,
-                        boxShadow: r.pct > 5 ? "0 0 12px hsl(212 90% 55% / 0.5)" : "none",
-                      }}
-                    />
-                  </div>
-                  <span className="w-10 shrink-0 text-right text-[11px] font-mono tabular-nums text-muted-foreground">{r.count}</span>
-                </div>
-              ))}
-            </div>
-            <div className="mt-5 pt-4 border-t border-border flex items-center justify-between text-[10px] md:text-[11px] font-mono uppercase tracking-[0.2em] text-muted-foreground">
-              <span>Totale · 143 recensioni</span>
-              <span className="flex items-center gap-1.5 text-primary">
-                <span className="w-1.5 h-1.5 rounded-full bg-primary animate-pulse" />
-                Live
-              </span>
-            </div>
           </div>
         </div>
 
