@@ -77,7 +77,8 @@ const PricingTeaser = () => {
                   height={512}
                   className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-700"
                 />
-                <div className="absolute inset-0 bg-gradient-to-t from-card via-card/60 to-transparent" />
+                <div className="absolute inset-0 bg-gradient-to-t from-primary/25 via-primary/5 to-transparent" />
+                <div className="absolute inset-0 ring-1 ring-inset ring-primary/20" />
                 <div className="absolute top-3 left-3 w-10 h-10 rounded-xl bg-background/80 backdrop-blur flex items-center justify-center border border-border">
                   <tier.icon className="w-5 h-5 text-primary" />
                 </div>

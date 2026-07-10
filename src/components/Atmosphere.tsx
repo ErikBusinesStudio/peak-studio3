@@ -34,6 +34,40 @@ const Atmosphere = () => {
         style={{ background: "radial-gradient(circle, #ffffff 0%, transparent 70%)", animationDelay: "-6s" }}
       />
 
+      {/* Animated blue grid */}
+      <div
+        className="absolute inset-0 opacity-[0.12] animate-drift-slow"
+        style={{
+          backgroundImage:
+            "linear-gradient(hsl(205 90% 48% / 0.35) 1px, transparent 1px), linear-gradient(90deg, hsl(205 90% 48% / 0.35) 1px, transparent 1px)",
+          backgroundSize: "56px 56px",
+          maskImage: "radial-gradient(ellipse at center, black 30%, transparent 75%)",
+          WebkitMaskImage: "radial-gradient(ellipse at center, black 30%, transparent 75%)",
+        }}
+      />
+      {/* Floating blue particles */}
+      {Array.from({ length: 18 }).map((_, i) => {
+        const left = (i * 53) % 100;
+        const size = 4 + (i % 5) * 3;
+        const dur = 14 + (i % 7) * 3;
+        const delay = -(i * 1.7);
+        return (
+          <span
+            key={i}
+            className="absolute rounded-full animate-particle"
+            style={{
+              left: `${left}%`,
+              bottom: "-10vh",
+              width: `${size}px`,
+              height: `${size}px`,
+              background: "radial-gradient(circle, #64b5f6 0%, transparent 70%)",
+              boxShadow: "0 0 12px #64b5f6",
+              animationDuration: `${dur}s`,
+              animationDelay: `${delay}s`,
+            }}
+          />
+        );
+      })}
       {/* Subtle grain */}
       <svg className="absolute inset-0 w-full h-full opacity-[0.05] mix-blend-overlay" xmlns="http://www.w3.org/2000/svg">
         <filter id="grain">
