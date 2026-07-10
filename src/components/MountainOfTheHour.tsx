@@ -71,7 +71,7 @@ function timePhase(hour: number): { label: string; overlay: string; tint: string
   }
   return {
     label: "Notte",
-    overlay: "linear-gradient(180deg, hsl(220 60% 12% / 0.65) 0%, hsl(230 50% 8% / 0.55) 45%, hsl(338 100% 3% / 0.95) 100%)",
+    overlay: "linear-gradient(180deg, hsl(220 60% 12% / 0.65) 0%, hsl(230 50% 8% / 0.55) 45%, hsl(0 0% 100% / 0.95) 100%)",
     tint: "saturate(0.7) contrast(1.15) brightness(0.55) hue-rotate(-10deg)",
   };
 }
