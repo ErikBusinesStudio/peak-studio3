@@ -39,6 +39,14 @@ const ReviewsSection = () => {
   const [error, setError] = useState<string | null>(null);
   const { ref, isVisible } = useScrollAnimation();
 
+  // Google-style rating distribution
+  const total = reviews.length;
+  const distribution = [5, 4, 3, 2, 1].map((star) => {
+    const count = reviews.filter((r) => r.rating === star).length;
+    return { star, count, pct: total ? Math.round((count / total) * 100) : 0 };
+  });
+  const average = total ? (reviews.reduce((s, r) => s + r.rating, 0) / total).toFixed(1) : "0.0";
+
   useEffect(() => {
     supabase
       .from("reviews")
@@ -106,6 +114,51 @@ const ReviewsSection = () => {
             </div>
             <span className="text-xs md:text-sm font-bold">4.9 {t("reviews.outOf")}</span>
             <span className="text-[10px] md:text-xs text-muted-foreground">{t("reviews.basedOn")}</span>
+          </div>
+        </div>
+
+        {/* Google Reviews Chart */}
+        <div className={`max-w-4xl mx-auto mb-10 md:mb-16 rounded-2xl border border-primary/20 bg-card/60 backdrop-blur-sm p-5 md:p-8 transition-all duration-700 delay-200 relative overflow-hidden ${isVisible ? "opacity-100 translate-y-0" : "opacity-0 translate-y-8"}`}>
+          <div className="absolute -top-16 -right-16 w-64 h-64 rounded-full bg-primary/10 blur-3xl animate-pulse-slow" />
+          <div className="relative grid md:grid-cols-[auto_1fr] gap-6 md:gap-10 items-center">
+            <div className="flex flex-col items-center md:items-start">
+              <div className="flex items-center gap-2 mb-3">
+                <svg width="22" height="22" viewBox="0 0 48 48" aria-hidden="true">
+                  <path fill="#4285F4" d="M45.12 24.5c0-1.56-.14-3.06-.4-4.5H24v8.51h11.84c-.51 2.75-2.06 5.08-4.39 6.64v5.52h7.11c4.16-3.83 6.56-9.47 6.56-16.17z"/>
+                  <path fill="#34A853" d="M24 46c5.94 0 10.92-1.97 14.56-5.33l-7.11-5.52c-1.97 1.32-4.49 2.1-7.45 2.1-5.73 0-10.58-3.87-12.31-9.07H4.34v5.7C7.96 41.07 15.4 46 24 46z"/>
+                  <path fill="#FBBC05" d="M11.69 28.18c-.44-1.32-.69-2.73-.69-4.18s.25-2.86.69-4.18v-5.7H4.34C2.85 17.09 2 20.45 2 24s.85 6.91 2.34 9.88l7.35-5.7z"/>
+                  <path fill="#EA4335" d="M24 10.75c3.23 0 6.13 1.11 8.41 3.29l6.31-6.31C34.91 4.18 29.93 2 24 2 15.4 2 7.96 6.93 4.34 14.12l7.35 5.7c1.73-5.2 6.58-9.07 12.31-9.07z"/>
+                </svg>
+                <span className="text-xs md:text-sm font-bold uppercase tracking-wider">Google Reviews</span>
+              </div>
+              <div className="text-5xl md:text-6xl font-black text-gradient leading-none">{average}</div>
+              <div className="flex gap-0.5 mt-2">
+                {[...Array(5)].map((_, i) => (
+                  <StarFour key={i} className="text-primary" size={16} />
+                ))}
+              </div>
+              <p className="text-[10px] md:text-xs text-muted-foreground mt-1">{total} recensioni verificate</p>
+            </div>
+            <div className="space-y-2 md:space-y-3 w-full">
+              {distribution.map((d, i) => (
+                <div key={d.star} className="flex items-center gap-3">
+                  <span className="text-xs md:text-sm font-bold w-4 text-right tabular-nums">{d.star}</span>
+                  <StarFour className="text-primary shrink-0" size={12} />
+                  <div className="flex-1 h-2 md:h-2.5 rounded-full bg-primary/10 overflow-hidden relative">
+                    <div
+                      className="h-full rounded-full bg-gradient-to-r from-primary/70 via-primary to-primary/70 relative"
+                      style={{
+                        width: isVisible ? `${d.pct}%` : "0%",
+                        transition: `width 1s cubic-bezier(0.16,1,0.3,1) ${300 + i * 120}ms`,
+                      }}
+                    >
+                      <div className="absolute inset-0 bg-gradient-to-r from-transparent via-white/40 to-transparent animate-marquee" style={{ backgroundSize: "50% 100%" }} />
+                    </div>
+                  </div>
+                  <span className="text-[10px] md:text-xs text-muted-foreground w-10 tabular-nums">{d.pct}%</span>
+                </div>
+              ))}
+            </div>
           </div>
         </div>
 
