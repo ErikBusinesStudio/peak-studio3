@@ -21,7 +21,7 @@ const HeroSection = () => {
               src={logo}
               alt="Peak Studio"
               className="h-10 md:h-14 w-auto"
-              style={{ filter: "drop-shadow(0 0 18px hsl(348 78% 36% / 0.55))" }}
+              style={{ filter: "drop-shadow(0 0 18px hsl(205 90% 48% / 0.55))" }}
             />
             <div className="hidden sm:flex flex-col leading-none">
               <span className="font-display text-base md:text-xl tracking-tight">
@@ -43,7 +43,7 @@ const HeroSection = () => {
           {/* Headline card — large */}
           <div className="col-span-12 lg:col-span-8 row-span-2 relative gradient-border rounded-2xl md:rounded-3xl bg-card p-5 md:p-12 flex flex-col justify-between min-h-[360px] md:min-h-[580px] overflow-hidden animate-rise" style={{ animationDelay: "0.05s" }}>
             {/* Animated gradient blob inside card */}
-            <div className="absolute -top-32 -right-32 w-96 h-96 rounded-full opacity-50 blur-3xl animate-blob pointer-events-none" style={{ background: "radial-gradient(circle, #FF0054 0%, transparent 70%)" }} />
+            <div className="absolute -top-32 -right-32 w-96 h-96 rounded-full opacity-50 blur-3xl animate-blob pointer-events-none" style={{ background: "radial-gradient(circle, #00b0ff 0%, transparent 70%)" }} />
             <div>
               <p className="eyebrow mb-6 md:mb-8">
                 <span className="inline-block w-2 h-2 rounded-full bg-primary animate-glow-pulse" />
@@ -131,14 +131,14 @@ const HeroSection = () => {
         </div>
 
         {/* Marquee tagline strip — moved below the bento grid / 50+ stat */}
-        <div className="relative overflow-hidden mt-5 md:mt-10 py-2.5 md:py-3 border-y border-primary/20" style={{ background: "linear-gradient(90deg, transparent, hsl(348 78% 36% / 0.10), transparent)" }}>
+        <div className="relative overflow-hidden mt-5 md:mt-10 py-2.5 md:py-3 border-y border-primary/20" style={{ background: "linear-gradient(90deg, transparent, hsl(205 90% 48% / 0.10), transparent)" }}>
           <div className="flex gap-8 md:gap-12 whitespace-nowrap animate-marquee font-display uppercase text-lg md:text-3xl tracking-tight" style={{ width: "max-content" }}>
             {Array.from({ length: 2 }).map((_, group) => (
               <div key={group} className="flex gap-8 md:gap-12 items-center">
                 {["Siti Su Misura", "Identità Visiva", "Posizionamento Google", "Menu Digitali", "Pagine d'Atterraggio", "Cura Continua"].map((w, i) => (
                   <span key={i} className="flex items-center gap-8 md:gap-12 text-foreground/85">
                     {w}
-                    <StarFour size={18} style={{ color: "hsl(348 78% 50%)" }} />
+                    <StarFour size={18} style={{ color: "hsl(205 90% 60%)" }} />
                   </span>
                 ))}
               </div>

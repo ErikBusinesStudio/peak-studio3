@@ -51,21 +51,21 @@ function timePhase(hour: number): { label: string; overlay: string; tint: string
   if (hour >= 5 && hour < 8) {
     return {
       label: "Alba",
-      overlay: "linear-gradient(180deg, hsl(20 80% 55% / 0.45) 0%, hsl(340 70% 40% / 0.18) 40%, hsl(338 100% 4% / 0.85) 100%)",
+      overlay: "linear-gradient(180deg, hsl(20 80% 55% / 0.45) 0%, hsl(340 70% 40% / 0.18) 40%, hsl(0 0% 100% / 0.85) 100%)",
       tint: "saturate(1.05) contrast(1.05) brightness(1.02)",
     };
   }
   if (hour >= 8 && hour < 17) {
     return {
       label: "Giorno",
-      overlay: "linear-gradient(180deg, hsl(210 60% 60% / 0.10) 0%, transparent 40%, hsl(338 100% 4% / 0.75) 100%)",
+      overlay: "linear-gradient(180deg, hsl(210 60% 60% / 0.10) 0%, transparent 40%, hsl(0 0% 100% / 0.75) 100%)",
       tint: "saturate(1.1) contrast(1.05)",
     };
   }
   if (hour >= 17 && hour < 20) {
     return {
       label: "Tramonto",
-      overlay: "linear-gradient(180deg, hsl(15 90% 50% / 0.45) 0%, hsl(330 80% 35% / 0.25) 45%, hsl(338 100% 4% / 0.9) 100%)",
+      overlay: "linear-gradient(180deg, hsl(15 90% 50% / 0.45) 0%, hsl(330 80% 35% / 0.25) 45%, hsl(0 0% 100% / 0.9) 100%)",
       tint: "saturate(1.15) contrast(1.08) brightness(0.98)",
     };
   }
@@ -134,14 +134,14 @@ const MountainOfTheHour = () => {
         <div className="flex items-start justify-between gap-2">
           <div className="flex items-center gap-2 text-[9px] md:text-[10px] font-mono uppercase tracking-[0.3em] opacity-85">
             <span className="relative flex h-2 w-2">
-              <span className="absolute inline-flex h-full w-full rounded-full animate-ping" style={{ background: "hsl(348 78% 50%)" }} />
-              <span className="relative inline-flex rounded-full h-2 w-2" style={{ background: "hsl(348 78% 50%)" }} />
+              <span className="absolute inline-flex h-full w-full rounded-full animate-ping" style={{ background: "hsl(205 90% 60%)" }} />
+              <span className="relative inline-flex rounded-full h-2 w-2" style={{ background: "hsl(205 90% 60%)" }} />
             </span>
             DRONE · LIVE
           </div>
           <span
             className="text-[9px] md:text-[10px] font-mono uppercase tracking-[0.35em] px-2 py-1 rounded-full text-primary backdrop-blur flex items-center gap-1.5"
-            style={{ background: "hsl(348 78% 36% / 0.28)", border: "1px solid hsl(348 78% 42% / 0.5)" }}
+            style={{ background: "hsl(205 90% 48% / 0.28)", border: "1px solid hsl(205 90% 55% / 0.5)" }}
           >
             <StarFour size={9} /> {phase.label}
           </span>
@@ -158,10 +158,10 @@ const MountainOfTheHour = () => {
                 bottom: corner.startsWith("b") ? 0 : "auto",
                 left: corner.endsWith("l") ? 0 : "auto",
                 right: corner.endsWith("r") ? 0 : "auto",
-                borderTop: corner.startsWith("t") ? "1px solid hsl(348 78% 60% / 0.8)" : "none",
-                borderBottom: corner.startsWith("b") ? "1px solid hsl(348 78% 60% / 0.8)" : "none",
-                borderLeft: corner.endsWith("l") ? "1px solid hsl(348 78% 60% / 0.8)" : "none",
-                borderRight: corner.endsWith("r") ? "1px solid hsl(348 78% 60% / 0.8)" : "none",
+                borderTop: corner.startsWith("t") ? "1px solid hsl(205 90% 70% / 0.8)" : "none",
+                borderBottom: corner.startsWith("b") ? "1px solid hsl(205 90% 70% / 0.8)" : "none",
+                borderLeft: corner.endsWith("l") ? "1px solid hsl(205 90% 70% / 0.8)" : "none",
+                borderRight: corner.endsWith("r") ? "1px solid hsl(205 90% 70% / 0.8)" : "none",
               }}
             />
           ))}
