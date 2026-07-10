@@ -74,7 +74,7 @@ const ExtraDetail = () => {
                   className="w-full h-full object-cover"
                   loading="eager"
                 />
-                <div className="absolute inset-0 bg-gradient-to-t from-background/60 via-transparent to-transparent" />
+                <div className="absolute inset-0 bg-gradient-to-t from-primary/30 via-primary/5 to-transparent" />
               </div>
             </div>
           </div>
@@ -177,7 +177,7 @@ const ExtraDetail = () => {
                     loading="lazy"
                     className="absolute inset-0 w-full h-full object-cover opacity-70 group-hover:opacity-90 group-hover:scale-110 transition-all duration-700"
                   />
-                  <div className="absolute inset-0 bg-gradient-to-t from-background via-background/50 to-transparent" />
+                  <div className="absolute inset-0 bg-gradient-to-t from-primary/40 via-primary/10 to-transparent" />
                   <div className="absolute inset-0 p-4 flex flex-col justify-end">
                     <p className="font-display text-base md:text-lg leading-tight">
                       {o.name}

@@ -143,7 +143,7 @@ const CategoryHeader = ({
 }) => (
   <div className="relative overflow-hidden rounded-2xl md:rounded-3xl border border-border mb-8 md:mb-12">
     <img src={image} alt="" className="absolute inset-0 w-full h-full object-cover opacity-40" loading="lazy" />
-    <div className="absolute inset-0 bg-gradient-to-r from-background via-background/85 to-background/30" />
+    <div className="absolute inset-0 bg-gradient-to-r from-primary/25 via-primary/10 to-transparent" />
     <div className="relative p-5 md:p-10 lg:p-14">
       <p className="font-mono text-[10px] md:text-xs uppercase tracking-[0.4em] text-primary mb-3 md:mb-5">
         {eyebrow}
@@ -165,7 +165,7 @@ const BentoGrid = ({ tiles, ctaLabel }: { tiles: BentoTile[]; ctaLabel: string }
             loading="lazy"
             className="absolute inset-0 w-full h-full object-cover transition-transform duration-[1.2s] group-hover:scale-110"
           />
-          <div className="absolute inset-0 bg-gradient-to-t from-background via-background/40 to-transparent" />
+          <div className="absolute inset-0 bg-gradient-to-t from-primary/35 via-primary/10 to-transparent" />
           <div
             className="absolute inset-0 opacity-0 group-hover:opacity-100 transition-opacity"
             style={{ background: "linear-gradient(135deg, hsl(205 90% 48% / 0.4), transparent 70%)" }}

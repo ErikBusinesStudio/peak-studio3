@@ -61,7 +61,7 @@ const ServiceDetail = () => {
               </div>
               <div className="relative aspect-[4/3] rounded-2xl overflow-hidden border border-border glow">
                 <img src={service.image} alt={title} className="w-full h-full object-cover" loading="eager" />
-                <div className="absolute inset-0 bg-gradient-to-t from-background/60 via-transparent to-transparent" />
+                <div className="absolute inset-0 bg-gradient-to-t from-primary/30 via-primary/5 to-transparent" />
               </div>
             </div>
           </div>
