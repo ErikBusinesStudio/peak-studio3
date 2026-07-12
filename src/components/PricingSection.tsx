@@ -186,6 +186,23 @@ const BentoGrid = ({ tiles, ctaLabel }: { tiles: BentoTile[]; ctaLabel: string }
                 </span>
               )}
             </div>
+            {/* Giant serial number — apartments-style */}
+            <span
+              className="absolute pointer-events-none select-none font-display leading-none opacity-70 mix-blend-overlay"
+              style={{
+                right: "6%",
+                bottom: "18%",
+                fontSize:
+                  tile.size === "lg" || tile.size === "tall"
+                    ? "clamp(4rem, 12vw, 9rem)"
+                    : "clamp(2.6rem, 6vw, 5rem)",
+                color: "hsl(0 0% 100% / 0.75)",
+                WebkitTextStroke: "1px hsl(205 90% 55% / 0.55)",
+                letterSpacing: "-0.06em",
+              }}
+            >
+              {String(i + 1).padStart(2, "0")}
+            </span>
             <div>
               <h4
                 className={`font-display leading-tight ${
