@@ -209,7 +209,7 @@ const BentoGrid = ({ tiles, ctaLabel }: { tiles: BentoTile[]; ctaLabel: string }
         </>
       );
 
-      const className = `group relative overflow-hidden rounded-xl md:rounded-2xl border border-border hover:border-primary/60 transition-all ${sizeClasses[tile.size]}`;
+      const className = `group relative overflow-hidden rounded-xl md:rounded-2xl border border-border hover:border-primary/60 transition-all`;
       const style = { animationDelay: `${i * 60}ms` } as React.CSSProperties;
 
       if (tile.internal && tile.href) {
