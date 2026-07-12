@@ -1,6 +1,7 @@
 import { useScrollAnimation } from "@/hooks/useScrollAnimation";
 import { Zap, Shield, Clock } from "lucide-react";
 import { useI18n } from "@/contexts/I18nContext";
+import sceneBasecamp from "@/assets/scene-basecamp.jpg";
 
 const CtaSection = () => {
   const { ref, isVisible } = useScrollAnimation();
@@ -8,6 +9,8 @@ const CtaSection = () => {
 
   return (
     <section className="section-padding relative overflow-hidden">
+      <img src={sceneBasecamp} alt="" aria-hidden="true" loading="lazy" className="absolute inset-0 w-full h-full object-cover opacity-[0.22] pointer-events-none select-none" />
+      <div className="absolute inset-0 bg-gradient-to-b from-background/85 via-background/60 to-background pointer-events-none" />
       <div className="hidden md:block absolute inset-0 bg-gradient-to-br from-primary/20 via-transparent to-primary/15" />
       <div className="hidden md:block absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[900px] h-[900px] bg-primary/15 rounded-full blur-[250px]" />
       <div className="container mx-auto text-center relative z-10" ref={ref}>
