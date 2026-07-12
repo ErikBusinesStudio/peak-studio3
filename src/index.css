@@ -4,24 +4,24 @@
 
 @layer base {
   :root {
-    /* Paper White → Azzurro */
-    --background: 0 0% 100%;            /* #ffffff */
-    --foreground: 220 25% 12%;
+    /* Paper White → Azzurro (deeper contrast) */
+    --background: 210 40% 96%;          /* sfondo leggermente scuro per profondità */
+    --foreground: 220 40% 8%;
 
-    --card: 210 40% 98%;
-    --card-foreground: 220 25% 12%;
+    --card: 0 0% 100%;
+    --card-foreground: 220 40% 8%;
 
-    --popover: 210 40% 98%;
-    --popover-foreground: 220 25% 12%;
+    --popover: 0 0% 100%;
+    --popover-foreground: 220 40% 8%;
 
-    --primary: 205 90% 48%;             /* azzurro */
+    --primary: 205 90% 42%;             /* azzurro più saturo/scuro */
     --primary-foreground: 0 0% 100%;
 
-    --secondary: 210 40% 94%;
-    --secondary-foreground: 220 25% 12%;
+    --secondary: 210 35% 90%;
+    --secondary-foreground: 220 40% 8%;
 
-    --muted: 210 30% 92%;
-    --muted-foreground: 215 20% 40%;
+    --muted: 210 30% 88%;
+    --muted-foreground: 215 25% 28%;    /* testo secondario ben leggibile */
 
     --accent: 205 90% 48%;
     --accent-foreground: 0 0% 100%;
@@ -29,8 +29,8 @@
     --destructive: 0 80% 50%;
     --destructive-foreground: 0 0% 100%;
 
-    --border: 210 30% 86%;
-    --input: 210 30% 86%;
+    --border: 210 30% 72%;
+    --input: 210 30% 72%;
     --ring: 205 90% 48%;
 
     --radius: 1rem;
@@ -61,8 +61,8 @@
     @apply bg-background text-foreground font-sans antialiased;
     letter-spacing: 0;
     background-image:
-      radial-gradient(ellipse 1200px 600px at 80% -10%, hsl(205 90% 60% / 0.18), transparent 60%),
-      radial-gradient(ellipse 900px 700px at -10% 90%, hsl(205 85% 70% / 0.14), transparent 60%);
+      radial-gradient(ellipse 1200px 600px at 80% -10%, hsl(205 90% 55% / 0.30), transparent 60%),
+      radial-gradient(ellipse 900px 700px at -10% 90%, hsl(210 80% 45% / 0.22), transparent 60%);
     background-attachment: fixed;
   }
 
