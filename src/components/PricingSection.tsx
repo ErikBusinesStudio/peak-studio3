@@ -6,12 +6,17 @@ import { useScrollAnimation } from "@/hooks/useScrollAnimation";
 import planSites from "@/assets/plan-sites.jpg";
 import planMonthly from "@/assets/plan-monthly.jpg";
 import serviceBranding from "@/assets/service-branding.jpg";
-import serviceVolantini from "@/assets/service-volantini.jpg";
 import serviceQrcode from "@/assets/service-qrcode.jpg";
 import serviceGestione from "@/assets/service-gestione.jpg";
 import serviceAbbonamenti from "@/assets/service-abbonamenti.jpg";
 import serviceSitiWeb from "@/assets/service-siti-web.jpg";
-import sceneSignpost from "@/assets/scene-signpost.jpg";
+import serviceEcommerce from "@/assets/service-ecommerce.jpg";
+import serviceBooking from "@/assets/service-booking.jpg";
+import serviceStarter from "@/assets/service-starter.jpg";
+import serviceRestyling from "@/assets/service-restyling.jpg";
+import serviceGoogleBusiness from "@/assets/service-google-business.jpg";
+import serviceWhatsapp from "@/assets/service-whatsapp.jpg";
+import serviceHosting from "@/assets/service-hosting.jpg";
 import sceneCabin from "@/assets/scene-cabin.jpg";
 import { extras as extrasData } from "@/data/extras";
 
@@ -35,13 +40,13 @@ type BentoTile = {
 const siteTiles: BentoTile[] = [
   { name: "Sito Business", desc: "Fino a 6 pagine, pensato per attrarre e convertire clienti.", image: planSites, size: "lg", badge: "Più scelto" },
   { name: "Landing Page", desc: "Pagina singola per campagne, lanci, eventi.", image: serviceSitiWeb, size: "md" },
-  { name: "Sito Vetrina Starter", desc: "Fino a 3 pagine — la base per esistere online.", image: sceneSignpost, size: "md" },
+  { name: "Sito Vetrina Starter", desc: "Fino a 3 pagine — la base per esistere online.", image: serviceStarter, size: "md" },
   { name: "Sito Premium su misura", desc: "Brand completo, multi-sezione illimitato.", image: sceneCabin, size: "wide" },
-  { name: "E-commerce", desc: "Catalogo, carrello, pagamenti, ordini.", image: serviceGestione, size: "tall" },
-  { name: "Booking / Prenotazioni", desc: "Calendario, slot, conferme automatiche.", image: serviceAbbonamenti, size: "md" },
+  { name: "E-commerce", desc: "Catalogo, carrello, pagamenti, ordini.", image: serviceEcommerce, size: "tall" },
+  { name: "Booking / Prenotazioni", desc: "Calendario, slot, conferme automatiche.", image: serviceBooking, size: "md" },
   { name: "Portfolio creativo", desc: "Per fotografi, designer, artigiani, studi.", image: serviceBranding, size: "sm" },
   { name: "Menù / Catalogo QR", desc: "Pagina digitale aggiornabile + QR stampabile.", image: serviceQrcode, size: "sm" },
-  { name: "Restyling sito esistente", desc: "Rinasce moderno, veloce, mobile-first.", image: serviceVolantini, size: "wide" },
+  { name: "Restyling sito esistente", desc: "Rinasce moderno, veloce, mobile-first.", image: serviceRestyling, size: "wide" },
 ];
 
 const sitesIncluded = [
@@ -67,9 +72,9 @@ const monthlyTiles: BentoTile[] = [
   { name: "Crescita", desc: "Visibilità che cresce ogni mese, contenuti e SEO continua.", image: planMonthly, size: "lg", badge: "Consigliato" },
   { name: "Manutenzione Base", desc: "Sito sempre online, sicuro e aggiornato.", image: serviceGestione, size: "md" },
   { name: "Pro Scalabile", desc: "Supporto prioritario + automazioni dedicate.", image: serviceAbbonamenti, size: "md" },
-  { name: "Gestione Google Business", desc: "Post, foto, risposte recensioni.", image: sceneSignpost, size: "wide" },
-  { name: "Automazione WhatsApp", desc: "Risposte e flussi automatici 24/7.", image: serviceBranding, size: "tall" },
-  { name: "Hosting Dedicato", desc: "Hosting performante con backup automatici.", image: sceneCabin, size: "wide" },
+  { name: "Gestione Google Business", desc: "Post, foto, risposte recensioni.", image: serviceGoogleBusiness, size: "wide" },
+  { name: "Automazione WhatsApp", desc: "Risposte e flussi automatici 24/7.", image: serviceWhatsapp, size: "tall" },
+  { name: "Hosting Dedicato", desc: "Hosting performante con backup automatici.", image: serviceHosting, size: "wide" },
 ];
 
 const monthlyIncluded = [
