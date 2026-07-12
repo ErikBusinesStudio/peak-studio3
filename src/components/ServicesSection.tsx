@@ -1,47 +1,122 @@
-import { Globe, Paintbrush, Rocket, BarChart3 } from "lucide-react";
-import { useScrollAnimation } from "@/hooks/useScrollAnimation";
+import { ArrowUpRight } from "lucide-react";
 import { useI18n } from "@/contexts/I18nContext";
-import bgWorkspace from "@/assets/bg-workspace.jpg";
+import CallButton from "@/components/CallButton";
+import serviceBranding from "@/assets/service-branding.jpg";
+import serviceSitiWeb from "@/assets/service-siti-web.jpg";
+import serviceHosting from "@/assets/service-hosting.jpg";
+import serviceEcommerce from "@/assets/service-ecommerce.jpg";
 
 const ServicesSection = () => {
-  const { ref, isVisible } = useScrollAnimation();
   const { t } = useI18n();
 
-  const services = [
-    { icon: Paintbrush, title: t("services.s1.title"), description: t("services.s1.desc"), number: "01" },
-    { icon: Globe, title: t("services.s2.title"), description: t("services.s2.desc"), number: "02" },
-    { icon: Rocket, title: t("services.s3.title"), description: t("services.s3.desc"), number: "03" },
-    { icon: BarChart3, title: t("services.s4.title"), description: t("services.s4.desc"), number: "04" },
+  const features: Record<string, string[]> = {
+    s1: [
+      "Design 100% su misura, mai template",
+      "Direzione artistica coerente col brand",
+      "Layout costruito attorno alla tua offerta",
+      "Micro-interazioni e animazioni cinematografiche",
+    ],
+    s2: [
+      "Dominio, hosting e certificato SSL",
+      "SEO tecnica e on-page inclusa",
+      "Google Business, Analytics, Search Console",
+      "Struttura pensata per farti trovare",
+    ],
+    s3: [
+      "Punteggio PageSpeed sopra 90",
+      "Immagini ottimizzate automaticamente",
+      "Caricamento sotto i 2 secondi",
+      "Codice pulito, niente WordPress lento",
+    ],
+    s4: [
+      "Ogni pixel al servizio della conversione",
+      "CTA studiate per l'azione",
+      "Form, WhatsApp e prenotazioni integrati",
+      "Report e monitoraggio dei risultati",
+    ],
+  };
+
+  const blocks = [
+    { n: "01", title: t("services.s1.title"), desc: t("services.s1.desc"), img: serviceBranding, feats: features.s1 },
+    { n: "02", title: t("services.s2.title"), desc: t("services.s2.desc"), img: serviceSitiWeb, feats: features.s2 },
+    { n: "03", title: t("services.s3.title"), desc: t("services.s3.desc"), img: serviceHosting, feats: features.s3 },
+    { n: "04", title: t("services.s4.title"), desc: t("services.s4.desc"), img: serviceEcommerce, feats: features.s4 },
   ];
 
   return (
-    <section id="servizi" className="section-padding relative overflow-hidden">
-      <img src={bgWorkspace} alt="" aria-hidden="true" loading="lazy" className="absolute inset-0 w-full h-full object-cover opacity-[0.14] pointer-events-none select-none" />
-      <div className="absolute inset-0 bg-gradient-to-b from-background via-background/70 to-background pointer-events-none" />
-      <div className="hidden md:block absolute top-0 right-0 w-[600px] h-[600px] bg-primary/15 rounded-full blur-[250px] animate-pulse-slow" />
-      <div className="hidden md:block absolute bottom-0 left-0 w-[400px] h-[400px] bg-primary/10 rounded-full blur-[200px] animate-float" />
-      <div className="hidden md:block absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-px h-[60%] bg-gradient-to-b from-transparent via-primary/10 to-transparent" />
+    <section id="servizi" className="relative overflow-hidden py-16 md:py-32">
+      <div className="max-w-7xl mx-auto px-4 md:px-8 mb-10 md:mb-20">
+        <p className="eyebrow mb-4 md:mb-6">II — Unicità</p>
+        <h2 className="font-display text-3xl md:text-6xl leading-[0.9] tracking-tight uppercase max-w-4xl">
+          {t("services.title")}<br />
+          <span className="text-gradient italic">senza compromessi.</span>
+        </h2>
+        <p className="text-muted-foreground max-w-xl text-base md:text-lg mt-4 md:mt-6">
+          {t("services.subtitle")}
+        </p>
+      </div>
 
-      <div className="container mx-auto relative z-10" ref={ref}>
-        <div className={`mb-10 md:mb-16 transition-all duration-700 ${isVisible ? "opacity-100 translate-y-0" : "opacity-0 translate-y-8"}`}>
-          <p className="eyebrow mb-4 md:mb-6">II — The Forest</p>
-          <h2 className="text-2xl md:text-5xl font-black mb-3">{t("services.title")}</h2>
-          <p className="text-muted-foreground max-w-md text-base md:text-lg">{t("services.subtitle")}</p>
-        </div>
-        <div className="grid grid-cols-2 lg:grid-cols-4 gap-3 md:gap-4">
-          {services.map((s, i) => (
-            <div key={s.number} className={`group bg-card border border-border rounded-xl p-4 md:p-8 hover:border-primary/40 hover:scale-[1.04] transition-all duration-500 relative overflow-hidden ${isVisible ? "opacity-100 translate-y-0" : "opacity-0 translate-y-8"}`} style={{ transitionDelay: `${i * 100}ms` }}>
-              <span className="absolute top-2 right-4 text-6xl font-black text-foreground/[0.03] select-none hidden md:block">{s.number}</span>
-              <div className="relative z-10">
-                <div className="w-10 h-10 md:w-12 md:h-12 rounded-lg bg-primary/10 flex items-center justify-center mb-3 md:mb-5 group-hover:bg-primary/20 group-hover:scale-110 transition-all duration-300">
-                  <s.icon className="w-5 h-5 md:w-6 md:h-6 text-primary" />
-                </div>
-                <h3 className="text-sm md:text-lg font-bold mb-1 md:mb-2">{s.title}</h3>
-                <p className="text-muted-foreground text-xs md:text-sm leading-relaxed">{s.description}</p>
+      <div className="flex flex-col">
+        {blocks.map((b, i) => (
+          <article
+            key={b.n}
+            className={`relative w-full grid md:grid-cols-2 gap-0 items-stretch border-t border-foreground/10 ${
+              i % 2 === 1 ? "md:[&>div:first-child]:order-2" : ""
+            }`}
+          >
+            <div className="relative aspect-[4/3] md:aspect-auto md:min-h-[520px] overflow-hidden group">
+              <img
+                src={b.img}
+                alt={b.title}
+                loading="lazy"
+                className="absolute inset-0 w-full h-full object-cover transition-transform duration-[1.4s] group-hover:scale-105"
+              />
+              <div className="absolute inset-0 bg-gradient-to-t from-background/60 via-background/10 to-transparent" />
+              <span className="absolute top-6 left-6 font-mono text-[10px] md:text-xs uppercase tracking-[0.4em] text-white/90 mix-blend-difference">
+                Servizio {b.n}
+              </span>
+              <span
+                className="absolute -bottom-4 md:-bottom-10 -right-2 md:-right-6 font-display leading-none select-none"
+                style={{
+                  fontSize: "clamp(6rem, 16vw, 14rem)",
+                  color: "hsl(var(--primary) / 0.18)",
+                  WebkitTextStroke: "1px hsl(var(--primary) / 0.35)",
+                }}
+              >
+                {b.n}
+              </span>
+            </div>
+
+            <div className="flex flex-col justify-center gap-6 p-6 md:p-16 lg:p-24 relative">
+              <h3 className="font-display text-3xl md:text-5xl lg:text-6xl leading-[0.95] tracking-tight uppercase">
+                {b.title}
+              </h3>
+              <p className="text-base md:text-lg text-muted-foreground max-w-lg leading-relaxed">
+                {b.desc}
+              </p>
+              <ul className="flex flex-col gap-2 md:gap-3 mt-2">
+                {b.feats.map((f) => (
+                  <li key={f} className="flex items-start gap-3 text-sm md:text-base">
+                    <span
+                      className="mt-2 w-2 h-2 rounded-full shrink-0"
+                      style={{ background: "hsl(var(--primary))" }}
+                    />
+                    <span>{f}</span>
+                  </li>
+                ))}
+              </ul>
+              <div className="flex items-center gap-4 mt-4">
+                <CallButton variant="soft" label="Richiedi consulenza" />
+                <a
+                  href="#prezzi"
+                  className="inline-flex items-center gap-1 text-xs md:text-sm font-bold uppercase tracking-[0.2em] text-primary hover:opacity-80"
+                >
+                  Vedi i piani <ArrowUpRight className="w-4 h-4" />
+                </a>
               </div>
             </div>
-          ))}
-        </div>
+          </article>
+        ))}
       </div>
     </section>
   );
