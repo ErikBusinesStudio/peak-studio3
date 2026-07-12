@@ -14,6 +14,12 @@ import Footer from "@/components/Footer";
 import Atmosphere from "@/components/Atmosphere";
 import TrailPath from "@/components/TrailPath";
 import CustomCursor from "@/components/CustomCursor";
+import Preloader from "@/components/Preloader";
+import ServicesSection from "@/components/ServicesSection";
+import StatsGiants from "@/components/StatsGiants";
+import SvgDivider from "@/components/SvgDivider";
+import CallModal from "@/components/CallModal";
+import CallButton from "@/components/CallButton";
 import { useLenis } from "@/hooks/useLenis";
 import { useHeadingReveal } from "@/hooks/useHeadingReveal";
 
@@ -36,6 +42,7 @@ const Index = () => {
   useHeadingReveal();
   return (
     <>
+      <Preloader />
       <Header />
       <Atmosphere />
       <CustomCursor />
@@ -46,12 +53,19 @@ const Index = () => {
         <ChapterDivider numeral="II" label="About" kicker="Chi sono · Cosa offro" />
         <WhyMeSection />
 
-        <ChapterDivider numeral="III" label="Servizi" kicker="Siti · Canoni · Extra" />
+        <SvgDivider variant="wave" />
+        <ServicesSection />
+
+        <SvgDivider variant="peaks" flip />
+        <StatsGiants />
+
+        <ChapterDivider numeral="III" label="Piani" kicker="Siti · Canoni · Extra" />
         <PricingTeaser />
 
         <ChapterDivider numeral="IV" label="Processo" kicker="Dal brief al lancio" />
         <HowItWorksSection />
 
+        <SvgDivider variant="cut" />
         <ChapterDivider numeral="V" label="Lavori" kicker="Portfolio selezionato" />
         <UrgencySection />
         <PortfolioSection />
@@ -60,12 +74,17 @@ const Index = () => {
         <ReviewsSection />
         <FaqSection />
 
+        <SvgDivider variant="wave" flip />
         <ChapterDivider numeral="VII" label="Contatto" kicker="Scrivimi · Risposta in 24h" />
         <CtaSection />
         <ContactSection />
       </main>
       <Footer />
       <FloatingWhatsApp />
+      <CallModal />
+      <div className="fixed left-4 bottom-5 z-40 hidden md:block">
+        <CallButton variant="soft" label="Consulenza gratuita" />
+      </div>
     </>
   );
 };
