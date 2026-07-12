@@ -14,7 +14,7 @@ interface Props {
 
 const SceneBackdrop = ({ image, children, overlay = 72, vignette = true, id, className = "" }: Props) => {
   return (
-    <div id={id} className={`relative isolate ${className}`}>
+    <div id={id} className={`relative isolate grain-overlay ${className}`}>
       {/* Cinematic background image */}
       <div
         aria-hidden="true"
