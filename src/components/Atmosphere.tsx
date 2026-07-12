@@ -1,16 +1,67 @@
-/** Wine-red atmosphere — mountain backdrop, blobs, grain */
+/** Cinematic atmosphere — multi-layer parallax mountain backdrop, blobs, grain */
+import { useEffect, useRef } from "react";
 import sceneForest from "@/assets/scene-forest.jpg";
+import cinematicSunrise from "@/assets/mountains/cinematic-sunrise.jpg";
+import cinematicBluehour from "@/assets/mountains/cinematic-bluehour.jpg";
+
 const Atmosphere = () => {
+  const skyRef = useRef<HTMLDivElement>(null);
+  const midRef = useRef<HTMLDivElement>(null);
+  const nearRef = useRef<HTMLDivElement>(null);
+
+  useEffect(() => {
+    let raf = 0;
+    const onScroll = () => {
+      if (raf) return;
+      raf = requestAnimationFrame(() => {
+        const y = window.scrollY;
+        if (skyRef.current) skyRef.current.style.transform = `translate3d(0, ${y * 0.08}px, 0)`;
+        if (midRef.current) midRef.current.style.transform = `translate3d(0, ${y * 0.22}px, 0)`;
+        if (nearRef.current) nearRef.current.style.transform = `translate3d(0, ${y * 0.38}px, 0)`;
+        raf = 0;
+      });
+    };
+    onScroll();
+    window.addEventListener("scroll", onScroll, { passive: true });
+    return () => {
+      window.removeEventListener("scroll", onScroll);
+      if (raf) cancelAnimationFrame(raf);
+    };
+  }, []);
+
   return (
     <div className="pointer-events-none fixed inset-0 z-[1] overflow-hidden" aria-hidden="true">
-      {/* Mountain backdrop, very faded */}
+      {/* Parallax layer 1 — sky / distant range */}
       <div
-        className="absolute inset-0 opacity-[0.18]"
+        ref={skyRef}
+        className="absolute -inset-[10%] opacity-[0.35] will-change-transform"
+        style={{
+          backgroundImage: `url(${cinematicBluehour})`,
+          backgroundSize: "cover",
+          backgroundPosition: "center top",
+          filter: "saturate(0.65) contrast(1.05) blur(1px)",
+        }}
+      />
+      {/* Parallax layer 2 — mid mountains */}
+      <div
+        ref={midRef}
+        className="absolute -inset-[10%] opacity-[0.28] will-change-transform"
+        style={{
+          backgroundImage: `url(${cinematicSunrise})`,
+          backgroundSize: "cover",
+          backgroundPosition: "center 40%",
+          filter: "saturate(0.55) contrast(1.1)",
+        }}
+      />
+      {/* Parallax layer 3 — foreground forest */}
+      <div
+        ref={nearRef}
+        className="absolute -inset-[10%] opacity-[0.18] will-change-transform"
         style={{
           backgroundImage: `url(${sceneForest})`,
           backgroundSize: "cover",
-          backgroundPosition: "center",
-          filter: "saturate(0.4) contrast(1.1)",
+          backgroundPosition: "center bottom",
+          filter: "saturate(0.4) contrast(1.15)",
         }}
       />
       <div
