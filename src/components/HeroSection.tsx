@@ -15,6 +15,25 @@ const HeroSection = () => {
   return (
     <section className="relative pt-28 md:pt-36 pb-12 md:pb-20 px-4 md:px-8">
       <div className="max-w-7xl mx-auto">
+        {/* PROLOGO — Awwwards-style manifesto line */}
+        <div className="mb-10 md:mb-16 max-w-5xl">
+          <p className="eyebrow mb-4 md:mb-6">
+            <span className="inline-block w-2 h-2 rounded-full bg-primary animate-glow-pulse" />
+            Prologo · Manifesto
+          </p>
+          <p className="font-display italic leading-[1.02] tracking-[-0.02em]" style={{ fontSize: "clamp(1.9rem, 5.4vw, 4.6rem)" }}>
+            <SplitReveal className="block text-foreground/90" stagger={0.04}>
+              Non costruiamo siti.
+            </SplitReveal>
+            <SplitReveal className="block text-gradient" stagger={0.04} delay={0.12}>
+              Costruiamo la reputazione online
+            </SplitReveal>
+            <SplitReveal className="block text-foreground/90" stagger={0.04} delay={0.24}>
+              che la tua attività merita.
+            </SplitReveal>
+          </p>
+        </div>
+
         {/* Top meta strip with logo */}
         <div className="flex items-center justify-between mb-6 md:mb-10 gap-3">
           <div className="flex items-center gap-3">
