@@ -12,6 +12,10 @@ import ContactSection from "@/components/ContactSection";
 import FloatingWhatsApp from "@/components/FloatingWhatsApp";
 import Footer from "@/components/Footer";
 import Atmosphere from "@/components/Atmosphere";
+import TrailPath from "@/components/TrailPath";
+import CustomCursor from "@/components/CustomCursor";
+import { useLenis } from "@/hooks/useLenis";
+import { useHeadingReveal } from "@/hooks/useHeadingReveal";
 
 const ChapterDivider = ({ numeral, label, kicker }: { numeral: string; label: string; kicker?: string }) => (
   <div className="max-w-7xl mx-auto px-4 md:px-8 py-10 md:py-16">
@@ -28,10 +32,14 @@ const ChapterDivider = ({ numeral, label, kicker }: { numeral: string; label: st
 );
 
 const Index = () => {
+  useLenis();
+  useHeadingReveal();
   return (
     <>
       <Header />
       <Atmosphere />
+      <CustomCursor />
+      <TrailPath />
       <main className="relative z-10">
         <HeroSection />
 

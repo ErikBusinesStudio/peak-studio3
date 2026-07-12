@@ -7,6 +7,7 @@ const heroStormPeak = heroStormPeakAsset.url;
 import sceneCabin from "@/assets/scene-cabin.jpg";
 import sceneBridge from "@/assets/scene-bridge.jpg";
 import MountainOfTheHour from "@/components/MountainOfTheHour";
+import SplitReveal from "@/components/SplitReveal";
 
 const HeroSection = () => {
   const { t } = useI18n();
@@ -50,9 +51,12 @@ const HeroSection = () => {
                 Capitolo I · L'Ascensione
               </p>
               <h1 className="font-display leading-[0.9] tracking-[-0.03em] uppercase break-words relative" style={{ fontSize: "clamp(2.25rem, 6vw, 5rem)" }}>
-                <span className="text-foreground">{t("hero.title1").replace(".", "")}</span>
-                <br />
-                <span className="text-gradient">{t("hero.title2").replace(".", "")}</span>
+                <SplitReveal className="text-foreground block" stagger={0.05}>
+                  {t("hero.title1").replace(".", "")}
+                </SplitReveal>
+                <SplitReveal className="text-gradient block" stagger={0.05} delay={0.15}>
+                  {t("hero.title2").replace(".", "")}
+                </SplitReveal>
                 <span className="text-gradient-pink">.</span>
               </h1>
             </div>

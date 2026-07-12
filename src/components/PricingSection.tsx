@@ -3,6 +3,7 @@ import { ArrowRight } from "lucide-react";
 import { Link } from "react-router-dom";
 import StarFour from "@/components/icons/StarFour";
 import { useScrollAnimation } from "@/hooks/useScrollAnimation";
+import Tilt3D from "@/components/Tilt3D";
 import planSites from "@/assets/plan-sites.jpg";
 import planMonthly from "@/assets/plan-monthly.jpg";
 import serviceBranding from "@/assets/service-branding.jpg";
@@ -165,6 +166,7 @@ const BentoGrid = ({ tiles, ctaLabel }: { tiles: BentoTile[]; ctaLabel: string }
       const inner = (
         <>
           <img
+            data-tilt-media
             src={tile.image}
             alt={tile.name}
             loading="lazy"
@@ -207,27 +209,29 @@ const BentoGrid = ({ tiles, ctaLabel }: { tiles: BentoTile[]; ctaLabel: string }
         </>
       );
 
-      const className = `group relative overflow-hidden rounded-xl md:rounded-2xl border border-border hover:border-primary/60 transition-all ${sizeClasses[tile.size]}`;
+      const className = `group relative overflow-hidden rounded-xl md:rounded-2xl border border-border hover:border-primary/60 transition-all`;
       const style = { animationDelay: `${i * 60}ms` } as React.CSSProperties;
 
       if (tile.internal && tile.href) {
         return (
-          <Link key={tile.name} to={tile.href} className={className} style={style}>
-            {inner}
-          </Link>
+          <Tilt3D key={tile.name} className={sizeClasses[tile.size]} style={style} max={6}>
+            <Link to={tile.href} className={`${className} block w-full h-full`}>
+              {inner}
+            </Link>
+          </Tilt3D>
         );
       }
       return (
-        <a
-          key={tile.name}
-          href={tile.href ?? wa}
-          target={tile.href ? undefined : "_blank"}
-          rel={tile.href ? undefined : "noopener noreferrer"}
-          className={className}
-          style={style}
-        >
-          {inner}
-        </a>
+        <Tilt3D key={tile.name} className={sizeClasses[tile.size]} style={style} max={6}>
+          <a
+            href={tile.href ?? wa}
+            target={tile.href ? undefined : "_blank"}
+            rel={tile.href ? undefined : "noopener noreferrer"}
+            className={`${className} block w-full h-full`}
+          >
+            {inner}
+          </a>
+        </Tilt3D>
       );
     })}
   </div>
