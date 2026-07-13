@@ -15,13 +15,11 @@ const ServicesSection = () => {
 
   return (
     <section id="servizi" className="section-padding relative overflow-hidden">
-      <div className="hidden md:block absolute top-0 right-0 w-[600px] h-[600px] bg-primary/15 rounded-full blur-[250px] animate-pulse-slow" />
-      <div className="hidden md:block absolute bottom-0 left-0 w-[400px] h-[400px] bg-primary/10 rounded-full blur-[200px] animate-float" />
-      <div className="hidden md:block absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-px h-[60%] bg-gradient-to-b from-transparent via-primary/10 to-transparent" />
-
+      <div className="hidden md:block absolute top-0 right-0 w-[600px] h-[600px] bg-primary/15 rounded-full blur-[250px]" />
+      <div className="hidden md:block absolute bottom-0 left-0 w-[400px] h-[400px] bg-primary/10 rounded-full blur-[200px]" />
       <div className="container mx-auto relative z-10" ref={ref}>
         <div className={`mb-10 md:mb-16 transition-all duration-700 ${isVisible ? "opacity-100 translate-y-0" : "opacity-0 translate-y-8"}`}>
-          <p className="eyebrow mb-4 md:mb-6">II — The Forest</p>
+          <div className="red-line mb-4 md:mb-6" />
           <h2 className="text-2xl md:text-5xl font-black mb-3">{t("services.title")}</h2>
           <p className="text-muted-foreground max-w-md text-base md:text-lg">{t("services.subtitle")}</p>
         </div>

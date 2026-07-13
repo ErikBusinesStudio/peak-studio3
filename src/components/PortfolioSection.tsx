@@ -28,7 +28,7 @@ const PortfolioSection = () => {
   const [tab, setTab] = useState<Tab>("sites");
 
   return (
-    <section id="portfolio" className="section-padding relative overflow-hidden">
+    <section id="portfolio" className="section-padding bg-card/50 relative overflow-hidden">
       <div className="hidden md:block absolute top-1/2 right-0 w-[400px] h-[400px] bg-primary/8 rounded-full blur-[180px]" />
       <div className="container mx-auto relative z-10" ref={ref}>
         <div className={`text-center mb-10 md:mb-16 transition-all duration-700 ${isVisible ? "opacity-100 translate-y-0" : "opacity-0 translate-y-8"}`}>

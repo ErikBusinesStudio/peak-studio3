@@ -14,8 +14,7 @@ export default {
     },
     extend: {
       fontFamily: {
-        sans: ['"Inter Variable"', "Inter", "system-ui", "sans-serif"],
-        display: ['"Outfit Variable"', '"Space Grotesk Variable"', "system-ui", "sans-serif"],
+        sans: ["Inter", "system-ui", "sans-serif"],
       },
       colors: {
         border: "hsl(var(--border))",

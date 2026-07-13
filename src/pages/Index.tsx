@@ -12,55 +12,23 @@ import CtaSection from "@/components/CtaSection";
 import ContactSection from "@/components/ContactSection";
 import FloatingWhatsApp from "@/components/FloatingWhatsApp";
 import Footer from "@/components/Footer";
-import Atmosphere from "@/components/Atmosphere";
-import SceneBackdrop from "@/components/SceneBackdrop";
-import scenePeak from "@/assets/scene-peak.jpg";
-import sceneForest from "@/assets/scene-forest.jpg";
-import sceneWaterfall from "@/assets/scene-waterfall.jpg";
-import sceneSignpost from "@/assets/scene-signpost.jpg";
-import sceneBridge from "@/assets/scene-bridge.jpg";
-import sceneCabin from "@/assets/scene-cabin.jpg";
-import sceneBasecamp from "@/assets/scene-basecamp.jpg";
-
 
 const Index = () => {
   return (
     <>
       <Header />
-      <Atmosphere />
-      <main className="relative z-10">
-
-        <SceneBackdrop image={scenePeak} overlay={55}>
-          <HeroSection />
-        </SceneBackdrop>
-
-        <SceneBackdrop image={sceneForest} overlay={70}>
-          <ServicesSection />
-          <WhyMeSection />
-        </SceneBackdrop>
-
-        <SceneBackdrop image={sceneSignpost} overlay={72}>
-          <HowItWorksSection />
-        </SceneBackdrop>
-
-        <SceneBackdrop image={sceneBridge} overlay={75}>
-          <UrgencySection />
-          <PortfolioSection />
-        </SceneBackdrop>
-
-        <SceneBackdrop image={sceneWaterfall} overlay={72}>
-          <PricingTeaser />
-        </SceneBackdrop>
-
-        <SceneBackdrop image={sceneCabin} overlay={70}>
-          <ReviewsSection />
-          <FaqSection />
-        </SceneBackdrop>
-
-        <SceneBackdrop image={sceneBasecamp} overlay={70}>
-          <CtaSection />
-          <ContactSection />
-        </SceneBackdrop>
+      <main>
+        <HeroSection />
+        <ServicesSection />
+        <WhyMeSection />
+        <HowItWorksSection />
+        <UrgencySection />
+        <PortfolioSection />
+        <PricingTeaser />
+        <ReviewsSection />
+        <FaqSection />
+        <CtaSection />
+        <ContactSection />
       </main>
       <Footer />
       <FloatingWhatsApp />

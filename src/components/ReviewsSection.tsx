@@ -76,7 +76,7 @@ const ReviewsSection = () => {
   };
 
   return (
-    <section id="recensioni" className="section-padding relative overflow-hidden">
+    <section id="recensioni" className="section-padding bg-card/50 relative overflow-hidden">
       <div className="hidden md:block absolute bottom-0 right-0 w-[600px] h-[600px] bg-primary/15 rounded-full blur-[250px]" />
       <div className="hidden md:block absolute top-0 left-0 w-[400px] h-[400px] bg-primary/10 rounded-full blur-[200px]" />
 
