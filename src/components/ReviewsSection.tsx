@@ -15,23 +15,7 @@ interface Review {
 const ReviewsSection = () => {
   const { t } = useI18n();
 
-  const defaultReviews: Review[] = [
-    { name: t("reviews.r1.name"), role: t("reviews.r1.role"), text: t("reviews.r1.text"), rating: 5 },
-    { name: t("reviews.r2.name"), role: t("reviews.r2.role"), text: t("reviews.r2.text"), rating: 5 },
-    { name: t("reviews.r3.name"), role: t("reviews.r3.role"), text: t("reviews.r3.text"), rating: 5 },
-    { name: t("reviews.r4.name"), role: t("reviews.r4.role"), text: t("reviews.r4.text"), rating: 5 },
-    { name: t("reviews.r5.name"), role: t("reviews.r5.role"), text: t("reviews.r5.text"), rating: 5 },
-    { name: t("reviews.r6.name"), role: t("reviews.r6.role"), text: t("reviews.r6.text"), rating: 4 },
-  ];
-
-  const stats = [
-    { icon: StarFour, value: "4.9/5", label: t("reviews.stat1"), color: "text-primary" },
-    { icon: Users, value: "143+", label: t("reviews.stat2"), color: "text-primary" },
-    { icon: ThumbsUp, value: "98%", label: t("reviews.stat3"), color: "text-primary" },
-    { icon: Award, value: "100%", label: t("reviews.stat4"), color: "text-primary" },
-  ];
-
-  const [reviews, setReviews] = useState<Review[]>(defaultReviews);
+  const [reviews, setReviews] = useState<Review[]>([]);
   const [showForm, setShowForm] = useState(false);
   const [newReview, setNewReview] = useState({ name: "", role: "", text: "", rating: 5 });
   const [submitted, setSubmitted] = useState(false);
@@ -46,9 +30,7 @@ const ReviewsSection = () => {
       .eq("status", "approved")
       .order("created_at", { ascending: false })
       .then(({ data }) => {
-        if (data && data.length > 0) {
-          setReviews([...data as Review[], ...defaultReviews]);
-        }
+        if (data) setReviews(data as Review[]);
       });
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
@@ -88,45 +70,36 @@ const ReviewsSection = () => {
           <p className="text-muted-foreground max-w-md mx-auto text-sm md:text-base">{t("reviews.subtitle")}</p>
         </div>
 
-        <div className={`mb-10 md:mb-16 grid grid-cols-2 md:grid-cols-4 gap-3 md:gap-6 max-w-4xl mx-auto transition-all duration-700 delay-100 ${isVisible ? "opacity-100 translate-y-0" : "opacity-0 translate-y-8"}`}>
-          {stats.map((stat, i) => (
-            <div key={stat.label} className="bg-card border border-border rounded-xl p-4 md:p-6 text-center hover:border-primary/30 hover:scale-[1.03] transition-all duration-500" style={{ transitionDelay: `${i * 100}ms` }}>
-              <div className="w-10 h-10 md:w-12 md:h-12 mx-auto mb-2 md:mb-3 rounded-lg bg-primary/10 flex items-center justify-center">
-                <stat.icon className={`w-5 h-5 md:w-6 md:h-6 ${stat.color}`} />
-              </div>
-              <div className="text-xl md:text-3xl font-black mb-1">{stat.value}</div>
-              <p className="text-[10px] md:text-xs text-muted-foreground uppercase tracking-wider">{stat.label}</p>
-            </div>
-          ))}
-          <div className="col-span-2 md:col-span-4 flex justify-center items-center gap-2 mt-1 md:mt-2">
-            <div className="flex gap-1">
-              {[...Array(5)].map((_, i) => (
-                <StarFour key={i} className="text-primary" size={20} />
-              ))}
-            </div>
-            <span className="text-xs md:text-sm font-bold">4.9 {t("reviews.outOf")}</span>
-            <span className="text-[10px] md:text-xs text-muted-foreground">{t("reviews.basedOn")}</span>
-          </div>
-        </div>
-
-        <div className="grid md:grid-cols-3 gap-4 md:gap-6 mb-10 md:mb-12">
-          {reviews.map((r, i) => (
-            <div key={`${r.name}-${i}`} className={`bg-card border border-border rounded-xl p-5 md:p-8 flex flex-col justify-between hover:border-primary/30 hover:scale-[1.02] transition-all duration-500 ${isVisible ? "opacity-100 translate-y-0" : "opacity-0 translate-y-8"}`} style={{ transitionDelay: `${i * 150 + 400}ms` }}>
-              <div>
-                <div className="flex gap-1 mb-3 md:mb-4">
-                  {[...Array(5)].map((_, j) => (
-                    <StarFour key={j} className={j < r.rating ? "text-primary" : "text-muted"} size={14} />
-                  ))}
+        {reviews.length > 0 ? (
+          <div className="grid md:grid-cols-3 gap-4 md:gap-6 mb-10 md:mb-12">
+            {reviews.map((r, i) => (
+              <div key={`${r.name}-${i}`} className={`bg-card border border-border rounded-xl p-5 md:p-8 flex flex-col justify-between hover:border-primary/30 hover:scale-[1.02] transition-all duration-500 ${isVisible ? "opacity-100 translate-y-0" : "opacity-0 translate-y-8"}`} style={{ transitionDelay: `${i * 150 + 200}ms` }}>
+                <div>
+                  <div className="flex gap-1 mb-3 md:mb-4">
+                    {[...Array(5)].map((_, j) => (
+                      <StarFour key={j} className={j < r.rating ? "text-primary" : "text-muted"} size={14} />
+                    ))}
+                  </div>
+                  <p className="text-xs md:text-sm text-muted-foreground leading-relaxed mb-4 md:mb-6">"{r.text}"</p>
                 </div>
-                <p className="text-xs md:text-sm text-muted-foreground leading-relaxed mb-4 md:mb-6">"{r.text}"</p>
+                <div>
+                  <p className="font-bold text-xs md:text-sm">{r.name}</p>
+                  <p className="text-[10px] md:text-xs text-muted-foreground">{r.role}</p>
+                </div>
               </div>
-              <div>
-                <p className="font-bold text-xs md:text-sm">{r.name}</p>
-                <p className="text-[10px] md:text-xs text-muted-foreground">{r.role}</p>
-              </div>
+            ))}
+          </div>
+        ) : (
+          <div className={`max-w-2xl mx-auto mb-10 md:mb-12 bg-card border border-dashed border-primary/30 rounded-2xl p-8 md:p-12 text-center transition-all duration-700 delay-100 ${isVisible ? "opacity-100 translate-y-0" : "opacity-0 translate-y-8"}`}>
+            <div className="w-14 h-14 mx-auto mb-4 rounded-full bg-primary/10 flex items-center justify-center">
+              <StarFour className="text-primary" size={24} />
             </div>
-          ))}
-        </div>
+            <h3 className="font-black text-lg md:text-2xl mb-3">Sii il primo a lasciare una recensione</h3>
+            <p className="text-muted-foreground text-sm md:text-base max-w-md mx-auto">
+              Preferisco costruire questa sezione con recensioni vere dei miei clienti. Se hai lavorato con me, la tua opinione è preziosa.
+            </p>
+          </div>
+        )}
 
         <div className="text-center">
           {!showForm ? (
