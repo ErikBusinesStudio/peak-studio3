@@ -1,152 +1,113 @@
-import { useEffect, useRef, useState } from "react";
-import portfolioEriutility from "@/assets/portfolio-eriutility.png.asset.json";
-import portfolioCtsCuvio from "@/assets/portfolio-cts-cuvio.webp.asset.json";
-import portfolioSafetySolutions from "@/assets/portfolio-safety-solutions.png.asset.json";
-import { ArrowLeft, ArrowRight, ExternalLink } from "lucide-react";
+import { useState } from "react";
+import portfolioGym from "@/assets/portfolio-gym.jpg";
+import portfolioPizzeria from "@/assets/portfolio-pizzeria.jpg";
+import portfolioShop from "@/assets/portfolio-shop.jpg";
+import volantinoImg from "@/assets/service-volantini.jpg";
+import { ExternalLink, Globe, FileText } from "lucide-react";
+import { useScrollAnimation } from "@/hooks/useScrollAnimation";
 import { useI18n } from "@/contexts/I18nContext";
 
 const sites = [
-  { img: portfolioEriutility.url, title: "E-Riutility", category: "Mercatino dell'usato", url: "https://e-riutility.it" },
-  { img: portfolioCtsCuvio.url, title: "CTS Cuvio", category: "Centro Turistico Sportivo", url: "https://centrocuvio.it" },
-  { img: portfolioSafetySolutions.url, title: "Safety Solutions", category: " Sicurezza sul lavoro", url: "https://safetysolutionproject.lovable.app" },
+  { img: portfolioGym, titleKey: "portfolio.site1.title", catKey: "portfolio.site1.cat", url: "https://cuvio-pizza-hub.lovable.app" },
+  { img: portfolioPizzeria, titleKey: "portfolio.site2.title", catKey: "portfolio.site2.cat", url: "https://e-riutility-reborn.lovable.app" },
+  { img: portfolioShop, titleKey: "portfolio.site3.title", catKey: "portfolio.site3.cat", url: "#" },
 ];
 
+const flyers = [
+  { img: volantinoImg, titleKey: "portfolio.flyer1.title", catKey: "portfolio.flyer1.cat" },
+  { img: volantinoImg, titleKey: "portfolio.flyer2.title", catKey: "portfolio.flyer2.cat" },
+  { img: volantinoImg, titleKey: "portfolio.flyer3.title", catKey: "portfolio.flyer3.cat" },
+  { img: volantinoImg, titleKey: "portfolio.flyer4.title", catKey: "portfolio.flyer4.cat" },
+];
+
+type Tab = "sites" | "flyers";
+
 const PortfolioSection = () => {
+  const { ref, isVisible } = useScrollAnimation();
   const { t } = useI18n();
-  const trackRef = useRef<HTMLDivElement>(null);
-  const [dragging, setDragging] = useState(false);
-  const state = useRef({ startX: 0, startLeft: 0, moved: 0 });
-
-  useEffect(() => {
-    const el = trackRef.current;
-    if (!el) return;
-    const onDown = (e: PointerEvent) => {
-      state.current = { startX: e.clientX, startLeft: el.scrollLeft, moved: 0 };
-      setDragging(true);
-      el.setPointerCapture(e.pointerId);
-    };
-    const onMove = (e: PointerEvent) => {
-      if (!el.hasPointerCapture(e.pointerId)) return;
-      const dx = e.clientX - state.current.startX;
-      state.current.moved = Math.abs(dx);
-      el.scrollLeft = state.current.startLeft - dx;
-    };
-    const onUp = (e: PointerEvent) => {
-      setDragging(false);
-      try { el.releasePointerCapture(e.pointerId); } catch {}
-    };
-    el.addEventListener("pointerdown", onDown);
-    el.addEventListener("pointermove", onMove);
-    el.addEventListener("pointerup", onUp);
-    el.addEventListener("pointercancel", onUp);
-    return () => {
-      el.removeEventListener("pointerdown", onDown);
-      el.removeEventListener("pointermove", onMove);
-      el.removeEventListener("pointerup", onUp);
-      el.removeEventListener("pointercancel", onUp);
-    };
-  }, []);
-
-  const nudge = (dir: number) => {
-    const el = trackRef.current;
-    if (!el) return;
-    el.scrollBy({ left: dir * el.clientWidth * 0.7, behavior: "smooth" });
-  };
+  const [tab, setTab] = useState<Tab>("sites");
 
   return (
-    <section id="portfolio" className="relative overflow-hidden py-16 md:py-28">
-      <div className="hidden md:block absolute top-1/2 right-0 w-[500px] h-[500px] bg-primary/10 rounded-full blur-[220px]" />
+    <section id="portfolio" className="section-padding relative overflow-hidden">
+      <div className="hidden md:block absolute top-1/2 right-0 w-[400px] h-[400px] bg-primary/8 rounded-full blur-[180px]" />
+      <div className="container mx-auto relative z-10" ref={ref}>
+        <div className={`text-center mb-10 md:mb-16 transition-all duration-700 ${isVisible ? "opacity-100 translate-y-0" : "opacity-0 translate-y-8"}`}>
+          <div className="red-line mx-auto mb-4 md:mb-6" />
+          <h2 className="text-2xl md:text-5xl font-black mb-3">{t("portfolio.title")}</h2>
+          <p className="text-muted-foreground max-w-md mx-auto text-sm md:text-base">{t("portfolio.subtitle")}</p>
+        </div>
 
-      <div className="max-w-7xl mx-auto px-4 md:px-8">
-        <div className="flex items-end justify-between mb-8 md:mb-14 gap-6">
-          <div>
-            <p className="eyebrow mb-3 md:mb-4">V — Portfolio</p>
-            <h2 className="font-display text-3xl md:text-6xl leading-[0.9] tracking-tight uppercase">
-              {t("portfolio.title")}<br />
-              <span className="text-gradient italic">selezionati.</span>
-            </h2>
-            <p className="text-muted-foreground max-w-md text-sm md:text-base mt-3">
-              {t("portfolio.subtitle")}
-            </p>
-          </div>
-          <div className="hidden md:flex items-center gap-2">
-            <button
-              onClick={() => nudge(-1)}
-              aria-label="Precedente"
-              className="w-12 h-12 rounded-full border border-border bg-card hover:border-primary/60 hover:text-primary transition flex items-center justify-center"
-            >
-              <ArrowLeft className="w-4 h-4" />
-            </button>
-            <button
-              onClick={() => nudge(1)}
-              aria-label="Successivo"
-              className="w-12 h-12 rounded-full border border-border bg-card hover:border-primary/60 hover:text-primary transition flex items-center justify-center"
-            >
-              <ArrowRight className="w-4 h-4" />
-            </button>
+        {/* Tabs */}
+        <div className="flex justify-center mb-8 md:mb-10">
+          <div className="inline-flex p-1 bg-card border border-border rounded-full">
+            {([
+              { id: "sites", labelKey: "portfolio.tab.sites", Icon: Globe },
+              { id: "flyers", labelKey: "portfolio.tab.flyers", Icon: FileText },
+            ] as const).map((opt) => (
+              <button
+                key={opt.id}
+                onClick={() => setTab(opt.id)}
+                className={`inline-flex items-center gap-2 px-4 md:px-5 py-2 text-xs md:text-sm font-bold uppercase tracking-wider rounded-full transition-all duration-300 ${
+                  tab === opt.id
+                    ? "bg-primary text-primary-foreground shadow-[0_0_20px_-4px_hsl(var(--primary)/0.6)]"
+                    : "text-muted-foreground hover:text-foreground"
+                }`}
+              >
+                <opt.Icon className="w-3.5 h-3.5" />
+                {t(opt.labelKey)}
+              </button>
+            ))}
           </div>
         </div>
-      </div>
 
-      <div
-        ref={trackRef}
-        className={`no-scrollbar flex gap-4 md:gap-8 overflow-x-auto snap-x snap-mandatory px-4 md:px-16 pb-4 select-none ${
-          dragging ? "cursor-grabbing" : "cursor-grab"
-        }`}
-        style={{ scrollBehavior: dragging ? "auto" : "smooth" }}
-      >
-        {sites.map((p, i) => (
-          <a
-            key={p.title}
-            href={p.url}
-            target="_blank"
-            rel="noopener noreferrer"
-            onClick={(e) => {
-              if (state.current.moved > 6) e.preventDefault();
-            }}
-            draggable={false}
-            className="group relative shrink-0 snap-center w-[85vw] md:w-[62vw] lg:w-[54vw] max-w-[900px] rounded-2xl overflow-hidden border border-border bg-card hover:border-primary/50 transition-colors"
-            style={{ animation: `fade-in 0.6s ease-out ${i * 120}ms both` }}
-          >
-            <div className="relative aspect-[16/10] overflow-hidden">
-              <img
-                src={p.img}
-                alt={p.title}
-                draggable={false}
-                className="w-full h-full object-cover transition-transform duration-[1.4s] group-hover:scale-105"
-                loading="lazy"
-              />
-              <div className="absolute inset-0 bg-gradient-to-t from-background/70 via-transparent to-transparent" />
-              <span className="absolute top-4 left-4 font-mono text-[10px] uppercase tracking-[0.35em] text-white/90 mix-blend-difference">
-                Progetto · 0{i + 1}
-              </span>
-              <span className="absolute top-4 right-4 w-10 h-10 rounded-full bg-primary/90 text-primary-foreground flex items-center justify-center opacity-0 group-hover:opacity-100 transition">
-                <ExternalLink className="w-4 h-4" />
-              </span>
-            </div>
-            <div className="p-5 md:p-7 flex items-end justify-between gap-4">
-              <div>
-                <span className="text-[10px] md:text-xs font-bold text-primary uppercase tracking-[0.25em]">
-                  {p.category}
-                </span>
-                <h3 className="font-display text-xl md:text-3xl leading-tight mt-1">{p.title}</h3>
+        {/* Sites */}
+        {tab === "sites" && (
+          <div key="sites" className="grid grid-cols-1 md:grid-cols-3 gap-4 md:gap-6 animate-fade-in">
+            {sites.map((p, i) => (
+              <a
+                key={p.titleKey}
+                href={p.url}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="group rounded-xl overflow-hidden border border-border bg-card hover:border-primary/40 hover:scale-[1.03] hover:-translate-y-1 transition-all duration-500 cursor-pointer block"
+                style={{ animation: `fade-in 0.5s ease-out ${i * 100}ms both` }}
+              >
+                <div className="relative overflow-hidden">
+                  <img src={p.img} alt={t(p.titleKey)} className="w-full h-40 md:h-56 object-cover group-hover:scale-110 transition-transform duration-700" loading="lazy" width={800} height={512} />
+                  <div className="absolute inset-0 bg-primary/0 group-hover:bg-primary/20 transition-colors duration-300 flex items-center justify-center">
+                    <ExternalLink className="w-8 h-8 text-primary-foreground opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
+                  </div>
+                </div>
+                <div className="p-4 md:p-6">
+                  <span className="text-[10px] font-bold text-primary uppercase tracking-[0.2em]">{t(p.catKey)}</span>
+                  <h3 className="font-bold text-base md:text-lg mt-1">{t(p.titleKey)}</h3>
+                </div>
+              </a>
+            ))}
+          </div>
+        )}
+
+        {/* Flyers — compact grid */}
+        {tab === "flyers" && (
+          <div key="flyers" className="grid grid-cols-2 md:grid-cols-4 gap-3 md:gap-4 animate-fade-in">
+            {flyers.map((f, i) => (
+              <div
+                key={f.titleKey + i}
+                className="group rounded-lg overflow-hidden border border-border bg-card hover:border-primary/40 hover:-translate-y-1 transition-all duration-500"
+                style={{ animation: `fade-in 0.5s ease-out ${i * 80}ms both` }}
+              >
+                <div className="relative overflow-hidden aspect-[3/4]">
+                  <img src={f.img} alt={t(f.titleKey)} loading="lazy" className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-700" />
+                  <div className="absolute inset-0 bg-gradient-to-t from-card via-card/30 to-transparent" />
+                </div>
+                <div className="p-3">
+                  <span className="text-[9px] font-bold text-primary uppercase tracking-[0.15em]">{t(f.catKey)}</span>
+                  <h3 className="font-bold text-sm mt-0.5 truncate">{t(f.titleKey)}</h3>
+                </div>
               </div>
-              <span className="hidden md:inline font-mono text-[10px] uppercase tracking-[0.3em] text-muted-foreground">
-                Visita ↗
-              </span>
-            </div>
-          </a>
-        ))}
-
-        <div className="shrink-0 snap-center w-[70vw] md:w-[40vw] max-w-[500px] flex items-center justify-center">
-          <div className="text-center p-8">
-            <p className="eyebrow justify-center mb-4">Prossimo</p>
-            <p className="font-display text-2xl md:text-4xl leading-tight uppercase">
-              Il prossimo caso studio<br />
-              <span className="text-gradient italic">potrebbe essere il tuo.</span>
-            </p>
+            ))}
           </div>
-        </div>
+        )}
       </div>
     </section>
   );

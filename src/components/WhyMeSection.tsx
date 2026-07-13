@@ -1,7 +1,6 @@
 import { Zap, Eye, Clock, Shield } from "lucide-react";
 import { useScrollAnimation } from "@/hooks/useScrollAnimation";
 import { useI18n } from "@/contexts/I18nContext";
-import scenePeak from "@/assets/scene-peak.jpg";
 
 const WhyMeSection = () => {
   const { ref, isVisible } = useScrollAnimation();
@@ -16,8 +15,6 @@ const WhyMeSection = () => {
 
   return (
     <section className="section-padding relative overflow-hidden">
-      <img src={scenePeak} alt="" aria-hidden="true" loading="lazy" className="absolute inset-0 w-full h-full object-cover opacity-[0.18] pointer-events-none select-none" />
-      <div className="absolute inset-0 bg-gradient-to-b from-background/90 via-background/60 to-background pointer-events-none" />
       <div className="hidden md:block absolute top-1/2 right-0 w-[600px] h-[600px] bg-primary/12 rounded-full blur-[250px]" />
       <div className="hidden md:block absolute bottom-0 left-0 w-[400px] h-[400px] bg-primary/10 rounded-full blur-[200px]" />
       <div className="container mx-auto relative z-10" ref={ref}>

@@ -1,5 +1,6 @@
 import Header from "@/components/Header";
 import HeroSection from "@/components/HeroSection";
+import ServicesSection from "@/components/ServicesSection";
 import WhyMeSection from "@/components/WhyMeSection";
 import HowItWorksSection from "@/components/HowItWorksSection";
 import UrgencySection from "@/components/UrgencySection";
@@ -12,79 +13,57 @@ import ContactSection from "@/components/ContactSection";
 import FloatingWhatsApp from "@/components/FloatingWhatsApp";
 import Footer from "@/components/Footer";
 import Atmosphere from "@/components/Atmosphere";
-import TrailPath from "@/components/TrailPath";
-import CustomCursor from "@/components/CustomCursor";
-import Preloader from "@/components/Preloader";
-import ServicesSection from "@/components/ServicesSection";
-import StatsGiants from "@/components/StatsGiants";
-import SvgDivider from "@/components/SvgDivider";
-import CallModal from "@/components/CallModal";
-import CallButton from "@/components/CallButton";
-import { useLenis } from "@/hooks/useLenis";
-import { useHeadingReveal } from "@/hooks/useHeadingReveal";
+import SceneBackdrop from "@/components/SceneBackdrop";
+import scenePeak from "@/assets/scene-peak.jpg";
+import sceneForest from "@/assets/scene-forest.jpg";
+import sceneWaterfall from "@/assets/scene-waterfall.jpg";
+import sceneSignpost from "@/assets/scene-signpost.jpg";
+import sceneBridge from "@/assets/scene-bridge.jpg";
+import sceneCabin from "@/assets/scene-cabin.jpg";
+import sceneBasecamp from "@/assets/scene-basecamp.jpg";
 
-const ChapterDivider = ({ numeral, label, kicker }: { numeral: string; label: string; kicker?: string }) => (
-  <div className="max-w-7xl mx-auto px-4 md:px-8 py-10 md:py-16">
-    <div className="flex items-end justify-between border-b border-foreground/20 pb-4">
-      <div className="flex items-baseline gap-4 md:gap-6">
-        <span className="font-mono text-[10px] md:text-xs uppercase tracking-[0.4em]" style={{ color: "hsl(var(--accent-red))" }}>
-          Chapter {numeral}
-        </span>
-        <h2 className="font-display text-2xl md:text-5xl uppercase tracking-tight">{label}</h2>
-      </div>
-      {kicker && <span className="hidden md:inline font-mono text-[10px] uppercase tracking-[0.3em] text-foreground/50">{kicker}</span>}
-    </div>
-  </div>
-);
 
 const Index = () => {
-  useLenis();
-  useHeadingReveal();
   return (
     <>
-      <Preloader />
       <Header />
       <Atmosphere />
-      <CustomCursor />
-      <TrailPath />
       <main className="relative z-10">
-        <HeroSection />
 
-        <ChapterDivider numeral="II" label="About" kicker="Chi sono · Cosa offro" />
-        <WhyMeSection />
+        <SceneBackdrop image={scenePeak} overlay={55}>
+          <HeroSection />
+        </SceneBackdrop>
 
-        <SvgDivider variant="wave" />
-        <ServicesSection />
+        <SceneBackdrop image={sceneForest} overlay={70}>
+          <ServicesSection />
+          <WhyMeSection />
+        </SceneBackdrop>
 
-        <SvgDivider variant="peaks" flip />
-        <StatsGiants />
+        <SceneBackdrop image={sceneSignpost} overlay={72}>
+          <HowItWorksSection />
+        </SceneBackdrop>
 
-        <ChapterDivider numeral="III" label="Piani" kicker="Siti · Canoni · Extra" />
-        <PricingTeaser />
+        <SceneBackdrop image={sceneBridge} overlay={75}>
+          <UrgencySection />
+          <PortfolioSection />
+        </SceneBackdrop>
 
-        <ChapterDivider numeral="IV" label="Processo" kicker="Dal brief al lancio" />
-        <HowItWorksSection />
+        <SceneBackdrop image={sceneWaterfall} overlay={72}>
+          <PricingTeaser />
+        </SceneBackdrop>
 
-        <SvgDivider variant="cut" />
-        <ChapterDivider numeral="V" label="Lavori" kicker="Portfolio selezionato" />
-        <UrgencySection />
-        <PortfolioSection />
+        <SceneBackdrop image={sceneCabin} overlay={70}>
+          <ReviewsSection />
+          <FaqSection />
+        </SceneBackdrop>
 
-        <ChapterDivider numeral="VI" label="Recensioni" kicker="Cosa dicono i clienti" />
-        <ReviewsSection />
-        <FaqSection />
-
-        <SvgDivider variant="wave" flip />
-        <ChapterDivider numeral="VII" label="Contatto" kicker="Scrivimi · Risposta in 24h" />
-        <CtaSection />
-        <ContactSection />
+        <SceneBackdrop image={sceneBasecamp} overlay={70}>
+          <CtaSection />
+          <ContactSection />
+        </SceneBackdrop>
       </main>
       <Footer />
       <FloatingWhatsApp />
-      <CallModal />
-      <div className="fixed left-4 bottom-5 z-40 hidden md:block">
-        <CallButton variant="soft" label="Consulenza gratuita" />
-      </div>
     </>
   );
 };

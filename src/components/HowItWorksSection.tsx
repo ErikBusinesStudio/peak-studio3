@@ -1,7 +1,6 @@
 import { MessageSquare, Code2, Rocket } from "lucide-react";
 import { useScrollAnimation } from "@/hooks/useScrollAnimation";
 import { useI18n } from "@/contexts/I18nContext";
-import sceneBridge from "@/assets/scene-bridge.jpg";
 
 const HowItWorksSection = () => {
   const { ref, isVisible } = useScrollAnimation();
@@ -15,8 +14,6 @@ const HowItWorksSection = () => {
 
   return (
     <section className="section-padding relative overflow-hidden">
-      <img src={sceneBridge} alt="" aria-hidden="true" loading="lazy" className="absolute inset-0 w-full h-full object-cover opacity-[0.16] pointer-events-none select-none" />
-      <div className="absolute inset-0 bg-gradient-to-b from-background via-background/65 to-background pointer-events-none" />
       <div className="hidden md:block absolute bottom-0 left-0 w-[700px] h-[700px] bg-primary/10 rounded-full blur-[220px]" />
       <div className="container mx-auto relative z-10" ref={ref}>
         <div className={`text-center mb-10 md:mb-16 transition-all duration-700 ${isVisible ? "opacity-100 translate-y-0" : "opacity-0 translate-y-8"}`}>
