@@ -1,12 +1,7 @@
-import { useState } from "react";
 import portfolioEriutility from "@/assets/portfolio-eriutility.png.asset.json";
 import portfolioCtsCuvio from "@/assets/portfolio-cts-cuvio.webp.asset.json";
 import portfolioSafetySolutions from "@/assets/portfolio-safety-solutions.png.asset.json";
-import flyerSitoWeb from "@/assets/flyers/flyer-sito-web.jpg";
-import flyerSocialAds from "@/assets/flyers/flyer-social-ads.jpg";
-import flyerBrandIdentity from "@/assets/flyers/flyer-brand-identity.jpg";
-import flyerVolantini from "@/assets/flyers/flyer-volantini.jpg";
-import { ExternalLink, Globe, FileText } from "lucide-react";
+import { ExternalLink } from "lucide-react";
 import { useScrollAnimation } from "@/hooks/useScrollAnimation";
 import { useI18n } from "@/contexts/I18nContext";
 
@@ -16,19 +11,9 @@ const sites = [
   { img: portfolioSafetySolutions.url, title: "Safety Solutions", category: " Sicurezza sul lavoro", url: "https://safetysolutionproject.lovable.app" },
 ];
 
-const flyers = [
-  { img: flyerSitoWeb, titleKey: "portfolio.flyer1.title", catKey: "portfolio.flyer1.cat" },
-  { img: flyerSocialAds, titleKey: "portfolio.flyer2.title", catKey: "portfolio.flyer2.cat" },
-  { img: flyerBrandIdentity, titleKey: "portfolio.flyer3.title", catKey: "portfolio.flyer3.cat" },
-  { img: flyerVolantini, titleKey: "portfolio.flyer4.title", catKey: "portfolio.flyer4.cat" },
-];
-
-type Tab = "sites" | "flyers";
-
 const PortfolioSection = () => {
   const { ref, isVisible } = useScrollAnimation();
   const { t } = useI18n();
-  const [tab, setTab] = useState<Tab>("sites");
 
   return (
     <section id="portfolio" className="section-padding relative overflow-hidden">
@@ -40,32 +25,7 @@ const PortfolioSection = () => {
           <p className="text-muted-foreground max-w-md mx-auto text-sm md:text-base">{t("portfolio.subtitle")}</p>
         </div>
 
-        {/* Tabs */}
-        <div className="flex justify-center mb-8 md:mb-10">
-          <div className="inline-flex p-1 bg-card border border-border rounded-full">
-            {([
-              { id: "sites", labelKey: "portfolio.tab.sites", Icon: Globe },
-              { id: "flyers", labelKey: "portfolio.tab.flyers", Icon: FileText },
-            ] as const).map((opt) => (
-              <button
-                key={opt.id}
-                onClick={() => setTab(opt.id)}
-                className={`inline-flex items-center gap-2 px-4 md:px-5 py-2 text-xs md:text-sm font-bold uppercase tracking-wider rounded-full transition-all duration-300 ${
-                  tab === opt.id
-                    ? "bg-primary text-primary-foreground shadow-[0_0_20px_-4px_hsl(var(--primary)/0.6)]"
-                    : "text-muted-foreground hover:text-foreground"
-                }`}
-              >
-                <opt.Icon className="w-3.5 h-3.5" />
-                {t(opt.labelKey)}
-              </button>
-            ))}
-          </div>
-        </div>
-
-        {/* Sites */}
-        {tab === "sites" && (
-          <div key="sites" className="grid grid-cols-1 md:grid-cols-3 gap-4 md:gap-6 animate-fade-in">
+        <div className="grid grid-cols-1 md:grid-cols-3 gap-4 md:gap-6 animate-fade-in">
             {sites.map((p, i) => (
               <a
                 key={p.title}
@@ -87,30 +47,7 @@ const PortfolioSection = () => {
                 </div>
               </a>
             ))}
-          </div>
-        )}
-
-        {/* Flyers — compact grid */}
-        {tab === "flyers" && (
-          <div key="flyers" className="grid grid-cols-2 md:grid-cols-4 gap-3 md:gap-4 animate-fade-in">
-            {flyers.map((f, i) => (
-              <div
-                key={f.titleKey + i}
-                className="group rounded-lg overflow-hidden border border-border bg-card hover:border-primary/40 hover:-translate-y-1 transition-all duration-500"
-                style={{ animation: `fade-in 0.5s ease-out ${i * 80}ms both` }}
-              >
-                <div className="relative overflow-hidden aspect-[3/4]">
-                  <img src={f.img} alt={t(f.titleKey)} loading="lazy" className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-700" />
-                  <div className="absolute inset-0 bg-gradient-to-t from-card via-card/30 to-transparent" />
-                </div>
-                <div className="p-3">
-                  <span className="text-[9px] font-bold text-primary uppercase tracking-[0.15em]">{t(f.catKey)}</span>
-                  <h3 className="font-bold text-sm mt-0.5 truncate">{t(f.titleKey)}</h3>
-                </div>
-              </div>
-            ))}
-          </div>
-        )}
+        </div>
       </div>
     </section>
   );
