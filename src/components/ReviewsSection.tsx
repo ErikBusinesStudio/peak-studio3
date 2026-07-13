@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import { Send, Users, ThumbsUp, Award } from "lucide-react";
+import { Send } from "lucide-react";
 import StarFour from "@/components/icons/StarFour";
 import { useScrollAnimation } from "@/hooks/useScrollAnimation";
 import { useI18n } from "@/contexts/I18nContext";
