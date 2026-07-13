@@ -1,6 +1,7 @@
 import * as React from 'npm:react@18.3.1'
 import { renderAsync } from 'npm:@react-email/components@0.0.22'
 import { createClient } from 'npm:@supabase/supabase-js@2'
+import { corsHeaders } from 'npm:@supabase/supabase-js@2/cors'
 import { TEMPLATES } from '../_shared/transactional-email-templates/registry.ts'
 
 // Configuration baked in at scaffold time — do NOT change these manually.
@@ -14,26 +15,6 @@ const SENDER_DOMAIN = "notify.peakstudio.click"
 // When display_from_root is enabled, this can be the root domain for cleaner branding,
 // even though actual sending uses the subdomain above.
 const FROM_DOMAIN = "notify.peakstudio.click"
-
-const corsHeaders = {
-  'Access-Control-Allow-Origin': '*',
-  'Access-Control-Allow-Headers':
-    'authorization, x-client-info, apikey, content-type',
-}
-
-// Decode (without verifying) a JWT and return its claims. Used only to read
-// the `role` claim — the gateway already verified the signature because
-// verify_jwt = true in config.toml.
-function parseJwtClaims(token: string): Record<string, unknown> | null {
-  try {
-    const part = token.split('.')[1]
-    if (!part) return null
-    const padded = part.replace(/-/g, '+').replace(/_/g, '/').padEnd(part.length + ((4 - (part.length % 4)) % 4), '=')
-    return JSON.parse(atob(padded))
-  } catch {
-    return null
-  }
-}
 
 // Generate a cryptographically random 32-byte hex token
 function generateToken(): string {
@@ -52,19 +33,6 @@ Deno.serve(async (req) => {
   // Handle CORS preflight
   if (req.method === 'OPTIONS') {
     return new Response(null, { headers: corsHeaders })
-  }
-
-  // Only the service role may invoke this function. The gateway has already
-  // verified the JWT signature (verify_jwt = true), so we just need to check
-  // the role claim to block calls made with the public anon key.
-  const authHeader = req.headers.get('Authorization') || ''
-  const token = authHeader.replace(/^Bearer\s+/i, '')
-  const claims = token ? parseJwtClaims(token) : null
-  if (!claims || claims.role !== 'service_role') {
-    return new Response(JSON.stringify({ error: 'Forbidden' }), {
-      status: 403,
-      headers: { ...corsHeaders, 'Content-Type': 'application/json' },
-    })
   }
 
   const supabaseUrl = Deno.env.get('SUPABASE_URL')

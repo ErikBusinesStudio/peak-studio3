@@ -1,17 +1,46 @@
 import { useState } from "react";
-import { Mail, Phone, MapPin } from "lucide-react";
+import { Mail, Phone, MapPin, Loader2, CheckCircle2 } from "lucide-react";
 import { useScrollAnimation } from "@/hooks/useScrollAnimation";
 import { useI18n } from "@/contexts/I18nContext";
+import { supabase } from "@/integrations/supabase/client";
+import { toast } from "@/hooks/use-toast";
 
 const ContactSection = () => {
   const [formData, setFormData] = useState({ nome: "", email: "", messaggio: "" });
+  const [status, setStatus] = useState<"idle" | "loading" | "success">("idle");
   const { ref, isVisible } = useScrollAnimation();
   const { t } = useI18n();
 
-  const handleSubmit = (e: React.FormEvent) => {
+  const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-    const msg = encodeURIComponent(`Ciao, mi chiamo ${formData.nome}. ${formData.messaggio} (Email: ${formData.email})`);
-    window.open(`https://wa.me/393913168231?text=${msg}`, "_blank");
+    if (status === "loading") return;
+    const name = formData.nome.trim();
+    const email = formData.email.trim();
+    const message = formData.messaggio.trim();
+    if (!name || !email || !message) return;
+
+    setStatus("loading");
+    const { error } = await supabase.functions.invoke("submit-contact", {
+      body: { name, email, message },
+    });
+
+    if (error) {
+      setStatus("idle");
+      toast({
+        title: "Invio non riuscito",
+        description: "Riprova tra poco o scrivimi su WhatsApp.",
+        variant: "destructive",
+      });
+      return;
+    }
+
+    setStatus("success");
+    setFormData({ nome: "", email: "", messaggio: "" });
+    toast({
+      title: "Messaggio inviato!",
+      description: "Ti rispondo entro 24 ore.",
+    });
+    setTimeout(() => setStatus("idle"), 4000);
   };
 
   return (
@@ -52,7 +81,15 @@ const ContactSection = () => {
               <label className="text-xs md:text-sm font-medium mb-2 block">{t("contact.message")}</label>
               <textarea required maxLength={1000} rows={3} className="w-full bg-card border border-border rounded-lg px-4 py-2.5 md:py-3 text-sm focus:outline-none focus:ring-2 focus:ring-primary/50 text-foreground placeholder:text-muted-foreground resize-none" placeholder={t("contact.messagePlaceholder")} value={formData.messaggio} onChange={(e) => setFormData({ ...formData, messaggio: e.target.value })} />
             </div>
-            <button type="submit" className="w-full bg-primary text-primary-foreground py-2.5 md:py-3 rounded-lg font-semibold text-sm hover:opacity-90 hover:scale-105 transition-all">{t("contact.send")}</button>
+            <button
+              type="submit"
+              disabled={status === "loading"}
+              className="w-full bg-primary text-primary-foreground py-2.5 md:py-3 rounded-lg font-semibold text-sm hover:opacity-90 hover:scale-105 transition-all inline-flex items-center justify-center gap-2 disabled:opacity-70 disabled:cursor-not-allowed"
+            >
+              {status === "loading" && <Loader2 className="w-4 h-4 animate-spin" />}
+              {status === "success" && <CheckCircle2 className="w-4 h-4" />}
+              {status === "loading" ? "Invio…" : status === "success" ? "Inviato!" : t("contact.send")}
+            </button>
           </form>
         </div>
       </div>

@@ -1,406 +1,338 @@
-import { Check, Zap, Crown, Sparkles, QrCode, Smartphone, Globe, Wrench, TrendingUp, Headphones, ArrowRight } from "lucide-react";
-import { useI18n } from "@/contexts/I18nContext";
+import { useState } from "react";
+import { ArrowRight } from "lucide-react";
+import { Link } from "react-router-dom";
+import StarFour from "@/components/icons/StarFour";
 import { useScrollAnimation } from "@/hooks/useScrollAnimation";
+import planSites from "@/assets/plan-sites.jpg";
+import planMonthly from "@/assets/plan-monthly.jpg";
+import serviceBranding from "@/assets/service-branding.jpg";
+import serviceVolantini from "@/assets/service-volantini.jpg";
+import serviceQrcode from "@/assets/service-qrcode.jpg";
+import serviceGestione from "@/assets/service-gestione.jpg";
+import serviceAbbonamenti from "@/assets/service-abbonamenti.jpg";
+import serviceSitiWeb from "@/assets/service-siti-web.jpg";
+import sceneSignpost from "@/assets/scene-signpost.jpg";
+import sceneCabin from "@/assets/scene-cabin.jpg";
+import { extras as extrasData } from "@/data/extras";
 
-const contactWhatsAppLink = "https://wa.me/393913168231?text=Ciao%2C%20vorrei%20ricevere%20informazioni%20sui%20vostri%20servizi.";
+const wa =
+  "https://wa.me/393913168231?text=Ciao%2C%20vorrei%20ricevere%20informazioni%20sui%20vostri%20servizi.";
 
-type Plan = {
+type Category = "sites" | "monthly" | "extra";
+
+/* ---------- DATA ---------- */
+
+type BentoTile = {
   name: string;
-  price: string;
-  priceSuffix?: string;
   desc: string;
+  image: string;
+  size: "lg" | "md" | "sm" | "wide" | "tall";
   badge?: string;
-  badgeIcon?: React.ReactNode;
-  highlighted?: boolean;
-  features: string[];
-  cta: string;
-  icon?: React.ReactNode;
+  href?: string;
+  internal?: boolean;
 };
 
-const sitePlans: Plan[] = [
-  {
-    name: "Base",
-    price: "300",
-    priceSuffix: "una tantum",
-    desc: "Ideale per piccole attività che vogliono iniziare online",
-    icon: <Globe className="w-5 h-5" />,
-    features: [
-      "1 pagina (landing page)",
-      "Informazioni principali (contatti, servizi, orari)",
-      "Design semplice e pulito",
-      "Ottimizzazione mobile",
-      "Pronto per essere trovato su Google",
-    ],
-    cta: "Richiedi informazioni",
-  },
-  {
-    name: "Standard",
-    price: "500",
-    priceSuffix: "una tantum",
-    desc: "La scelta migliore per attrarre e convertire più clienti",
-    badge: "Più scelto",
-    badgeIcon: <Zap className="w-3 h-3" />,
-    highlighted: true,
-    icon: <Sparkles className="w-5 h-5" />,
-    features: [
-      "3-5 pagine professionali",
-      "Design moderno e curato",
-      "Ottimizzazione mobile",
-      "1 revisione inclusa",
-      "Struttura pensata per convertire clienti",
-    ],
-    cta: "Richiedi informazioni",
-  },
-  {
-    name: "Premium",
-    price: "800+",
-    priceSuffix: "una tantum",
-    desc: "Per chi vuole il massimo: sito completo e personalizzato",
-    icon: <Crown className="w-5 h-5" />,
-    features: [
-      "Sito completo personalizzato",
-      "Design professionale avanzato",
-      "Integrazioni (WhatsApp, prenotazioni, ecc.)",
-      "Più revisioni incluse",
-      "Priorità nella consegna",
-    ],
-    cta: "Richiedi informazioni",
-  },
+const siteTiles: BentoTile[] = [
+  { name: "Sito Business", desc: "Fino a 6 pagine, pensato per attrarre e convertire clienti.", image: planSites, size: "lg", badge: "Più scelto" },
+  { name: "Landing Page", desc: "Pagina singola per campagne, lanci, eventi.", image: serviceSitiWeb, size: "md" },
+  { name: "Sito Vetrina Starter", desc: "Fino a 3 pagine — la base per esistere online.", image: sceneSignpost, size: "md" },
+  { name: "Sito Premium su misura", desc: "Brand completo, multi-sezione illimitato.", image: sceneCabin, size: "wide" },
+  { name: "E-commerce", desc: "Catalogo, carrello, pagamenti, ordini.", image: serviceGestione, size: "tall" },
+  { name: "Booking / Prenotazioni", desc: "Calendario, slot, conferme automatiche.", image: serviceAbbonamenti, size: "md" },
+  { name: "Portfolio creativo", desc: "Per fotografi, designer, artigiani, studi.", image: serviceBranding, size: "sm" },
+  { name: "Menù / Catalogo QR", desc: "Pagina digitale aggiornabile + QR stampabile.", image: serviceQrcode, size: "sm" },
+  { name: "Restyling sito esistente", desc: "Rinasce moderno, veloce, mobile-first.", image: serviceVolantini, size: "wide" },
 ];
 
-const managementPlans: Plan[] = [
-  {
-    name: "Basic",
-    price: "30",
-    priceSuffix: "/mese",
-    desc: "Il tuo sito sempre online e sicuro, senza pensieri",
-    icon: <Wrench className="w-5 h-5" />,
-    features: [
-      "Hosting e sicurezza inclusi",
-      "Aggiornamenti tecnici base",
-      "Backup periodici",
-    ],
-    cta: "Attiva ora",
-  },
-  {
-    name: "Growth",
-    price: "50",
-    priceSuffix: "/mese",
-    desc: "Mantieni il sito vivo con modifiche e supporto rapido",
-    badge: "Consigliato",
-    badgeIcon: <TrendingUp className="w-3 h-3" />,
-    highlighted: true,
-    icon: <Sparkles className="w-5 h-5" />,
-    features: [
-      "Tutto del piano Basic",
-      "Piccole modifiche ai contenuti",
-      "Supporto rapido",
-    ],
-    cta: "Attiva ora",
-  },
-  {
-    name: "Pro",
-    price: "80–100",
-    priceSuffix: "/mese",
-    desc: "Per chi vuole crescere davvero, con consigli e priorità",
-    icon: <Headphones className="w-5 h-5" />,
-    features: [
-      "Tutto del piano Growth",
-      "Modifiche frequenti",
-      "Priorità supporto",
-      "Consigli base di marketing",
-    ],
-    cta: "Attiva ora",
-  },
+const sitesIncluded = [
+  "Design su misura, mai template",
+  "Mobile-first, perfetto da telefono",
+  "Animazioni fluide e moderne",
+  "SEO base inclusa (titoli, meta, velocità)",
+  "Dominio + hosting primo anno",
+  "Form di contatto + mappa",
+  "QR Code personalizzato",
+  "Connessione WhatsApp diretta",
+  "Integrazione Google Maps",
+  "Connessione email automatica",
+  "Cookie banner & GDPR",
+  "Google Analytics & Search Console",
+  "Multi-lingua su richiesta",
+  "Consegna entro 7 giorni dal materiale",
+  "Revisioni illimitate fino al lancio",
+  "Codice pulito, niente WordPress lento",
 ];
 
-const qrPlans: Plan[] = [
-  {
-    name: "QR Code Base",
-    price: "20",
-    priceSuffix: "una tantum",
-    desc: "La soluzione semplice per portare i clienti dove vuoi tu",
-    icon: <QrCode className="w-5 h-5" />,
-    features: [
-      "Link diretto a menu, contatti o recensioni",
-      "Grafica personalizzata",
-      "Pronto da stampare",
-    ],
-    cta: "Richiedi informazioni",
-  },
-  {
-    name: "QR Code Dinamico",
-    price: "5–10",
-    priceSuffix: "/mese",
-    desc: "Cambia la destinazione quando vuoi, perfetto per le promozioni",
-    badge: "Flessibile",
-    badgeIcon: <Sparkles className="w-3 h-3" />,
-    highlighted: true,
-    icon: <Smartphone className="w-5 h-5" />,
-    features: [
-      "Modificabile nel tempo",
-      "Perfetto per campagne e promozioni",
-      "Statistiche di scansione",
-    ],
-    cta: "Richiedi informazioni",
-  },
+const monthlyTiles: BentoTile[] = [
+  { name: "Crescita", desc: "Visibilità che cresce ogni mese, contenuti e SEO continua.", image: planMonthly, size: "lg", badge: "Consigliato" },
+  { name: "Manutenzione Base", desc: "Sito sempre online, sicuro e aggiornato.", image: serviceGestione, size: "md" },
+  { name: "Pro Scalabile", desc: "Supporto prioritario + automazioni dedicate.", image: serviceAbbonamenti, size: "md" },
+  { name: "Gestione Google Business", desc: "Post, foto, risposte recensioni.", image: sceneSignpost, size: "wide" },
+  { name: "Automazione WhatsApp", desc: "Risposte e flussi automatici 24/7.", image: serviceBranding, size: "tall" },
+  { name: "Hosting Dedicato", desc: "Hosting performante con backup automatici.", image: sceneCabin, size: "wide" },
 ];
 
-const subscriptionPlans: Plan[] = [
-  {
-    name: "Start",
-    price: "299",
-    priceSuffix: "/mese",
-    desc: "Presenza online base ma professionale — bar, pizzerie, kebab, negozi locali",
-    icon: <Zap className="w-5 h-5" />,
-    features: [
-      "Gestione Instagram base",
-      "1 contenuto a settimana (post o reel)",
-      "3–5 stories a settimana",
-      "Ottimizzazione profilo Instagram",
-      "1 locandina promozionale al mese",
-      "Aggiornamenti semplici sito",
-      "Assistenza WhatsApp",
-    ],
-    cta: "Inizia con Start",
-  },
-  {
-    name: "Growth",
-    price: "549",
-    priceSuffix: "/mese",
-    desc: "Crescita reale e costante online — ristoranti, cocktail bar, locali attivi",
-    badge: "Più scelto",
-    badgeIcon: <TrendingUp className="w-3 h-3" />,
-    highlighted: true,
-    icon: <Sparkles className="w-5 h-5" />,
-    features: [
-      "Tutto del piano Start +",
-      "2 contenuti a settimana (reel/post)",
-      "Stories quasi giornaliere",
-      "Grafiche promozionali illimitate",
-      "1 shooting foto/video al mese",
-      "Gestione Google Business Profile",
-      "Menù digitali / eventi",
-      "Analisi profilo + consigli crescita",
-      "Priorità assistenza",
-    ],
-    cta: "Scegli Growth",
-  },
-  {
-    name: "Premium",
-    price: "999",
-    priceSuffix: "/mese",
-    desc: "Branding completo + presenza forte + status premium",
-    icon: <Crown className="w-5 h-5" />,
-    features: [
-      "Tutto del piano Growth +",
-      "3–5 reel a settimana",
-      "Gestione completa Instagram + TikTok",
-      "Shooting professionali frequenti",
-      "Copertura eventi",
-      "Aggiornamento continuo sito",
-      "Mini campagne ads Meta",
-      "Strategia contenuti personalizzata",
-      "Design grafico avanzato",
-      "Assistenza prioritaria totale",
-    ],
-    cta: "Vai Premium",
-  },
+const monthlyIncluded = [
+  "Aggiornamenti contenuti (testi, foto)",
+  "Backup mensile automatico",
+  "Monitoraggio uptime 24/7",
+  "Modifiche incluse ogni mese",
+  "Gestione Google Business",
+  "Risposta alle recensioni",
+  "Report mensile visibilità",
+  "Automazioni WhatsApp/email",
+  "Supporto prioritario 24h",
+  "Patch di sicurezza",
+  "SEO continua e monitoring",
+  "Nessun vincolo, disdici quando vuoi",
 ];
 
-const extraServices: Plan[] = [
-  {
-    name: "Branding",
-    price: "150–500",
-    priceSuffix: "una tantum",
-    desc: "Identità visiva completa per il tuo brand",
-    icon: <Sparkles className="w-5 h-5" />,
-    features: ["Logo professionale", "Palette colori", "Font dedicati", "Identità visiva completa"],
-    cta: "Richiedi preventivo",
-  },
-  {
-    name: "Shooting Singolo",
-    price: "80–250",
-    priceSuffix: "una tantum",
-    desc: "Contenuti foto/video professionali",
-    badge: "Pronto all'uso",
-    badgeIcon: <Sparkles className="w-3 h-3" />,
-    highlighted: true,
-    icon: <Smartphone className="w-5 h-5" />,
-    features: ["Shooting dedicato", "Foto + video professionali", "Editing incluso", "Pronti per i social"],
-    cta: "Prenota shooting",
-  },
-  {
-    name: "Eventi",
-    price: "100–400",
-    priceSuffix: "a evento",
-    desc: "Copertura completa dei tuoi eventi",
-    icon: <Crown className="w-5 h-5" />,
-    features: ["Copertura evento", "Foto + reel", "Contenuti social pronti", "Consegna rapida"],
-    cta: "Richiedi info",
-  },
-];
+const extraTiles: BentoTile[] = extrasData.map((e) => ({
+  name: e.name,
+  desc: e.tagline,
+  image: e.image,
+  size: e.size,
+  href: `/extra/${e.slug}`,
+  internal: true,
+}));
 
-const PlanCard = ({ plan, delay, isVisible }: { plan: Plan; delay: number; isVisible: boolean }) => {
-  const { t } = useI18n();
-  return (
-  <div
-    className={`relative rounded-2xl p-5 md:p-7 border transition-all duration-500 hover:scale-[1.02] flex flex-col ${
-      plan.highlighted
-        ? "border-primary/60 bg-card glow md:scale-[1.03]"
-        : "border-border bg-card hover:border-border/80"
-    } ${isVisible ? "opacity-100 translate-y-0" : "opacity-0 translate-y-8"}`}
-    style={{ transitionDelay: `${delay}ms` }}
-  >
-    {plan.badge && (
-      <span className="absolute -top-3 left-1/2 -translate-x-1/2 bg-primary text-primary-foreground text-[10px] font-bold px-4 py-1 rounded-full uppercase tracking-wider flex items-center gap-1 whitespace-nowrap">
-        {plan.badgeIcon}
-        {plan.badge}
-      </span>
-    )}
+const sizeClasses: Record<BentoTile["size"], string> = {
+  lg: "col-span-6 row-span-2 md:col-span-4 md:row-span-2 min-h-[280px] md:min-h-[420px]",
+  md: "col-span-3 row-span-1 md:col-span-2 md:row-span-1 min-h-[140px] md:min-h-[200px]",
+  sm: "col-span-3 row-span-1 md:col-span-2 md:row-span-1 min-h-[140px] md:min-h-[200px]",
+  wide: "col-span-6 row-span-1 md:col-span-4 md:row-span-1 min-h-[140px] md:min-h-[200px]",
+  tall: "col-span-3 row-span-2 md:col-span-2 md:row-span-2 min-h-[280px] md:min-h-[420px]",
+};
 
-    <div className="flex items-center gap-2 mb-2">
-      {plan.icon && (
-        <span className={`inline-flex items-center justify-center w-9 h-9 rounded-lg ${plan.highlighted ? "bg-primary text-primary-foreground" : "bg-primary/10 text-primary"}`}>
-          {plan.icon}
-        </span>
-      )}
-      <h4 className="text-xl md:text-2xl font-black">{plan.name}</h4>
+/* ---------- COMPONENTS ---------- */
+
+const IncludedGrid = ({ items, title }: { items: string[]; title: string }) => (
+  <div className="mt-10 md:mt-16">
+    <div className="flex items-center gap-3 mb-5 md:mb-8">
+      <StarFour size={14} className="text-primary" />
+      <p className="font-mono text-[10px] md:text-xs uppercase tracking-[0.35em] text-muted-foreground">
+        {title}
+      </p>
+      <div className="flex-1 h-px bg-border" />
     </div>
-
-    <p className="text-muted-foreground text-xs md:text-sm mt-1">{plan.desc}</p>
-
-    <div className="mt-5 mb-6">
-      <div className="inline-flex items-center gap-2 px-3 py-1.5 rounded-full bg-primary/10 border border-primary/20 text-primary text-[11px] font-bold uppercase tracking-wider">
-        <Sparkles className="w-3 h-3" />
-        {t("pricing.custom")}
-      </div>
-      <p className="text-muted-foreground text-xs mt-2">{t("pricing.customSuffix")}</p>
-    </div>
-
-    <ul className="space-y-2 md:space-y-2.5 mb-6 flex-1">
-      {plan.features.map((f) => (
-        <li key={f} className="flex items-start gap-2 text-xs md:text-sm">
-          <Check className="w-4 h-4 text-primary mt-0.5 shrink-0" />
-          <span>{f}</span>
+    <ul className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-2 md:gap-3">
+      {items.map((f, i) => (
+        <li
+          key={f}
+          className="flex items-start gap-2 p-3 md:p-4 rounded-xl border border-border bg-card/50 hover:border-primary/40 hover:bg-card transition-all"
+          style={{ animationDelay: `${i * 30}ms` }}
+        >
+          <StarFour size={10} className="text-primary mt-1 shrink-0" />
+          <span className="text-xs md:text-sm leading-snug">{f}</span>
         </li>
       ))}
     </ul>
-
-    <a
-      href={contactWhatsAppLink}
-      target="_blank"
-      rel="noopener noreferrer"
-      className={`group/cta ${plan.highlighted ? "btn-cta" : "btn-cta-soft"} w-full`}
-    >
-      {plan.cta}
-      <ArrowRight className="w-4 h-4 transition-transform duration-300 group-hover/cta:translate-x-1" />
-    </a>
   </div>
-  );
-};
+);
+
+const CategoryHeader = ({
+  eyebrow,
+  title,
+  subtitle,
+  image,
+}: {
+  eyebrow: string;
+  title: React.ReactNode;
+  subtitle: string;
+  image: string;
+}) => (
+  <div className="relative overflow-hidden rounded-2xl md:rounded-3xl border border-border mb-8 md:mb-12">
+    <img src={image} alt="" className="absolute inset-0 w-full h-full object-cover opacity-40" loading="lazy" />
+    <div className="absolute inset-0 bg-gradient-to-r from-background via-background/85 to-background/30" />
+    <div className="relative p-5 md:p-10 lg:p-14">
+      <p className="font-mono text-[10px] md:text-xs uppercase tracking-[0.4em] text-primary mb-3 md:mb-5">
+        {eyebrow}
+      </p>
+      <h3 className="font-display text-2xl md:text-5xl lg:text-6xl leading-[0.95] max-w-2xl">{title}</h3>
+      <p className="text-sm md:text-base text-muted-foreground mt-3 md:mt-5 max-w-xl leading-relaxed">{subtitle}</p>
+    </div>
+  </div>
+);
+
+const BentoGrid = ({ tiles, ctaLabel }: { tiles: BentoTile[]; ctaLabel: string }) => (
+  <div className="grid grid-cols-6 md:grid-cols-8 auto-rows-min gap-2 md:gap-3">
+    {tiles.map((tile, i) => {
+      const inner = (
+        <>
+          <img
+            src={tile.image}
+            alt={tile.name}
+            loading="lazy"
+            className="absolute inset-0 w-full h-full object-cover transition-transform duration-[1.2s] group-hover:scale-110"
+          />
+          <div className="absolute inset-0 bg-gradient-to-t from-background via-background/40 to-transparent" />
+          <div
+            className="absolute inset-0 opacity-0 group-hover:opacity-100 transition-opacity"
+            style={{ background: "linear-gradient(135deg, hsl(348 78% 36% / 0.4), transparent 70%)" }}
+          />
+          <div className="absolute inset-0 p-3 md:p-5 flex flex-col justify-between">
+            <div className="flex items-start justify-between gap-2">
+              <StarFour size={10} className="text-primary/80 mt-0.5" />
+              {tile.badge && (
+                <span className="text-[8px] md:text-[10px] font-mono uppercase tracking-widest px-2 py-0.5 rounded-full bg-primary/20 text-primary border border-primary/40 backdrop-blur whitespace-nowrap">
+                  {tile.badge}
+                </span>
+              )}
+            </div>
+            <div>
+              <h4
+                className={`font-display leading-tight ${
+                  tile.size === "lg" ? "text-xl md:text-3xl" : "text-sm md:text-lg"
+                }`}
+              >
+                {tile.name}
+              </h4>
+              <p
+                className={`text-muted-foreground mt-1 leading-snug ${
+                  tile.size === "lg" ? "text-xs md:text-sm max-w-[85%]" : "text-[10px] md:text-xs hidden md:block"
+                }`}
+              >
+                {tile.desc}
+              </p>
+              <span className="mt-2 inline-flex items-center gap-1 text-[9px] md:text-[10px] font-mono uppercase tracking-widest text-primary opacity-0 group-hover:opacity-100 transition-opacity">
+                {ctaLabel} <ArrowRight className="w-3 h-3" />
+              </span>
+            </div>
+          </div>
+        </>
+      );
+
+      const className = `group relative overflow-hidden rounded-xl md:rounded-2xl border border-border hover:border-primary/60 transition-all ${sizeClasses[tile.size]}`;
+      const style = { animationDelay: `${i * 60}ms` } as React.CSSProperties;
+
+      if (tile.internal && tile.href) {
+        return (
+          <Link key={tile.name} to={tile.href} className={className} style={style}>
+            {inner}
+          </Link>
+        );
+      }
+      return (
+        <a
+          key={tile.name}
+          href={tile.href ?? wa}
+          target={tile.href ? undefined : "_blank"}
+          rel={tile.href ? undefined : "noopener noreferrer"}
+          className={className}
+          style={style}
+        >
+          {inner}
+        </a>
+      );
+    })}
+  </div>
+);
+
+/* ---------- MAIN ---------- */
 
 const PricingSection = () => {
   const { ref, isVisible } = useScrollAnimation();
+  const [active, setActive] = useState<Category>("sites");
+
+  const tabs: { key: Category; label: string }[] = [
+    { key: "sites", label: "Siti Web" },
+    { key: "monthly", label: "Canoni Mensili" },
+    { key: "extra", label: "Servizi Extra" },
+  ];
 
   return (
     <section id="prezzi" className="section-padding relative overflow-hidden scroll-mt-24">
-      <div className="hidden md:block absolute top-0 left-1/2 -translate-x-1/2 w-[800px] h-[800px] bg-primary/12 rounded-full blur-[250px]" />
+      {/* Atmosphere */}
+      <div className="hidden md:block absolute top-0 left-1/2 -translate-x-1/2 w-[900px] h-[900px] bg-primary/8 rounded-full blur-[280px] animate-pulse-slow" />
+      <div className="hidden md:block absolute bottom-0 right-0 w-[600px] h-[600px] bg-accent/10 rounded-full blur-[220px] animate-float" />
 
-      <div className="container mx-auto relative z-10" ref={ref}>
-        {/* Sezione 1 — Creazione sito */}
-        <div id="siti-web" className={`scroll-mt-24 text-center mb-10 md:mb-14 transition-all duration-700 ${isVisible ? "opacity-100 translate-y-0" : "opacity-0 translate-y-8"}`}>
-          <div className="red-line mx-auto mb-4" />
-          <h2 className="text-2xl md:text-4xl font-black mb-3">
-            Scegli la <span className="text-gradient">soluzione giusta</span> per la tua attività
+      <div className="container mx-auto relative z-10 px-4 md:px-8" ref={ref}>
+        {/* Hero header */}
+        <div
+          className={`text-center mb-8 md:mb-14 transition-all duration-700 ${
+            isVisible ? "opacity-100 translate-y-0" : "opacity-0 translate-y-8"
+          }`}
+        >
+          <p className="eyebrow mx-auto justify-center mb-3 md:mb-4">III — La Forgia</p>
+          <h2 className="text-3xl md:text-6xl font-black mb-3 md:mb-4 tracking-tight">
+            Scegli il tuo <span className="text-gradient">percorso</span>
           </h2>
-          <p className="text-muted-foreground max-w-xl mx-auto text-sm md:text-base">
-            Siti pensati per attirare nuovi clienti e migliorare la tua presenza online.
+          <p className="text-muted-foreground max-w-xl mx-auto text-sm md:text-base px-2">
+            Tutto chiaro, tutto a tuo nome. Nessun template, nessuna sorpresa in fattura.
           </p>
         </div>
 
-        <div className="grid md:grid-cols-3 gap-4 md:gap-6 max-w-5xl mx-auto mb-16 md:mb-24">
-          {sitePlans.map((plan, i) => (
-            <PlanCard key={plan.name} plan={plan} delay={i * 120} isVisible={isVisible} />
+        {/* Tabs */}
+        <div className="flex justify-center gap-1.5 md:gap-3 mb-8 md:mb-14 -mx-4 md:mx-0 px-4 md:px-0 overflow-x-auto no-scrollbar">
+          {tabs.map((tab) => (
+            <button
+              key={tab.key}
+              onClick={() => setActive(tab.key)}
+              className={`relative px-4 md:px-7 py-2 md:py-3 rounded-full text-[11px] md:text-sm font-bold uppercase tracking-wider transition-all duration-300 whitespace-nowrap ${
+                active === tab.key
+                  ? "bg-primary text-primary-foreground shadow-[0_0_30px_-4px_hsl(var(--primary)/0.5)]"
+                  : "bg-card border border-border text-muted-foreground hover:text-foreground hover:border-primary/30"
+              }`}
+            >
+              {tab.label}
+              {active === tab.key && (
+                <span className="absolute inset-0 rounded-full border border-primary/30 animate-pulse pointer-events-none" />
+              )}
+            </button>
           ))}
         </div>
 
-        {/* Sezione 2 — Gestione mensile */}
-        <div id="gestione-sito" className={`scroll-mt-24 text-center mb-8 md:mb-12 transition-all duration-700 ${isVisible ? "opacity-100 translate-y-0" : "opacity-0 translate-y-8"}`}>
-          <h2 className="text-2xl md:text-4xl font-black mb-3">
-            Mantieni il tuo sito <span className="text-gradient">sempre aggiornato</span>
-          </h2>
-          <p className="text-muted-foreground max-w-xl mx-auto text-sm md:text-base">
-            Pensiamo a tutto noi, così tu puoi concentrarti sul tuo lavoro.
-          </p>
-        </div>
+        {/* ===== SITES ===== */}
+        {active === "sites" && (
+          <div className="animate-rise">
+            <CategoryHeader
+              eyebrow="III.A — Costruzione"
+              title={<>Ogni progetto<br/><span className="text-gradient-pink">una vetta diversa.</span></>}
+              subtitle="Dalla landing a una pagina al sito multi-sezione: ti costruisco esattamente quello che serve alla tua attività, niente di più, niente di meno."
+              image={planSites}
+            />
+            <BentoGrid tiles={siteTiles} ctaLabel="Richiedi" />
+            <IncludedGrid items={sitesIncluded} title="Tutto questo è sempre incluso" />
+          </div>
+        )}
 
-        <div className="grid md:grid-cols-3 gap-4 md:gap-6 max-w-5xl mx-auto mb-16 md:mb-24">
-          {managementPlans.map((plan, i) => (
-            <PlanCard key={plan.name} plan={plan} delay={i * 120} isVisible={isVisible} />
-          ))}
-        </div>
+        {/* ===== MONTHLY ===== */}
+        {active === "monthly" && (
+          <div className="animate-rise">
+            <CategoryHeader
+              eyebrow="IV — L'Ascesa"
+              title={<>Crescere<br/><span className="text-gradient-pink">non è un evento.</span></>}
+              subtitle="Il sito è solo l'inizio. Con un canone mensile lo mantengo veloce, sicuro e in costante crescita su Google e sui social."
+              image={planMonthly}
+            />
+            <BentoGrid tiles={monthlyTiles} ctaLabel="Richiedi" />
+            <IncludedGrid items={monthlyIncluded} title="Cosa puoi avere ogni mese" />
+          </div>
+        )}
 
-        {/* Sezione 3 — QR Code */}
-        <div id="qr-code" className={`scroll-mt-24 text-center mb-8 md:mb-12 transition-all duration-700 ${isVisible ? "opacity-100 translate-y-0" : "opacity-0 translate-y-8"}`}>
-          <h2 className="text-2xl md:text-4xl font-black mb-3">
-            Più recensioni e clienti con i <span className="text-gradient">QR Code</span>
-          </h2>
-          <p className="text-muted-foreground max-w-xl mx-auto text-sm md:text-base">
-            Uno strumento semplice per portare i clienti esattamente dove vuoi tu.
-          </p>
-        </div>
+        {/* ===== EXTRA ===== */}
+        {active === "extra" && (
+          <div className="animate-rise">
+            <div className="flex items-end justify-between mb-5 md:mb-8 gap-4">
+              <div>
+                <p className="eyebrow mb-2 md:mb-3">V — Il Kit</p>
+                <h3 className="font-display text-2xl md:text-5xl leading-[0.95]">
+                  Servizi <span className="text-gradient-pink">extra</span>
+                </h3>
+                <p className="text-xs md:text-sm text-muted-foreground mt-2 md:mt-3 max-w-md">
+                  Tutto il resto che ti serve per costruire un brand coerente. Tocca una card per scoprire dettagli, processo e cosa include.
+                </p>
+              </div>
+              <span className="hidden md:block font-mono text-xs uppercase tracking-[0.35em] text-primary/70">
+                {extraTiles.length} servizi
+              </span>
+            </div>
+            <BentoGrid tiles={extraTiles} ctaLabel="Scopri" />
+          </div>
+        )}
 
-        <div className="grid md:grid-cols-2 gap-4 md:gap-6 max-w-3xl mx-auto">
-          {qrPlans.map((plan, i) => (
-            <PlanCard key={plan.name} plan={plan} delay={i * 120} isVisible={isVisible} />
-          ))}
-        </div>
-
-        {/* Sezione 4 — Abbonamenti mensili */}
-        <div id="abbonamenti" className={`scroll-mt-24 text-center mt-20 md:mt-28 mb-8 md:mb-12 transition-all duration-700 ${isVisible ? "opacity-100 translate-y-0" : "opacity-0 translate-y-8"}`}>
-          <div className="red-line mx-auto mb-4" />
-          <h2 className="text-2xl md:text-4xl font-black mb-3">
-            Piani <span className="text-gradient">abbonamento mensile</span>
-          </h2>
-          <p className="text-muted-foreground max-w-xl mx-auto text-sm md:text-base">
-            Gestione completa di social, contenuti e immagine online. Tutto incluso, ogni mese.
-          </p>
-        </div>
-
-        <div className="grid md:grid-cols-3 gap-4 md:gap-6 max-w-5xl mx-auto mb-16 md:mb-24">
-          {subscriptionPlans.map((plan, i) => (
-            <PlanCard key={plan.name} plan={plan} delay={i * 120} isVisible={isVisible} />
-          ))}
-        </div>
-
-        <div id="volantini" className={`scroll-mt-24 text-center mb-8 md:mb-12 transition-all duration-700 ${isVisible ? "opacity-100 translate-y-0" : "opacity-0 translate-y-8"}`}>
-          <h2 className="text-2xl md:text-4xl font-black mb-3">
-            Volantini & <span className="text-gradient">Distribuzione</span>
-          </h2>
-          <p className="text-muted-foreground max-w-xl mx-auto text-sm md:text-base">
-            Creazione, stampa e distribuzione locale gestite in un unico servizio per portare clienti reali alla tua attività.
-          </p>
-        </div>
-
-        {/* Sezione 5 — Servizi extra */}
-        <div id="extra" className={`scroll-mt-24 text-center mb-8 md:mb-12 transition-all duration-700 ${isVisible ? "opacity-100 translate-y-0" : "opacity-0 translate-y-8"}`}>
-          <h2 className="text-2xl md:text-4xl font-black mb-3">
-            Servizi <span className="text-gradient">extra</span>
-          </h2>
-          <p className="text-muted-foreground max-w-xl mx-auto text-sm md:text-base">
-            Aggiungi solo ciò che ti serve, quando ti serve.
-          </p>
-        </div>
-
-        <div className="grid md:grid-cols-3 gap-4 md:gap-6 max-w-5xl mx-auto">
-          {extraServices.map((plan, i) => (
-            <PlanCard key={plan.name} plan={plan} delay={i * 120} isVisible={isVisible} />
-          ))}
-        </div>
-
-        <p className="text-center text-xs md:text-sm text-muted-foreground mt-10 md:mt-14">
-          ⚡ Posti limitati ogni mese — contattaci per fissare la tua consulenza gratuita.
+        <p className="text-center text-xs md:text-sm text-muted-foreground mt-10 md:mt-16 px-4">
+          ⚡ Posti limitati ogni mese — scrivimi per fissare una consulenza gratuita.
         </p>
       </div>
     </section>

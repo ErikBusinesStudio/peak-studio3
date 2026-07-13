@@ -1,23 +1,26 @@
 import { useState } from "react";
-import portfolioGym from "@/assets/portfolio-gym.jpg";
-import portfolioPizzeria from "@/assets/portfolio-pizzeria.jpg";
-import portfolioShop from "@/assets/portfolio-shop.jpg";
-import volantinoImg from "@/assets/service-volantini.jpg";
+import portfolioEriutility from "@/assets/portfolio-eriutility.png.asset.json";
+import portfolioCtsCuvio from "@/assets/portfolio-cts-cuvio.webp.asset.json";
+import portfolioSafetySolutions from "@/assets/portfolio-safety-solutions.png.asset.json";
+import flyerSitoWeb from "@/assets/flyers/flyer-sito-web.jpg";
+import flyerSocialAds from "@/assets/flyers/flyer-social-ads.jpg";
+import flyerBrandIdentity from "@/assets/flyers/flyer-brand-identity.jpg";
+import flyerVolantini from "@/assets/flyers/flyer-volantini.jpg";
 import { ExternalLink, Globe, FileText } from "lucide-react";
 import { useScrollAnimation } from "@/hooks/useScrollAnimation";
 import { useI18n } from "@/contexts/I18nContext";
 
 const sites = [
-  { img: portfolioGym, titleKey: "portfolio.site1.title", catKey: "portfolio.site1.cat", url: "https://cuvio-pizza-hub.lovable.app" },
-  { img: portfolioPizzeria, titleKey: "portfolio.site2.title", catKey: "portfolio.site2.cat", url: "https://e-riutility-reborn.lovable.app" },
-  { img: portfolioShop, titleKey: "portfolio.site3.title", catKey: "portfolio.site3.cat", url: "#" },
+  { img: portfolioEriutility.url, title: "E-Riutility", category: "Mercatino dell'usato", url: "https://e-riutility.it" },
+  { img: portfolioCtsCuvio.url, title: "CTS Cuvio", category: "Centro Turistico Sportivo", url: "https://centrocuvio.it" },
+  { img: portfolioSafetySolutions.url, title: "Safety Solutions", category: " Sicurezza sul lavoro", url: "https://safetysolutionproject.lovable.app" },
 ];
 
 const flyers = [
-  { img: volantinoImg, titleKey: "portfolio.flyer1.title", catKey: "portfolio.flyer1.cat" },
-  { img: volantinoImg, titleKey: "portfolio.flyer2.title", catKey: "portfolio.flyer2.cat" },
-  { img: volantinoImg, titleKey: "portfolio.flyer3.title", catKey: "portfolio.flyer3.cat" },
-  { img: volantinoImg, titleKey: "portfolio.flyer4.title", catKey: "portfolio.flyer4.cat" },
+  { img: flyerSitoWeb, titleKey: "portfolio.flyer1.title", catKey: "portfolio.flyer1.cat" },
+  { img: flyerSocialAds, titleKey: "portfolio.flyer2.title", catKey: "portfolio.flyer2.cat" },
+  { img: flyerBrandIdentity, titleKey: "portfolio.flyer3.title", catKey: "portfolio.flyer3.cat" },
+  { img: flyerVolantini, titleKey: "portfolio.flyer4.title", catKey: "portfolio.flyer4.cat" },
 ];
 
 type Tab = "sites" | "flyers";
@@ -28,7 +31,7 @@ const PortfolioSection = () => {
   const [tab, setTab] = useState<Tab>("sites");
 
   return (
-    <section id="portfolio" className="section-padding bg-card/50 relative overflow-hidden">
+    <section id="portfolio" className="section-padding relative overflow-hidden">
       <div className="hidden md:block absolute top-1/2 right-0 w-[400px] h-[400px] bg-primary/8 rounded-full blur-[180px]" />
       <div className="container mx-auto relative z-10" ref={ref}>
         <div className={`text-center mb-10 md:mb-16 transition-all duration-700 ${isVisible ? "opacity-100 translate-y-0" : "opacity-0 translate-y-8"}`}>
@@ -65,7 +68,7 @@ const PortfolioSection = () => {
           <div key="sites" className="grid grid-cols-1 md:grid-cols-3 gap-4 md:gap-6 animate-fade-in">
             {sites.map((p, i) => (
               <a
-                key={p.titleKey}
+                key={p.title}
                 href={p.url}
                 target="_blank"
                 rel="noopener noreferrer"
@@ -73,14 +76,14 @@ const PortfolioSection = () => {
                 style={{ animation: `fade-in 0.5s ease-out ${i * 100}ms both` }}
               >
                 <div className="relative overflow-hidden">
-                  <img src={p.img} alt={t(p.titleKey)} className="w-full h-40 md:h-56 object-cover group-hover:scale-110 transition-transform duration-700" loading="lazy" width={800} height={512} />
+                  <img src={p.img} alt={p.title} className="w-full h-32 md:h-56 object-cover group-hover:scale-110 transition-transform duration-700" loading="lazy" width={800} height={512} />
                   <div className="absolute inset-0 bg-primary/0 group-hover:bg-primary/20 transition-colors duration-300 flex items-center justify-center">
                     <ExternalLink className="w-8 h-8 text-primary-foreground opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
                   </div>
                 </div>
-                <div className="p-4 md:p-6">
-                  <span className="text-[10px] font-bold text-primary uppercase tracking-[0.2em]">{t(p.catKey)}</span>
-                  <h3 className="font-bold text-base md:text-lg mt-1">{t(p.titleKey)}</h3>
+                <div className="p-3 md:p-6">
+                  <span className="text-[10px] font-bold text-primary uppercase tracking-[0.2em]">{p.category}</span>
+                  <h3 className="font-bold text-sm md:text-lg mt-1">{p.title}</h3>
                 </div>
               </a>
             ))}

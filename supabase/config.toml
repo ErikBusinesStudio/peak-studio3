@@ -20,3 +20,6 @@ verify_jwt = false
 
 [functions.moderate-review]
 verify_jwt = false
+
+[functions.submit-contact]
+verify_jwt = false
