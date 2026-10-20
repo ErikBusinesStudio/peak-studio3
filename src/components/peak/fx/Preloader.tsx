@@ -17,15 +17,15 @@ const Preloader = () => {
   }, [show]);
   if (!show) return null;
   return (
-    <div className="preloader zone-snow fixed inset-0 z-[90] flex flex-col items-center justify-center" role="status" aria-label={c.preloader}>
-      <svg viewBox="-50 -50 100 100" width="96" height="96" aria-hidden className="crystal-form">
+    <div className="preloader pointer-events-none fixed inset-x-0 bottom-8 z-[90] flex flex-col items-center" role="status" aria-label={c.preloader}>
+      <svg viewBox="-50 -50 100 100" width="64" height="64" aria-hidden className="crystal-form">
         {[0, 60, 120].map((r) => (
           <g key={r} transform={`rotate(${r})`}>
             <path d="M0 -42 V42 M-10 -30 L0 -20 L10 -30 M-10 30 L0 20 L10 30" />
           </g>
         ))}
       </svg>
-      <button type="button" onClick={() => setShow(false)} className="hud mt-8 min-h-[44px] rounded-full border border-border px-5 font-semibold">
+      <button type="button" onClick={() => setShow(false)} className="hud pointer-events-auto mt-3 min-h-[44px] rounded-full border border-border bg-[hsl(var(--snow))] px-5 font-semibold">
         {c.skipIntro}
       </button>
     </div>

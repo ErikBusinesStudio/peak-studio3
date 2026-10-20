@@ -1,7 +1,6 @@
 import { FormEvent, useState } from "react";
 import { Link } from "react-router-dom";
 import { CheckCircle2, Loader2, Mail, MessageCircle } from "lucide-react";
-import { supabase } from "@/integrations/supabase/client";
 import { useCopy } from "@/config/copy";
 import { CONTATTI, whatsappUrl } from "@/config/site";
 import { isValidReach } from "@/lib/contact";
@@ -23,6 +22,7 @@ const Contact = () => {
     setErr("");
     setStatus("loading");
     const message = `${f.business ? `[${f.business.trim()}] ` : ""}${f.message.trim()}`;
+    const { supabase } = await import("@/integrations/supabase/client");
     const { error } = await supabase.functions.invoke("submit-contact", {
       body: { name: f.name.trim(), email: f.reach.trim(), message },
     });

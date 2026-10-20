@@ -44,13 +44,14 @@ const Altimeter = () => {
   return (
     <>
       {/* desktop */}
-      <nav aria-label={c.altimeter.label} className="altimeter fixed right-4 top-1/2 z-40 hidden -translate-y-1/2 xl:block">
-        <div className="zone-deep rounded-2xl border border-border p-4 shadow-2xl" style={{ backgroundColor: "hsl(var(--deep-900) / 0.92)" }}>
+      <nav aria-label={c.altimeter.label} className="altimeter fixed right-2 top-1/2 z-40 hidden -translate-y-1/2 xl:block">
+        <div className="zone-deep w-[72px] rounded-2xl border border-border px-2 py-3 shadow-2xl" style={{ backgroundColor: "hsl(var(--deep-900) / 0.92)" }}>
           <p className="hud font-semibold" aria-live="off">
-            <span className="block text-2xl font-semibold tracking-normal">{quota.toLocaleString("it-IT")} m</span>
-            <span className="text-muted-foreground">{temp}</span>
+            <span className="block whitespace-nowrap text-[12px] font-semibold tracking-normal">{quota.toLocaleString("it-IT")} m</span>
+            <span className="whitespace-nowrap text-muted-foreground">{temp}</span>
           </p>
-          <ol className="relative mt-4 space-y-1 border-l border-border pl-3">
+          <p className="mt-2 text-[12px] leading-tight text-[hsl(var(--cyan))]">{CAMPI[active].nome[lang].split(" · ").pop()}</p>
+          <ol className="relative mt-3 space-y-1 border-l border-border pl-2">
             <span aria-hidden className="absolute -left-px bottom-0 w-[2px] bg-[hsl(var(--cyan))] transition-[height] duration-300" style={{ height: `${(quota / QUOTA_MAX) * 100}%` }} />
             {[...CAMPI].reverse().map((cp) => {
               const i = CAMPI.indexOf(cp);
@@ -62,11 +63,11 @@ const Altimeter = () => {
                     onClick={() => scrollToId(cp.id)}
                     aria-current={on ? "location" : undefined}
                     aria-label={`${c.altimeter.goto} ${cp.nome[lang]}, ${cp.quota} m`}
-                    className={`hud flex min-h-[28px] w-full items-center gap-2 rounded px-1 text-left !text-[12px] !tracking-[0.08em] transition-colors ${on ? "font-semibold text-[hsl(var(--cyan))]" : "text-muted-foreground hover:text-foreground"}`}
+                    className={`hud flex min-h-[28px] w-full items-center gap-2 rounded px-0.5 text-left !text-[12px] !tracking-normal transition-colors ${on ? "font-semibold text-[hsl(var(--cyan))]" : "text-muted-foreground hover:text-foreground"}`}
                   >
                     <span aria-hidden className={`h-1.5 w-1.5 rotate-45 ${on ? "bg-[hsl(var(--cyan))]" : "bg-current"}`} />
-                    <span className="w-12 tabular-nums">{cp.quota}</span>
-                    <span className="max-w-[150px] truncate">{cp.nome[lang]}</span>
+                    <span className="tabular-nums">{cp.quota}</span>
+                    
                   </button>
                 </li>
               );

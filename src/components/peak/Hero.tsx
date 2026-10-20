@@ -15,8 +15,10 @@ const Hero = () => {
 
   // effetti caricati dopo il primo disegno: il titolo resta subito visibile (LCP)
   useEffect(() => {
-    const id = window.setTimeout(() => setFx(true), 300);
-    return () => window.clearTimeout(id);
+    const start = () => setFx(true);
+    const id = window.setTimeout(start, 2500);
+    window.addEventListener("pointermove", start, { once: true });
+    return () => { window.clearTimeout(id); window.removeEventListener("pointermove", start); };
   }, []);
 
   return (
@@ -47,7 +49,7 @@ const Hero = () => {
           <span aria-hidden className="h-2 w-2 rotate-45 bg-[hsl(var(--cyan))] ring-1 ring-[hsl(var(--glacier-700))]" />
           {c.hero.hud}
         </p>
-        <h1 id="hero-title" className="giant ice-text ice-filter -ml-[0.04em]">
+        <h1 id="hero-title" className="giant ice-text ice-filter -ml-[0.04em] !text-[clamp(3.25rem,10.5vw,10rem)]">
           <span className="block">{c.hero.l1}</span>
           <span className="block">{c.hero.l2}</span>
         </h1>

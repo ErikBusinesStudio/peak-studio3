@@ -25,8 +25,7 @@ const Marquee = () => {
         const half = el.scrollWidth / 2;
         if (x <= -half) x += half;
         if (x > 0) x -= half;
-        el.style.transform = `translate3d(${x}px,0,0) skewX(${dir * -vel * 0.35}deg)`;
-        el.style.fontVariationSettings = `"wdth" ${Math.max(75, 100 - vel * 0.6)}`;
+        el.style.transform = `translate3d(${x}px,0,0) skewX(${dir * -vel * 0.35}deg) scaleX(${1 + vel * 0.006})`;
       }
       raf = requestAnimationFrame(loop);
     };
