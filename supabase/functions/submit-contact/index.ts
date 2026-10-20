@@ -21,7 +21,9 @@ function validate(body: unknown): ContactPayload | string {
   const email = typeof b.email === 'string' ? b.email.trim() : ''
   const message = typeof b.message === 'string' ? b.message.trim() : ''
   if (!name || name.length > 200) return 'Nome non valido'
-  if (!email || email.length > 320 || !/^\S+@\S+\.\S+$/.test(email)) return 'Email non valida'
+  const isEmail = /^\S+@\S+\.\S+$/.test(email)
+  const isPhone = /^\+?[\d\s().-]{6,20}$/.test(email) && email.replace(/\D/g, '').length >= 6
+  if (!email || email.length > 320 || (!isEmail && !isPhone)) return 'Telefono o email non validi'
   if (!message || message.length > 4000) return 'Messaggio non valido'
   return { name, email, message }
 }

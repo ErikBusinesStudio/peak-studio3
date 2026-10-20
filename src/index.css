@@ -303,3 +303,50 @@
     box-shadow: 0 8px 28px -6px hsl(348 78% 36% / 0.45);
   }
 }
+/* ===== Peak Studio: effetti ===== */
+.skip-link { position: fixed; left: 12px; top: -80px; z-index: 200; padding: 12px 18px; border-radius: 999px; background: hsl(var(--deep-900)); color: hsl(var(--ink-dark)); font-weight: 600; transition: top .2s; }
+.skip-link:focus { top: 12px; }
+.nav-link { position: relative; }
+.nav-link::after { content: ""; position: absolute; left: 0; right: 0; bottom: -4px; height: 2px; background: hsl(var(--glacier-700)); transform: scaleX(0); transform-origin: left; transition: transform .3s; }
+.nav-link:hover::after, .nav-link:focus-visible::after { transform: scaleX(1); }
+.ice-filter { filter: url(#ice-distort); }
+@media (prefers-reduced-motion: reduce) { .ice-filter { filter: none; } }
+.reveal { opacity: 0; transform: translateY(24px); transition: opacity .8s cubic-bezier(.2,.8,.2,1), transform .8s cubic-bezier(.2,.8,.2,1); }
+.reveal.is-in { opacity: 1; transform: none; }
+.frost-btn { overflow: hidden; }
+.frost-btn .frost-crystals { position: absolute; inset: 0; border-radius: inherit; pointer-events: none; opacity: 0; transition: opacity .3s;
+  box-shadow: inset 0 0 0 2px hsl(var(--cyan) / .8), inset 0 0 18px hsl(0 0% 100% / .5);
+  background: radial-gradient(circle at 12% 30%, hsl(0 0% 100% / .9) 0 1.5px, transparent 2px), radial-gradient(circle at 80% 70%, hsl(0 0% 100% / .9) 0 1.5px, transparent 2px), radial-gradient(circle at 55% 15%, hsl(0 0% 100% / .8) 0 1px, transparent 1.5px); }
+.frost-btn:hover .frost-crystals, .frost-btn:focus-visible .frost-crystals { opacity: 1; }
+.frost-btn.shatter { animation: shatter .3s ease-in forwards; }
+@keyframes shatter { 0% { clip-path: polygon(0 0,100% 0,100% 100%,0 100%); } 50% { clip-path: polygon(0 0,45% 10%,100% 0,90% 55%,100% 100%,50% 85%,0 100%,10% 45%); } 100% { clip-path: polygon(0 0,100% 0,100% 100%,0 100%); } }
+.ice-card { transform-style: preserve-3d; will-change: transform; }
+.ice-card-img { filter: blur(6px) saturate(.9); transform: scale(1.08); transition: filter .6s, transform .6s; }
+.ice-card:hover .ice-card-img { filter: none; transform: scale(1); }
+.ice-card-shine { position: absolute; inset: 0; pointer-events: none; opacity: 0; transition: opacity .3s; background: radial-gradient(circle at var(--mx,50%) var(--my,50%), hsl(0 0% 100% / .55), transparent 45%); mix-blend-mode: soft-light; }
+.ice-card:hover .ice-card-shine { opacity: 1; }
+.lantern-on { box-shadow: 0 0 0 2px hsl(var(--glacier-700)), 0 20px 50px -15px hsl(var(--cyan) / .7); }
+.lantern-on .lantern { box-shadow: 0 0 24px hsl(var(--cyan) / .9); }
+.ripple { animation: ripple 2s ease-out infinite; transform-origin: 120px 245px; }
+@keyframes ripple { from { transform: scale(.5); opacity: 1; } to { transform: scale(2.4); opacity: 0; } }
+.core-layer { border-color: hsl(0 0% 100% / .2); background:
+  repeating-linear-gradient(180deg, hsl(0 0% 100% / .06) 0 2px, transparent 2px 22px),
+  linear-gradient(90deg, hsl(216 60% 30% / .9), hsl(209 70% 45% / .5) 50%, hsl(216 60% 30% / .9)); box-shadow: inset 0 0 40px hsl(var(--cyan) / .15); }
+.crevasse-edge { clip-path: polygon(0 30%,6% 10%,12% 40%,19% 5%,27% 35%,33% 12%,41% 45%,48% 8%,55% 38%,63% 0,70% 32%,77% 10%,84% 42%,91% 6%,100% 28%,100% 100%,0 100%); }
+.aurora-layer { position: absolute; inset: -20%; pointer-events: none; opacity: .55; filter: blur(60px);
+  background: radial-gradient(40% 30% at 20% 20%, hsl(var(--cyan) / .55), transparent), radial-gradient(35% 25% at 70% 10%, hsl(var(--glacier-500) / .6), transparent), radial-gradient(30% 20% at 50% 40%, hsl(0 0% 100% / .25), transparent);
+  animation: aurora 18s ease-in-out infinite alternate; }
+@keyframes aurora { to { transform: translate3d(6%, 4%, 0) rotate(6deg) scale(1.1); } }
+.stars { position: absolute; inset: 0; pointer-events: none; opacity: .7;
+  background-image: radial-gradient(1px 1px at 10% 20%, #fff, transparent), radial-gradient(1px 1px at 30% 70%, #fff, transparent), radial-gradient(1.5px 1.5px at 55% 25%, #fff, transparent), radial-gradient(1px 1px at 75% 60%, #fff, transparent), radial-gradient(1.5px 1.5px at 90% 15%, #fff, transparent), radial-gradient(1px 1px at 45% 90%, #fff, transparent); background-size: 400px 300px; }
+.has-crystal-cursor, .has-crystal-cursor * { cursor: none !important; }
+.crystal-cursor { position: fixed; left: -7px; top: -7px; width: 14px; height: 14px; background: hsl(var(--cyan)); border: 2px solid hsl(var(--deep-900)); box-shadow: 0 0 12px hsl(var(--cyan)); }
+.crack { position: fixed; transform: translate(-60px,-60px); animation: crackfade 1.5s ease-out forwards; }
+.crack path { fill: none; stroke: hsl(var(--glacier-500)); stroke-width: 1.5; stroke-dasharray: 80; stroke-dashoffset: 80; animation: crackdraw .3s ease-out forwards; }
+@keyframes crackdraw { to { stroke-dashoffset: 0; } }
+@keyframes crackfade { 0%,40% { opacity: 1; } 100% { opacity: 0; } }
+.preloader { animation: prefade 1.2s ease forwards; }
+@keyframes prefade { 0%,80% { opacity: 1; } 100% { opacity: 0; visibility: hidden; } }
+.crystal-form path { fill: none; stroke: hsl(var(--glacier-700)); stroke-width: 3; stroke-linecap: round; stroke-dasharray: 120; stroke-dashoffset: 120; animation: crackdraw .9s ease-out forwards; }
+.shake { animation: shake .4s linear 7; }
+@keyframes shake { 25% { transform: translate(2px,-1px); } 50% { transform: translate(-2px,1px); } 75% { transform: translate(1px,2px); } }
