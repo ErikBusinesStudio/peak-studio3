@@ -1,7 +1,6 @@
 import { lazy, Suspense } from "react";
 import { BrowserRouter, Navigate, Route, Routes } from "react-router-dom";
 import { Toaster as Sonner } from "@/components/ui/sonner";
-import { TooltipProvider } from "@/components/ui/tooltip";
 import { I18nProvider } from "@/contexts/I18nContext";
 import Index from "./pages/Index.tsx";
 
@@ -10,8 +9,7 @@ const Legal = lazy(() => import("./pages/Legal.tsx"));
 const Unsubscribe = lazy(() => import("./pages/Unsubscribe.tsx"));
 
 const App = () => (
-  <TooltipProvider>
-    <I18nProvider>
+  <I18nProvider>
       <Sonner />
       <BrowserRouter>
         <Suspense fallback={null}>
@@ -27,7 +25,6 @@ const App = () => (
         </Suspense>
       </BrowserRouter>
     </I18nProvider>
-  </TooltipProvider>
 );
 
 export default App;
