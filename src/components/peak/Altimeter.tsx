@@ -47,8 +47,8 @@ const Altimeter = () => {
       <nav aria-label={c.altimeter.label} className="altimeter fixed right-2 top-1/2 z-40 hidden -translate-y-1/2 xl:block">
         <div className="zone-deep w-[72px] rounded-2xl border border-border px-2 py-3 shadow-2xl" style={{ backgroundColor: "hsl(var(--deep-900) / 0.92)" }}>
           <p className="hud font-semibold" aria-live="off">
-            <span className="block text-[13px] font-semibold tracking-normal">{quota.toLocaleString("it-IT")} m</span>
-            <span className="text-muted-foreground">{temp}</span>
+            <span className="block whitespace-nowrap text-[12px] font-semibold tracking-normal">{quota.toLocaleString("it-IT")} m</span>
+            <span className="whitespace-nowrap text-muted-foreground">{temp}</span>
           </p>
           <p className="mt-2 text-[12px] leading-tight text-[hsl(var(--cyan))]">{CAMPI[active].nome[lang].split(" · ").pop()}</p>
           <ol className="relative mt-3 space-y-1 border-l border-border pl-2">
