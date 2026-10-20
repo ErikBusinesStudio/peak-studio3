@@ -7,7 +7,7 @@ import Services from "@/components/peak/Services";
 import Process from "@/components/peak/Process";
 import Works from "@/components/peak/Works";
 import Pricing from "@/components/peak/Pricing";
-import About from "@/components/peak/About";
+import Me from "@/components/peak/Me";
 import Faq from "@/components/peak/Faq";
 import Contact from "@/components/peak/Contact";
 import Footer from "@/components/peak/Footer";
@@ -51,7 +51,7 @@ const Index = () => {
         )}
         <Pricing />
         <Crevasse from="zone-mid" to="zone-deep" />
-        <About />
+        <Me />
         <Faq />
         <Contact />
       </main>

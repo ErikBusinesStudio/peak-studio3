@@ -69,7 +69,7 @@ export const COPY = {
       maint: "Manutenzione",
       perMonth: "/mese",
     },
-    about: {
+    me: {
       kicker: "Cresta",
       title: "Chi sono",
       p1: "Sono Erik, fondatore di Peak Studio. Progetto siti per attività locali in provincia di Varese.",
@@ -133,7 +133,7 @@ export const COPY = {
       description: "Fast, carefully crafted websites for workshops, hotels, professional firms and shops in the province of Varese. Free quote on WhatsApp.",
     },
     skip: "Skip to content",
-    nav: { servizi: "Services", lavori: "Work", prezzi: "Pricing", chi: "About me", contatti: "Contact", menu: "Open menu", close: "Close menu", nav: "Main navigation", lang: "Change language", home: "Peak Studio, back to top" },
+    nav: { servizi: "Services", lavori: "Work", prezzi: "Pricing", chi: "Who I am", contatti: "Contact", menu: "Open menu", close: "Close menu", nav: "Main navigation", lang: "Change language", home: "Peak Studio, back to top" },
     cta: { primary: "Let's talk about your project", secondary: "See the work", header: "Let's talk" },
     hero: {
       l1: "Your website.",
@@ -169,7 +169,7 @@ export const COPY = {
       steps: [
         { t: "You write to me", d: "On WhatsApp or via the form: in 5 minutes I understand what you need." },
         { t: "I build the site", d: `Tailor-made, fast, optimised to be found and to bring contacts. Delivered in ${g} days from your material.` },
-        { t: "You go live", d: "Your site keeps working even when you're closed." },
+        { t: "You are online", d: "Your site keeps working even when you're closed." },
       ],
     },
     works: {
@@ -192,11 +192,11 @@ export const COPY = {
       maint: "Maintenance",
       perMonth: "/month",
     },
-    about: {
+    me: {
       kicker: "Ridge",
-      title: "About me",
+      title: "Who I am",
       p1: "I'm Erik, founder of Peak Studio. I design websites for local businesses in the province of Varese.",
-      p2: "I work alone, so you always talk to me: from the first message to going live, and after.",
+      p2: "I work alone, so you always talk to me: from the first message to being online, and after.",
       photo: "Photo of Erik coming soon",
     },
     faq: {
