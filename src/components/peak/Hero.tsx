@@ -47,7 +47,7 @@ const Hero = () => {
           <span aria-hidden className="h-2 w-2 rotate-45 bg-[hsl(var(--cyan))] ring-1 ring-[hsl(var(--glacier-700))]" />
           {c.hero.hud}
         </p>
-        <h1 id="hero-title" className="giant ice-text ice-filter -ml-[0.04em]">
+        <h1 id="hero-title" className="giant ice-text ice-filter -ml-[0.04em] !text-[clamp(3.25rem,10.5vw,10rem)]">
           <span className="block">{c.hero.l1}</span>
           <span className="block">{c.hero.l2}</span>
         </h1>

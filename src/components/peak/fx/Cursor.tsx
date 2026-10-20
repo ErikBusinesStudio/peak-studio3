@@ -46,7 +46,7 @@ const Cursor = () => {
 
   return (
     <div aria-hidden className="pointer-events-none fixed inset-0 z-[100]">
-      <div ref={dot} className="crystal-cursor" />
+      <div ref={dot} className="crystal-cursor" style={{ transform: "translate(-100px,-100px)" }} />
       {cracks.map((k) => (
         <svg key={k.id} className="crack" style={{ left: k.x, top: k.y }} width="120" height="120" viewBox="-60 -60 120 120">
           {k.paths.map((d, i) => (
