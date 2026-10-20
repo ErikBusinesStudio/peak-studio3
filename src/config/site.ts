@@ -140,7 +140,7 @@ export const CAMPI = [
   { id: "processo", quota: 1900, nome: { it: "Campo 2 · Processo", en: "Camp 2 · Process" } },
   { id: "lavori", quota: 2400, nome: { it: "Campo 3 · Lavori", en: "Camp 3 · Work" } },
   { id: "prezzi", quota: 2900, nome: { it: "Campo 4 · Prezzi", en: "Camp 4 · Pricing" } },
-  { id: "chi-sono", quota: 3300, nome: { it: "Cresta · Chi sono", en: "Ridge · About me" } },
+  { id: "chi-sono", quota: 3300, nome: { it: "Cresta · Chi sono", en: "Ridge · Who I am" } },
   { id: "faq", quota: 3700, nome: { it: "Anticima · FAQ", en: "Fore-summit · FAQ" } },
   { id: "contatti", quota: 4000, nome: { it: "Vetta · Contatti", en: "Summit · Contact" } },
 ] as const;
