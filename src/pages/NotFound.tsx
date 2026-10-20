@@ -1,23 +1,25 @@
-import { useLocation } from "react-router-dom";
-import { useEffect } from "react";
+import { Link } from "react-router-dom";
+import Header from "@/components/peak/Header";
+import Footer from "@/components/peak/Footer";
+import { useCopy } from "@/config/copy";
+import { usePageMeta } from "@/hooks/peak";
 
 const NotFound = () => {
-  const location = useLocation();
-
-  useEffect(() => {
-    console.error("404 Error: User attempted to access non-existent route:", location.pathname);
-  }, [location.pathname]);
-
+  const { c } = useCopy();
+  usePageMeta(`${c.notFound.title} | Peak Studio`, c.notFound.text);
   return (
-    <div className="flex min-h-screen items-center justify-center bg-muted">
-      <div className="text-center">
-        <h1 className="mb-4 text-4xl font-bold">404</h1>
-        <p className="mb-4 text-xl text-muted-foreground">Oops! Page not found</p>
-        <a href="/" className="text-primary underline hover:text-primary/90">
-          Return to Home
-        </a>
-      </div>
-    </div>
+    <>
+      <Header />
+      <main id="contenuto" tabIndex={-1} className="zone-ice flex min-h-[80vh] items-center pt-24 outline-none">
+        <div className="wrap py-20">
+          <p className="kicker mb-6">404 · ? m</p>
+          <h1 className="giant ice-text">{c.notFound.title}</h1>
+          <p className="mt-8 max-w-xl text-xl">{c.notFound.text}</p>
+          <Link to="/" className="btn btn-primary mt-10">{c.notFound.back}</Link>
+        </div>
+      </main>
+      <Footer />
+    </>
   );
 };
 
