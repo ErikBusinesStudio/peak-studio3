@@ -4,11 +4,8 @@ import { serviceTranslations } from "./i18nServices";
 export type Lang = "it" | "en" | "de" | "fr" | "es";
 
 export const languages: { code: Lang; label: string; flag: string }[] = [
-  { code: "it", label: "Italiano", flag: "🇮🇹" },
-  { code: "en", label: "English", flag: "🇬🇧" },
-  { code: "de", label: "Deutsch", flag: "🇩🇪" },
-  { code: "fr", label: "Français", flag: "🇫🇷" },
-  { code: "es", label: "Español", flag: "🇪🇸" },
+  { code: "it", label: "Italiano", flag: "IT" },
+  { code: "en", label: "English", flag: "EN" },
 ];
 
 // Deep nested translation keys
@@ -1154,8 +1151,20 @@ const I18nContext = createContext<I18nContextType>({
   t: (key: string) => key,
 });
 
+const initialLang = (): Lang => {
+  if (typeof window === "undefined") return "it";
+  const q = new URLSearchParams(window.location.search).get("lang");
+  if (q === "en" || q === "it") return q;
+  const s = window.localStorage.getItem("peak-lang");
+  return s === "en" ? "en" : "it";
+};
+
 export const I18nProvider = ({ children }: { children: ReactNode }) => {
-  const [lang, setLang] = useState<Lang>("it");
+  const [lang, setLangState] = useState<Lang>(initialLang);
+  const setLang = (l: Lang) => {
+    setLangState(l);
+    try { window.localStorage.setItem("peak-lang", l); } catch { /* ignore */ }
+  };
 
   const t = (key: string): string => {
     return (
