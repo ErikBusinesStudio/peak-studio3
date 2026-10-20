@@ -1,6 +1,5 @@
 import { lazy, Suspense } from "react";
 import { BrowserRouter, Navigate, Route, Routes } from "react-router-dom";
-import { Toaster as Sonner } from "@/components/ui/sonner";
 import { I18nProvider } from "@/contexts/I18nContext";
 import Index from "./pages/Index.tsx";
 
@@ -10,7 +9,6 @@ const Unsubscribe = lazy(() => import("./pages/Unsubscribe.tsx"));
 
 const App = () => (
   <I18nProvider>
-      <Sonner />
       <BrowserRouter>
         <Suspense fallback={null}>
           <Routes>

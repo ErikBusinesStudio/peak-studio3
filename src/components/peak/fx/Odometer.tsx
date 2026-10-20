@@ -3,7 +3,8 @@ const Odometer = ({ value, animate = true }: { value: number; animate?: boolean 
   const text = value.toLocaleString("it-IT");
   if (!animate) return <span>{text}</span>;
   return (
-    <span className="inline-flex" aria-label={text}>
+    <span className="inline-flex">
+      <span className="sr-only">{text}</span>
       {text.split("").map((ch, i) =>
         /\d/.test(ch) ? (
           <span key={`${text.length}-${i}`} aria-hidden className="relative inline-block h-[1em] overflow-hidden leading-none">

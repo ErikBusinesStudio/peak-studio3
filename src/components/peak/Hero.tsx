@@ -15,8 +15,10 @@ const Hero = () => {
 
   // effetti caricati dopo il primo disegno: il titolo resta subito visibile (LCP)
   useEffect(() => {
-    const id = window.setTimeout(() => setFx(true), 300);
-    return () => window.clearTimeout(id);
+    const start = () => setFx(true);
+    const id = window.setTimeout(start, 2500);
+    window.addEventListener("pointermove", start, { once: true });
+    return () => { window.clearTimeout(id); window.removeEventListener("pointermove", start); };
   }, []);
 
   return (
