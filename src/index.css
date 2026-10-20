@@ -2,77 +2,147 @@
 @tailwind components;
 @tailwind utilities;
 
+/* Peak Studio — "La scalata di un ghiacciaio" */
 @layer base {
   :root {
-    /* Midnight Ink → Rosso Vino */
-    --background: 338 100% 4%;          /* #130008 */
-    --foreground: 0 0% 98%;
+    --snow: 214 100% 98%;
+    --ice-100: 212 100% 95%;
+    --ice-300: 209 100% 87%;
+    --glacier-500: 210 71% 55%;
+    --glacier-700: 213 79% 37%;
+    --deep-700: 216 78% 25%;
+    --deep-900: 216 78% 13%;
+    --cyan: 191 100% 68%;
+    --ink-light: 215 65% 12%;
+    --ink-dark: 212 100% 96%;
 
-    --card: 338 70% 6%;
-    --card-foreground: 0 0% 98%;
-
-    --popover: 338 70% 6%;
-    --popover-foreground: 0 0% 98%;
-
-    --primary: 348 78% 36%;             /* #A21330 — rosso vino */
+    --background: var(--snow);
+    --foreground: var(--ink-light);
+    --card: 0 0% 100%;
+    --card-foreground: var(--ink-light);
+    --popover: 0 0% 100%;
+    --popover-foreground: var(--ink-light);
+    --primary: var(--glacier-700);
     --primary-foreground: 0 0% 100%;
-
-    --secondary: 338 50% 10%;
-    --secondary-foreground: 0 0% 98%;
-
-    --muted: 338 40% 12%;
-    --muted-foreground: 338 15% 72%;
-
-    --accent: 348 78% 36%;
-    --accent-foreground: 0 0% 100%;
-
-    --destructive: 0 80% 50%;
+    --secondary: var(--ice-100);
+    --secondary-foreground: var(--ink-light);
+    --muted: var(--ice-100);
+    --muted-foreground: 219 35% 31%;
+    --accent: var(--cyan);
+    --accent-foreground: var(--deep-900);
+    --destructive: 0 72% 42%;
     --destructive-foreground: 0 0% 100%;
-
-    --border: 348 35% 16%;
-    --input: 348 35% 16%;
-    --ring: 348 78% 36%;
-
+    --border: 213 45% 82%;
+    --input: 213 45% 72%;
+    --ring: var(--glacier-700);
     --radius: 1rem;
+    --accent-red: var(--glacier-700);
+    --climb: 0;
 
-    --sidebar-background: 338 100% 4%;
-    --sidebar-foreground: 0 0% 98%;
-    --sidebar-primary: 348 78% 36%;
+    --sidebar-background: var(--snow);
+    --sidebar-foreground: var(--ink-light);
+    --sidebar-primary: var(--glacier-700);
     --sidebar-primary-foreground: 0 0% 100%;
-    --sidebar-accent: 338 50% 10%;
-    --sidebar-accent-foreground: 0 0% 98%;
-    --sidebar-border: 338 40% 14%;
-    --sidebar-ring: 348 78% 36%;
+    --sidebar-accent: var(--ice-100);
+    --sidebar-accent-foreground: var(--ink-light);
+    --sidebar-border: 213 45% 82%;
+    --sidebar-ring: var(--glacier-700);
 
-    --accent-red: 348 78% 42%;
-    --ink: 338 100% 4%;
-    --paper: 0 0% 98%;
-
-    --gradient-brand: linear-gradient(135deg, #130008 0%, #4a0c1c 45%, #A21330 100%);
-    --gradient-text: linear-gradient(135deg, #ffffff 0%, #f0c2c8 55%, #A21330 100%);
-    --gradient-edge: linear-gradient(135deg, #A21330, #6a0f24, #130008);
+    --gradient-brand: linear-gradient(135deg, hsl(var(--glacier-700)), hsl(var(--deep-900)));
+    --gradient-text: linear-gradient(180deg, hsl(var(--ink-light)) 0%, hsl(var(--glacier-700)) 100%);
+    --gradient-ice: linear-gradient(170deg, hsl(var(--ink-light)) 0%, hsl(213 79% 30%) 55%, hsl(var(--glacier-500)) 100%);
+    --shadow-ice: 0 20px 60px -20px hsl(var(--glacier-700) / 0.35);
   }
+
+  /* Zone tematiche: ogni sezione dichiara il proprio fondo e testo (contrasto AA). */
+  .zone-snow { --background: var(--snow); background-color: hsl(var(--snow)); color: hsl(var(--foreground)); }
+  .zone-ice { --background: var(--ice-100); background-color: hsl(var(--ice-100)); color: hsl(var(--foreground)); }
+  .zone-ice-2 { --background: 210 100% 91%; background-color: hsl(210 100% 91%); color: hsl(var(--foreground)); --muted-foreground: 219 40% 27%; }
+  .zone-mid, .zone-deep {
+    --foreground: var(--ink-dark);
+    --card: 216 60% 20%;
+    --card-foreground: var(--ink-dark);
+    --muted: 216 50% 22%;
+    --muted-foreground: 215 57% 85%;
+    --border: 0 0% 100% / 0.2;
+    --input: 0 0% 100% / 0.45;
+    --secondary: 216 50% 22%;
+    --secondary-foreground: var(--ink-dark);
+    --ring: var(--cyan);
+    color: hsl(var(--ink-dark));
+  }
+  .zone-mid { --background: var(--deep-700); background-color: hsl(var(--deep-700)); }
+  .zone-deep { --background: var(--deep-900); background-color: hsl(var(--deep-900)); }
 }
 
 @layer base {
   * { @apply border-border; }
-
+  html { scroll-behavior: smooth; -webkit-text-size-adjust: 100%; }
   body {
     @apply bg-background text-foreground font-sans antialiased;
-    letter-spacing: 0;
-    background-image:
-      radial-gradient(ellipse 1200px 600px at 80% -10%, hsl(348 78% 28% / 0.30), transparent 60%),
-      radial-gradient(ellipse 900px 700px at -10% 90%, hsl(348 70% 22% / 0.22), transparent 60%);
-    background-attachment: fixed;
+    font-size: 17px;
+    line-height: 1.6;
+    overflow-x: hidden;
   }
-
-  h1, h2, h3, h4, h5, h6 {
-    @apply font-display;
-    letter-spacing: -0.025em;
-    line-height: 0.95;
+  @media (min-width: 768px) { body { font-size: 18px; } }
+  h1, h2, h3, h4 { @apply font-display; letter-spacing: -0.03em; line-height: 0.95; }
+  :focus-visible { outline: 3px solid hsl(var(--ring)); outline-offset: 3px; border-radius: 6px; }
+  @media (prefers-reduced-motion: reduce) {
+    html { scroll-behavior: auto; }
+    *, *::before, *::after { animation-duration: 0.01ms !important; animation-iteration-count: 1 !important; transition-duration: 0.01ms !important; }
   }
+}
 
-  html { scroll-behavior: smooth; }
+@layer components {
+  .wrap { @apply mx-auto w-full max-w-[1280px] px-5 md:px-8; }
+  .giant {
+    font-family: "Bricolage Grotesque Variable", system-ui, sans-serif;
+    font-weight: 800;
+    font-size: clamp(3.5rem, 14vw, 13rem);
+    line-height: 0.88;
+    letter-spacing: -0.045em;
+    text-transform: uppercase;
+    overflow-wrap: anywhere;
+  }
+  .section-title {
+    font-family: "Bricolage Grotesque Variable", system-ui, sans-serif;
+    font-weight: 800;
+    font-size: clamp(2.75rem, 11vw, 9rem);
+    line-height: 0.88;
+    letter-spacing: -0.045em;
+    text-transform: uppercase;
+  }
+  .hud { @apply font-mono uppercase; font-size: 12px; letter-spacing: 0.18em; }
+  .surface {
+    @apply rounded-2xl border backdrop-blur-xl;
+    border-color: hsl(0 0% 100% / 0.2);
+    background: hsl(var(--card) / 0.6);
+    box-shadow: var(--shadow-ice);
+  }
+  .zone-snow .surface, .zone-ice .surface, .zone-ice-2 .surface { border-color: hsl(213 45% 78%); background: hsl(0 0% 100% / 0.72); }
+  .btn {
+    @apply relative inline-flex min-h-[52px] items-center justify-center gap-2 whitespace-nowrap rounded-full px-6 text-[15px] font-semibold transition-[transform,box-shadow,background-color] duration-300 md:px-8 md:text-base;
+  }
+  .btn-primary { background: hsl(var(--glacier-700)); color: hsl(0 0% 100%); box-shadow: 0 10px 30px -10px hsl(var(--glacier-700) / 0.6); }
+  .btn-primary:hover { background: hsl(213 79% 32%); }
+  .btn-secondary { @apply border-2; border-color: currentColor; background: transparent; }
+  .btn-secondary:hover { background: hsl(var(--foreground) / 0.08); }
+  .ice-text {
+    background: var(--gradient-ice);
+    -webkit-background-clip: text;
+    background-clip: text;
+    color: transparent;
+  }
+  .kicker { @apply hud inline-flex items-center gap-3 font-semibold; color: hsl(var(--muted-foreground)); }
+  .kicker::before { content: ""; width: 8px; height: 8px; transform: rotate(45deg); background: hsl(var(--cyan)); box-shadow: 0 0 0 1px hsl(var(--glacier-700)); }
+  .field {
+    @apply w-full rounded-xl border bg-transparent px-4 py-3 text-base transition-shadow duration-300;
+    border-color: hsl(var(--input));
+    color: hsl(var(--foreground));
+  }
+  .field::placeholder { color: hsl(var(--muted-foreground)); }
+  .field:focus { outline: none; border-color: hsl(var(--cyan)); box-shadow: 0 0 0 4px hsl(var(--cyan) / 0.25), inset 0 0 18px hsl(var(--cyan) / 0.18); }
+  input[type="range"].slider { accent-color: hsl(var(--glacier-700)); width: 100%; height: 32px; }
 }
 
 @layer utilities {
