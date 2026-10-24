@@ -5,7 +5,7 @@ import { ADDON, ADDON_CATEGORIE, DATI_LEGALI, MANUTENZIONE, PIANI, totalePrevent
 import SectionHead from "./SectionHead";
 import Cta from "./Cta";
 
-const eur = (n: number) => `${n.toLocaleString("it-IT")} €`;
+const eur = (n: number | null | undefined) => (n == null ? "" : `${n.toLocaleString("it-IT")} €`);
 const ADDON_ICONS: Record<string, typeof Check> = {
   gbp: MapPin, seo: Search, analytics: BarChart3, copy: PenLine, lingua: Languages, foto: ImageIcon,
   prenotazioni: CalendarCheck, moduli: ClipboardList, newsletter: Mail, migrazione: Repeat, automazioni: Workflow,
