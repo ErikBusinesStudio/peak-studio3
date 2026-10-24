@@ -63,7 +63,7 @@ const Footer = () => {
         <div className="md:col-span-5">
           <img src={logoLight} alt="Peak Studio" width={320} height={136} loading="lazy" className="h-10 w-auto" />
           <p className="mt-4 text-sm text-muted-foreground">
-            {DATI_LEGALI.ditta} · {DATI_LEGALI.sede} · P.IVA {DATI_LEGALI.piva}
+            {DATI_LEGALI.ditta}
           </p>
           <p className="mt-1 text-sm text-muted-foreground">
             <a href={`mailto:${CONTATTI.email}`} className="underline underline-offset-4">{CONTATTI.email}</a> · <a href={`tel:${CONTATTI.telefono.replace(/\s/g, "")}`} className="underline underline-offset-4">{CONTATTI.telefono}</a>
