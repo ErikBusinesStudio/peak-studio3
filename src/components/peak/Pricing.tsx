@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { BarChart3, Check, Globe2, ImageIcon, Languages, Mail, MapPin, PenLine, Repeat, Search, CalendarCheck, ClipboardList, Workflow } from "lucide-react";
+import { BarChart3, ChevronDown, Check, Globe2, ImageIcon, Languages, Mail, MapPin, PenLine, Repeat, Search, CalendarCheck, ClipboardList, Workflow } from "lucide-react";
 import { useCopy } from "@/config/copy";
 import { ADDON, ADDON_CATEGORIE, DATI_LEGALI, MANUTENZIONE, PIANI, totalePreventivo } from "@/config/site";
 import SectionHead from "./SectionHead";
@@ -14,6 +14,7 @@ const ADDON_ICONS: Record<string, typeof Check> = {
 const Pricing = () => {
   const { c, lang } = useCopy();
   const [plan, setPlan] = useState("business");
+  const [open, setOpen] = useState(false);
   const [sel, setSel] = useState<string[]>([]);
   const toggle = (id: string) => setSel((s) => (s.includes(id) ? s.filter((x) => x !== id) : [...s, id]));
   const { totale, daDefinire } = totalePreventivo(plan, sel);
@@ -57,10 +58,18 @@ const Pricing = () => {
         </ul>
 
         {/* Componi il preventivo */}
-        <div className="surface mt-8 grid gap-8 p-6 md:p-10 lg:grid-cols-12">
+        <div className="surface mt-8 overflow-hidden">
+          <button type="button" aria-expanded={open} aria-controls="builder-panel" onClick={() => setOpen((o) => !o)} className="flex w-full items-center justify-between gap-4 p-6 text-left md:px-10">
+            <span>
+              <span className="block font-display text-2xl font-extrabold tracking-tight md:text-3xl">{c.pricing.builder}</span>
+              <span className="mt-1 block text-sm text-muted-foreground md:text-base">{c.pricing.builderIntro}</span>
+            </span>
+            <span className="inline-flex h-11 w-11 shrink-0 items-center justify-center rounded-full border border-border">
+              <ChevronDown aria-hidden className={`h-5 w-5 transition-transform duration-300 ${open ? "rotate-180" : ""}`} />
+            </span>
+          </button>
+          <div id="builder-panel" className={`${open ? "grid" : "hidden"} gap-8 border-t border-border p-6 md:p-10 lg:grid-cols-12`}>
           <div className="lg:col-span-8">
-            <h3 className="font-display text-3xl font-extrabold tracking-tight">{c.pricing.builder}</h3>
-            <p className="mt-2 text-muted-foreground">{c.pricing.builderIntro}</p>
 
             <fieldset className="mt-6">
               <legend className="hud mb-3 text-muted-foreground">{c.pricing.plan}</legend>
@@ -92,7 +101,7 @@ const Pricing = () => {
                               <span className="block text-sm text-muted-foreground">{a.desc[lang]}</span>
                             </span>
                             <span className="hud shrink-0 text-right">
-                              {incl ? c.pricing.included : a.prezzo != null ? `+${eur(a.prezzo)}` : c.pricing.onQuote}
+                              {incl ? c.pricing.included : a.prezzo != null ? `+${eur(a.prezzo)}` : c.pricing.soon}
                             </span>
                           </button>
                         </li>
@@ -116,12 +125,13 @@ const Pricing = () => {
                 {sel.map((id) => {
                   const a = ADDON.find((x) => x.id === id)!;
                   if (a.inclusoIn?.includes(plan)) return null;
-                  return <li key={id} className="flex justify-between gap-3 text-muted-foreground"><span>{a.nome[lang]}</span><span>{a.prezzo != null ? eur(a.prezzo) : c.pricing.onQuote}</span></li>;
+                  return <li key={id} className="flex justify-between gap-3 text-muted-foreground"><span>{a.nome[lang]}</span><span>{a.prezzo != null ? eur(a.prezzo) : c.pricing.soon}</span></li>;
                 })}
               </ul>
               <Cta kind="primary" className="mt-6 w-full" />
             </div>
           </aside>
+          </div>
         </div>
 
         <div className="surface mt-5 p-6 md:p-8">

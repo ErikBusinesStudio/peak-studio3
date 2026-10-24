@@ -4,6 +4,9 @@
 import workEriutility from "@/assets/work-eriutility.webp";
 import workCts from "@/assets/work-cts.webp";
 import workSafety from "@/assets/work-safety.webp";
+import workCgcars from "@/assets/work-cgcars.webp";
+import workAdhd from "@/assets/work-adhd.webp";
+import workEvent from "@/assets/work-event.webp";
 import svcVetrina from "@/assets/svc/vetrina.webp";
 import svcLanding from "@/assets/svc/landing.webp";
 import svcLogo from "@/assets/svc/logo.webp";
@@ -167,17 +170,21 @@ export type Caso = {
   categoria: CategoriaPortfolio;
 };
 
-export type CategoriaPortfolio = "vetrina" | "hospitality" | "professionali";
+export type CategoriaPortfolio = "vetrina" | "hospitality" | "professionali" | "personalizzati";
 export const CATEGORIE_PORTFOLIO: { id: CategoriaPortfolio; nome: L }[] = [
   { id: "vetrina", nome: { it: "Siti vetrina", en: "Showcase sites" } },
   { id: "hospitality", nome: { it: "Turismo e tempo libero", en: "Tourism and leisure" } },
   { id: "professionali", nome: { it: "Servizi professionali", en: "Professional services" } },
+  { id: "personalizzati", nome: { it: "Progetti personalizzati", en: "Custom projects" } },
 ];
 
 export const CASI_PORTFOLIO: Caso[] = [
   { id: "eriutility", nome: "E-Riutility", settore: { it: "Mercatino dell'usato", en: "Second-hand shop" }, fatto: { it: "Sito vetrina con catalogo", en: "Showcase site with catalogue" }, anno: null, img: workEriutility, url: "https://e-riutility.it", categoria: "vetrina" },
-  { id: "cts", nome: "CTS Cuvio", settore: { it: "Centro turistico sportivo", en: "Sports and tourism centre" }, fatto: { it: "Sito con attività e contatti", en: "Site with activities and contacts" }, anno: null, img: workCts, url: "https://centrocuvio.it", categoria: "hospitality" },
+  { id: "cgcars", nome: "C.G. Cars", settore: { it: "Concessionaria auto multimarca", en: "Multi-brand car dealer" }, fatto: { it: "Sito vetrina con parco auto e servizi", en: "Showcase site with car stock and services" }, anno: null, img: workCgcars, url: "https://cgcars.it", categoria: "vetrina" },
   { id: "safety", nome: "Safety Solutions", settore: { it: "Sicurezza sul lavoro", en: "Workplace safety" }, fatto: { it: "Sito vetrina dei servizi", en: "Services showcase site" }, anno: null, img: workSafety, url: "https://safetysolutionproject.lovable.app", categoria: "professionali" },
+  { id: "cts", nome: "CTS Cuvio", settore: { it: "Centro turistico sportivo", en: "Sports and tourism centre" }, fatto: { it: "Sito con attività e contatti", en: "Site with activities and contacts" }, anno: null, img: workCts, url: "https://centrocuvio.it", categoria: "hospitality" },
+  { id: "adhd", nome: "ADHD e Biscotti", settore: { it: "Divulgazione e blog", en: "Awareness and blog" }, fatto: { it: "Sito su misura con blog, guida e area riservata", en: "Custom site with blog, guide and members area" }, anno: null, img: workAdhd, url: "https://adhdebiscotti.it", categoria: "personalizzati" },
+  { id: "crv", nome: "CRV · Centro Revisioni Valcuvia", settore: { it: "Revisioni e officina", en: "Vehicle inspections and garage" }, fatto: { it: "Sito dei servizi bilingue con galleria", en: "Bilingual services site with gallery" }, anno: null, img: workEvent, url: "https://eventmotorsport.com", categoria: "professionali" },
 ];
 
 /** Vuoto finché non arrivano recensioni reali: la sezione resta nascosta. */

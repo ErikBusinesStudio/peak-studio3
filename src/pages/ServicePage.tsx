@@ -10,6 +10,7 @@ import { SERVICE_ICONS, ServiceCard } from "@/components/peak/Services";
 import { useCopy } from "@/config/copy";
 import { CASI_PORTFOLIO, SERVIZI } from "@/config/site";
 import { SERVIZI_DETTAGLIO } from "@/config/servizi-dettaglio";
+import { APPROFONDIMENTI } from "@/config/servizi-approfondimenti";
 import { usePageMeta } from "@/hooks/peak";
 
 const ServicePage = () => {
@@ -24,6 +25,7 @@ const ServicePage = () => {
   const t = c.services.page;
   const i = SERVIZI.indexOf(s);
   const Icon = SERVICE_ICONS[s.id];
+  const ap = APPROFONDIMENTI[s.id];
   const dark = d.zone === "zone-mid" || d.zone === "zone-deep";
 
   return (
@@ -90,6 +92,28 @@ const ServicePage = () => {
             </div>
           </div>
         </section>
+
+        {/* APPROFONDIMENTO */}
+        {ap && (
+          <section className="zone-snow py-20 md:py-28">
+            <div className="wrap grid gap-10 lg:grid-cols-3">
+              {([[t.forWho, ap.perChi], [t.youGet, ap.ricevi], [t.iNeed, ap.serve]] as const).map(([title, items], k) => (
+                <div key={k} className={`surface p-6 md:p-8 ${k === 1 ? "lg:row-span-1 ring-1 ring-[hsl(var(--glacier-700)/0.4)]" : ""}`}>
+                  <p className="hud text-muted-foreground">A-0{k + 1}</p>
+                  <h2 className="mt-3 font-display text-2xl font-extrabold tracking-tight md:text-3xl">{title}</h2>
+                  <ul className="mt-5 space-y-3">
+                    {items.map((v) => (
+                      <li key={v.it} className="flex gap-3">
+                        <Check aria-hidden className="mt-1 h-4 w-4 shrink-0 text-[hsl(var(--glacier-700))]" />
+                        <span>{v[lang]}</span>
+                      </li>
+                    ))}
+                  </ul>
+                </div>
+              ))}
+            </div>
+          </section>
+        )}
 
         {/* VANTAGGI */}
         <section className="zone-ice py-20 md:py-28">

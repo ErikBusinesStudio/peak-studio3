@@ -20,7 +20,8 @@ const Works = () => {
   const p = useScrollProgress(outer, "pin");
   const [maxX, setMaxX] = useState(0);
   const drag = useRef<{ x: number; y: number } | null>(null);
-  const n = CASI_PORTFOLIO.length;
+  const HOME = CASI_PORTFOLIO.slice(0, 3);
+  const n = HOME.length;
 
   useEffect(() => {
     const m = () => {
@@ -92,7 +93,7 @@ const Works = () => {
             className="flex w-max gap-5 px-5 md:gap-8 md:px-[max(2rem,calc((100vw-1280px)/2+2rem))]"
             style={{ transform: `translate3d(${-p * maxX}px,0,0)` }}
           >
-            {CASI_PORTFOLIO.map((w, i) => (
+            {HOME.map((w, i) => (
               <li
                 key={w.id}
                 aria-roledescription="slide"
