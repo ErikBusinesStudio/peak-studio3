@@ -49,7 +49,10 @@ export const COPY = {
     marquee: "SITI VETRINA ✦ LANDING PAGE ✦ CURA CONTINUA ✦ SU MISURA ✦",
     services: {
       kicker: "Campo 1", title: "Servizi", intro: "Quello che posso fare per la tua attività, dall'idea alla manutenzione.", open: "Scopri il servizio",
-      page: { crumb: "Servizi", home: "Home", about: "Il servizio", problems: "Cosa risolve", benefits: "Cosa ci guadagni", features: "Cosa può includere", how: "Come lavoriamo", examples: "Esempi", faq: "Domande sul servizio", ctaTitle: "Ne parliamo?", ctaText: "Raccontami cosa ti serve: ti rispondo personalmente con un preventivo chiaro.", related: "Altri servizi", back: "Torna ai servizi", mock: "Anteprima illustrativa" },
+      page: {
+        forWho: "Per chi è",
+        youGet: "Cosa ricevi",
+        iNeed: "Cosa mi serve da te", crumb: "Servizi", home: "Home", about: "Il servizio", problems: "Cosa risolve", benefits: "Cosa ci guadagni", features: "Cosa può includere", how: "Come lavoriamo", examples: "Esempi", faq: "Domande sul servizio", ctaTitle: "Ne parliamo?", ctaText: "Raccontami cosa ti serve: ti rispondo personalmente con un preventivo chiaro.", related: "Altri servizi", back: "Torna ai servizi", mock: "Anteprima illustrativa" },
     },
     process: {
       kicker: "Campo 2",
@@ -217,7 +220,10 @@ export const COPY = {
     marquee: "SHOWCASE SITES ✦ LANDING PAGES ✦ ONGOING CARE ✦ TAILOR-MADE ✦",
     services: {
       kicker: "Camp 1", title: "Services", intro: "What I can do for your business, from idea to maintenance.", open: "Discover the service",
-      page: { crumb: "Services", home: "Home", about: "The service", problems: "What it solves", benefits: "What you gain", features: "What it can include", how: "How we work", examples: "Examples", faq: "Questions about the service", ctaTitle: "Shall we talk?", ctaText: "Tell me what you need: I reply personally with a clear quote.", related: "Other services", back: "Back to services", mock: "Illustrative preview" },
+      page: {
+        forWho: "Who it's for",
+        youGet: "What you get",
+        iNeed: "What I need from you", crumb: "Services", home: "Home", about: "The service", problems: "What it solves", benefits: "What you gain", features: "What it can include", how: "How we work", examples: "Examples", faq: "Questions about the service", ctaTitle: "Shall we talk?", ctaText: "Tell me what you need: I reply personally with a clear quote.", related: "Other services", back: "Back to services", mock: "Illustrative preview" },
     },
     process: {
       kicker: "Camp 2",

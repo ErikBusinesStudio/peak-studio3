@@ -36,12 +36,12 @@ export const ServiceCard = ({ id, i, title, desc, img, cta, big = false }: { id:
       <div className="svc-media">
         <img src={img} alt="" width={1024} height={768} loading="lazy" decoding="async" className="svc-img" />
         <span className="svc-num hud">S-{String(i + 1).padStart(2, "0")}</span>
-        <span className="svc-icon"><Icon aria-hidden className="h-5 w-5" /></span>
+        <span className="svc-icon"><Icon aria-hidden className="h-4 w-4" /></span>
       </div>
-      <div className="relative flex flex-1 flex-col p-6 md:p-7">
-        <h3 className="font-display text-2xl font-extrabold tracking-tight md:text-3xl">{title}</h3>
-        <p className="mt-3 text-muted-foreground">{desc}</p>
-        <span className="svc-cta hud mt-auto pt-6">
+      <div className="relative flex flex-1 flex-col p-5">
+        <h3 className="font-display text-xl font-extrabold tracking-tight md:text-2xl">{title}</h3>
+        <p className="mt-2 text-sm text-muted-foreground">{desc}</p>
+        <span className="svc-cta hud mt-auto pt-4">
           {cta}
           <span className="svc-arrow"><ArrowUpRight aria-hidden className="h-4 w-4" /></span>
         </span>
