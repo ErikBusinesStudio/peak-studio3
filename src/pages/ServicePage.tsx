@@ -18,7 +18,7 @@ const ServicePage = () => {
   const s = SERVIZI.find((x) => x.id === id);
   const d = SERVIZI_DETTAGLIO.find((x) => x.id === id);
   usePageMeta(s ? `${s.titolo[lang]} | Peak Studio` : undefined, d?.sub[lang]);
-  useEffect(() => window.scrollTo(0, 0), [id]);
+  useEffect(() => { window.scrollTo(0, 0); }, [id]);
   if (!s || !d) return <Navigate to="/404" replace />;
 
   const t = c.services.page;

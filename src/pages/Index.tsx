@@ -27,7 +27,7 @@ const Index = () => {
   usePageMeta();
   const reduced = useReducedMotion();
   const [fine, setFine] = useState(false);
-  useEffect(() => setFine(isFinePointer()), []);
+  useEffect(() => { setFine(isFinePointer()); }, []);
   // arrivo da un'altra pagina con /#sezione: scorre alla sezione dopo il primo disegno
   useEffect(() => {
     const id = decodeURIComponent(window.location.hash.slice(1));
