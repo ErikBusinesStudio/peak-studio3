@@ -98,6 +98,9 @@ export const usePageMeta = (title?: string, description?: string) => {
     set('meta[property="og:description"]', d);
     set('meta[name="twitter:description"]', d);
     set('meta[property="og:locale"]', lang === "en" ? "en_GB" : "it_IT");
+    const url = `https://peakstudio.click${window.location.pathname}`;
+    document.querySelector('link[rel="canonical"]')?.setAttribute("href", url);
+    set('meta[property="og:url"]', url);
   }, [t, d, lang]);
 };
 
