@@ -38,9 +38,12 @@ const Contact = () => {
     <section id="contatti" aria-labelledby="contatti-title" className="zone-deep aurora relative overflow-hidden py-24 md:py-32">
       <div aria-hidden className="aurora-layer" />
       <div aria-hidden className="stars" />
-      <div className="wrap relative grid gap-12 lg:grid-cols-12">
-        <div className="lg:col-span-5">
-          <SectionHead id="contatti" kicker={c.contact.kicker} quota={4000} title={c.contact.title} intro={c.contact.intro} />
+      {/* titolo a tutta larghezza sopra la griglia: il modulo non può più coprirlo */}
+      <div className="wrap relative">
+        <SectionHead id="contatti" kicker={c.contact.kicker} quota={4000} title={c.contact.title} intro={c.contact.intro} />
+      </div>
+      <div className="wrap relative grid gap-10 lg:grid-cols-12 lg:gap-12">
+        <div className="lg:col-span-4">
           <a href={whatsappUrl()} target="_blank" rel="noopener noreferrer" className="btn btn-primary">
             <MessageCircle aria-hidden className="h-5 w-5" />
             {c.contact.whatsapp}
@@ -52,7 +55,7 @@ const Contact = () => {
           </p>
         </div>
 
-        <form onSubmit={submit} className="surface space-y-5 p-6 md:p-10 lg:col-span-7" noValidate={false}>
+        <form onSubmit={submit} className="surface space-y-5 p-6 md:p-10 lg:col-span-8" noValidate={false}>
           <div className="grid gap-5 md:grid-cols-2">
             <div>
               <label htmlFor="cf-name" className="mb-2 block font-medium">{c.contact.name}</label>

@@ -1,16 +1,22 @@
 import { useEffect, useRef, useState } from "react";
 import { useCopy } from "@/config/copy";
 import { useReducedMotion, useScrollProgress } from "@/hooks/peak";
+
 import SectionHead from "./SectionHead";
 
 /** "La cordata": la corda si disegna con lo scroll e accende i tre campi. */
 const Process = () => {
   const { c } = useCopy();
   const ref = useRef<HTMLElement>(null);
+  const line = useRef<HTMLDivElement>(null);
   const path = useRef<SVGPathElement>(null);
   const reduced = useReducedMotion();
-  const raw = useScrollProgress(ref, "enter");
-  const p = reduced ? 1 : Math.min(1, Math.max(0, (raw - 0.25) / 0.6));
+  // la linea parte quando il suo blocco arriva al 78% della finestra e finisce al 30%
+  const raw = useScrollProgress(line, "line");
+  // una volta disegnata resta disegnata: niente ripartenze fastidiose
+  const best = useRef(0);
+  best.current = Math.max(best.current, raw);
+  const p = reduced ? 1 : best.current;
   const [len, setLen] = useState(1000);
   const [dot, setDot] = useState({ x: 0, y: 0 });
 
@@ -29,7 +35,7 @@ const Process = () => {
     <section ref={ref} id="processo" aria-labelledby="processo-title" className="zone-snow relative py-24 md:py-32">
       <div className="wrap">
         <SectionHead id="processo" kicker={c.process.kicker} quota={1900} title={c.process.title} />
-        <div className="relative">
+        <div ref={line} className="relative">
           <svg viewBox="0 0 1000 120" preserveAspectRatio="none" aria-hidden className="absolute left-0 right-0 top-6 hidden h-[120px] w-full md:block">
             <path d="M80 60 C 250 0, 350 120, 500 60 S 760 0, 920 60" fill="none" stroke="hsl(var(--border))" strokeWidth="3" strokeDasharray="6 8" />
             <path ref={path} d="M80 60 C 250 0, 350 120, 500 60 S 760 0, 920 60" fill="none" stroke="hsl(var(--glacier-700))" strokeWidth="4" strokeLinecap="round" strokeDasharray={len} strokeDashoffset={len * (1 - p)} />

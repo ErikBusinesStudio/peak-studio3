@@ -50,7 +50,7 @@ export const useRevealOnce = (ref: RefObject<Element>) => {
  * mode "pass": da quando il top entra dal basso a quando il bottom esce in alto.
  * mode "pin": da top=0 a bottom=altezza finestra (per sezioni fissate).
  */
-export const useScrollProgress = (ref: RefObject<HTMLElement>, mode: "pass" | "pin" | "enter" = "pass") => {
+export const useScrollProgress = (ref: RefObject<HTMLElement>, mode: "pass" | "pin" | "enter" | "line" = "pass") => {
   const [p, setP] = useState(0);
   const inView = useInView(ref, "200px");
   useEffect(() => {
@@ -64,6 +64,7 @@ export const useScrollProgress = (ref: RefObject<HTMLElement>, mode: "pass" | "p
       const vh = window.innerHeight;
       let v: number;
       if (mode === "pin") v = -r.top / Math.max(1, r.height - vh);
+      else if (mode === "line") v = (vh * 0.78 - r.top) / (vh * 0.48);
       else if (mode === "enter") v = (vh - r.top) / Math.max(1, r.height * 0.9);
       else v = (vh - r.top) / (vh + r.height);
       setP(Math.min(1, Math.max(0, v)));
