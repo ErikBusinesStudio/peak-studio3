@@ -6,6 +6,13 @@
     <xhtml:link rel="alternate" hreflang="en" href="https://peakstudio.click/?lang=en"/>
     <priority>1.0</priority>
   </url>
+  <url><loc>https://peakstudio.click/portfolio</loc></url>
+  <url><loc>https://peakstudio.click/servizi/vetrina</loc></url>
+  <url><loc>https://peakstudio.click/servizi/landing</loc></url>
+  <url><loc>https://peakstudio.click/servizi/logo</loc></url>
+  <url><loc>https://peakstudio.click/servizi/dominio</loc></url>
+  <url><loc>https://peakstudio.click/servizi/google</loc></url>
+  <url><loc>https://peakstudio.click/servizi/manutenzione</loc></url>
   <url><loc>https://peakstudio.click/privacy</loc></url>
   <url><loc>https://peakstudio.click/cookie</loc></url>
 </urlset>

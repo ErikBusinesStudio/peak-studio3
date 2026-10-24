@@ -28,6 +28,13 @@ const Index = () => {
   const reduced = useReducedMotion();
   const [fine, setFine] = useState(false);
   useEffect(() => setFine(isFinePointer()), []);
+  // arrivo da un'altra pagina con /#sezione: scorre alla sezione dopo il primo disegno
+  useEffect(() => {
+    const id = decodeURIComponent(window.location.hash.slice(1));
+    if (!id) return;
+    const t = window.setTimeout(() => document.getElementById(id)?.scrollIntoView({ block: "start" }), 120);
+    return () => window.clearTimeout(t);
+  }, []);
 
   return (
     <>
