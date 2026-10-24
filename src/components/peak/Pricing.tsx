@@ -68,7 +68,7 @@ const Pricing = () => {
               <ChevronDown aria-hidden className={`h-5 w-5 transition-transform duration-300 ${open ? "rotate-180" : ""}`} />
             </span>
           </button>
-          <div id="builder-panel" hidden={!open} className="grid gap-8 border-t border-border p-6 md:p-10 lg:grid-cols-12">
+          <div id="builder-panel" className={`${open ? "grid" : "hidden"} gap-8 border-t border-border p-6 md:p-10 lg:grid-cols-12`}>
           <div className="lg:col-span-8">
 
             <fieldset className="mt-6">
