@@ -4,6 +4,12 @@
 import workEriutility from "@/assets/work-eriutility.webp";
 import workCts from "@/assets/work-cts.webp";
 import workSafety from "@/assets/work-safety.webp";
+import svcVetrina from "@/assets/svc/vetrina.webp";
+import svcLanding from "@/assets/svc/landing.webp";
+import svcLogo from "@/assets/svc/logo.webp";
+import svcDominio from "@/assets/svc/dominio.webp";
+import svcGoogle from "@/assets/svc/google.webp";
+import svcManutenzione from "@/assets/svc/manutenzione.webp";
 
 /** Numero reale di siti consegnati. DA COMPILARE (null = la voce non viene mostrata). */
 export const SITI_REALIZZATI: number | null = null;
@@ -17,7 +23,6 @@ export const CONTATTI = {
   whatsapp: "393913168231",
   telefono: "+39 391 316 8231",
   email: "erikbaraca119@gmail.com",
-  indirizzo: "Via Libertà 84, 21030 Casalzuigno (VA)",
 };
 
 export const whatsappUrl = (text?: string) =>
@@ -26,9 +31,6 @@ export const whatsappUrl = (text?: string) =>
 export const DATI_LEGALI = {
   titolare: "Erik Baraca",
   ditta: "Peak Studio di Erik Baraca",
-  sede: "Casalzuigno (VA)",
-  /** DA COMPILARE */
-  piva: "[P.IVA da inserire]",
   /** Dicitura IVA mostrata sotto i prezzi. DA COMPILARE secondo il tuo regime fiscale. */
   notaIva: { it: "Prezzi indicativi, IVA esclusa se dovuta.", en: "Indicative prices, VAT excluded where applicable." },
 };
@@ -38,7 +40,8 @@ type L = { it: string; en: string };
 export type Piano = {
   id: string;
   nome: string;
-  prezzoDa: number;
+  /** null = preventivo personalizzato, nessuna cifra mostrata */
+  prezzoDa: number | null;
   consigliato?: boolean;
   include: L[];
 };
@@ -79,7 +82,7 @@ export const PIANI: Piano[] = [
   {
     id: "custom",
     nome: "Su misura",
-    prezzoDa: 2500,
+    prezzoDa: null,
     include: [
       { it: "Progetto costruito sulle tue esigenze", en: "Project built around your needs" },
       { it: "Funzioni personalizzate", en: "Custom features" },
@@ -87,7 +90,52 @@ export const PIANI: Piano[] = [
   },
 ];
 
-export const ADDON = [{ id: "gbp", nome: { it: "Scheda Google Business", en: "Google Business Profile" }, prezzo: 40 }];
+export type AddonCat = "visibilita" | "contenuti" | "funzioni" | "crescita";
+export const ADDON_CATEGORIE: { id: AddonCat; nome: L }[] = [
+  { id: "visibilita", nome: { it: "Visibilità", en: "Visibility" } },
+  { id: "contenuti", nome: { it: "Contenuti", en: "Content" } },
+  { id: "funzioni", nome: { it: "Funzioni", en: "Features" } },
+  { id: "crescita", nome: { it: "Crescita", en: "Growth" } },
+];
+
+export type Addon = {
+  id: string;
+  cat: AddonCat;
+  nome: L;
+  desc: L;
+  /** null = prezzo non ancora definito: si mostra "su preventivo" */
+  prezzo: number | null;
+  /** piani che lo includono già: non viene conteggiato due volte */
+  inclusoIn?: string[];
+};
+
+export const ADDON: Addon[] = [
+  { id: "gbp", cat: "visibilita", prezzo: 40, nome: { it: "Scheda Google Business", en: "Google Business Profile" }, desc: { it: "Ti trovano su Maps con orari, foto e indicazioni.", en: "Be found on Maps with hours, photos and directions." } },
+  { id: "seo", cat: "visibilita", prezzo: null, nome: { it: "SEO avanzata", en: "Advanced SEO" }, desc: { it: "Ricerca delle parole chiave e pagine pensate per salire su Google.", en: "Keyword research and pages built to climb on Google." } },
+  { id: "analytics", cat: "visibilita", prezzo: null, nome: { it: "Statistiche e conversioni", en: "Analytics and conversions" }, desc: { it: "Sai quante persone ti trovano e quante ti contattano.", en: "Know how many people find you and how many get in touch." } },
+  { id: "copy", cat: "contenuti", prezzo: null, nome: { it: "Testi professionali", en: "Professional copywriting" }, desc: { it: "Scrivo io i testi delle pagine, chiari e su misura.", en: "I write the page copy, clear and tailored." } },
+  { id: "lingua", cat: "contenuti", prezzo: null, inclusoIn: ["business"], nome: { it: "Lingua aggiuntiva", en: "Extra language" }, desc: { it: "Il sito anche in un'altra lingua per chi arriva da fuori.", en: "The site in another language for visitors from abroad." } },
+  { id: "foto", cat: "contenuti", prezzo: null, nome: { it: "Selezione immagini", en: "Image selection" }, desc: { it: "Scelgo e preparo immagini adatte alla tua attività.", en: "I pick and prepare images that suit your business." } },
+  { id: "prenotazioni", cat: "funzioni", prezzo: null, inclusoIn: ["premium"], nome: { it: "Prenotazioni online", en: "Online bookings" }, desc: { it: "Appuntamenti e richieste senza telefonate.", en: "Appointments and requests without phone calls." } },
+  { id: "moduli", cat: "funzioni", prezzo: null, nome: { it: "Moduli di preventivo", en: "Quote request forms" }, desc: { it: "Domande guidate che ti portano richieste già complete.", en: "Guided questions that bring you complete requests." } },
+  { id: "newsletter", cat: "funzioni", prezzo: null, nome: { it: "Newsletter", en: "Newsletter" }, desc: { it: "Raccogli contatti e scrivi ai tuoi clienti.", en: "Collect contacts and write to your customers." } },
+  { id: "migrazione", cat: "crescita", prezzo: null, nome: { it: "Migrazione dal vecchio sito", en: "Migration from your old site" }, desc: { it: "Porto contenuti e indirizzo senza perdere nulla.", en: "I move content and address without losing anything." } },
+  { id: "automazioni", cat: "crescita", prezzo: null, nome: { it: "Automazioni e CRM", en: "Automations and CRM" }, desc: { it: "Le richieste arrivano dove lavori già, senza copia-incolla.", en: "Requests land where you already work, no copy-paste." } },
+];
+
+/** Totale una tantum: piano (se ha un prezzo) + aggiunte con prezzo non già incluse nel piano. */
+export const totalePreventivo = (pianoId: string, addonIds: string[]) => {
+  const piano = PIANI.find((p) => p.id === pianoId);
+  let totale = piano?.prezzoDa ?? 0;
+  let daDefinire = piano?.prezzoDa == null;
+  for (const id of addonIds) {
+    const a = ADDON.find((x) => x.id === id);
+    if (!a || a.inclusoIn?.includes(pianoId)) continue;
+    if (a.prezzo == null) daDefinire = true;
+    else totale += a.prezzo;
+  }
+  return { totale, daDefinire };
+};
 
 export const MANUTENZIONE = {
   prezzoMese: 50,
@@ -99,13 +147,13 @@ export const MANUTENZIONE = {
   ] as L[],
 };
 
-export const SERVIZI: { id: string; titolo: L; desc: L }[] = [
-  { id: "vetrina", titolo: { it: "Siti vetrina", en: "Showcase websites" }, desc: { it: "Il biglietto da visita online della tua attività, chiaro e veloce.", en: "Your business card online, clear and fast." } },
-  { id: "landing", titolo: { it: "Landing page", en: "Landing pages" }, desc: { it: "Una pagina sola, un obiettivo: farti contattare.", en: "One page, one goal: getting you contacted." } },
-  { id: "logo", titolo: { it: "Logo e identità visiva", en: "Logo and visual identity" }, desc: { it: "Un segno riconoscibile, coerente su sito, insegna e social.", en: "A recognisable mark, consistent on web, signage and social." } },
-  { id: "dominio", titolo: { it: "Dominio, hosting ed email professionali", en: "Domain, hosting and business email" }, desc: { it: "Ci penso io: indirizzo tuo, email con il tuo nome.", en: "I take care of it: your own address and branded email." } },
-  { id: "google", titolo: { it: "Scheda Google Business", en: "Google Business Profile" }, desc: { it: "Ti trovano su Maps con orari, foto e indicazioni.", en: "Be found on Maps with hours, photos and directions." } },
-  { id: "manutenzione", titolo: { it: "Manutenzione mensile", en: "Monthly maintenance" }, desc: { it: "Il sito resta aggiornato, sicuro e con backup.", en: "Your site stays updated, secure and backed up." } },
+export const SERVIZI: { id: string; titolo: L; desc: L; img: string }[] = [
+  { id: "vetrina", titolo: { it: "Siti vetrina", en: "Showcase websites" }, desc: { it: "Il biglietto da visita online della tua attività, chiaro e veloce.", en: "Your business card online, clear and fast." }, img: svcVetrina },
+  { id: "landing", titolo: { it: "Landing page", en: "Landing pages" }, desc: { it: "Una pagina sola, un obiettivo: farti contattare.", en: "One page, one goal: getting you contacted." }, img: svcLanding },
+  { id: "logo", titolo: { it: "Logo e identità visiva", en: "Logo and visual identity" }, desc: { it: "Un segno riconoscibile, coerente su sito, insegna e social.", en: "A recognisable mark, consistent on web, signage and social." }, img: svcLogo },
+  { id: "dominio", titolo: { it: "Dominio, hosting ed email professionali", en: "Domain, hosting and business email" }, desc: { it: "Ci penso io: indirizzo tuo, email con il tuo nome.", en: "I take care of it: your own address and branded email." }, img: svcDominio },
+  { id: "google", titolo: { it: "Scheda Google Business", en: "Google Business Profile" }, desc: { it: "Ti trovano su Maps con orari, foto e indicazioni.", en: "Be found on Maps with hours, photos and directions." }, img: svcGoogle },
+  { id: "manutenzione", titolo: { it: "Manutenzione mensile", en: "Monthly maintenance" }, desc: { it: "Il sito resta aggiornato, sicuro e con backup.", en: "Your site stays updated, secure and backed up." }, img: svcManutenzione },
 ];
 
 export type Caso = {
@@ -116,12 +164,20 @@ export type Caso = {
   anno: number | null; // DA COMPILARE
   img: string;
   url: string;
+  categoria: CategoriaPortfolio;
 };
 
+export type CategoriaPortfolio = "vetrina" | "hospitality" | "professionali";
+export const CATEGORIE_PORTFOLIO: { id: CategoriaPortfolio; nome: L }[] = [
+  { id: "vetrina", nome: { it: "Siti vetrina", en: "Showcase sites" } },
+  { id: "hospitality", nome: { it: "Turismo e tempo libero", en: "Tourism and leisure" } },
+  { id: "professionali", nome: { it: "Servizi professionali", en: "Professional services" } },
+];
+
 export const CASI_PORTFOLIO: Caso[] = [
-  { id: "eriutility", nome: "E-Riutility", settore: { it: "Mercatino dell'usato", en: "Second-hand shop" }, fatto: { it: "Sito vetrina con catalogo", en: "Showcase site with catalogue" }, anno: null, img: workEriutility, url: "https://e-riutility.it" },
-  { id: "cts", nome: "CTS Cuvio", settore: { it: "Centro turistico sportivo", en: "Sports and tourism centre" }, fatto: { it: "Sito con attività e contatti", en: "Site with activities and contacts" }, anno: null, img: workCts, url: "https://centrocuvio.it" },
-  { id: "safety", nome: "Safety Solutions", settore: { it: "Sicurezza sul lavoro", en: "Workplace safety" }, fatto: { it: "Sito vetrina dei servizi", en: "Services showcase site" }, anno: null, img: workSafety, url: "https://safetysolutionproject.lovable.app" },
+  { id: "eriutility", nome: "E-Riutility", settore: { it: "Mercatino dell'usato", en: "Second-hand shop" }, fatto: { it: "Sito vetrina con catalogo", en: "Showcase site with catalogue" }, anno: null, img: workEriutility, url: "https://e-riutility.it", categoria: "vetrina" },
+  { id: "cts", nome: "CTS Cuvio", settore: { it: "Centro turistico sportivo", en: "Sports and tourism centre" }, fatto: { it: "Sito con attività e contatti", en: "Site with activities and contacts" }, anno: null, img: workCts, url: "https://centrocuvio.it", categoria: "hospitality" },
+  { id: "safety", nome: "Safety Solutions", settore: { it: "Sicurezza sul lavoro", en: "Workplace safety" }, fatto: { it: "Sito vetrina dei servizi", en: "Services showcase site" }, anno: null, img: workSafety, url: "https://safetysolutionproject.lovable.app", categoria: "professionali" },
 ];
 
 /** Vuoto finché non arrivano recensioni reali: la sezione resta nascosta. */
