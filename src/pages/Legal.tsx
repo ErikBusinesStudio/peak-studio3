@@ -8,7 +8,7 @@ import { usePageMeta } from "@/hooks/peak";
 type Block = { h: string; p: string };
 
 const content = (kind: "privacy" | "cookie", lang: "it" | "en"): { title: string; blocks: Block[] } => {
-  const who = `${DATI_LEGALI.ditta}, ${CONTATTI.indirizzo}, P.IVA ${DATI_LEGALI.piva}, ${CONTATTI.email}`;
+  const who = `${DATI_LEGALI.ditta}, ${CONTATTI.email}`;
   if (kind === "privacy")
     return lang === "en"
       ? { title: "Privacy Policy", blocks: [

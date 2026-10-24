@@ -1,9 +1,11 @@
 import { KeyboardEvent, PointerEvent, useEffect, useRef, useState } from "react";
-import { ArrowLeft, ArrowRight, ExternalLink } from "lucide-react";
+import { ArrowLeft, ArrowRight, ArrowUpRight } from "lucide-react";
 import { useCopy } from "@/config/copy";
 import { CASI_PORTFOLIO } from "@/config/site";
 import { useReducedMotion, useScrollProgress } from "@/hooks/peak";
+import { Link } from "react-router-dom";
 import SectionHead from "./SectionHead";
+import ProjectCard from "./ProjectCard";
 
 /**
  * "Carota di ghiaccio": sezione fissata con scorrimento orizzontale.
@@ -95,23 +97,10 @@ const Works = () => {
                 key={w.id}
                 aria-roledescription="slide"
                 aria-label={`${i + 1} / ${n}: ${w.nome}`}
-                className={`core-layer relative w-[82vw] max-w-[620px] shrink-0 overflow-hidden rounded-[28px] border p-4 transition-[opacity,transform] duration-500 md:p-6 ${
-                  i === active ? "opacity-100" : "opacity-80"
-                }`}
+                className={`w-[84vw] max-w-[640px] shrink-0 transition-[opacity,transform] duration-500 ${i === active ? "opacity-100" : "opacity-60 md:scale-[0.97]"}`}
+                onFocus={() => goTo(i)}
               >
-                <div className="flex items-baseline justify-between gap-3">
-                  <p className="hud font-semibold text-muted-foreground">
-                    {w.anno ? `${w.anno} · ` : ""}{w.settore[lang]}
-                  </p>
-                  <p className="hud text-muted-foreground">{String(i + 1).padStart(2, "0")}</p>
-                </div>
-                <h3 className="mt-2 font-display text-3xl font-extrabold tracking-tight md:text-5xl">{w.nome}</h3>
-                <p className="mt-1 text-muted-foreground">{w.fatto[lang]}</p>
-                <img src={w.img} alt={`${c.works.screenshot}: ${w.nome}`} width={1200} height={800} loading="lazy" decoding="async" draggable={false} className="mt-4 aspect-[3/2] w-full rounded-2xl object-cover object-top" />
-                <a href={w.url} target="_blank" rel="noopener noreferrer" className="hud mt-4 inline-flex min-h-[44px] items-center gap-2 font-semibold underline-offset-4 hover:underline" onFocus={() => goTo(i)}>
-                  {c.works.visit} <span className="sr-only">{w.nome}</span>
-                  <ExternalLink aria-hidden className="h-4 w-4" />
-                </a>
+                <ProjectCard w={w} i={i} />
               </li>
             ))}
           </ol>
@@ -126,6 +115,10 @@ const Works = () => {
           <p className="hud text-muted-foreground" aria-live="polite">
             {active + 1} / {n}
           </p>
+          <Link to="/portfolio" className="explore-link ml-auto">
+            <span>{c.works.all}</span>
+            <ArrowUpRight aria-hidden className="h-5 w-5" />
+          </Link>
         </div>
       </div>
     </section>

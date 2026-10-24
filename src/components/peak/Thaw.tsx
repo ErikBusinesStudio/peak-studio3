@@ -18,30 +18,42 @@ const Slider = ({ label, value, min, max, step = 1, onChange, suffix = "" }: { l
   );
 };
 
-/** Blocco di ghiaccio che si scioglie con lo scroll. */
-const IceBlock = ({ p }: { p: number }) => {
-  const top = 30 + p * 150; // il ghiaccio si abbassa
+/**
+ * "Il sito che si costruisce": una finestra browser in cui struttura, contenuti,
+ * contatti e messa online compaiono con lo scroll. Movimento continuo leggero in CSS.
+ */
+const SiteBuild = ({ p, layers }: { p: number; layers: string[] }) => {
+  const stage = Math.min(4, Math.floor(p * 5.2));
+  const on = (i: number) => (stage > i ? "is-on" : "");
   return (
-    <svg viewBox="0 0 240 260" className="h-auto w-full max-w-[260px]" aria-hidden>
-      <defs>
-        <linearGradient id="ice-g" x1="0" x2="1" y1="0" y2="1">
-          <stop offset="0" stopColor="hsl(209 100% 92%)" />
-          <stop offset="1" stopColor="hsl(210 71% 62%)" />
-        </linearGradient>
-        <clipPath id="melt">
-          <path d={`M20 ${top} Q60 ${top - 10} 90 ${top + 6} T160 ${top} T220 ${top + 4} V215 H20 Z`} />
-        </clipPath>
-      </defs>
-      <g clipPath="url(#melt)">
-        <rect x="30" y="30" width="180" height="185" rx="18" fill="url(#ice-g)" />
-        <path d="M60 60 L110 120 M150 50 L130 100 L170 140" stroke="white" strokeOpacity="0.7" strokeWidth="2" fill="none" />
-      </g>
-      {[50, 100, 150, 190].map((x, i) => (
-        <circle key={x} cx={x} cy={220 + ((p * 400 + i * 25) % 30)} r={3} fill="hsl(210 71% 55%)" opacity={p > 0.05 && p < 0.98 ? 0.9 : 0} />
-      ))}
-      <ellipse cx="120" cy="245" rx={30 + p * 90} ry={4 + p * 8} fill="hsl(210 71% 55% / 0.35)" />
-      {p > 0.9 && <ellipse cx="120" cy="245" rx="40" ry="6" fill="none" stroke="hsl(213 79% 37%)" className="ripple" />}
-    </svg>
+    <div className="site-build w-full max-w-[460px]" aria-hidden>
+      <div className="sb-window">
+        <div className="sb-bar">
+          <i /><i /><i />
+          <span className="sb-url">peakstudio.click/<b>{stage >= 4 ? "online" : "build"}</b></span>
+        </div>
+        <div className="sb-body">
+          <div className={`sb-grid ${on(0)}`} />
+          <div className={`sb-block sb-nav ${on(0)}`}><span /><span /><span /></div>
+          <div className={`sb-block sb-hero ${on(1)}`}>
+            <span className="sb-line w-3/4" /><span className="sb-line w-1/2" />
+            <span className="sb-img" />
+          </div>
+          <div className={`sb-cards ${on(1)}`}><span /><span /><span /></div>
+          <div className={`sb-block sb-cta ${on(2)}`}><span className="sb-btn" /><span className="sb-caret" /></div>
+          <div className={`sb-live ${on(3)}`}><span className="sb-pulse" />ONLINE · 200 OK</div>
+          <span className="sb-scan" />
+          <span className="sb-pointer" />
+        </div>
+      </div>
+      <ol className="sb-steps">
+        {layers.map((l, i) => (
+          <li key={l} className={stage > i ? "is-on" : ""}>
+            <span className="hud">0{i + 1}</span> {l}
+          </li>
+        ))}
+      </ol>
+    </div>
   );
 };
 
@@ -74,7 +86,7 @@ const Thaw = () => {
             </div>
           </div>
           <div className="flex justify-center lg:col-span-5">
-            <IceBlock p={reduced ? 0.5 : p} />
+            <SiteBuild p={reduced ? 1 : Math.min(1, p * 1.6)} layers={c.thaw.layers} />
           </div>
         </div>
       </div>

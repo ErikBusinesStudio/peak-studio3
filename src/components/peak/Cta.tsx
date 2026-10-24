@@ -27,6 +27,11 @@ const Cta = ({ kind, className = "" }: Props) => {
   };
   const onClick = (e: MouseEvent) => {
     e.preventDefault();
+    // fuori dalla home: torna alla home sulla sezione giusta
+    if (!document.getElementById(target)) {
+      window.location.assign(`/#${target}`);
+      return;
+    }
     const el = ref.current;
     if (!reduced && el) {
       el.classList.remove("shatter");
