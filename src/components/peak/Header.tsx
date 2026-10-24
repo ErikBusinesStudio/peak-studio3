@@ -61,6 +61,7 @@ const Header = () => {
   const links = [
     { id: "servizi", label: c.nav.servizi },
     { id: "lavori", label: c.nav.lavori },
+    { id: "portfolio", label: "Portfolio", href: "/portfolio" },
     { id: "prezzi", label: c.nav.prezzi },
     { id: "chi-sono", label: c.nav.chi },
     { id: "contatti", label: c.nav.contatti },
@@ -86,7 +87,7 @@ const Header = () => {
             <ul className="flex items-center gap-7">
               {links.map((l) => (
                 <li key={l.id}>
-                  <a href={`${base}#${l.id}`} className="nav-link text-[15px] font-medium">
+                  <a href={"href" in l && l.href ? l.href : `${base}#${l.id}`} className="nav-link text-[15px] font-medium">
                     {l.label}
                   </a>
                 </li>
@@ -123,7 +124,7 @@ const Header = () => {
               {links.map((l) => (
                 <li key={l.id}>
                   <a
-                    href={`${base}#${l.id}`}
+                    href={"href" in l && l.href ? l.href : `${base}#${l.id}`}
                     onClick={() => setOpen(false)}
                     className="block py-3 font-display text-3xl font-extrabold uppercase tracking-tight"
                   >
