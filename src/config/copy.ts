@@ -15,6 +15,7 @@ export const COPY = {
     hero: {
       l1: "Il tuo sito web.",
       l2: "Il tuo successo.",
+      t: [["Il tuo", "sito web"], ["Il tuo", "successo"]] as [string, string][],
       sub: "Siti veloci, curati nei dettagli e pensati per raccontare davvero la tua attività.",
       hud: "Campo base · 0 m",
       alt: "Ghiacciaio e vetta innevata all'alba",
@@ -30,7 +31,7 @@ export const COPY = {
       badges: [
         { tag: "Tempo", big: `${g}`, unit: "giorni", d: "dalla ricezione del materiale" },
         { tag: "Dopo", big: "1:1", unit: "assistenza", d: "parli sempre con me, anche dopo la consegna" },
-        { tag: "Dove", big: "IT · ∞", unit: "progetti", d: "in Italia e nel mondo" },
+        { tag: "Dove", big: "Italia", unit: "+ mondo", d: "Progetti in Italia e nel mondo" },
       ],
     },
     thaw: {
@@ -103,8 +104,6 @@ export const COPY = {
       total: "Totale indicativo",
       plusQuote: "+ voci da definire insieme",
       onlyQuote: "Da definire insieme",
-      ask: "Chiedi questo preventivo",
-      waText: (piano: string, voci: string) => `Ciao Erik, vorrei un preventivo per il piano ${piano}${voci ? ` con: ${voci}` : ""}.`,
     },
     me: {
       kicker: "Cresta",
@@ -183,6 +182,7 @@ export const COPY = {
     hero: {
       l1: "Your website.",
       l2: "Your success.",
+      t: [["Your", "website"], ["Your", "success"]] as [string, string][],
       sub: "Fast websites, crafted in every detail and designed to truly tell your business's story.",
       hud: "Base camp · 0 m",
       alt: "Glacier and snowy summit at dawn",
@@ -198,7 +198,7 @@ export const COPY = {
       badges: [
         { tag: "Time", big: `${g}`, unit: "days", d: "from receiving your material" },
         { tag: "After", big: "1:1", unit: "support", d: "you always talk to me, after delivery too" },
-        { tag: "Where", big: "IT · ∞", unit: "projects", d: "in Italy and worldwide" },
+        { tag: "Where", big: "Italy", unit: "+ world", d: "Projects in Italy and worldwide" },
       ],
     },
     thaw: {
@@ -271,8 +271,6 @@ export const COPY = {
       total: "Indicative total",
       plusQuote: "+ items to define together",
       onlyQuote: "To define together",
-      ask: "Ask for this quote",
-      waText: (piano: string, voci: string) => `Hi Erik, I'd like a quote for the ${piano} plan${voci ? ` with: ${voci}` : ""}.`,
     },
     me: {
       kicker: "Ridge",
