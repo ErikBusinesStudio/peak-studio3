@@ -40,7 +40,7 @@ const Hero = () => {
       {fx && !reduced && (
         <Suspense fallback={null}>
           <Snow />
-          <FrostGlass hint={c.hero.hint} />
+          <FrostGlass hint={c.hero.hint} hintTouch={c.hero.hintTouch} />
         </Suspense>
       )}
 
@@ -49,9 +49,19 @@ const Hero = () => {
           <span aria-hidden className="h-2 w-2 rotate-45 bg-[hsl(var(--cyan))] ring-1 ring-[hsl(var(--glacier-700))]" />
           {c.hero.hud}
         </p>
-        <h1 id="hero-title" className="giant ice-text ice-filter -ml-[0.04em] !text-[clamp(3.25rem,10.5vw,10rem)]">
-          <span className="block">{c.hero.l1}</span>
-          <span className="block">{c.hero.l2}</span>
+        <h1 id="hero-title" aria-label={`${c.hero.l1} ${c.hero.l2}`} className="hero-title">
+          {c.hero.t.map(([small, big], i) => (
+            <span key={big} aria-hidden className={`ht-row ht-row-${i + 1}`} style={{ animationDelay: `${120 + i * 180}ms` }}>
+              <span className="ht-small">
+                <span className="ht-index">0{i + 1}</span>
+                {small}
+              </span>
+              <span className={`ht-big ice-filter ${i === 0 ? "ice-text" : "ht-accent"}`}>
+                {big}
+                <span className="ht-dot">.</span>
+              </span>
+            </span>
+          ))}
         </h1>
         <p className="mt-8 max-w-xl text-lg text-foreground md:text-xl">{c.hero.sub}</p>
         <div className="mt-10 flex flex-wrap gap-3">
