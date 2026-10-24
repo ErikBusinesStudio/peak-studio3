@@ -73,6 +73,10 @@ const Works = () => {
       <div className="sticky top-0 flex h-screen flex-col justify-center overflow-hidden pt-20">
         <div className="wrap">
           <SectionHead id="lavori" kicker={c.works.kicker} quota={2400} title={c.works.title} intro={c.works.intro} />
+          <Link to="/portfolio" className="explore-link -mt-4 mb-6 inline-flex">
+            <span>{c.works.all}</span>
+            <ArrowUpRight aria-hidden className="h-5 w-5" />
+          </Link>
         </div>
         <div
           ref={viewport}
@@ -116,10 +120,6 @@ const Works = () => {
           <p className="hud text-muted-foreground" aria-live="polite">
             {active + 1} / {n}
           </p>
-          <Link to="/portfolio" className="explore-link ml-auto">
-            <span>{c.works.all}</span>
-            <ArrowUpRight aria-hidden className="h-5 w-5" />
-          </Link>
         </div>
       </div>
     </section>
