@@ -60,7 +60,7 @@ const Services = () => {
         <SectionHead id="servizi" kicker={c.services.kicker} quota={1400} title={c.services.title} intro={c.services.intro} />
         <ul className="grid gap-5 sm:grid-cols-2 lg:grid-cols-6">
           {SERVIZI.map((s, i) => (
-            <li key={s.id} className={`flex ${i < 2 ? "lg:col-span-3" : "lg:col-span-2"}`}>
+            <li key={s.id} className={`flex ${i < 2 ? "lg:col-span-3" : i < 4 ? "lg:col-span-2" : i === 4 ? "lg:col-span-2" : "sm:col-span-2 lg:col-span-6"}`}>
               <ServiceCard id={s.id} i={i} title={s.titolo[lang]} desc={s.desc[lang]} img={s.img} cta={c.services.open} big={i < 2} />
             </li>
           ))}
