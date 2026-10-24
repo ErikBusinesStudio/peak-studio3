@@ -41,7 +41,7 @@ const SiteBuild = ({ p, layers }: { p: number; layers: string[] }) => {
           </div>
           <div className={`sb-cards ${on(1)}`}><span /><span /><span /></div>
           <div className={`sb-block sb-cta ${on(2)}`}><span className="sb-btn" /><span className="sb-caret" /></div>
-          <div className={`sb-live ${on(3)}`}><span className="sb-pulse" />LIVE · 200 OK</div>
+          <div className={`sb-live ${on(3)}`}><span className="sb-pulse" />ONLINE · 200 OK</div>
           <span className="sb-scan" />
           <span className="sb-pointer" />
         </div>
