@@ -8,3 +8,4 @@
 - Rules in `src/config/site.ts` are covered by `src/test/site-rules.test.ts`; update tests when values change.
 - Service detail pages (`/servizi/:id`) read structure/copy from `src/config/servizi-dettaglio.ts`; the portfolio page (`/portfolio`) reads `CASI_PORTFOLIO`/`CATEGORIE_PORTFOLIO`. Why: adding a service or project needs only config edits.
 - Quote builder totals come from `totalePreventivo()` in `site.ts`; add-ons without a defined price stay "on quote". Why: never invent prices in UI.
+- The private admin panel (`/admin`, Italian only, exempt from copy.ts) is gated by the `admin` role in `user_roles`; editable prices/portfolio are stored in `site_content` and applied over `site.ts` defaults at startup via `src/config/overrides.ts`. Why: owner edits without code, site.ts stays the fallback.
