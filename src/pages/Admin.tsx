@@ -1,4 +1,4 @@
-import { useCallback, useEffect, useMemo, useState } from "react";
+import { useCallback, useEffect, useMemo, useState, type ReactNode } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import { Area, AreaChart, CartesianGrid, ResponsiveContainer, Tooltip, XAxis, YAxis } from "recharts";
 import { BarChart3, Download, ExternalLink, Inbox, LogOut, Mail, MessageCircle, Phone, Settings, Star, Tag, Trash2, Briefcase, Send } from "lucide-react";
@@ -496,7 +496,7 @@ const PortfolioEditor = ({ value, nuovi: nuoviInit, onSaved, flash }: { value: P
     if (await persist(o, next)) setNuovi(next);
   };
 
-  const field = (label: string, el: React.ReactNode) => <label className="text-xs text-muted-foreground">{label}<div className="mt-1">{el}</div></label>;
+  const field = (label: string, el: ReactNode) => <label className="text-xs text-muted-foreground">{label}<div className="mt-1">{el}</div></label>;
   const tutti = [...DEFAULTS.portfolio.map((c) => ({ c, nuovo: false })), ...nuovi.map((c) => ({ c, nuovo: true }))];
 
   return (
