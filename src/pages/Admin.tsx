@@ -4,8 +4,8 @@ import { Area, AreaChart, CartesianGrid, ResponsiveContainer, Tooltip, XAxis, YA
 import { BarChart3, Download, ExternalLink, Inbox, LogOut, Mail, MessageCircle, Phone, Settings, Star, Tag, Trash2, Briefcase, Send } from "lucide-react";
 import { supabase } from "@/integrations/supabase/client";
 import type { Tables } from "@/integrations/supabase/types";
-import { ADDON, PIANI } from "@/config/site";
-import { DEFAULTS, type PortfolioOverride, type PrezziOverride } from "@/config/overrides";
+import { ADDON, CATEGORIE_PORTFOLIO, PIANI } from "@/config/site";
+import { DEFAULTS, type NuovoCaso, type PortfolioOverride, type PrezziOverride } from "@/config/overrides";
 import logoDark from "@/assets/logo-dark.webp";
 
 type Contact = Tables<"contacts">;
@@ -44,7 +44,7 @@ const Admin = () => {
   const [contacts, setContacts] = useState<Contact[]>([]);
   const [reviews, setReviews] = useState<Review[]>([]);
   const [logs, setLogs] = useState<EmailLog[]>([]);
-  const [content, setContent] = useState<{ prezzi: PrezziOverride; portfolio: PortfolioOverride }>({ prezzi: {}, portfolio: {} });
+  const [content, setContent] = useState<{ prezzi: PrezziOverride; portfolio: PortfolioOverride; nuovi: NuovoCaso[] }>({ prezzi: {}, portfolio: {}, nuovi: [] });
   const [toast, setToast] = useState<string | null>(null);
 
   const flash = (m: string) => {
@@ -63,7 +63,7 @@ const Admin = () => {
     setReviews(r.data ?? []);
     setLogs(l.data ?? []);
     const map = Object.fromEntries((s.data ?? []).map((x) => [x.key, x.value]));
-    setContent({ prezzi: (map.prezzi as PrezziOverride) ?? {}, portfolio: (map.portfolio as PortfolioOverride) ?? {} });
+    setContent({ prezzi: (map.prezzi as PrezziOverride) ?? {}, portfolio: (map.portfolio as PortfolioOverride) ?? {}, nuovi: (map.portfolio_nuovi as NuovoCaso[]) ?? [] });
   }, []);
 
   useEffect(() => {
@@ -135,7 +135,7 @@ const Admin = () => {
           {tab === "messaggi" && <Messages contacts={contacts} setContacts={setContacts} flash={flash} />}
           {tab === "recensioni" && <Reviews reviews={reviews} setReviews={setReviews} flash={flash} />}
           {tab === "prezzi" && <Prices value={content.prezzi} onSaved={(p) => setContent((c) => ({ ...c, prezzi: p }))} flash={flash} />}
-          {tab === "portfolio" && <PortfolioEditor value={content.portfolio} onSaved={(p) => setContent((c) => ({ ...c, portfolio: p }))} flash={flash} />}
+          {tab === "portfolio" && <PortfolioEditor value={content.portfolio} nuovi={content.nuovi} onSaved={(p, n) => setContent((c) => ({ ...c, portfolio: p, nuovi: n }))} flash={flash} />}
           {tab === "email" && <EmailLogs logs={logs} />}
           {tab === "account" && <Account email={email} flash={flash} />}
         </main>
