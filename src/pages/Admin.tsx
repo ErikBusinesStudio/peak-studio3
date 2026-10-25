@@ -438,50 +438,135 @@ const Prices = ({ value, onSaved, flash }: { value: PrezziOverride; onSaved: (p:
 };
 
 /* ---------- Portfolio ---------- */
-const PortfolioEditor = ({ value, onSaved, flash }: { value: PortfolioOverride; onSaved: (p: PortfolioOverride) => void; flash: (m: string) => void }) => {
+const toWebp = (file: File): Promise<string> =>
+  new Promise((res, rej) => {
+    const img = new Image();
+    img.onload = () => {
+      const w = Math.min(1200, img.width);
+      const h = Math.round((img.height / img.width) * w);
+      const cv = document.createElement("canvas");
+      cv.width = w;
+      cv.height = h;
+      cv.getContext("2d")!.drawImage(img, 0, 0, w, h);
+      res(cv.toDataURL("image/webp", 0.78));
+      URL.revokeObjectURL(img.src);
+    };
+    img.onerror = rej;
+    img.src = URL.createObjectURL(file);
+  });
+
+const emptyNew = (): NuovoCaso => ({ id: "", nome: "", settore: { it: "", en: "" }, fatto: { it: "", en: "" }, anno: new Date().getFullYear(), img: "", url: "", categoria: "vetrina" });
+
+const PortfolioEditor = ({ value, nuovi: nuoviInit, onSaved, flash }: { value: PortfolioOverride; nuovi: NuovoCaso[]; onSaved: (p: PortfolioOverride, n: NuovoCaso[]) => void; flash: (m: string) => void }) => {
   const [o, setO] = useState<PortfolioOverride>(value);
+  const [nuovi, setNuovi] = useState<NuovoCaso[]>(nuoviInit);
+  const [bozza, setBozza] = useState<NuovoCaso | null>(null);
   const set = (id: string, patch: PortfolioOverride[string]) => setO((s) => ({ ...s, [id]: { ...s[id], ...patch } }));
-  const save = async () => {
-    const { error } = await saveContent("portfolio", o);
-    if (error) return flash("Salvataggio non riuscito");
-    onSaved(o);
+
+  const persist = async (po: PortfolioOverride, pn: NuovoCaso[]) => {
+    const [a, b] = await Promise.all([saveContent("portfolio", po), saveContent("portfolio_nuovi", pn)]);
+    if (a.error || b.error) {
+      flash("Salvataggio non riuscito");
+      return false;
+    }
+    onSaved(po, pn);
     flash("Portfolio aggiornato sul sito");
+    return true;
   };
+
+  const aggiungi = async () => {
+    if (!bozza) return;
+    if (!bozza.nome.trim() || !bozza.img || !/^https?:\/\//.test(bozza.url) || !bozza.settore.it || !bozza.fatto.it) return flash("Compila nome, link (https://…), immagine e testi in italiano");
+    const n: NuovoCaso = {
+      ...bozza,
+      id: `p-${Date.now().toString(36)}`,
+      settore: { it: bozza.settore.it, en: bozza.settore.en || bozza.settore.it },
+      fatto: { it: bozza.fatto.it, en: bozza.fatto.en || bozza.fatto.it },
+    };
+    const next = [...nuovi, n];
+    if (await persist(o, next)) {
+      setNuovi(next);
+      setBozza(null);
+    }
+  };
+
+  const rimuovi = async (id: string) => {
+    if (!confirm("Eliminare questo progetto dal portfolio?")) return;
+    const next = nuovi.filter((n) => n.id !== id);
+    if (await persist(o, next)) setNuovi(next);
+  };
+
+  const field = (label: string, el: React.ReactNode) => <label className="text-xs text-muted-foreground">{label}<div className="mt-1">{el}</div></label>;
+  const tutti = [...DEFAULTS.portfolio.map((c) => ({ c, nuovo: false })), ...nuovi.map((c) => ({ c, nuovo: true }))];
+
   return (
     <div className="space-y-5">
       <div className="flex flex-wrap items-center justify-between gap-3">
         <h1 className="font-display text-3xl font-extrabold">Portfolio</h1>
-        <button onClick={save} className="btn btn-primary !min-h-[40px] !px-5 !text-sm">Salva e pubblica</button>
+        <div className="flex gap-2">
+          <button onClick={() => setBozza(emptyNew())} className="rounded-full border border-border px-4 py-2 text-sm hover:bg-secondary">+ Nuovo progetto</button>
+          <button onClick={() => persist(o, nuovi)} className="btn btn-primary !min-h-[40px] !px-5 !text-sm">Salva e pubblica</button>
+        </div>
       </div>
-      <p className="text-sm text-muted-foreground">Modifica anno, link e descrizioni (in italiano), oppure nascondi un progetto. Per aggiungere un progetto nuovo con la sua anteprima scrivimelo in chat.</p>
+      <p className="text-sm text-muted-foreground">Modifica anno, link e descrizioni in italiano e inglese, nascondi un progetto o aggiungine uno nuovo con la sua immagine. Se lasci vuoto il testo inglese, resta quello originale.</p>
+
+      {bozza && (
+        <section className={`${card} space-y-3 border-primary`}>
+          <h2 className="font-semibold">Nuovo progetto</h2>
+          <div className="grid gap-3 md:grid-cols-2">
+            {field("Nome progetto / cliente *", <input value={bozza.nome} onChange={(e) => setBozza({ ...bozza, nome: e.target.value })} className={input} />)}
+            {field("Link al sito *", <input type="url" placeholder="https://…" value={bozza.url} onChange={(e) => setBozza({ ...bozza, url: e.target.value })} className={input} />)}
+            {field("Categoria", (
+              <select value={bozza.categoria} onChange={(e) => setBozza({ ...bozza, categoria: e.target.value as NuovoCaso["categoria"] })} className={input}>
+                {CATEGORIE_PORTFOLIO.map((k) => <option key={k.id} value={k.id}>{k.nome.it}</option>)}
+              </select>
+            ))}
+            {field("Anno", <input type="number" min={2000} max={2100} value={bozza.anno ?? ""} onChange={(e) => setBozza({ ...bozza, anno: e.target.value ? Number(e.target.value) : null })} className={input} />)}
+            {field("Settore (IT) *", <input value={bozza.settore.it} onChange={(e) => setBozza({ ...bozza, settore: { ...bozza.settore, it: e.target.value } })} className={input} />)}
+            {field("Settore (EN)", <input value={bozza.settore.en} onChange={(e) => setBozza({ ...bozza, settore: { ...bozza.settore, en: e.target.value } })} className={input} />)}
+            {field("Cosa ho fatto (IT) *", <input value={bozza.fatto.it} onChange={(e) => setBozza({ ...bozza, fatto: { ...bozza.fatto, it: e.target.value } })} className={input} />)}
+            {field("Cosa ho fatto (EN)", <input value={bozza.fatto.en} onChange={(e) => setBozza({ ...bozza, fatto: { ...bozza.fatto, en: e.target.value } })} className={input} />)}
+          </div>
+          {field("Immagine di anteprima * (screenshot del sito, orizzontale)", (
+            <input type="file" accept="image/*" onChange={async (e) => {
+              const f = e.target.files?.[0];
+              if (!f) return;
+              try { setBozza({ ...bozza, img: await toWebp(f) }); } catch { flash("Immagine non valida"); }
+            }} className="text-sm" />
+          ))}
+          {bozza.img && <img src={bozza.img} alt="Anteprima" className="h-40 rounded-lg object-cover" />}
+          <div className="flex gap-2">
+            <button onClick={aggiungi} className="btn btn-primary !min-h-[40px] !px-5 !text-sm">Aggiungi e pubblica</button>
+            <button onClick={() => setBozza(null)} className="rounded-full border border-border px-4 py-2 text-sm">Annulla</button>
+          </div>
+        </section>
+      )}
+
       <div className="grid gap-4 md:grid-cols-2">
-        {DEFAULTS.portfolio.map((c) => {
+        {tutti.map(({ c, nuovo }) => {
           const x = o[c.id] ?? {};
           return (
             <article key={c.id} className={`${card} ${x.nascosto ? "opacity-60" : ""}`}>
               <div className="flex gap-3">
                 <img src={c.img} alt="" className="h-16 w-24 rounded-lg object-cover" loading="lazy" />
                 <div className="min-w-0 flex-1">
-                  <h2 className="font-semibold">{c.nome}</h2>
+                  <h2 className="font-semibold">{c.nome} {nuovo && <span className="ml-1 rounded-full bg-secondary px-2 text-[10px]">aggiunto</span>}</h2>
                   <a href={x.url || c.url} target="_blank" rel="noreferrer" className="flex items-center gap-1 truncate text-xs text-muted-foreground underline">{x.url || c.url}<ExternalLink className="h-3 w-3" /></a>
                 </div>
-                <label className="flex items-center gap-2 text-xs">
-                  <input type="checkbox" checked={!x.nascosto} onChange={(e) => set(c.id, { nascosto: !e.target.checked })} />Visibile
-                </label>
+                <div className="flex flex-col items-end gap-2">
+                  <label className="flex items-center gap-2 text-xs">
+                    <input type="checkbox" checked={!x.nascosto} onChange={(e) => set(c.id, { nascosto: !e.target.checked })} />Visibile
+                  </label>
+                  {nuovo && <button onClick={() => rimuovi(c.id)} aria-label={`Elimina ${c.nome}`} className="text-destructive"><Trash2 className="h-4 w-4" /></button>}
+                </div>
               </div>
-              <div className="mt-3 grid gap-2">
-                <label className="text-xs text-muted-foreground">Anno
-                  <input type="number" min={2000} max={2100} value={x.anno !== undefined ? x.anno ?? "" : c.anno ?? ""} onChange={(e) => set(c.id, { anno: e.target.value ? Number(e.target.value) : null })} className={`${input} mt-1`} />
-                </label>
-                <label className="text-xs text-muted-foreground">Link
-                  <input type="url" value={x.url ?? c.url} onChange={(e) => set(c.id, { url: e.target.value })} className={`${input} mt-1`} />
-                </label>
-                <label className="text-xs text-muted-foreground">Settore
-                  <input value={x.settoreIt ?? c.settore.it} onChange={(e) => set(c.id, { settoreIt: e.target.value })} className={`${input} mt-1`} />
-                </label>
-                <label className="text-xs text-muted-foreground">Cosa ho fatto
-                  <input value={x.fattoIt ?? c.fatto.it} onChange={(e) => set(c.id, { fattoIt: e.target.value })} className={`${input} mt-1`} />
-                </label>
+              <div className="mt-3 grid gap-2 sm:grid-cols-2">
+                {field("Anno", <input type="number" min={2000} max={2100} value={x.anno !== undefined ? x.anno ?? "" : c.anno ?? ""} onChange={(e) => set(c.id, { anno: e.target.value ? Number(e.target.value) : null })} className={input} />)}
+                {field("Link", <input type="url" value={x.url ?? c.url} onChange={(e) => set(c.id, { url: e.target.value })} className={input} />)}
+                {field("Settore (IT)", <input value={x.settoreIt ?? c.settore.it} onChange={(e) => set(c.id, { settoreIt: e.target.value })} className={input} />)}
+                {field("Settore (EN)", <input value={x.settoreEn ?? c.settore.en} onChange={(e) => set(c.id, { settoreEn: e.target.value })} className={input} />)}
+                {field("Cosa ho fatto (IT)", <input value={x.fattoIt ?? c.fatto.it} onChange={(e) => set(c.id, { fattoIt: e.target.value })} className={input} />)}
+                {field("Cosa ho fatto (EN)", <input value={x.fattoEn ?? c.fatto.en} onChange={(e) => set(c.id, { fattoEn: e.target.value })} className={input} />)}
               </div>
             </article>
           );
