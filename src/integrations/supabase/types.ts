@@ -21,6 +21,8 @@ export type Database = {
           id: string
           message: string
           name: string
+          notes: string | null
+          status: string
         }
         Insert: {
           created_at?: string
@@ -28,6 +30,8 @@ export type Database = {
           id?: string
           message: string
           name: string
+          notes?: string | null
+          status?: string
         }
         Update: {
           created_at?: string
@@ -35,6 +39,8 @@ export type Database = {
           id?: string
           message?: string
           name?: string
+          notes?: string | null
+          status?: string
         }
         Relationships: []
       }
@@ -161,6 +167,24 @@ export type Database = {
         }
         Relationships: []
       }
+      site_content: {
+        Row: {
+          key: string
+          updated_at: string
+          value: Json
+        }
+        Insert: {
+          key: string
+          updated_at?: string
+          value: Json
+        }
+        Update: {
+          key?: string
+          updated_at?: string
+          value?: Json
+        }
+        Relationships: []
+      }
       suppressed_emails: {
         Row: {
           created_at: string
@@ -185,6 +209,24 @@ export type Database = {
         }
         Relationships: []
       }
+      user_roles: {
+        Row: {
+          id: string
+          role: Database["public"]["Enums"]["app_role"]
+          user_id: string
+        }
+        Insert: {
+          id?: string
+          role: Database["public"]["Enums"]["app_role"]
+          user_id: string
+        }
+        Update: {
+          id?: string
+          role?: Database["public"]["Enums"]["app_role"]
+          user_id?: string
+        }
+        Relationships: []
+      }
     }
     Views: {
       [_ in never]: never
@@ -198,6 +240,13 @@ export type Database = {
       enqueue_email: {
         Args: { payload: Json; queue_name: string }
         Returns: number
+      }
+      has_role: {
+        Args: {
+          _role: Database["public"]["Enums"]["app_role"]
+          _user_id: string
+        }
+        Returns: boolean
       }
       move_to_dlq: {
         Args: {
@@ -218,6 +267,7 @@ export type Database = {
       }
     }
     Enums: {
+      app_role: "admin" | "user"
       review_status: "pending" | "approved" | "rejected"
     }
     CompositeTypes: {
@@ -346,6 +396,7 @@ export type CompositeTypes<
 export const Constants = {
   public: {
     Enums: {
+      app_role: ["admin", "user"],
       review_status: ["pending", "approved", "rejected"],
     },
   },
