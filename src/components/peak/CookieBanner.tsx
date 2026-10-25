@@ -9,13 +9,13 @@ const CookieBanner = () => {
   const [show, setShow] = useState(false);
   useEffect(() => {
     try {
-      setShow(!window.localStorage.getItem(KEY));
+      setShow(!window.sessionStorage.getItem(KEY));
     } catch {
       setShow(true);
     }
   }, []);
   const choose = (v: "accepted" | "rejected") => {
-    try { window.localStorage.setItem(KEY, v); } catch { /* ignore */ }
+    try { window.sessionStorage.setItem(KEY, v); } catch { /* ignore */ }
     setShow(false);
   };
   if (!show) return null;
