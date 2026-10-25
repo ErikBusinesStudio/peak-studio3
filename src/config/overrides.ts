@@ -9,8 +9,11 @@ export type PrezziOverride = {
 };
 export type PortfolioOverride = Record<
   string,
-  { anno?: number | null; url?: string; nascosto?: boolean; settoreIt?: string; fattoIt?: string }
+  { anno?: number | null; url?: string; nascosto?: boolean; settoreIt?: string; fattoIt?: string; settoreEn?: string; fattoEn?: string }
 >;
+
+/** Progetti aggiunti dal pannello; img è un'immagine WebP incorporata (data URL). */
+export type NuovoCaso = Caso;
 
 export const DEFAULTS = {
   piani: Object.fromEntries(PIANI.map((p) => [p.id, p.prezzoDa])) as Record<string, number | null>,
@@ -33,7 +36,7 @@ export const applyPrezzi = (o: PrezziOverride) => {
   if (typeof o.manutenzione === "number" && o.manutenzione >= 0) MANUTENZIONE.prezzoMese = o.manutenzione;
 };
 
-export const applyPortfolio = (o: PortfolioOverride) => {
+export const applyPortfolio = (o: PortfolioOverride, nuovi: NuovoCaso[] = []) => {
   const next = DEFAULTS.portfolio
     .map((c) => {
       const x = o[c.id];
@@ -42,12 +45,13 @@ export const applyPortfolio = (o: PortfolioOverride) => {
         ...c,
         anno: x.anno !== undefined ? x.anno : c.anno,
         url: x.url || c.url,
-        settore: x.settoreIt ? { ...c.settore, it: x.settoreIt } : c.settore,
-        fatto: x.fattoIt ? { ...c.fatto, it: x.fattoIt } : c.fatto,
+        settore: { it: x.settoreIt || c.settore.it, en: x.settoreEn || c.settore.en },
+        fatto: { it: x.fattoIt || c.fatto.it, en: x.fattoEn || c.fatto.en },
         _hide: !!x.nascosto,
       };
     })
     .filter((c) => !("_hide" in c && c._hide))
     .map(({ _hide, ...c }: Caso & { _hide?: boolean }) => c as Caso);
-  CASI_PORTFOLIO.splice(0, CASI_PORTFOLIO.length, ...next);
+  const extra = nuovi.filter((n) => n && n.id && n.nome && n.img && !o[n.id]?.nascosto);
+  CASI_PORTFOLIO.splice(0, CASI_PORTFOLIO.length, ...next, ...extra);
 };
