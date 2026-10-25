@@ -1,6 +1,6 @@
 import { Fragment, ReactNode, useEffect, useState } from "react";
 import { supabase } from "@/integrations/supabase/client";
-import { applyPortfolio, applyPrezzi, type PortfolioOverride, type PrezziOverride } from "@/config/overrides";
+import { applyPortfolio, applyPrezzi, type NuovoCaso, type PortfolioOverride, type PrezziOverride } from "@/config/overrides";
 
 /** Carica i valori modificati dal pannello e ri-renderizza il sito una sola volta. */
 export const ContentProvider = ({ children }: { children: ReactNode }) => {
@@ -13,10 +13,10 @@ export const ContentProvider = ({ children }: { children: ReactNode }) => {
       .select("key,value")
       .then(({ data }) => {
         if (!alive || !data?.length) return;
-        for (const row of data) {
-          if (row.key === "prezzi") applyPrezzi(row.value as PrezziOverride);
-          if (row.key === "portfolio") applyPortfolio(row.value as PortfolioOverride);
-        }
+        const m = Object.fromEntries(data.map((r) => [r.key, r.value]));
+        if (m.prezzi) applyPrezzi(m.prezzi as PrezziOverride);
+        if (m.portfolio || m.portfolio_nuovi)
+          applyPortfolio((m.portfolio as PortfolioOverride) ?? {}, (m.portfolio_nuovi as NuovoCaso[]) ?? []);
         setVersion((v) => v + 1);
       });
     return () => {
